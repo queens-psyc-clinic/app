@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# A script for starting a container using the database image (clinic-mysql)
+# This also starts an Admin panel to monitor the database (at localhost:8080)
+
+docker build db -t clinic-mysql
+
+docker-compose -f db/docker-compose.yml up

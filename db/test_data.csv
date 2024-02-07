@@ -1,0 +1,169 @@
+ID,Name,MeasureOf,LevelOfUser
+1,Adaptive Behavior Assessment System,Adaptive Functioning,C
+2,AAMR Adaptive Behavior Scale-School,Adaptive Functioning,0
+3,Adjective Check List,Personality,0
+4,Assessment of Children's Language Comprehension,Language,0
+5,Autism Diagnostic Interview-Revised,Autism,C
+6,Autism Diagnostic Observation Schedule,Autism,C
+7,Achenbach System of Empirically Based Assessment,General Behaviour and Emotion,0
+8,Brown Attention-Deficit Disorder Scales,Attention/ADHD,B
+9,Beck Anxiety Inventory,Mood/Anxiety,B
+10,Behavior Assessment System for Children,General Behaviour and Emotion,B
+11,Beck Depression Inventory,Mood/Anxiety,B
+12,Beery Picture Vocabulary Test and Beery Picture Vocabulary Screening Series,Language,0
+13, Beery Picture Vocabulary Screening Series,Language,0
+14,Beery Picture Vocabulary Test,Language,0
+15,Beery-Buktenica Developmental Test of Visual-Motor Integration,Visual-Motor,C
+16,The Beery VMI Developmental Test of Motor Coordination,Visual-Motor,C
+17,The Beery VMI Developmental Test of Visual Perception,Visual-Motor,C
+18,The Beery-Buktenica Developmental Test of Visual-Motor Integration,Visual-Motor,C
+19,Beck Hopelessness Scale,Mood/Anxiety,B
+20,Bracken School Readiness Assessment,Academic Achievement ,A
+21,Beck Scale for Suicide Ideation,Mood/Anxiety,B
+22,Benton Visual Retention Test,Memory,C
+23,Beck Youth Inventories,Mood/Anxiety,B
+24,Conners' Adult ADHD Rating Scales-Observer: Long Version,Attention/ADHD,B
+25,Conners' Adult ADHD Rating Scales-Observer: Short Version,Attention/ADHD,B
+26,Conners' Adult ADHD Rating Scales-Observer: Screening Version,Attention/ADHD,B
+27,Conners' Adult ADHD Rating Scales-Self-Report: Long Version,Attention/ADHD,B
+28,Conners' Adult ADHD Rating Scales-Self-Report: Short Version,Attention/ADHD,B
+29,Conners' Adult ADHD Rating Scales-Self-Report: Screening Version,Attention/ADHD,B
+30,Conners' Adult ADHD Rating Scales,Attention/ADHD,B
+31,Career Assessment Inventory,Vocational,B
+32,Childhood Autism Rating Scale,Autism,C
+33,Childhood Autism Rating Scale High-Functioning Version ,Autism,C
+34,Childhood Autism Rating Scale Questionnaire for Parents or Caregivers,Autism,C
+35,Childhood Autism Rating Scale Standard Version,Autism,C
+36,Clark-Beck Obsessive-Compulsive Inventory,Mood/Anxiety,B
+37,Career Directions Inventory,Vocational,0
+38,Children’s Depression Inventory,Mood/Anxiety,B
+39,Career Decision Scale,Vocational,B
+40,Clinical Evaluation of Language Fundamentals,Language,B
+41,Clinical Evaluation of Language Fundamentals Metalinguistics,Language,B
+42,Career Interest Inventory ,Vocational,0
+43,Coping Inventory for Stressful Situations,Coping/Resiliency,B
+44,Children’s Memory Scale,Memory,C
+45,Conners,Attention/ADHD,B
+46,Conners' Parent Rating Scale-48 items,Attention/ADHD,0
+47,Conners' Parent Rating Scale-93 items,Attention/ADHD,0
+48,Conners’ Continuous Performance Test,Attention/ADHD,0
+49,Coping Responses Inventory,Coping/Resiliency,B
+50,Conners' Rating Scales,Attention/ADHD,0
+51,Conners' Rating Scales-Revised,Attention/ADHD,0
+52,Conners' Teacher Rating Scale-Revised: Long Version,Attention/ADHD,0
+53,Conners' Teacher Rating Scale-28 items,Attention/ADHD,0
+54,Conners' Teacher Rating Scale-39 items,Attention/ADHD,0
+55,Draw a Person,Projective,0
+56,Davidson Trauma Scale,Trauma,B
+57,Eating Disorder Inventory,Eating Disorder,B
+58,Expressive Vocabulary Test,Language,B
+59,Family Relations Test,Social and Family,0
+60,Generalized Anxiety Disorder 7-item,Mood/Anxiety,0
+61,Grooved Pegboard Test,Visual-Motor,B
+62,High School Personality Questionnaire,Personality,0
+63,Jackson Vocational Interest Survey,Vocational,A
+64,Krug Asperger's Disorder Index,Autism,C
+65,Kaufman Test of Educational Achievement,Academic Achievement ,B
+66,Learning and Study Strategies Inventory-High School,Academic Achievement ,0
+67,Multidimensional Anxiety Scale for Children,Mood/Anxiety,B
+68,Miller Forensic Assessment of Symptoms Test,Malingering,S
+69,Memory-for-Designs Test,Memory,0
+70,Minnesota Multiphasic Personality Inventory-Adolescent,Personality,C
+71,Minnesota Multiphasic Personality Inventory-Adolescent-Restructured Form,Personality,C
+72,Minnesota Multiphasic Personality Inventory,Personality,C
+73,Minnesota Multiphasic Personality Inventory-Restructured Form,Personality,C
+74,NEO Personality Inventory-Revised,Personality,S
+75,A Developmental NEuroPSYchological Assessment,Neuropsyc,C
+76,No It's Not ASD' Checklist,Autism,0
+77,Personality Assessment Inventory,Personality,C
+78,Personality Assessment Inventory-Adolescent,Personality,C
+79,PTSD Checklist for DSM-5,Trauma,0
+80,Posttraumatic Stress Diagnostic Scale,Trauma,0
+81,Patient Health Questionnaire,Mood/Anxiety,0
+82,Preschool Language Scale,Language,B
+83,Profile of Mood States,Mood/Anxiety,0
+84,Peabody Picture Vocabulary Test ,Language,B
+85,Personality Research Form,Personality,B
+86,Reynolds Adolescent Depression Scale,Mood/Anxiety,S
+87,Reynell Developmental Language Scales,Language,0
+88,Personal Adjustment Inventory Series of Character and Personality Tests,Personality,0
+89,Rogers Personal Adjustment Inventory: Revised,Personality,0
+90,Resiliency Scales for Children & Adolescents,Coping/Resiliency,B
+91,Stanford-Binet Intelligence Scales,Intellectual Functioning,C
+92,Social Communication Questionnaire,Autism,C
+93,Suicidal Ideation Questionnaire,Mood/Anxiety,S
+94,Suicidal Ideation Questionnaire Grades 7-9,Mood/Anxiety,S
+95,Social Responsiveness Scale,Autism,B
+96,State-Trait Anxiety Inventory,Mood/Anxiety,0
+97,State-Trait Anxiety Inventory for Children,Mood/Anxiety,0
+98,Test of Everyday Attention for Children,Attention/ADHD,B
+99,Test of Language Development,Language,C
+100,Trauma Symptom Checklist for Children,Trauma,B
+101,Trauma Symptom Inventory,Trauma,B
+102,Vineland Adaptive Behavior Scales,Adaptive Functioning,B
+103,Wechsler Adult Intelligence Scale,Intellectual Functioning,C
+104,Wechsler Abbreviated Scale of Intelligence,Intellectual Functioning,C
+105,Wechsler Intelligence Scale for Children,Intellectual Functioning,C
+106,Wechsler Memory Scale,Memory,C
+107,Green's Word Memory Test,Memory,0
+108,Wechsler Preschool and Primary Scale of Intelligence,Intellectual Functioning,C
+109,Sixteen Personality Factor Questionnaire,Personality,B
+110,Bayley Scales of Infant and Toddler Development,(blank),B
+111,Booklet Category Test,(blank),C
+112,Behavior Rating Inventory of Executive Function,(blank),B
+113,Behavior Rating Inventory of Executive Function-Adult Version,(blank),B
+114,Behavior Rating Inventory of Executive Function-Preschool Version,(blank),B
+115,Behavior Rating Inventory of Executive Function-Self-Report Version,(blank),B
+116,Conners'-Wells' Adolescent Self-Report Scale-Long,(blank),B
+117,Comprehensive Test of Nonverbal Intelligence,(blank),C
+118,Comprehensive Test of Phonological Processing,(blank),C
+119,California Verbal Learning Test,(blank),C
+120,California Verbal Learning Test-Children's Version,(blank),C
+121,Differential Ability Scales,(blank),C
+122,Delis-Kaplan Executive Function System,(blank),C
+123,Defense Mechanisms Inventory,(blank),0
+124,General Health Questionnaire,(blank),0
+125,Gray Oral Reading Tests,(blank),B
+126,Health Problems Checklist for Women,(blank),0
+127,Health Problems Checklist for Men,(blank),0
+128,Jesness Inventory and Jesness Behaviour Checklist,(blank),0
+129,Jesness Inventory-Revised,(blank),B
+130,Multidimensional Aptitude Battery,(blank),C
+131,MacArthur-Bates Communicative Development Inventories,(blank),0
+132,Millon Clinical Multiaxial Inventory-III,(blank),C
+133,Matching Familiar Figures,(blank),0
+134,Movement Assessment Battery for Children,(blank),B
+135,The Multidimensional Self-Esteem Inventory,(blank),B
+136,Mullen Scales of Early Learning AGS Edition,(blank),B
+137,Minnesota Test for the Differential Diagnosis of Aphasia,(blank),0
+138,North American Adult Reading Test,(blank),0
+139,Nelson-Denny Reading Test,(blank),S
+140,Process Assessment of the Learner,(blank),B
+141,Positive and Negative Syndrome Scale,(blank),B
+142,Structured Clinical Interview-Positive and Negative Syndrome Scale,(blank),B
+143,Peabody Individual Achievement Test-Revised,(blank),0
+144,Piers-Harris Self-Concept Scale,(blank),C
+145,The Problem Solving Inventory,(blank),0
+146,Parenting Stress Index,(blank),S
+147,PsychManager Lite,(blank),0
+148,California Q-Sort for Adults & Children,(blank),0
+149,Rey Complex Figure Test and Recognition Trial,(blank),C
+150,Rorschach Interpretation Assistance Program,(blank),C
+151,Roberts Apperception Test for Children,(blank),C
+152,The Rorschach Method of Peronsality Diagnosis/ The Rorschach Concept Evaluation Technique/ The Revised Rorschach Evalograph,(blank),0
+153,Symptom Checklist-90-Revised,(blank),B
+154,Self-Esteem Inventories,(blank),0
+155,Scales of Independent Behavior-Revised,(blank),B
+156,Stress Index for Parents of Adolescents,(blank),B
+157,Structured Interview of Reported Symptoms,(blank),C
+158,Stroop Color and Word Test,(blank),C
+159,Thematic Apperception Test/Bellak Thematic Apperception Test/Children's Apperception Test,(blank),0
+160,Test of Memory Malingering,(blank),C
+161,Test of Word Reading Efficiency,(blank),B
+162,The Values Scale,(blank),0
+163,Wisconsin Card Sorting Test,(blank),C
+164,Wechsler Individual Achievement Test,(blank),B
+165,Whitaker Index of Schizophrenic Thinking,(blank),0
+166,Woodcock-Johnson,(blank),C
+167,Wide Range Assessment of Memory and Learning,(blank),C
+168,Wide Range Achievement Test,(blank),C
