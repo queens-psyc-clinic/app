@@ -1,41 +1,46 @@
 # Docker
 
-If/when you are changing the files in [`db/`](./db) and testing your edits, you
-can use the [`start_db`](./start_db) to quickly run the `docker build` and
-`docker_compose` commands.
+This app is containerized using Docker to make deployment & development
+straightforward.
 
-> NOTE: if this script doesnt work, use the commands below (sometimes
-> bash-scripts can be finnikey).
+To run the app, use the command:
 
-The database is packaged & run using Docker. Firstly, ensure you have `docker`
-& `docker-compose` installed on your computer. (ie. `brew install docker
-docker-compose`)
+	docker compose up
 
-to build the docker image, use:
-	
-	docker build db -t clinic-mysql
+And if you have **made any changes** to the code and need to check your
+changes, use:
 
-To create an image which will be the database server. The `-t` option specifies
-the name of the image.
+	docker compose build
 
-Now, to run the image use the command:
+And then use the `docker compose up` command.
 
-	docker-compose -f db/docker-compose.yml up	
+The configuration (DockerFile)of the docker containers are in [db](./db) and
+[app](./app), and the config for the entire application is
+[docker-compose.yml](./docker-compose.yml)
 
-which will start the MySQL server. Now you can go to
+## Database
 
-	http://localhost:8080
+Once the app is running, there is an Admin Console for the database at:
 
-and login with
+	localhost:8080
+
+and you can login with:
 	
 	UserName: dev
 	Password: 498capstone
 	Database: psychClinic
 
+## App
+
+the python server is running at:
+
+	localhost:5050
+
+
 # CSV Data
 
-data has been pruned simply in excel, starting with the Items table. This was
-the process:
+starting from the excel spreadsheet provided by the clinic, data has been
+pruned simply in excel, starting with the Items table. This was the process:
 
 1. Create a table with a row for each Test (from Items) which has a column for:
    ID, Name, LevelOfUser, and MeasureOf. Then get the values for each of these
