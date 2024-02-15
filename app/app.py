@@ -34,6 +34,13 @@ def get_user(id):
     user = users.get_dict().get(int(id))
     return user if user else f"user with id:{id} was not found"
 
+@app.route('/users/put/<name>/<email>')
+def new_user(name, email) -> str:
+    user = users.default(name, email)
+    if users.put(user):
+        return "user created"
+    else:
+        return "error"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

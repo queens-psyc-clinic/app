@@ -5,7 +5,7 @@ CREATE DATABASE psychClinic;
 USE psychClinic;
 
 CREATE TABLE Users (
-    ID INT PRIMARY KEY,
+    ID VARCHAR(64) PRIMARY KEY,
     UserName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     IsAdmin BOOLEAN NOT NULL
@@ -20,14 +20,14 @@ INSERT INTO Users (ID, UserName, Email, IsAdmin) VALUES
 (5, 'BobMiller', 'bob.miller@example.com', false);
 
 CREATE TABLE Tests (
-    ID INT PRIMARY KEY,
+    ID VARCHAR(64) PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     MeasureOf VARCHAR(255),
     LevelOfUser VARCHAR(10)
 );
 
 CREATE TABLE Items (
-    ID INT PRIMARY KEY,
+    ID VARCHAR(64) PRIMARY KEY,
     Status BOOLEAN NOT NULL, -- Available (True) or Borrowed (False)
     ItemType VARCHAR(75),
     ItemName VARCHAR(355),
@@ -36,16 +36,16 @@ CREATE TABLE Items (
     NumberOfParts VARCHAR(100),
     Location VARCHAR(155),
     OrderingCompany VARCHAR(155),
-    TestID INT, 
+    TestID VARCHAR(64), 
     FOREIGN KEY (TestID) REFERENCES Tests(ID)
 );
 
 CREATE TABLE Loans (
-    ID INT PRIMARY KEY,
+    ID VARCHAR(64) PRIMARY KEY,
     StartDate DATETIME NOT NULL,
     EndDate DATETIME NOT NULL,
-    UserID INT NOT NULL, 
-    ItemID INT NOT NULL,
+    UserID VARCHAR(64) NOT NULL, 
+    ItemID VARCHAR(64) NOT NULL,
     FOREIGN KEY (UserID) REFERENCES Users(ID),
     FOREIGN KEY (ItemID) REFERENCES Items(ID)
 );
