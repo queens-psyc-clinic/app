@@ -1,0 +1,4 @@
+tbody tr td:first-child {
+  border-top-left-radius: 45%;
+  border-bottom-left-radius: 45%;
+}
