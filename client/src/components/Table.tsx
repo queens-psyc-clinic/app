@@ -6,57 +6,42 @@ import {
   lowStockColumns,
   columnCustomComponents,
 } from "../models/tableColumns";
-import {
-  defaultMockData,
-  signedOutMockData,
-  overdueMockData,
-  lowStockMockData,
-} from "../utils/mockData";
+
 import { FiEdit } from "react-icons/fi";
 
 import "./Table.css";
 import uuid from "react-uuid";
 import ColumnComponent from "./ColumnComponent";
-import { useEffect, useState } from "react";
 
-const Table = (props: { tableType: string }) => {
-  // const [data, setData] = useState<Record<string, string | Object>[]>([]);
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+const Table = (props: {
+  tableType: string;
+  setSelectedRows: Function;
+  selectedRows: string[];
+  data: Record<string, string | Object>[];
+}) => {
+  /* the tableType props must match the data given!*/
 
-  /* FETCHING REAL DATA */
-  useEffect(() => {
-    /*
-  Fetch real data from backend, preprocess using services if needed, and then set it to the data useState above
-   */
-    console.log("placeholder");
-  }, []);
-
-  /* MOCK DATA */
   let columns: Column[];
-  let data: Record<string, string | Object>[];
 
   switch (props.tableType) {
     case "default":
-      data = defaultMockData;
       columns = defaultColumns;
       break;
     case "signedOut":
-      data = signedOutMockData;
       columns = signedOutColums;
       break;
     case "overdue":
-      data = overdueMockData;
       columns = overdueColumns;
       break;
     case "lowStock":
-      data = lowStockMockData;
       columns = lowStockColumns;
       break;
     default:
-      data = defaultMockData;
       columns = defaultColumns;
       break;
   }
+
+  const data = props.data;
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
@@ -67,16 +52,18 @@ const Table = (props: { tableType: string }) => {
   });
 
   const handleCheckbox = (id: string) => {
-    const selectedIndex = selectedRows.indexOf(id);
-    if (selectedIndex === -1) {
-      setSelectedRows((prev) => [...prev, id]);
-    } else {
-      setSelectedRows(selectedRows.filter((rowId) => rowId !== id));
-    }
+    props.setSelectedRows((prev: string[]) => {
+      const selectedIndex = prev.indexOf(id);
+      if (selectedIndex === -1) {
+        return [...prev, id];
+      } else {
+        return prev.filter((rowId) => rowId !== id);
+      }
+    });
   };
 
   return (
-    <div className="overflow-scroll w-[80%] h-[65%] text-xs">
+    <div className="overflow-scroll w-[95%] h-auto max-h-[75%] text-xs">
       <table className="">
         <thead className="bg-black font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
@@ -111,7 +98,6 @@ const Table = (props: { tableType: string }) => {
         </thead>
         <tbody>
           {data.map((row, rowInd: number) => {
-            console.log(row);
             return (
               <tr
                 className={`rounded-full relative ${
@@ -122,7 +108,7 @@ const Table = (props: { tableType: string }) => {
                 <td className="px-4 py-2" key={uuid()}>
                   <input
                     type="checkbox"
-                    checked={selectedRows.includes(row.id as string)}
+                    checked={props.selectedRows.includes(row.id as string)}
                     onChange={() => handleCheckbox(row.id as string)}
                     className="cursor-pointer mx-2"
                   />
@@ -172,7 +158,6 @@ const Table = (props: { tableType: string }) => {
           })}
         </tbody>
       </table>
-      <h1>{selectedRows}</h1>
     </div>
   );
 };
