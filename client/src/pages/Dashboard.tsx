@@ -31,7 +31,7 @@ const Dashboard = (props: { userRole: Role }) => {
   };
 
   return (
-    <div className="flex flex-col justify-end items-center py-4 w-full h-full">
+    <div className="flex flex-col overflow-x-hidden justify-end items-center py-4 w-full h-full">
       <section className="flex">
         <button className="text-white bg-black px-3 py-2 m-4 rounded-lg flex items-center">
           <i className="mr-4">
@@ -50,6 +50,7 @@ const Dashboard = (props: { userRole: Role }) => {
         </button>
       </section>
       <Table
+        tableType="default"
         setSelectedRows={setSelectedRows}
         selectedRows={selectedRows}
         data={data}

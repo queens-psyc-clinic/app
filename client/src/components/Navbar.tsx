@@ -11,7 +11,7 @@ const Navbar = (props: { userType: Role }) => {
     props.userType === "admin" ? adminMenuOptions : clientMenuOptions;
 
   return (
-    <div className="h-[95%] w-[5.5rem] rounded-3xl bg-gray-100 py-4 flex flex-col items-center">
+    <div className="h-[95%] min-w-[5.5rem] rounded-3xl bg-gray-100 py-4 flex flex-col items-center">
       <img src={profilePic} alt="profile" className="mt-4"></img>
       <div
         className={`flex flex-col w-full justify-between items-center self-center justify-self-center mb-auto ${
