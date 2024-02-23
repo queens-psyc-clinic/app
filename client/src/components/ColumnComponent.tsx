@@ -7,7 +7,6 @@ const ColumnComponent = (props: {
   type: columnCustomComponents;
   data: Object;
 }) => {
-  console.log(props);
   switch (props.type) {
     case columnCustomComponents.pill:
       var pillData = props.data as {
@@ -19,7 +18,6 @@ const ColumnComponent = (props: {
       var linkData = props.data as {
         link: string;
       };
-      console.log("WE GOT  A LINK");
       return (
         <a
           href={linkData.link}

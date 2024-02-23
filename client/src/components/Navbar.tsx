@@ -3,8 +3,9 @@ import { MdOutlineSettings } from "react-icons/md";
 import { clientMenuOptions, adminMenuOptions } from "../models/menuOptions";
 
 import { useState } from "react";
+import { Role } from "../models/User";
 
-const Navbar = (props: { userType: string }) => {
+const Navbar = (props: { userType: Role }) => {
   const [selected, setSelected] = useState("home");
   var options =
     props.userType === "admin" ? adminMenuOptions : clientMenuOptions;
