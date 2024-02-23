@@ -63,7 +63,7 @@ const Table = (props: {
   };
 
   return (
-    <div className="overflow-scroll max-w-[95%] h-auto max-h-[75%] text-xs">
+    <div className="overflow-scroll max-w-[98%] h-auto max-h-[75%] text-xs">
       <table className="">
         <thead className="bg-black font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
