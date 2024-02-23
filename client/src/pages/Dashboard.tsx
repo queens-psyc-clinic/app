@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import Table from "../components/Table";
-import { defaultMockData } from "../utils/mockData";
+import {
+  defaultMockData,
+  signedOutMockData,
+  overdueMockData,
+  lowStockMockData,
+} from "../utils/mockData";
 import { MdDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 
