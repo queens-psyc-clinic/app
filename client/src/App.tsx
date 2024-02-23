@@ -3,8 +3,8 @@ import Table from "./components/Table";
 
 function App() {
   return (
-    <div className="h-screen v-screen flex justify-center items-center">
-      <Table />
+    <div className="h-screen v-screen overflow-scroll">
+      <Table tableType="default" />
     </div>
   );
 }

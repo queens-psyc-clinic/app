@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  safelist: [
+    {
+      pattern: /bg-(red|green|blue|teal|yellow|orange|purple|pink)-(100|200)/,
+    },
+  ],
   theme: {
     extend: {},
     backgroundImage: {
@@ -27,16 +32,32 @@ module.exports = {
         200: "#3AB54A",
         300: "#00520B",
       },
-      purple: {
+      pink: {
         100: "#FBBFFC",
         200: "#AD19B0",
+      },
+      purple: {
+        100: "#D67EFF",
+        200: "#4D1766",
+      },
+      orange: {
+        100: "#FF9F81",
+        200: "#A23817",
+      },
+      teal: {
+        100: "#8CEBDA",
+        200: "#005344",
       },
       yellow: {
         100: "#FFDC7A",
         200: "#795B0A",
       },
+      blue: {
+        100: "#7FC7FF",
+        200: "#004B85",
+      },
     },
   },
   plugins: [],
-  mode: "jit",
+  // mode: "jit",
 };
