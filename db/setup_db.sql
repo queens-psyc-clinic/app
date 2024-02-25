@@ -8,7 +8,8 @@ CREATE TABLE Users (
     ID VARCHAR(64) PRIMARY KEY,
     UserName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
-    IsAdmin BOOLEAN NOT NULL
+    IsAdmin BOOLEAN NOT NULL,
+    Hash VARCHAR(255)
 );
 
 -- Add dummy data for users

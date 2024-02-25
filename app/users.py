@@ -1,5 +1,8 @@
-from typing import Dict, List, Tuple, TypedDict
+from db import execute_sql_query, translate
 import db
+from typing import List, Tuple, TypedDict
+
+from pbkdf2 import hash_password, verify_password
 
 
 class User(TypedDict):
@@ -22,32 +25,35 @@ def user(db_user: DbUser) -> User:
     )
 
 
-def default(name: str, email: str) -> User:
+def default(name: str = "abc", email: str = "abc@xyz.ca") -> User:
     return user((hash(email), name, email, False))
 
 
-UserDict = Dict[int, User]
-
-
 def get() -> List[User]:
-    result = db.select_table("Users")
-    if result:
-        return [user(u) for u in result]
-    else:
-        return []
+    return translate(user, db.select_table("Users"))
 
 
-def get_dict() -> Dict[int, User]:
-    users = get()
-    return {u["id"]: u for u in users}
+def get_with(filters: dict, columns=None) -> List[User]:
+    return translate(user, execute_sql_query(
+        "SELECT",
+        "Users",
+        conditions=filters,
+        columns=columns
+    ))
 
 
-def put_many(users: List[User]) -> bool:
-    cols = tuple(field for field in users[0])
-    data = [tuple(u[f] for f in u) for u in users]
-    return db.insert_into_table("Users", cols, data)
+def add(user: User, pword: str) -> bool:
+    dic = {k: user[k] for k in user}
+    dic["hash"] = hash_password(pword)
+    execute_sql_query("INSERT", "Users", data=[dic])
+    return True
 
-def put(u: User) -> bool:
-    cols = [field for field in u]
-    data = tuple(u[f] for f in u)
-    return db.insert_into_table("Users", cols, [data])
+
+def put(filters: dict, user_update: dict):
+    # execute_sql_query("UPDATE", "Users",
+    #                   data=[user_update], conditions=filters)
+    return "{}, {}".format([user_update], filters)
+
+# cols = tuple(field for field in users[0])
+# data = [tuple(u[f] for f in u) for u in users]
+# return db.insert_into_table("Users", cols, data)
