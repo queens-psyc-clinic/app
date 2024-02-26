@@ -6,6 +6,7 @@ module.exports = {
       pattern: /bg-(red|green|blue|teal|yellow|orange|purple|pink)-(100|200)/,
     },
   ],
+  important: "#root",
   theme: {
     extend: {},
     backgroundImage: {
@@ -16,11 +17,19 @@ module.exports = {
       "sign-out": "url('./assets/icons/sign-out.svg')",
       "sign-out-selected": "url('./assets/icons/sign-out-color.svg')",
     },
+    fontsize: {
+      xs: '12px',
+      sm: '16px',
+      base: '20px',
+      lg: '32px',
+    },
     colors: {
       white: "#FFFFFF",
       gray: {
         100: "#F4F4F5",
         200: "#ACACAC",
+        800: "#424242",
+        900: "#212121",
       },
       black: "#1E1E1E",
       red: {
@@ -55,9 +64,12 @@ module.exports = {
       blue: {
         100: "#7FC7FF",
         200: "#004B85",
+        300: "#02599c",
       },
     },
   },
-  plugins: [],
-  // mode: "jit",
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
+  mode: "jit",
 };
