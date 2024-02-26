@@ -59,7 +59,7 @@ export default function Modal({ modalTitle, buttonLabel, secButtonLabel = " " }:
                                 <InputField placeholder="#  2" label="Edition" important={true} type="Number"/>
                             </div>
                             <div>
-                                <InputField placeholder="ABAS-2" label="Acronym" important={true} type="Number"/>
+                                <InputField placeholder="ABAS-2" label="Acronym" important={true}/>
                             </div>
                         </div>
                         <div className='flex flex-row py-4'>
