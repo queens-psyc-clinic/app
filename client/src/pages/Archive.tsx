@@ -7,11 +7,11 @@ import {
   lowStockMockData,
 } from "../utils/mockData";
 import { MdDelete } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
+import { IoMdArchive } from "react-icons/io";
 
 import { Role } from "../models/User";
 
-const Dashboard = (props: { userRole: Role }) => {
+const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [data, setData] =
     useState<Record<string, string | Object>[]>(defaultMockData);
@@ -33,20 +33,14 @@ const Dashboard = (props: { userRole: Role }) => {
   return (
     <div className="flex flex-col overflow-x-hidden justify-end items-center py-4 w-full h-full">
       <section className="flex ml-auto">
-        <button className="text-white bg-black px-3 py-2 m-4 rounded-lg flex items-center">
-          <i className="mr-4">
-            <IoMdAdd size={20} />
-          </i>
-          <p>Add</p>
-        </button>
         <button
-          className="text-black px-2 py-2 m-4 rounded-lg border-2 border-black flex items-center"
+          className="text-white bg-black px-3 py-2 m-4 rounded-lg flex items-center"
           onClick={deleteSelectedRows}
         >
           <i className="mr-2">
-            <MdDelete size={20} />
+            <IoMdArchive size={20} />
           </i>
-          <p>Delete</p>
+          <p>Unarchive</p>
         </button>
       </section>
       <Table
@@ -59,7 +53,7 @@ const Dashboard = (props: { userRole: Role }) => {
   );
 };
 
-Dashboard.defaultProps = {
+Archive.defaultProps = {
   userRole: "admin",
 };
-export default Dashboard;
+export default Archive;

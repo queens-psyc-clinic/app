@@ -4,13 +4,29 @@ import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App page="dashboard"/>,
   },
-  // ADD NEW PATHS HERE
+  {
+    path: "/signed-out",
+    element: <App page="signed-out"/>,
+  },
+  {
+    path: "/overdue",
+    element: <App page="overdue"/>,
+  },
+  {
+    path: "/low-stock",
+    element: <App page="low-stock"/>,
+  },
+  {
+    path: "/archive",
+    element: <App page="archive"/>,
+  },
 ]);
 
 const root = ReactDOM.createRoot(

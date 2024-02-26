@@ -1,12 +1,15 @@
 import profilePic from "../assets/profile.svg";
 import { MdOutlineSettings } from "react-icons/md";
 import { clientMenuOptions, adminMenuOptions } from "../models/menuOptions";
+import { Link } from "react-router-dom";
+
 
 import { useState } from "react";
 import { Role } from "../models/User";
 
 const Navbar = (props: { userType: Role }) => {
   const [selected, setSelected] = useState("home");
+
   var options =
     props.userType === "admin" ? adminMenuOptions : clientMenuOptions;
 
@@ -20,6 +23,7 @@ const Navbar = (props: { userType: Role }) => {
       >
         {options.map((option) => {
           return (
+            <Link to={option.url}>
             <span
               className={`w-[93%] flex items-center justify-center p-4 rounded-full cursor-pointer transition-all	 ${
                 selected === option.title ? "bg-white pr-1" : null
@@ -42,6 +46,7 @@ const Navbar = (props: { userType: Role }) => {
                 ></img>
               </i>
             </span>
+            </Link>
           );
         })}
       </div>

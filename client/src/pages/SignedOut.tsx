@@ -1,0 +1,22 @@
+import React, { useState } from 'react'
+import Table from '../components/Table'
+import { signedOutMockData } from '../utils/mockData';
+
+const SignedOut = () => {
+    const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [data, setData] =
+    useState<Record<string, string | Object>[]>(signedOutMockData);
+  return (
+    <div className="flex flex-col overflow-x-hidden  items-center py-4 w-full h-full">
+    <h1 className="self-start text-2xl mt-4 mb-24 ml-8">Signed Out Items</h1>
+    <Table
+      tableType="signedOut"
+      setSelectedRows={setSelectedRows}
+      selectedRows={selectedRows}
+      data={data}
+    />
+  </div>
+  )
+}
+
+export default SignedOut
