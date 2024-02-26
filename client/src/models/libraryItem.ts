@@ -25,7 +25,8 @@ export type ItemType =
   | "Kit"
   | "Manual"
   | "Scoring"
-  | "USB Stick";
+  | "USB Stick"
+  | "Textbook";
 
 export enum Measure {
   AcademicAchievement = "Academic Achievement",
