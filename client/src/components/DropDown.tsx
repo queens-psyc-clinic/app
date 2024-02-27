@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import dropdown from '../assets/icons/dropdown.svg';
 
 interface DropdownProps {
@@ -6,13 +6,13 @@ interface DropdownProps {
   label?: string;
   important?: boolean;
   type?: string;
+  options: string[];
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", important = false, type = "text" }: DropdownProps) => {
+const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", important = false, type = "text", options }: DropdownProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-  
-  const options = ["Adaptive Functioning", "Option 2", "Option 3"];
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -27,8 +27,22 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", impor
     setShowDropdown(true);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div>
+    <div ref={dropdownRef}>
       <label htmlFor="inputText" className="block text-base font-medium leading-6 text-gray-900">
         {label} {important && <span className="text-red-200">*</span>}
       </label>
@@ -51,7 +65,7 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", impor
           </button>
         </div>
         {showDropdown && (
-          <div className="absolute z-10 mt-1 w-40 rounded-md bg-white shadow-lg">
+          <div className="absolute z-10 mt-1 w-40 rounded-md bg-white shadow-lg max-h-40 overflow-y-auto">
             {options.map((option, index) => (
               <button 
                 key={index}
