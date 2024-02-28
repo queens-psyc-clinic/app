@@ -1,8 +1,9 @@
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import cardSampleData from './models/cardSampleData';
+import Modal from "./components/Modal";
 
-function App() {
+export function App() {
   return (
     <div className="w-screen h-screen bg-white flex items-center px-4">
       <Navbar />
@@ -13,6 +14,7 @@ function App() {
           ))}
         </div>
       </div>
+      <Modal modalTitle="Add Item" buttonLabel="Save" secButtonLabel="Cancel"/>
     </div>
   );
 }

@@ -28,6 +28,18 @@ export type ItemType =
   | "USB Stick"
   | "Textbook";
 
+export const itemTypeOptions: string[] = [
+  "Book",
+  "CD",
+  "Form",
+  "Install Disk",
+  "Kit",
+  "Manual",
+  "Scoring",
+  "USB Stick",
+  "Textbook",
+];
+
 export enum Measure {
   AcademicAchievement = "Academic Achievement",
   AdaptiveFunctioning = "Adaptive Functioning",
@@ -56,4 +68,9 @@ export enum LevelOfUse {
   B,
   C,
   S,
+}
+
+export enum Location {
+  MainFloor = "Main Floor",
+  Upstairs = "Upstairs",
 }

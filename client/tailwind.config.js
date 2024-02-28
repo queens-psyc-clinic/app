@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  important: "#root",
   theme: {
     extend: {},
     backgroundImage: {
@@ -10,6 +11,12 @@ module.exports = {
       "overdue-selected": "url('./assets/icons/overdue-color.svg')",
       "sign-out": "url('./assets/icons/sign-out.svg')",
       "sign-out-selected": "url('./assets/icons/sign-out-color.svg')",
+    },
+    fontsize: {
+      xs: '12px',
+      sm: '16px',
+      base: '20px',
+      lg: '32px',
     },
     colors: {
       red: {
@@ -69,6 +76,8 @@ module.exports = {
       white: "#FFFFFF",
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
   mode: "jit",
 };
