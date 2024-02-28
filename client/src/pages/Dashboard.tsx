@@ -32,7 +32,7 @@ const Dashboard = (props: { userRole: Role }) => {
   };
 
   return (
-    <div className="flex flex-col overflow-x-hidden items-center p-6 w-full h-full text-xs">
+    <div className="flex flex-col overflow-x-hidden items-center p-6 w-full h-full ">
       <section className="w-full flex justify-between mb-6">
         <section className="flex space-x-4">
           {/* Quantity should be pulled from backend in the useEffect, these are
@@ -42,14 +42,14 @@ const Dashboard = (props: { userRole: Role }) => {
           <OverviewBox type="lowStock" quantity={23} />
         </section>
         <section className="flex w-fit items-end">
-          <button className="text-white h-max p-4 bg-black m-4 rounded-lg flex items-center">
+          <button className="text-white h-max p-4 bg-black m-4 rounded-lg flex items-center text-xs">
             <i className="mr-4">
               <IoMdAdd size={20} />
             </i>
             <p>Add</p>
           </button>
           <button
-            className="text-black m-4 h-max p-4 rounded-lg border-2 border-black flex items-center"
+            className="text-black m-4 h-max p-4 rounded-lg border-2 border-black flex items-center text-xs"
             onClick={deleteSelectedRows}
           >
             <i className="mr-2">

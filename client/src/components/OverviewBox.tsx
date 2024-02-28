@@ -21,7 +21,7 @@ const OverviewBox = (props: {
     <div className="flex p-6 rounded-lg" id="overview-container">
       <section>
         <h1 className="font-bold text-2xl">{props.quantity.toString()}</h1>
-        <p className="text-[#636363]">{tagMap[props.type]}</p>
+        <p className="text-[#636363] text-xs">{tagMap[props.type]}</p>
       </section>
       <i className="ml-8">
         <img src={imgMap[props.type]} className="w-8"></img>
