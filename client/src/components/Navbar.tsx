@@ -10,7 +10,7 @@ const Navbar = (props: { userType: string }) => {
     props.userType === "admin" ? adminMenuOptions : clientMenuOptions;
 
   return (
-    <div className="h-[95%] w-[5.5rem] rounded-3xl bg-gray-100 py-4 flex flex-col items-center">
+    <div className="h-[95%] w-[6rem] rounded-3xl bg-gray-100 py-4 flex flex-col items-center">
       <img src={profilePic} alt="profile" className="mt-4"></img>
       <div
         className={`flex flex-col w-full justify-between items-center self-center justify-self-center mb-auto ${
@@ -30,16 +30,24 @@ const Navbar = (props: { userType: string }) => {
                   selected === option.title ? "mr-3" : "hidden"
                 }`}
               ></span>
-              <i>
-                <img
-                  src={
-                    selected === option.title
-                      ? option.selectedIcon
-                      : option.defaultIcon
-                  }
-                  alt={`${option.title} icon`}
-                ></img>
-              </i>
+              <div className="flex flex-col">
+                <div>
+                  <i>
+                    <img
+                      src={
+                        selected === option.title
+                          ? option.selectedIcon
+                          : option.defaultIcon
+                      }
+                      alt={`${option.title} icon`}
+                    ></img>
+                  </i>
+                </div>
+                <div>
+                  <span className="text-xs mt-1">{option.title}</span>
+                </div>
+              </div>
+              
             </span>
           );
         })}
