@@ -10,7 +10,6 @@ import { MdDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 
 import { Role } from "../models/User";
-import OverviewBox from "../components/OverviewBox";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -37,9 +36,6 @@ const Dashboard = (props: { userRole: Role }) => {
         <section className="flex space-x-4">
           {/* Quantity should be pulled from backend in the useEffect, these are
           mock values  */}
-          <OverviewBox type="signedOut" quantity={23} />
-          <OverviewBox type="overdue" quantity={23} />
-          <OverviewBox type="lowStock" quantity={23} />
         </section>
         <section className="flex w-fit items-end">
           <button className="text-white h-max p-4 bg-black m-4 rounded-lg flex items-center text-xs">
