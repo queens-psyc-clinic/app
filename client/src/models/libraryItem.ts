@@ -18,25 +18,27 @@ export interface LibraryItem {
 }
 
 export type ItemType =
-  | "Book" //yellow
-  | "CD" // blue .
-  | "Form" //green .
-  | "Install Disk" // teal
-  | "Kit" // orange
-  | "Manual" // red .
-  | "Scoring" // pink
-  | "USB Stick"; // purple .
+  | "Book"
+  | "CD"
+  | "Form"
+  | "Install Disk"
+  | "Kit"
+  | "Manual"
+  | "Scoring"
+  | "USB Stick"
+  | "Textbook";
 
-export const itemTypeColorMap = {
-  Book: "yellow",
-  CD: "blue",
-  Form: "green",
-  "Install Disk": "teal",
-  Kit: "orange",
-  Manual: "red",
-  Scoring: "pink",
-  "USB Stick": "purple",
-};
+export const itemTypeOptions: string[] = [
+  "Book",
+  "CD",
+  "Form",
+  "Install Disk",
+  "Kit",
+  "Manual",
+  "Scoring",
+  "USB Stick",
+  "Textbook",
+];
 
 export enum Measure {
   AcademicAchievement = "Academic Achievement",
@@ -66,4 +68,9 @@ export enum LevelOfUse {
   B,
   C,
   S,
+}
+
+export enum Location {
+  MainFloor = "Main Floor",
+  Upstairs = "Upstairs",
 }

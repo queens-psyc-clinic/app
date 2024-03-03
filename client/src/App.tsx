@@ -1,4 +1,3 @@
-import "./App.css";
 import Navbar from "./components/Navbar";
 import { Role } from "./models/User";
 import Dashboard from "./pages/Dashboard";
