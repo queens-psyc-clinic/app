@@ -11,6 +11,8 @@ import { IoMdAdd } from "react-icons/io";
 
 import { Role } from "../models/User";
 import AdminCards from "../components/AdminCards";
+import SearchBar from "../components/SearchBar";
+import Filter from "../components/Filter";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -32,7 +34,9 @@ const Dashboard = (props: { userRole: Role }) => {
   };
 
   return (
-    <div className="flex flex-col overflow-x-hidden items-center p-6 w-full h-full ">
+    <div className="flex flex-col overflow-x-hidden p-6 w-full h-full ">
+      <SearchBar />
+      <Filter />
       <section className="w-full flex justify-between mb-6">
         <section className="flex space-x-4">
           {/* Quantity should be pulled from backend in the useEffect, these are

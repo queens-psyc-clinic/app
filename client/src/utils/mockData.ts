@@ -209,6 +209,52 @@ export const defaultMockData: Record<string, string | Object>[] = [
     Level: "C",
     Edition: "2",
   },
+  {
+    id: "2",
+    Name: "Eating Disorder Inventory",
+    "Item Name": "Professional Manual",
+    Measure: {
+      type: columnCustomComponents.pill,
+      data: {
+        title: "Eating Disorder",
+        type: "measure",
+      },
+    },
+    Item: {
+      type: columnCustomComponents.pill,
+      data: {
+        title: "Manual",
+        type: "item",
+      },
+    },
+    Ages: "16-89",
+    Acronym: "ABAS-2",
+    Level: "C",
+    Edition: "2",
+  },
+  {
+    id: "3",
+    Name: "Draw a Person",
+    "Item Name": "Scoring Chart",
+    Measure: {
+      type: columnCustomComponents.pill,
+      data: {
+        title: "Projective",
+        type: "measure",
+      },
+    },
+    Item: {
+      type: columnCustomComponents.pill,
+      data: {
+        title: "Book",
+        type: "item",
+      },
+    },
+    Ages: "16-89",
+    Acronym: "ABAS-2",
+    Level: "C",
+    Edition: "2",
+  },
 ];
 
 const testUser: User = {
