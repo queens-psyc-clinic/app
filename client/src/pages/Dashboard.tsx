@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import Table from "../components/Table";
 import {
   defaultMockData,
-  signedOutMockData,
-  overdueMockData,
-  lowStockMockData,
+  // signedOutMockData,
+  // overdueMockData,
+  // lowStockMockData,
 } from "../utils/mockData";
 import { MdDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 
 import { Role } from "../models/User";
+import AdminCards from "../components/AdminCards";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -36,6 +37,7 @@ const Dashboard = (props: { userRole: Role }) => {
         <section className="flex space-x-4">
           {/* Quantity should be pulled from backend in the useEffect, these are
           mock values  */}
+          <AdminCards userRole="admin" />
         </section>
         <section className="flex w-fit items-end">
           <button className="text-white h-max p-4 bg-black m-4 rounded-lg flex items-center text-xs">

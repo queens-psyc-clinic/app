@@ -1,6 +1,52 @@
 import { User } from "../models/User";
+import { notificationType } from "../models/notification";
+import { Notification } from "../models/notification";
 import { columnCustomComponents } from "../models/tableColumns";
 
+// Mock Notification Data
+export const adminMockNotifications: Notification[] = [
+  {
+    notificationType: notificationType.lowStock,
+    itemName: "Brown Attention-Deficit Disorder Scales",
+    date: "01/02/2023",
+    time: "10:23",
+  },
+  {
+    notificationType: notificationType.lowStock,
+    itemName: "Comprehensive Test of Phonological Processing",
+    date: "01/02/2023",
+    time: "10:37",
+  },
+  {
+    notificationType: notificationType.lowStock,
+    itemName: "Eating Disorder Inventory",
+    date: "01/02/2023",
+    time: "10:23",
+  },
+];
+
+export const clientMockNotifications: Notification[] = [
+  {
+    notificationType: notificationType.overdue,
+    itemName: "Brown Attention-Deficit Disorder Scales",
+    date: "01/02/2023",
+    time: "10:23",
+  },
+  {
+    notificationType: notificationType.overdue,
+    itemName: "Comprehensive Test of Phonological Processing",
+    date: "01/02/2023",
+    time: "10:37",
+  },
+  {
+    notificationType: notificationType.overdue,
+    itemName: "Eating Disorder Inventory",
+    date: "01/02/2023",
+    time: "10:23",
+  },
+];
+
+// Mock Table Data
 export const defaultMockData: Record<string, string | Object>[] = [
   {
     id: "1",

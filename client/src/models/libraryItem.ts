@@ -1,15 +1,16 @@
 import { User } from "./User";
 
 export interface LibraryItem {
-  name: string;
-  itemName: string;
-  itemType: ItemType;
-  measure: Measure;
-  levelOfUse: LevelOfUse;
-  acronym: string;
-  editionNumber: number;
-  quantity: number;
-  location: string;
+  id?: string;
+  Name: string;
+  "Item Name": string;
+  Item: ItemType;
+  Measure: Measure;
+  Level: LevelOfUse;
+  Acronym: string;
+  Edition: number;
+  Quantity: number;
+  Location?: string;
   isAvailable: boolean;
   borrower: User;
   minAge: number;

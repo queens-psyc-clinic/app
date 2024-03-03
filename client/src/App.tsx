@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import Notification from "./components/Notification";
 import { Role } from "./models/User";
 import Dashboard from "./pages/Dashboard";
 
@@ -10,6 +11,7 @@ function App() {
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />
       <Dashboard />
+      <Notification userRole="client" />
     </div>
   );
 }
