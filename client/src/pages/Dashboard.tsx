@@ -13,6 +13,8 @@ import { Role } from "../models/User";
 import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
+import Card from "../components/Card";
+import cardSampleData from "../models/cardSampleData";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -82,6 +84,13 @@ const Dashboard = (props: { userRole: Role }) => {
       )}
 
       {/* CLIENT DASHBOARD */}
+      {props.userRole === "client" && (
+        <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+          {cardSampleData.map((data) => (
+            <Card key={data.id} data={data} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -69,7 +69,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             id="inputText"
             value={selectedOption}
             readOnly
-            className="block w-full rounded-tl-lg rounded-bl-lg pr-4 bg-gray-100 border-0 py-2 text-gray-900 placeholder:text-gray-300 focus:ring-3 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-6 shadow-sm"
+            className="block w-full pl-2 rounded-tl-lg rounded-bl-lg pr-4 bg-gray-100 border-0 py-2 text-black placeholder:text-black focus:ring-3 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-6 shadow-sm cursor-pointer"
             placeholder={placeholder}
           />
           <button
