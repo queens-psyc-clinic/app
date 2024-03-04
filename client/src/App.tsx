@@ -6,13 +6,13 @@ import Overdue from "./pages/Overdue";
 
 function App() {
   // Call service function that checks if user is client or admin, placeholder for now
-  const userRole: Role = "client";
+  const userRole: Role = "admin";
 
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />
       {/* <Dashboard userRole={userRole} /> */}
-      <Overdue userRole="admin" />
+      <Overdue userRole={userRole} />
       <Notification userRole={userRole} />
     </div>
   );

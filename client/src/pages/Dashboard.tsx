@@ -15,6 +15,7 @@ import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Card from "../components/Card";
 import cardSampleData from "../models/cardSampleData";
+import Modal from "../components/Modal";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -55,18 +56,13 @@ const Dashboard = (props: { userRole: Role }) => {
             mock values  */}
               <AdminCards userRole="admin" />
             </section>
-            <section className="absolute bottom-0 right-0 flex w-min items-end justify-end self-end">
-              <button className="text-white h-max p-4 bg-black rounded-lg flex items-center text-xs">
-                <i className="mr-4">
-                  <IoMdAdd size={20} />
-                </i>
-                <p>Add</p>
-              </button>
+            <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
+              <Modal modalTitle="Add Item" buttonLabel="Add" />
               <button
-                className="text-black ml-4 h-max p-4 rounded-lg border-2 border-black flex items-center text-xs"
                 onClick={deleteSelectedRows}
+                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
               >
-                <i className="mr-2">
+                <i className="mr-4">
                   <MdDelete size={20} />
                 </i>
                 <p>Delete</p>

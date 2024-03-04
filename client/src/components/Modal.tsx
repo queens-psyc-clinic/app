@@ -40,7 +40,7 @@ export default function Modal({
     <div>
       <button
         onClick={openModal}
-        className="text-white bg-black px-3 py-2 m-4 rounded-lg flex items-center"
+        className="text-white bg-black px-3 py-2 rounded-lg flex items-center"
       >
         <i className="mr-4">
           <IoMdAdd size={20} />
@@ -48,7 +48,7 @@ export default function Modal({
         <p>Add</p>
       </button>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10">
+        <div className="fixed z-40 inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10">
           <div className="bg-white rounded-lg p-8 min-w-20 max-h-full min-w-fit overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">{modalTitle}</h2>
             <p className="text-xs mb-4 text-red-200 italic">
