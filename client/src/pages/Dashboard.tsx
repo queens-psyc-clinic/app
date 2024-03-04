@@ -39,21 +39,21 @@ const Dashboard = (props: { userRole: Role }) => {
         <SearchBar />
         <Filter />
       </section>
-      <section className="w-full flex justify-between mb-6">
-        <section className="flex space-x-4">
+      <section className="relative w-full h-fit flex justify-between items-end mb-10">
+        <section className="flex">
           {/* Quantity should be pulled from backend in the useEffect, these are
           mock values  */}
           <AdminCards userRole="admin" />
         </section>
-        <section className="flex w-fit items-end mb-4">
-          <button className="text-white h-max p-4 bg-black m-4 rounded-lg flex items-center text-xs">
+        <section className="absolute bottom-0 right-0 flex w-min items-end justify-end self-end">
+          <button className="text-white h-max p-4 bg-black rounded-lg flex items-center text-xs">
             <i className="mr-4">
               <IoMdAdd size={20} />
             </i>
             <p>Add</p>
           </button>
           <button
-            className="text-black m-4 h-max p-4 rounded-lg border-2 border-black flex items-center text-xs"
+            className="text-black ml-4 h-max p-4 rounded-lg border-2 border-black flex items-center text-xs"
             onClick={deleteSelectedRows}
           >
             <i className="mr-2">

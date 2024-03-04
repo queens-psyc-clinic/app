@@ -14,15 +14,15 @@ const AdminCards: React.FC<AdminCardsProps> = ({
   }
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap space-x-10">
       {cardSampleData.map((cardData: AdminCardData) => (
         <div
           key={cardData.id}
-          className="shadow-md hover:bg-gray-100 rounded-lg relative py-2 px-4 ml-4 cursor-pointer"
+          className="shadow-md hover:bg-gray-100 rounded-lg h-min relative py-3 px-6 cursor-pointer"
         >
           <div className="flex">
             <div>
-              <h1 className="text-3xl font-semibold pb-1 pt-2">
+              <h1 className="text-2xl font-semibold mb-1 mt-2">
                 {cardData.Count}
               </h1>
             </div>
