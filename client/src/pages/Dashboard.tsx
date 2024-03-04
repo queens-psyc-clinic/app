@@ -43,6 +43,8 @@ const Dashboard = (props: { userRole: Role }) => {
         <SearchBar />
         <Filter />
       </section>
+
+      {/* ADMIN DASHBOARD */}
       {props.userRole == "admin" && (
         <>
           <section className="relative w-full h-fit flex justify-between items-end mb-10">
@@ -78,6 +80,8 @@ const Dashboard = (props: { userRole: Role }) => {
           />
         </>
       )}
+
+      {/* CLIENT DASHBOARD */}
     </div>
   );
 };
