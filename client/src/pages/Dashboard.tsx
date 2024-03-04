@@ -32,44 +32,52 @@ const Dashboard = (props: { userRole: Role }) => {
     setData(data.filter((row) => !selectedRows.includes(row.id as string)));
     setSelectedRows([]);
   };
-
   return (
     <div className="flex flex-col overflow-x-hidden p-6 py-10 w-full h-full">
+      {props.userRole == "client" && (
+        <h1 className="text-3xl mb-4">
+          Queen’s Psychology Clinic Test Library
+        </h1>
+      )}
       <section className="mt-6 space-y-6 mb-6">
         <SearchBar />
         <Filter />
       </section>
-      <section className="relative w-full h-fit flex justify-between items-end mb-10">
-        <section className="flex">
-          {/* Quantity should be pulled from backend in the useEffect, these are
-          mock values  */}
-          <AdminCards userRole="admin" />
-        </section>
-        <section className="absolute bottom-0 right-0 flex w-min items-end justify-end self-end">
-          <button className="text-white h-max p-4 bg-black rounded-lg flex items-center text-xs">
-            <i className="mr-4">
-              <IoMdAdd size={20} />
-            </i>
-            <p>Add</p>
-          </button>
-          <button
-            className="text-black ml-4 h-max p-4 rounded-lg border-2 border-black flex items-center text-xs"
-            onClick={deleteSelectedRows}
-          >
-            <i className="mr-2">
-              <MdDelete size={20} />
-            </i>
-            <p>Delete</p>
-          </button>
-        </section>
-      </section>
+      {props.userRole == "admin" && (
+        <>
+          <section className="relative w-full h-fit flex justify-between items-end mb-10">
+            <section className="flex">
+              {/* Quantity should be pulled from backend in the useEffect, these are
+            mock values  */}
+              <AdminCards userRole="admin" />
+            </section>
+            <section className="absolute bottom-0 right-0 flex w-min items-end justify-end self-end">
+              <button className="text-white h-max p-4 bg-black rounded-lg flex items-center text-xs">
+                <i className="mr-4">
+                  <IoMdAdd size={20} />
+                </i>
+                <p>Add</p>
+              </button>
+              <button
+                className="text-black ml-4 h-max p-4 rounded-lg border-2 border-black flex items-center text-xs"
+                onClick={deleteSelectedRows}
+              >
+                <i className="mr-2">
+                  <MdDelete size={20} />
+                </i>
+                <p>Delete</p>
+              </button>
+            </section>
+          </section>
 
-      <Table
-        tableType="default"
-        setSelectedRows={setSelectedRows}
-        selectedRows={selectedRows}
-        data={data}
-      />
+          <Table
+            tableType="default"
+            setSelectedRows={setSelectedRows}
+            selectedRows={selectedRows}
+            data={data}
+          />
+        </>
+      )}
     </div>
   );
 };
