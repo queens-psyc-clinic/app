@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def display_data():
-    return "hello world"
     tables = [table[0] for table in db.show_tables()]
 
     # Fetch all data from each table
