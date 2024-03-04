@@ -9,7 +9,8 @@ CREATE TABLE Users (
     UserName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     IsAdmin BOOLEAN NOT NULL,
-    Hash VARCHAR(255)
+    Hash VARCHAR(255),
+    UNIQUE(Email)
 );
 
 -- Add dummy data for users
