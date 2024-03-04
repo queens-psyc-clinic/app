@@ -4,11 +4,20 @@ import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import { Pages } from "./models/Pages";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/", // CHANGE THIS TO DIRECT TO SIGN IN PAGE
     element: <App />,
+  },
+  {
+    path: "/client",
+    element: <App page={Pages.dashboard} userRole="client" />,
+  },
+  {
+    path: "/client/signed-out",
+    element: <App page={Pages.signedOut} userRole="client" />,
   },
   // ADD NEW PATHS HERE
 ]);
