@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import Notification from "./components/Notification";
 import { Role } from "./models/User";
+import Archive from "./pages/Archive";
 import Dashboard from "./pages/Dashboard";
 import Overdue from "./pages/Overdue";
 import SignedOut from "./pages/SignedOut";
@@ -14,7 +15,8 @@ function App() {
       <Navbar userType={userRole} />
       {/* <Dashboard userRole={userRole} /> */}
       {/* <Overdue userRole={userRole} /> */}
-      <SignedOut userRole={userRole} />
+      {/* <SignedOut userRole={userRole} /> */}
+      <Archive userRole={userRole} />
       <Notification userRole={userRole} />
     </div>
   );
