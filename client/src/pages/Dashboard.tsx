@@ -34,16 +34,18 @@ const Dashboard = (props: { userRole: Role }) => {
   };
 
   return (
-    <div className="flex flex-col overflow-x-hidden p-6 w-full h-full ">
-      <SearchBar />
-      <Filter />
+    <div className="flex flex-col overflow-x-hidden p-6 py-10 w-full h-full">
+      <section className="mt-6 space-y-6 mb-6">
+        <SearchBar />
+        <Filter />
+      </section>
       <section className="w-full flex justify-between mb-6">
         <section className="flex space-x-4">
           {/* Quantity should be pulled from backend in the useEffect, these are
           mock values  */}
           <AdminCards userRole="admin" />
         </section>
-        <section className="flex w-fit items-end">
+        <section className="flex w-fit items-end mb-4">
           <button className="text-white h-max p-4 bg-black m-4 rounded-lg flex items-center text-xs">
             <i className="mr-4">
               <IoMdAdd size={20} />
@@ -61,6 +63,7 @@ const Dashboard = (props: { userRole: Role }) => {
           </button>
         </section>
       </section>
+
       <Table
         tableType="default"
         setSelectedRows={setSelectedRows}

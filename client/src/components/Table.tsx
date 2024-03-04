@@ -65,7 +65,7 @@ const Table = (props: {
   return (
     <div className="overflow-scroll max-w-[98%] h-[55vh] max-h-[75%] text-xs">
       <table className="">
-        <thead className="bg-black font-semibold">
+        <thead className="sticky top-0 z-10 bg-black font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
             <td className="px-4 py-4 min-w-min" key={uuid()}>
               <input type="checkbox" className="cursor-pointer ml-2"></input>

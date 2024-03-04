@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import dropdown from '../assets/icons/dropdown.svg';
+import React, { useState, useEffect, useRef } from "react";
+import dropdown from "../assets/icons/dropdown.svg";
 
 interface DropdownProps {
   placeholder?: string;
@@ -9,7 +9,13 @@ interface DropdownProps {
   options: string[];
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", important = false, type = "text", options }: DropdownProps) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  placeholder = "",
+  label = "",
+  important = false,
+  type = "text",
+  options,
+}: DropdownProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -29,23 +35,32 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", impor
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
     <div ref={dropdownRef}>
-      <label htmlFor="inputText" className="block text-base font-medium leading-6 text-gray-900">
-        {label} {important && <span className="text-red-200">*</span>}
-      </label>
+      {label && (
+        <label
+          htmlFor="inputText"
+          className="block text-base font-medium leading-6 text-gray-900"
+        >
+          {label} {important && <span className="text-red-200">*</span>}
+        </label>
+      )}
+
       <div className="mt-2 rounded-md relative min-w-full">
         <div className="flex" onClick={handleContainerClick}>
           <input
@@ -67,7 +82,7 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", impor
         {showDropdown && (
           <div className="absolute z-10 mt-1 w-40 rounded-md bg-white shadow-lg max-h-40 overflow-y-auto">
             {options.map((option, index) => (
-              <button 
+              <button
                 key={index}
                 className="block w-full px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                 onClick={() => handleOptionClick(option)}
@@ -80,6 +95,6 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder = "", label = "", impor
       </div>
     </div>
   );
-}
+};
 
 export default Dropdown;

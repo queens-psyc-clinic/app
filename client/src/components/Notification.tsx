@@ -39,7 +39,7 @@ const Notification = (props: { userRole: Role }) => {
         ></span>
       </div>
       {isOpen && (
-        <div className="relative top-24 right-24 bg-white w-[30vw] border-2 border-black rounded">
+        <div className="relative top-24 right-24 bg-white w-[30vw] border-2 border-black rounded z-30">
           <section className="w-full bg-[#393939] text-white font-bold p-4">
             Notifications
           </section>
