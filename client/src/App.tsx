@@ -1,9 +1,14 @@
+import React from "react";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import cardSampleData from './models/cardSampleData';
 import Modal from "./components/Modal";
 
 export function App() {
+
+  const userRole = "admin";
+
+
   return (
     <div className="w-screen h-screen bg-white flex items-center px-4">
       <Navbar />
