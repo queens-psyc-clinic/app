@@ -22,22 +22,25 @@ def display_data():
 
 @app.route('/users')
 def get_users():
-    '''
+    """
     Get All Users
-    '''
+    """
     return users.get()
 
 
 @app.route('/users/<id>')
 def get_user(id):
-    '''
+    """
     Get User By id
-    '''
+    """
     return users.get_with({"id": id})
 
 
 @app.route('/users/add/<name>/<email>/<pword>')
 def new_user(name, email, pword) -> str:
+    """
+    Create new user with name, email, and password
+    """
     if users.add(users.default(name, email), pword):
         return "user created"
     else:
@@ -46,20 +49,20 @@ def new_user(name, email, pword) -> str:
 
 @app.route('/users/auth/<email>/<pword>')
 def auth_user(email, pword):
-    id, hash = db.execute_sql_query("SELECT", "Users", conditions={
-                                    "email": email}, columns=["id", "hash"])[0]
-    if verify_password(hash, pword):
-        return id
-    return "error"
+    """
+    Verify password for email/account
+    """
+    result = users.auth(email, pword)
+    return result if result else "error"
 
 
+# TODO: doesnt work quite yet -- check users.put
 @app.route('/users/put/name/<id>/<name>')
 def put_user_update(id, name):
-    return users.put(dict({"id": "603619278311385986"}), dict({"username": "ki"}))
-    # return "{}, {}".format({"id": id}, {field: data})
-    # if users.put({"id": "603619278311385986"}, {"username": "ki"}):
-    #     return "update applied"
-    # return "error"
+    """
+    Put name for user-id
+    """
+    return users.put({"id": id}, {"username": name})
 
 
 if __name__ == '__main__':

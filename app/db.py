@@ -104,7 +104,7 @@ def execute_sql_query(operation: str, table: str,
         placeholders = ", ".join(["%s"] * len(data[0]))
         params = [tuple(row.values()) for row in data]
         query = f"INSERT INTO {table} ({columns_part}) VALUES ({placeholders})"
-
+    # TODO This part may not be working correctly
     elif operation == "UPDATE":
         if not data or not conditions or not isinstance(data, list) or len(data) != 1:
             raise ValueError(

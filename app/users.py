@@ -1,6 +1,6 @@
 from db import execute_sql_query, translate
 import db
-from typing import List, Tuple, TypedDict
+from typing import List, Optional, Tuple, TypedDict
 
 from pbkdf2 import hash_password, verify_password
 
@@ -49,11 +49,22 @@ def add(user: User, pword: str) -> bool:
     return True
 
 
-def put(filters: dict, user_update: dict):
-    # execute_sql_query("UPDATE", "Users",
-    #                   data=[user_update], conditions=filters)
-    return "{}, {}".format([user_update], filters)
+def auth(email, pword) -> Optional[str]:
+    """
+    Returns user ID if successful
+    """
+    id, hash = execute_sql_query(
+            "SELECT", 
+            "Users", 
+            conditions={"email": email}, 
+            columns=["id", "hash"]
+            )[0]
+    if verify_password(hash, pword):
+        return id
+    return None
 
-# cols = tuple(field for field in users[0])
-# data = [tuple(u[f] for f in u) for u in users]
-# return db.insert_into_table("Users", cols, data)
+
+# TODO: find out why this is causing "TypeError: not enough arguments for format string"
+def put(filters: dict, user_update: dict):
+    execute_sql_query("UPDATE", "Users", data=[user_update], conditions=filters)
+    return "{}, {}".format([user_update], filters)
