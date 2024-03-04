@@ -2,16 +2,16 @@ import { useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
-import { BiSolidBell } from "react-icons/bi";
-import { MdDelete } from "react-icons/md";
+
 import Table from "../components/Table";
-import { overdueMockData, signedOutMockData } from "../utils/mockData";
+import { signedOutMockData } from "../utils/mockData";
 import cardSampleData from "../models/cardSampleData";
 import Card from "../components/Card";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const data = signedOutMockData;
+
   return (
     <div
       className={`relative flex flex-col ${
