@@ -3,7 +3,7 @@ import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import { BiSolidBell } from "react-icons/bi";
-import { MdDelete } from "react-icons/md";
+import { IoCloseOutline } from "react-icons/io5";
 import Table from "../components/Table";
 import { overdueMockData } from "../utils/mockData";
 import cardSampleData from "../models/cardSampleData";
@@ -31,11 +31,11 @@ const Overdue = (props: { userRole: Role }) => {
                 </i>
                 <p>Notify</p>
               </button>
-              <button className="text-white  bg-black px-3 py-2.5 rounded-lg flex items-center">
+              <button className="text-white w-max  bg-black px-3 py-2.5 rounded-lg flex items-center">
                 <i className="mr-4">
-                  <MdDelete size={20} />
+                  <IoCloseOutline size={20} />
                 </i>
-                <p>Delete</p>
+                <p>Mark as Gone</p>
               </button>
             </section>
           </section>
