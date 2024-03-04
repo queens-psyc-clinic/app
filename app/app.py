@@ -56,13 +56,12 @@ def auth_user(email, pword):
     return result if result else "error"
 
 
-# TODO: doesnt work quite yet -- check users.put
-@app.route('/users/put/name/<id>/<name>')
-def put_user_update(id, name):
+@app.route('/users/put/<id>/<field>/<new_data>')
+def put_user_update(id, field, new_data):
     """
-    Put name for user-id
+    Put new_data at field for user with id
     """
-    return users.put({"id": id}, {"username": name})
+    return users.put({"id": id}, {field: new_data})
 
 
 if __name__ == '__main__':

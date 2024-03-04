@@ -33,7 +33,7 @@ def get() -> List[User]:
     return translate(user, db.select_table("Users"))
 
 
-def get_with(filters: dict, columns=None) -> List[User]:
+def get_with(filters: dict, columns: Optional[List[str]]=None) -> List[User]:
     return translate(user, execute_sql_query(
         "SELECT",
         "Users",
@@ -64,7 +64,6 @@ def auth(email, pword) -> Optional[str]:
     return None
 
 
-# TODO: find out why this is causing "TypeError: not enough arguments for format string"
-def put(filters: dict, user_update: dict):
+def put(filters: dict, user_update: dict) -> str:
     execute_sql_query("UPDATE", "Users", data=[user_update], conditions=filters)
     return "{}, {}".format([user_update], filters)
