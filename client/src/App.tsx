@@ -3,6 +3,7 @@ import Notification from "./components/Notification";
 import { Role } from "./models/User";
 import Dashboard from "./pages/Dashboard";
 import Overdue from "./pages/Overdue";
+import SignedOut from "./pages/SignedOut";
 
 function App() {
   // Call service function that checks if user is client or admin, placeholder for now
@@ -12,7 +13,8 @@ function App() {
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />
       {/* <Dashboard userRole={userRole} /> */}
-      <Overdue userRole={userRole} />
+      {/* <Overdue userRole={userRole} /> */}
+      <SignedOut userRole={userRole} />
       <Notification userRole={userRole} />
     </div>
   );
