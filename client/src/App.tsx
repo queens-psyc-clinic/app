@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "./components/Navbar";
 import Modal from "./components/Modal";
 import AdminCards from "./components/AdminCards";
@@ -20,7 +21,6 @@ export function App() {
           <Modal modalTitle="Add Item" buttonLabel="Save" secButtonLabel="Cancel"/>
         </div>
       </div>
-      
     </div>
   );
 }

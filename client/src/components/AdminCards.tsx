@@ -15,7 +15,7 @@ const AdminCards: React.FC<AdminCardsProps> = ({ userRole }: AdminCardsProps) =>
     return (
         <div className='flex flex-wrap'>
             {cardSampleData.map((cardData: AdminCardData) => (
-                <div key={cardData.id} className="shadow-md hover:bg-gray-100 rounded-lg relative py-2 px-4 ml-4">
+                <div key={cardData.id} className="shadow-md hover:bg-gray-100 rounded-lg relative py-2 px-4 ml-4 hover:cursor-pointer">
                     <div className='flex'>
                         <div>
                             <h1 className="text-3xl font-semibold pb-1 pt-2">{cardData.Count}</h1>
