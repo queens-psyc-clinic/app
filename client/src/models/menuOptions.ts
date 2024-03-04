@@ -13,33 +13,51 @@ export const clientMenuOptions = [
     title: "home",
     defaultIcon: home,
     selectedIcon: homeColor,
-    url: "/",
+    url: "/client",
   },
   {
     title: "sign-out",
     defaultIcon: signOut,
     selectedIcon: signOutColor,
-    url: "/signed-out",
+    url: "/client/signed-out",
   },
   {
     title: "overdue",
     defaultIcon: overdue,
     selectedIcon: overdueColor,
-    url: "/overdue",
+    url: "/client/overdue",
   },
 ];
 
-export const adminMenuOptions = clientMenuOptions.concat([
+export const adminMenuOptions = [
+  {
+    title: "home",
+    defaultIcon: home,
+    selectedIcon: homeColor,
+    url: "/admin",
+  },
+  {
+    title: "sign-out",
+    defaultIcon: signOut,
+    selectedIcon: signOutColor,
+    url: "/admin/signed-out",
+  },
+  {
+    title: "overdue",
+    defaultIcon: overdue,
+    selectedIcon: overdueColor,
+    url: "/admin/overdue",
+  },
   {
     title: "low stock",
     defaultIcon: lowStock,
     selectedIcon: lowStockColor,
-    url: "/low-stock",
+    url: "/admin/low-stock",
   },
   {
     title: "archive",
     defaultIcon: archive,
     selectedIcon: archive,
-    url: "/archive",
+    url: "/admin/archive",
   },
-]);
+];

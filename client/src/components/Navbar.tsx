@@ -4,6 +4,7 @@ import { clientMenuOptions, adminMenuOptions } from "../models/menuOptions";
 
 import { useState } from "react";
 import { Role } from "../models/User";
+import { Link } from "react-router-dom";
 
 const Navbar = (props: { userType: Role }) => {
   const [selected, setSelected] = useState("home");
@@ -20,28 +21,30 @@ const Navbar = (props: { userType: Role }) => {
       >
         {options.map((option) => {
           return (
-            <span
-              className={`w-[93%] flex items-center justify-center p-4 rounded-full cursor-pointer transition-all	 ${
-                selected === option.title ? "bg-white pr-1" : null
-              }`}
-              onClick={() => setSelected(option.title)}
-            >
+            <Link to={option.url} className="w-full">
               <span
-                className={`w-2 h-2 bg-green-200 rounded-full ${
-                  selected === option.title ? "mr-3" : "hidden"
+                className={`w-[93%] flex items-center justify-center p-4 rounded-full cursor-pointer transition-all	 ${
+                  selected === option.title ? "bg-white pr-1" : null
                 }`}
-              ></span>
-              <i>
-                <img
-                  src={
-                    selected === option.title
-                      ? option.selectedIcon
-                      : option.defaultIcon
-                  }
-                  alt={`${option.title} icon`}
-                ></img>
-              </i>
-            </span>
+                onClick={() => setSelected(option.title)}
+              >
+                <span
+                  className={`w-2 h-2 bg-green-200 rounded-full ${
+                    selected === option.title ? "mr-3" : "hidden"
+                  }`}
+                ></span>
+                <i>
+                  <img
+                    src={
+                      selected === option.title
+                        ? option.selectedIcon
+                        : option.defaultIcon
+                    }
+                    alt={`${option.title} icon`}
+                  ></img>
+                </i>
+              </span>
+            </Link>
           );
         })}
       </div>

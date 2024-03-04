@@ -19,6 +19,30 @@ const router = createBrowserRouter([
     path: "/client/signed-out",
     element: <App page={Pages.signedOut} userRole="client" />,
   },
+  {
+    path: "/client/overdue",
+    element: <App page={Pages.overdue} userRole="client" />,
+  },
+  {
+    path: "/admin",
+    element: <App page={Pages.dashboard} userRole="admin" />,
+  },
+  {
+    path: "/admin/signed-out",
+    element: <App page={Pages.signedOut} userRole="admin" />,
+  },
+  {
+    path: "/admin/overdue",
+    element: <App page={Pages.overdue} userRole="admin" />,
+  },
+  {
+    path: "/admin/low-stock",
+    element: <App page={Pages.lowStock} userRole="admin" />,
+  },
+  {
+    path: "/admin/archive",
+    element: <App page={Pages.archive} userRole="admin" />,
+  },
   // ADD NEW PATHS HERE
 ]);
 
