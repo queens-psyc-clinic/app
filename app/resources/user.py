@@ -1,13 +1,7 @@
-from pymysql import Error
-from werkzeug import Response
-from common.db import execute_sql_query, translate
-import common.db as db
-from typing import List, Optional, Tuple, TypedDict
 import re
+from flask_restful import abort, fields, marshal_with, reqparse, Resource
 
 from common.pbkdf2 import hash_password, verify_password
-
-from flask_restful import abort, fields, marshal_with, marshal_with_field, reqparse, Resource, marshal
 
 
 def email(email_str: str):
@@ -36,12 +30,44 @@ user_parser.add_argument(
 
 
 class User(Resource):
-    """
-    for sign-up (post) and sign-in (get)
-    """
 
     @marshal_with(user_fields)
     def post(self, email, password):
+        """
+        Create a new user
+        ---
+        parameters:
+          - in: path
+            name: email
+            type: string
+            required: true
+          - in: path
+            name: password
+            type: string
+            required: true
+          - in: form
+            name: UserName
+            type: string
+            required: true
+        responses:
+          200:
+            description: A single user item
+            schema:
+              id: User
+              properties:
+                ID: 
+                  type: string
+                  description: user id
+                UserName:
+                  type: string
+                  description: The name of the user
+                Email:
+                  type: string
+                  description: The email of the user
+                IsAdmin:
+                  type: boolean
+                  description: Permissions
+        """
         args = user_parser.parse_args()
         new_user = _default_user(args['UserName'], email)
         new_user["Hash"] = hash_password(password)
@@ -50,6 +76,24 @@ class User(Resource):
 
     @marshal_with(user_fields)
     def get(self, email, password):
+        """
+        Authenticate user
+        ---
+        parameters:
+          - in: path
+            name: email
+            type: string
+            required: true
+          - in: path
+            name: password
+            type: string
+            required: true
+        responses:
+          200:
+            description: A single user item
+            schema:
+              id: User
+        """
         id_hash = _select_cols_one({"Email": email}, ["ID", "Hash"])
         if verify_password(id_hash["Hash"], password) and (id, hash):
             return _select_one({'ID': id_hash['ID']}), 200

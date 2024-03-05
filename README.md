@@ -18,6 +18,11 @@ The configuration (DockerFile)of the docker containers are in [db](./db) and
 [app](./app), and the config for the entire application is
 [docker-compose.yml](./docker-compose.yml)
 
+## API
+
+to view the Backend api, go to <http://localhost:5050/apidocs>.
+This is created using [flasgger](https://github.com/flasgger/flasgger)
+
 ## Database
 
 Once the app is running, there is an Admin Console for the database at:
