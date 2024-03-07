@@ -2,11 +2,8 @@ import { useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
-
 import Table from "../components/Table";
 import { lowStockMockData } from "../utils/mockData";
-import cardSampleData from "../models/cardSampleData";
-import Card from "../components/Card";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);

@@ -25,7 +25,7 @@ const Archive = (props: { userRole: Role }) => {
           <Filter />
           <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
             <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
-              <img src={archive} className="mr-4" />
+              <img src={archive} className="mr-4" alt="archive icon" />
               <p>Unarchive</p>
             </button>
           </section>

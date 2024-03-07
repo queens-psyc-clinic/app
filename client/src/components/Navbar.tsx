@@ -42,6 +42,7 @@ const Navbar = (props: { userType: Role }) => {
                         ? option.selectedIcon
                         : option.defaultIcon
                     }
+                    alt={`{${option.page} icon}`}
                   ></img>
                 </i>
               </span>

@@ -19,11 +19,11 @@ function App({ page, userRole }: AppProps) {
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />
-      {page == Pages.dashboard && <Dashboard userRole={userRole} />}
-      {page == Pages.overdue && <Overdue userRole={userRole} />}
-      {page == Pages.signedOut && <SignedOut userRole={userRole} />}
-      {page == Pages.archive && <Archive userRole={userRole} />}
-      {page == Pages.lowStock && <LowStock userRole={userRole} />}
+      {page === Pages.dashboard && <Dashboard userRole={userRole} />}
+      {page === Pages.overdue && <Overdue userRole={userRole} />}
+      {page === Pages.signedOut && <SignedOut userRole={userRole} />}
+      {page === Pages.archive && <Archive userRole={userRole} />}
+      {page === Pages.lowStock && <LowStock userRole={userRole} />}
       <Notification userRole={userRole} />
     </div>
   );
