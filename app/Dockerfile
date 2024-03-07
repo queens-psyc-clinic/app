@@ -17,5 +17,4 @@ RUN pip install -r requirements.txt
 
 # Run app.py when the container launches
 COPY ./ /app
-COPY templates /app/templates
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]

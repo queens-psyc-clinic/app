@@ -1,6 +1,8 @@
 from typing import Dict, Tuple, List, Union, Optional
 from typing import Any, Dict, List, Mapping, Optional, Tuple
 import pymysql
+import pymysql.cursors
+
 
 Entries = Tuple[Tuple[Any, ...], ...]
 MaybeEntries = Optional[Entries]
@@ -15,6 +17,14 @@ _db_config: Mapping = {
 }
 
 
+def check_exists(id: int, table: str) -> bool:
+    try:
+        res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id})")[0]
+        return res != None
+    except:
+        return False
+
+
 def translate(func, db_response: MaybeEntries) -> List:
     if db_response:
         return [func(i) for i in db_response]
@@ -22,11 +32,11 @@ def translate(func, db_response: MaybeEntries) -> List:
         return []
 
 
-def show_tables() -> Entries:
+def show_tables():
     return execute_query("SHOW TABLES")
 
 
-def select_table(table: str) -> MaybeEntries:
+def select_table(table: str):
     return execute_query(f"SELECT * FROM {table}")
 
 
@@ -48,13 +58,16 @@ def execute_query(
 
     """
     with pymysql.connect(**_db_config) as conn:
-        with conn.cursor() as cursor:
+        with conn.cursor(cursor=pymysql.cursors.DictCursor) as cursor:
             if args is None:
                 cursor.execute(query)
+                print(f"[query] {query}")
             else:
                 cursor.executemany(query, args)
+                print(f"[query] {query}\n[args]▲ {args}")
             if commit:
                 conn.commit()
+                print("======== COMMIT")
             return cursor.fetchall()
 
 
@@ -62,7 +75,7 @@ def execute_sql_query(operation: str, table: str,
                       data: Optional[List[Dict[str, Any]]] = None,
                       conditions: Optional[Dict[str, Any]] = None,
                       columns: Optional[List[str]] = None
-                      ) -> MaybeEntries:
+                      ):
     """
     Generates and executes an SQL query for SELECT, and batch INSERT operations
     on the specified table. UPDATE operations are handled per row.
@@ -109,10 +122,11 @@ def execute_sql_query(operation: str, table: str,
         if not data or not conditions or not isinstance(data, list) or len(data) != 1:
             raise ValueError(
                 "Data for UPDATE operation must be a single-item list of dictionaries")
-        update_part = ", ".join(["{} = %s".format(key) for key in data[0].keys()])
+        update_part = ", ".join(["{} = %s".format(key)
+                                for key in data[0].keys()])
         condition_part = " AND ".join(
             [f"{key} = %s" for key in conditions.keys()])
-        params = [tuple(list(data[0].values()) + list(conditions.values()))]
+        params = [tuple(list(data[0].values()) + list(str(c) for c in conditions.values()))]
         query = f"UPDATE {table} SET {update_part} WHERE {condition_part}"
 
     else:
