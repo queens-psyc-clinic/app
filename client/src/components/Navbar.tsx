@@ -48,9 +48,11 @@ const Navbar = (props: { userType: Role }) => {
           );
         })}
       </div>
-      <i className="cursor pointer mb-4 cursor-pointer">
-        <MdOutlineSettings size={25} />
-      </i>
+      <Link to={`/${props.userType}/settings/`}>
+        <i className="cursor pointer mb-4 cursor-pointer">
+          <MdOutlineSettings size={25} />
+        </i>
+      </Link>
     </div>
   );
 };
