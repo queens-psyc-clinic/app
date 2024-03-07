@@ -1,12 +1,10 @@
 import profilePic from "../assets/profile.svg";
 import { MdOutlineSettings } from "react-icons/md";
 import { clientMenuOptions, adminMenuOptions } from "../models/menuOptions";
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getCurrentPageFromUrl } from "../utils/urlUtils";
 import { Role } from "../models/User";
 import { Link } from "react-router-dom";
-import { Pages } from "../models/Pages";
 
 const Navbar = (props: { userType: Role }) => {
   const [selected, setSelected] = useState(
