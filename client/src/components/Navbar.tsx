@@ -1,13 +1,17 @@
 import profilePic from "../assets/profile.svg";
 import { MdOutlineSettings } from "react-icons/md";
 import { clientMenuOptions, adminMenuOptions } from "../models/menuOptions";
-
-import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCurrentPageFromUrl } from "../utils/urlUtils";
 import { Role } from "../models/User";
 import { Link } from "react-router-dom";
+import { Pages } from "../models/Pages";
 
 const Navbar = (props: { userType: Role }) => {
-  const [selected, setSelected] = useState("home");
+  const [selected, setSelected] = useState(
+    getCurrentPageFromUrl(window.location.href)
+  );
   var options =
     props.userType === "admin" ? adminMenuOptions : clientMenuOptions;
 
@@ -24,23 +28,22 @@ const Navbar = (props: { userType: Role }) => {
             <Link to={option.url} className="w-full">
               <span
                 className={`w-[93%] flex items-center justify-center p-4 rounded-full cursor-pointer transition-all	 ${
-                  selected === option.title ? "bg-white pr-1" : null
+                  selected === option.page ? "bg-white pr-1" : null
                 }`}
-                onClick={() => setSelected(option.title)}
+                onClick={() => setSelected(option.page)}
               >
                 <span
                   className={`w-2 h-2 bg-green-200 rounded-full ${
-                    selected === option.title ? "mr-3" : "hidden"
+                    selected === option.page ? "mr-3" : "hidden"
                   }`}
                 ></span>
                 <i>
                   <img
                     src={
-                      selected === option.title
+                      selected === option.page
                         ? option.selectedIcon
                         : option.defaultIcon
                     }
-                    alt={`${option.title} icon`}
                   ></img>
                 </i>
               </span>
