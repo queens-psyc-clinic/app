@@ -2,6 +2,7 @@ import re
 from flask_restful import abort, fields, marshal_with, reqparse, Resource
 
 from common.pbkdf2 import hash_password, verify_password
+from common.db import execute_sql_query
 
 
 def email(email_str: str):
@@ -11,7 +12,6 @@ def email(email_str: str):
         return email_str
     else:
         raise ValueError('{} is not a valid email'.format(email_str))
-
 
 user_fields = {
     'ID': fields.String,
@@ -23,7 +23,7 @@ user_fields = {
 user_parser = reqparse.RequestParser()
 user_parser.add_argument(
     'UserName', dest='UserName',
-    location='form',
+    location='args',
     required=True,
     help='The user\'s username',
 )
@@ -45,7 +45,7 @@ class User(Resource):
             name: password
             type: string
             required: true
-          - in: form
+          - in: query
             name: UserName
             type: string
             required: true
@@ -64,6 +64,7 @@ class User(Resource):
                 Email:
                   type: string
                   description: The email of the user
+
                 IsAdmin:
                   type: boolean
                   description: Permissions
@@ -93,6 +94,8 @@ class User(Resource):
             description: A single user item
             schema:
               id: User
+          400:
+            description: Incorrect credentials
         """
         id_hash = _select_cols_one({"Email": email}, ["ID", "Hash"])
         if verify_password(id_hash["Hash"], password) and (id, hash):

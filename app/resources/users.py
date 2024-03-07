@@ -1,27 +1,17 @@
 import json
-from flask_restful import Resource, abort, marshal_with, reqparse
+from flask_restful import Resource, abort, marshal_with, reqparse, request
 
 from resources.user import user_fields
 from common.db import execute_sql_query, select_table, check_exists
 
+# for getting args not in BODY or PATH
 users_parser = reqparse.RequestParser()
-users_parser.add_argument(
-    'filters', dest='filters',
-    location='form', type=json.loads,
-    required=True,
-    help='The column:value pairs to filter results'
-)
-users_parser.add_argument(
-    'update', dest='update',
-    location='form', type=json.loads,
-    help='The column:value pairs to update'
-)
+# define the args to look for
 users_parser.add_argument(
     'columns', dest='columns',
-    location='form', action='append',
+    location='args', action='append',
     help='The columns to select'
 )
-
 
 class Users(Resource):
 
@@ -30,60 +20,97 @@ class Users(Resource):
         """
         Update woth data at filters
         ---
+        requestBody:
+          content:
+            application/json:
+              schema:
+                id: UserUpdate
         parameters:
           - in: path
             name: id
             type: string
             required: true
-          - in: form
-            name: update
-            description: "{column:value, ...}"
+          - in: body
+            name: data
+            description: filter and data
+            type: object
+            schema:
+              id: UserUpdate
+              properties:
+                update:
+                  type: object
+                  schema:
+                    id: User
+                filters:
+                  type: object
+                  schema:
+                    id: User
             required: true
-          - in: form
-            name: filters
-            description: "{column:value, ...}"
-            action: append
         responses:
-          200:
+          201:
             description: A list of user items
             schema:
               id: User
+          403:
+            description: incorrect User ID
         """
         if not check_exists(id, "Users"):
             abort(403, message='Unknown user')
-        args = users_parser.parse_args()
-        _update(args['update'], args['filters'])
-        return _select(args['filters']), 201
+
+        # get data from BODY
+        data = request.get_json()
+        update = data['update']
+        filters = data['filters']
+
+        _update(update, filters)
+        return _select(update), 201
 
     @marshal_with(user_fields)
     def post(self, id):
         """
-        Get (optional) columns from users satisfying filters!!!
+        Get (optional) columns from users satisfying filters
         ---
+        requestBody:
+          content:
+            application/json:
+              schema:
+                id: User
         parameters:
           - in: path
             name: id
             type: string
             required: true
-          - in: form
+          - in: body
             name: filters
-            description: "{column:value, ...}"
+            description: the filters and columns to retrive
+            schema:
+              id: User
             required: true
-          - in: form
+          - in: query
             name: columns
             description: columns to select from db
-            action: append
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         responses:
-          200:
+          201:
             description: A list of user items
             schema:
               id: User
+          403:
+            description: incorrect User ID
         example:
         """
         if not check_exists(id, "Users"):
-            abort(403, message='user')
-        args = users_parser.parse_args()
-        return _select_cols(args['filters'], args['columns']), 200
+            abort(403, message='Unknown user')
+
+        # get data from *not* BODY or PATH
+        columns = users_parser.parse_args()['columns']
+        # get data from BODY
+        filters = request.get_json()
+
+        return _select_cols(filters, columns), 201
 
     @marshal_with(user_fields)
     def get(self, id):
@@ -96,14 +123,17 @@ class Users(Resource):
             type: string
             required: true
         responses:
-          200:
+          201:
             description: A list of user items
             schema:
               id: User
+          403:
+            description: incorrect User ID
         """
         if not check_exists(id, "Users"):
             abort(403, message='Unknown user')
-        return select_table('Users'), 200
+
+        return select_table('Users'), 201
 
 
 
