@@ -11,6 +11,9 @@ import Card from "../components/Card";
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const data = lowStockMockData;
+  if (props.userRole === "client") {
+    return <></>;
+  }
   return (
     <div
       className={`relative flex flex-col ${
@@ -31,13 +34,6 @@ const SignedOut = (props: { userRole: Role }) => {
             data={data}
           />
         </>
-      )}
-      {props.userRole === "client" && (
-        <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-          {cardSampleData.map((data) => (
-            <Card key={data.id} data={data} />
-          ))}
-        </div>
       )}
     </div>
   );
