@@ -16,12 +16,17 @@ import Filter from "../components/Filter";
 import Card from "../components/Card";
 import cardSampleData from "../models/cardSampleData";
 import Modal from "../components/Modal";
+import logo from "../assets/logo.png";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [data, setData] =
-    useState<Record<string, string | Object>[]>(defaultMockData);
+  const [data, setData] = useState<Record<string, string | Object>[]>([]);
 
+  useEffect(() => {
+    if (props.userRole === "admin") {
+      setData(defaultMockData);
+    }
+  });
   /* FETCHING REAL DATA */
   useEffect(() => {
     /*
@@ -38,18 +43,25 @@ const Dashboard = (props: { userRole: Role }) => {
   return (
     <div className="flex flex-col overflow-x-hidden p-6 py-10 w-full h-full">
       {props.userRole == "client" && (
-        <h1 className="text-3xl mb-4">
-          Queen’s Psychology Clinic Test Library
-        </h1>
+        <section className={`space-y-4 m-auto flex flex-col`}>
+          {/* <img src={logo} className="mb-8" /> */}
+          <h1 className="text-3xl">Queen’s Psychology Clinic Test Library</h1>
+          <SearchBar />
+          <Filter />
+        </section>
       )}
-      <section className="mt-6 space-y-6 mb-6">
+      {/* <section className="mt-6 space-y-6 mb-6">
         <SearchBar />
         <Filter />
-      </section>
+      </section> */}
 
       {/* ADMIN DASHBOARD */}
       {props.userRole == "admin" && (
         <>
+          <section className="mt-6 space-y-6 mb-6">
+            <SearchBar />
+            <Filter />
+          </section>
           <section className="relative w-full h-fit flex justify-between items-end mb-10">
             <section className="flex">
               {/* Quantity should be pulled from backend in the useEffect, these are
@@ -80,7 +92,7 @@ const Dashboard = (props: { userRole: Role }) => {
       )}
 
       {/* CLIENT DASHBOARD */}
-      {props.userRole === "client" && (
+      {props.userRole === "client" && data.length > 0 && (
         <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
           {cardSampleData.map((data) => (
             <Card key={data.id} data={data} />
