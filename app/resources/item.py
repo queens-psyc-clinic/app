@@ -1,4 +1,5 @@
 import json
+import random
 from flask_restful import Resource, abort, marshal_with, reqparse, request, fields
 
 from common.db import execute_query, execute_sql_query, select_table, check_exists
@@ -54,13 +55,17 @@ class Item(Resource):
         return _select_with_id(id)
     
     @marshal_with(item_fields)
-    def post(self, item_type, item_name, edition_number, ages, 
-             number_of_parts, location, ordering_company, test_ID):
+    def delete(self, id):
         """
-        Post item
+        Delete item with id
         ---
         tags:
           - Items
+        parameters:
+          - in: path
+            name: id
+            type: string
+            required: true
         responses:
           200:
             description: Item with given id
@@ -82,9 +87,10 @@ class Item(Resource):
                 description: The name of the item.
               # Add other properties here
         """
-        return _post_item
+        return _delete_by_id(id)
 
+def _select_with_id(id): 
+    return execute_query("SELECT * FROM `Items` WHERE `ID` = %s", [(id,)], False)
 
-def _select_with_id(id): return execute_query("SELECT * FROM `Items` WHERE `ID` = %s", [(id,)], False)
-
-def _post_item(): return execute_query()
+def _delete_by_id(id):
+    return execute_query("DELETE FROM `Items` WHERE `ID` = %s", [(id,)], True)
