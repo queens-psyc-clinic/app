@@ -6,6 +6,7 @@ import Switch from "@mui/material/Switch";
 import { IoArrowBackSharp } from "react-icons/io5";
 
 const Settings = (props: { userRole: Role }) => {
+  // Add state management when we connect backend
   return (
     <div className="p-8 w-full">
       <Link to="/">
