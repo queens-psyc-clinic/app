@@ -3,7 +3,7 @@ from flask_restful import Api
 from flasgger import Swagger
 from flask_cors import CORS
 
-from resources.user import User
+from resources.auth import User
 from resources.users import Users
 from resources.item import Item
 from resources.items import Items

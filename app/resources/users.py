@@ -2,7 +2,7 @@ import json
 from flask_restful import Resource, abort, marshal_with, reqparse, request
 from common.pbkdf2 import hash_password
 
-from resources.user import user_fields
+from resources.auth import user_fields
 from common.db import execute_sql_query, select_table, check_exists
 
 # for getting args not in BODY or PATH
