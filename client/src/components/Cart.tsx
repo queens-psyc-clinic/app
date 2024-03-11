@@ -122,7 +122,7 @@ const Cart = (props: { userRole: Role }) => {
       {isCheckout && (
         <ReserveModal
           isOpen={true}
-          isSuccessful={false}
+          isSuccessful={true}
           closeModal={closeModal}
         />
       )}
