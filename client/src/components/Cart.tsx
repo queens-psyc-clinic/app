@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Role } from "../models/User";
 import { CartItem, getPillColor } from "../models/libraryItem";
@@ -26,13 +26,27 @@ const mockCart: CartItem[] = [
 const Cart = (props: { userRole: Role }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>(mockCart);
+  const cartRef = useRef<HTMLDivElement>(null);
 
   const toggleCart = () => {
     setIsOpen(!isOpen);
   };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   // IMPLEMENT LOCAL STORAGE WHEN WE CONNECT BACKEND
   return (
-    <div className="">
+    <div className="" ref={cartRef}>
       <div
         onClick={toggleCart}
         className="relative w-16 h-16 shadow-md bg-white rounded-full flex justify-center items-center cursor-pointer"

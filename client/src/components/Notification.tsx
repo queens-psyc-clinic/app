@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiSolidBell } from "react-icons/bi";
 import {
   adminMockNotifications,
@@ -12,10 +12,28 @@ import lowStock from "../assets/icons/low-stock-color.svg";
 const Notification = (props: { userRole: Role }) => {
   const [isEmpty, setIsEmpty] = useState(false); // checks if there are notifications, to show the red circle
   const [isOpen, setIsOpen] = useState(false);
+  const notificationRef = useRef<HTMLDivElement>(null);
 
   const toggleNotifications = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // mock notifications
   const notifications =
@@ -24,7 +42,7 @@ const Notification = (props: { userRole: Role }) => {
       : adminMockNotifications;
 
   return (
-    <div className="">
+    <div ref={notificationRef}>
       <div
         onClick={toggleNotifications}
         className="relative w-16 h-16 shadow-md bg-white rounded-full flex justify-center items-center cursor-pointer"
