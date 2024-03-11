@@ -5,8 +5,6 @@ import Filter from "../components/Filter";
 import archive from "../assets/icons/archive.svg";
 import Table from "../components/Table";
 import { defaultMockData } from "../utils/mockData";
-import cardSampleData from "../models/cardSampleData";
-import Card from "../components/Card";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -22,12 +20,12 @@ const Archive = (props: { userRole: Role }) => {
     >
       <h1 className={`text-3xl mb-4 `}>Archived Items </h1>
       <>
-        <section className="mt-6 space-y-4 mb-6">
+        <section className="mt-6 space-y-2 mb-6">
           <SearchBar />
           <Filter />
           <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
             <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
-              <img src={archive} className="mr-4" />
+              <img src={archive} className="mr-4" alt="archive icon" />
               <p>Unarchive</p>
             </button>
           </section>

@@ -21,7 +21,7 @@ const Overdue = (props: { userRole: Role }) => {
       <h1 className={`text-3xl mb-4 `}>Overdue Items </h1>
       {props.userRole === "admin" && (
         <>
-          <section className="mt-6 space-y-4 mb-6">
+          <section className="mt-6 space-y-2 mb-6">
             <SearchBar />
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
