@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
-import cardSampleData from './models/cardSampleData';
-import Modal from "./components/Modal";
+import CardsModal from "./components/CardsModal";
+import cardSampleData, { CardData } from "./models/cardSampleData";
 
 export function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
 
-  const userRole = "admin";
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
+  const handleCardClick = (data: CardData) => {
+    setSelectedCard(data);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="w-screen h-screen bg-white flex items-center px-4">
@@ -15,14 +23,20 @@ export function App() {
       <div className="m-10 pb-10 w-full mt-96 max-w-screen-lg">
         <div className="ml-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
           {cardSampleData.map((data) => (
-            <Card key={data.id} data={data} />
+            <Card key={data.id} data={data} openModal={() => handleCardClick(data)} />
           ))}
         </div>
       </div>
-      <Modal modalTitle="Add Item" buttonLabel="Save" secButtonLabel="Cancel"/>
+      <CardsModal
+        modalTitle={selectedCard?.Name || ""}
+        buttonLabel="Add to Cart"
+        secButtonLabel="Close"
+        isOpen={isModalOpen}
+        closeModal={toggleModal}
+        cardData={selectedCard}
+      />
     </div>
   );
 }
 
 export default App;
-
