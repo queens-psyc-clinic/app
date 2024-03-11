@@ -1,0 +1,23 @@
+tbody tr td:first-child {
+  border-top-left-radius: 45%;
+  border-bottom-left-radius: 45%;
+}
+
+#measure-pill {
+  inline-size: min-content;
+  max-width: 0.5rem;
+  min-width: max-content;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  height: 3px !important;
+  background-color: #acacac;
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
