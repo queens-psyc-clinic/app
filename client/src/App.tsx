@@ -25,6 +25,7 @@ function App({ page, userRole }: AppProps) {
       {page === Pages.signedOut && <SignedOut userRole={userRole} />}
       {page === Pages.archive && <Archive userRole={userRole} />}
       {page === Pages.lowStock && <LowStock userRole={userRole} />}
+      {page === Pages.settings && <Settings userRole={userRole} />}
       <Notification userRole={userRole} />
     </div>
   );
