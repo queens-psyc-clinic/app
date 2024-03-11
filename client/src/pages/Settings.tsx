@@ -23,16 +23,16 @@ const Settings = (props: { userRole: Role }) => {
           <img className="w-20 mr-16" src={profilePic} />
           <DropFile />
         </section>
-        <section className="w-[75%] space-y-8">
-          <section className="flex justify-between w-full h-full space-x-8 mt-4">
+        <section className="w-max space-y-8">
+          <section className="flex  w-full h-full space-x-8 mt-4">
             <InputField
               label="First Name"
-              styles="border-[1px] bg-white px-4 w-80"
+              styles="border-[1px] bg-white px-4 w-96"
               value="John"
             ></InputField>
             <InputField
               label="Last Name"
-              styles="border-[1px] bg-white px-4 w-80"
+              styles="border-[1px] bg-white px-4 w-96"
               value="Doe"
             ></InputField>
           </section>
