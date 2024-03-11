@@ -24,10 +24,10 @@ const Notification = (props: { userRole: Role }) => {
       : adminMockNotifications;
 
   return (
-    <div className="absolute top-4 right-4">
+    <div className="">
       <div
         onClick={toggleNotifications}
-        className="absolute top-4 right-4 w-16 h-16 shadow-md bg-white rounded-full flex justify-center items-center cursor-pointer"
+        className="relative w-16 h-16 shadow-md bg-white rounded-full flex justify-center items-center cursor-pointer"
       >
         <i>
           <BiSolidBell size={25} />
@@ -39,7 +39,7 @@ const Notification = (props: { userRole: Role }) => {
         ></span>
       </div>
       {isOpen && (
-        <div className="relative top-24 right-24 bg-white w-[30vw] border-2 border-black rounded z-30">
+        <div className="absolute top-20 right-20 bg-white w-[30vw] border-2 border-black rounded z-30">
           <section className="w-full bg-[#393939] text-white font-bold p-4">
             Notifications
           </section>
