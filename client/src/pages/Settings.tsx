@@ -4,6 +4,10 @@ import InputField from "../components/InputField";
 import { Role } from "../models/User";
 import Switch from "@mui/material/Switch";
 import { IoArrowBackSharp } from "react-icons/io5";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import Dropzone from "react-dropzone";
+import "./Settings.css";
+import DropFile from "../components/DropFile";
 
 const Settings = (props: { userRole: Role }) => {
   // Add state management when we connect backend
@@ -15,12 +19,9 @@ const Settings = (props: { userRole: Role }) => {
         </i>
       </Link>
       <div className=" w-full h-full pt-10 pl-16">
-        <section className="flex mb-8 w-full">
+        <section className="flex mb-8 w-[75%]">
           <img className="w-20 mr-16" src={profilePic} />
-          <input
-            type="file"
-            className="border h-20 flex justify-center items-center p-5 rounded"
-          ></input>
+          <DropFile />
         </section>
         <section className="w-[75%] space-y-8">
           <section className="flex justify-between w-full h-full space-x-8 mt-4">
