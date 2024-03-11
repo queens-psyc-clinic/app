@@ -1,28 +1,40 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import Card from "./components/Card";
-import cardSampleData from './models/cardSampleData';
-import Modal from "./components/Modal";
+import Notification from "./components/Notification";
+import { Role } from "./models/User";
+import Archive from "./pages/Archive";
+import Dashboard from "./pages/Dashboard";
+import LowStock from "./pages/LowStock";
+import Overdue from "./pages/Overdue";
+import SignedOut from "./pages/SignedOut";
+import { Pages } from "./models/Pages";
 
-export function App() {
+interface AppProps {
+  page: Pages;
+  userRole: Role;
+}
+
+function App({ page, userRole }: AppProps) {
+  // Call service function that checks if user is client or admin, placeholder for now
 
   const userRole = "admin";
 
 
   return (
-    <div className="w-screen h-screen bg-white flex items-center px-4">
-      <Navbar />
-      <div className="m-10 pb-10 w-full mt-96 max-w-screen-lg">
-        <div className="ml-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-          {cardSampleData.map((data) => (
-            <Card key={data.id} data={data} />
-          ))}
-        </div>
-      </div>
-      <Modal modalTitle="Add Item" buttonLabel="Save" secButtonLabel="Cancel"/>
+    <div className="flex h-screen w-screen p-2 items-center">
+      <Navbar userType={userRole} />
+      {page === Pages.dashboard && <Dashboard userRole={userRole} />}
+      {page === Pages.overdue && <Overdue userRole={userRole} />}
+      {page === Pages.signedOut && <SignedOut userRole={userRole} />}
+      {page === Pages.archive && <Archive userRole={userRole} />}
+      {page === Pages.lowStock && <LowStock userRole={userRole} />}
+      <Notification userRole={userRole} />
     </div>
   );
 }
 
+App.defaultProps = {
+  userRole: "client",
+  page: Pages.dashboard,
+};
 export default App;
-
