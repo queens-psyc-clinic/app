@@ -33,6 +33,7 @@ class Users(Resource):
             name: id
             type: string
             required: true
+            description: user ID to ensure access rights
           - in: body
             name: data
             description: filter and data
@@ -99,6 +100,7 @@ class Users(Resource):
             name: id
             type: string
             required: true
+            description: user ID to ensure access rights
           - in: body
             name: filters
             description: the filters and columns to retrive
@@ -150,6 +152,7 @@ class Users(Resource):
             name: id
             type: string
             required: true
+            description: user ID to ensure access rights
         responses:
           200:
             description: A list of user items
