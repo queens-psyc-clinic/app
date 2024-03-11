@@ -38,6 +38,8 @@ class User(Resource):
         """
         Create a new user
         ---
+        tags:
+          - Authentication
         parameters:
           - in: path
             name: email
@@ -92,6 +94,8 @@ class User(Resource):
         """
         Authenticate user
         ---
+        tags:
+          - Authentication
         parameters:
           - in: path
             name: email

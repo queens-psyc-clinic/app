@@ -20,6 +20,8 @@ class Users(Resource):
         """
         Update woth data at filters
         ---
+        tags:
+          - Users
         requestBody:
           content:
             application/json:
@@ -30,6 +32,7 @@ class Users(Resource):
             name: id
             type: string
             required: true
+            description: user ID to ensure access rights
           - in: body
             name: data
             description: filter and data
@@ -74,6 +77,8 @@ class Users(Resource):
         """
         Get (optional) columns from users satisfying filters
         ---
+        tags:
+          - Users
         requestBody:
           content:
             application/json:
@@ -84,6 +89,7 @@ class Users(Resource):
             name: id
             type: string
             required: true
+            description: user ID to ensure access rights
           - in: body
             name: filters
             description: the filters and columns to retrive
@@ -128,11 +134,14 @@ class Users(Resource):
         """
         Get all users
         ---
+        tags:
+          - Users
         parameters:
           - in: path
             name: id
             type: string
             required: true
+            description: user ID to ensure access rights
         responses:
           200:
             description: A list of user items
