@@ -1,19 +1,22 @@
-from typing import Dict
-from flask import Flask, render_template
-import db
+from flask import Flask
+from flask_restful import Api
+from flasgger import Swagger
+
+from resources.user import User
+from resources.users import Users
 
 app = Flask(__name__)
+api = Api(app)
+swagger = Swagger(app)
 
-@app.route('/')
-def display_data():    
-    tables = [table[0] for table in db.show_tables()]
 
-    # Fetch all data from each table
-    all_data: Dict[str, db.MaybeEntries] = {}
-    for t in tables:
-        all_data[t] = db.select_table(t)
+api.add_resource(User, '/user/<string:email>/<string:password>')
 
-    return render_template('index.html', all_data=all_data)
+api.add_resource(Users, '/users/<id>')
+# api.add_resource(Loans, '/loans/<id>')
+# api.add_resource(Tests, '/tests/<id>')
+# api.add_resource(Items, '/items/<id>')
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
