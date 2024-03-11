@@ -28,8 +28,9 @@ function App({ page, userRole }: AppProps) {
       {page === Pages.lowStock && <LowStock userRole={userRole} />}
       {page === Pages.settings && <Settings userRole={userRole} />}
       {userRole === "client" && (
-        <section className="flex space-x-6  absolute top-4 right-4">
+        <section className="flex absolute top-4 right-4">
           <Cart userRole={userRole} />
+          <div className="w-6"></div>
           <Notification userRole={userRole} />
         </section>
       )}
