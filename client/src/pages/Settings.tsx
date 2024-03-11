@@ -19,7 +19,7 @@ const Settings = (props: { userRole: Role }) => {
         </i>
       </Link>
       <div className=" w-full h-full pt-10 pl-16">
-        <section className="flex mb-8 w-[75%]">
+        <section className="flex mb-10 w-[75%]">
           <img className="w-20 mr-16" src={profilePic} />
           <DropFile />
         </section>
@@ -27,25 +27,25 @@ const Settings = (props: { userRole: Role }) => {
           <section className="flex justify-between w-full h-full space-x-8 mt-4">
             <InputField
               label="First Name"
-              styles="px-4 w-80"
+              styles="border-[1px] bg-white px-4 w-80"
               value="John"
             ></InputField>
             <InputField
               label="Last Name"
-              styles="px-4 w-80"
+              styles="border-[1px] bg-white px-4 w-80"
               value="Doe"
             ></InputField>
           </section>
           <InputField
             label="Email"
-            styles="inline px-4 w-full"
+            styles="inline bg-white px-4 w-full"
             value="19fwha@queensu.ca"
             canEdit={false}
           ></InputField>
           <section className="flex justify-between items-end">
             <InputField
               label="Password"
-              styles="inline px-4 w-[30rem]"
+              styles="inline bg-white px-4 w-[30rem]"
               value="test"
               type="password"
               canEdit={false}
