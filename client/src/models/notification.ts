@@ -1,5 +1,3 @@
-import { LibraryItem } from "./libraryItem";
-
 export interface Notification {
   notificationType: notificationType;
   itemName: string;

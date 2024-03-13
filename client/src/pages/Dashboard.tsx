@@ -7,7 +7,6 @@ import {
   // lowStockMockData,
 } from "../utils/mockData";
 import { MdDelete } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
 
 import { Role } from "../models/User";
 import AdminCards from "../components/AdminCards";
@@ -49,7 +48,7 @@ const Dashboard = (props: { userRole: Role }) => {
   };
   return (
     <div className="flex flex-col overflow-x-hidden p-6 py-10 w-full h-full">
-      {props.userRole == "client" && (
+      {props.userRole === "client" && (
         <h1 className="text-3xl mb-4">
           Queen’s Psychology Clinic Test Library
         </h1>
@@ -60,7 +59,7 @@ const Dashboard = (props: { userRole: Role }) => {
       </section>
 
       {/* ADMIN DASHBOARD */}
-      {props.userRole == "admin" && (
+      {props.userRole === "admin" && (
         <>
           <section className="relative w-full h-fit flex justify-between items-end mb-10">
             <section className="flex">

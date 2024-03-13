@@ -37,9 +37,13 @@ const Notification = (props: { userRole: Role }) => {
 
   // mock notifications
   const notifications =
-    props.userRole == "client"
+    props.userRole === "client"
       ? clientMockNotifications
       : adminMockNotifications;
+
+  if (!notifications) {
+    setIsEmpty(true);
+  }
 
   return (
     <div ref={notificationRef}>
@@ -68,17 +72,18 @@ const Notification = (props: { userRole: Role }) => {
                   <i>
                     <img
                       src={
-                        notification.notificationType ==
+                        notification.notificationType ===
                         notificationType.lowStock
                           ? lowStock
                           : overdue
                       }
+                      alt="notification type icon"
                       className="object-contain w-6 h-6"
                     />
                   </i>
                   <div className="ml-6">
                     <p className="text-base font-semibold">
-                      {notification.notificationType ==
+                      {notification.notificationType ===
                       notificationType.lowStock
                         ? "Running Low"
                         : "Time to Return"}

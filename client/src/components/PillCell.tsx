@@ -1,4 +1,3 @@
-import uuid from "react-uuid";
 import { getPillColor } from "../models/libraryItem";
 
 const PillCell = (props: {
@@ -11,7 +10,7 @@ const PillCell = (props: {
     const pillColor = getPillColor(pillName);
     return `text-xs text-${pillColor}-200 bg-${pillColor}-100 text-center px-4 py-2 rounded-full w-fit max-w-60 flex justify-center items-center`;
   };
-  if (props.data.type == "measure") {
+  if (props.data.type === "measure") {
     return (
       <p
         id="measure-pill"
