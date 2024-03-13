@@ -18,9 +18,6 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
 
-  const userRole = "admin";
-
-
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />
