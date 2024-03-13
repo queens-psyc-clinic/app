@@ -4,8 +4,6 @@ import InputField from "../components/InputField";
 import { Role } from "../models/User";
 import Switch from "@mui/material/Switch";
 import { IoArrowBackSharp } from "react-icons/io5";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import Dropzone from "react-dropzone";
 import "./Settings.css";
 import DropFile from "../components/DropFile";
 
@@ -20,7 +18,7 @@ const Settings = (props: { userRole: Role }) => {
       </Link>
       <div className=" w-full h-full pt-10 pl-16">
         <section className="flex mb-10 w-[75%]">
-          <img className="w-20 mr-16" src={profilePic} />
+          <img className="w-20 mr-16" src={profilePic} alt="profile" />
           <DropFile />
         </section>
         <section className="w-max space-y-8">
