@@ -18,6 +18,38 @@ export interface LibraryItem {
   orderingCompanyUrl: string;
 }
 
+export type CartItem = {
+  id: string;
+  Name: string;
+  "Item Name": string;
+  Item: ItemType;
+  minAge: number;
+  maxAge: number;
+} & Partial<LibraryItem>;
+
+export const getPillColor = (pillName: string) => {
+  switch (pillName) {
+    case "Book":
+      return "yellow";
+    case "CD":
+      return "blue";
+    case "Form":
+      return "green";
+    case "Install Disk":
+      return "teal";
+    case "Kit":
+      return "orange";
+    case "Manual":
+      return "red";
+    case "Scoring":
+      return "pink";
+    case "USB Stick":
+      return "purple";
+    default:
+      return "gray";
+  }
+};
+
 export type ItemType =
   | "Book"
   | "CD"

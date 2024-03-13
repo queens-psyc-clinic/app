@@ -4,6 +4,7 @@ import { ItemType } from "../models/libraryItem";
 
 interface CardProps {
   data: CardData;
+  openModal: () => void;
 }
 
 const itemTitleToType: Record<string, ItemType> = {
@@ -47,16 +48,21 @@ const getItemColorClass = (itemType: ItemType): string => {
   }
 };
 
-const Card: React.FC<CardProps> = ({ data }: CardProps) => {
+const Card: React.FC<CardProps> = ({ data, openModal }: CardProps) => {
   const { Name, "Item Name": itemName, Measure, Item, Ages, Stock } = data;
   const itemType = getItemTypeFromTitle(Item.data.title);
   const itemColorClass = getItemColorClass(itemType);
 
+  const handleClick = () => {
+    openModal();
+  };
+
   return (
     <div
-      className={`p-6 cursor-pointer shadow-md max-w-xs hover:bg-gray-100 rounded-sm relative ${
+      className={`p-6 shadow-md max-w-xs cursor-pointer hover:bg-gray-100 rounded-sm relative ${
         Stock === "0" ? "out-of-stock" : ""
       }`}
+      onClick={handleClick}
     >
       {Stock === "0" && (
         <div className="bg-gray-900 text-white text-center py-2 px-4 absolute top-0 right-0 rounded-tr-sm">

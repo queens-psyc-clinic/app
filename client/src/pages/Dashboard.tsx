@@ -13,11 +13,23 @@ import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Card from "../components/Card";
-import cardSampleData from "../models/cardSampleData";
+import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
+import CardsModal from "../components/CardsModal";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleCardClick = (data: CardData) => {
+    setSelectedCard(data);
+    setIsModalOpen(true);
+  };
   const [data, setData] =
     useState<Record<string, string | Object>[]>(defaultMockData);
 
@@ -80,11 +92,25 @@ const Dashboard = (props: { userRole: Role }) => {
 
       {/* CLIENT DASHBOARD */}
       {props.userRole === "client" && (
-        <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-          {cardSampleData.map((data) => (
-            <Card key={data.id} data={data} />
-          ))}
-        </div>
+        <>
+          <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+            {cardSampleData.map((data) => (
+              <Card
+                key={data.id}
+                data={data}
+                openModal={() => handleCardClick(data)}
+              />
+            ))}
+          </div>
+          <CardsModal
+            modalTitle={selectedCard?.Name || ""}
+            buttonLabel="Add to Cart"
+            secButtonLabel="Close"
+            isOpen={isModalOpen}
+            closeModal={toggleModal}
+            cardData={selectedCard}
+          />
+        </>
       )}
     </div>
   );

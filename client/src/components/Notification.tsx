@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiSolidBell } from "react-icons/bi";
 import {
   adminMockNotifications,
@@ -12,10 +12,28 @@ import lowStock from "../assets/icons/low-stock-color.svg";
 const Notification = (props: { userRole: Role }) => {
   const [isEmpty, setIsEmpty] = useState(false); // checks if there are notifications, to show the red circle
   const [isOpen, setIsOpen] = useState(false);
+  const notificationRef = useRef<HTMLDivElement>(null);
 
   const toggleNotifications = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // mock notifications
   const notifications =
@@ -28,10 +46,10 @@ const Notification = (props: { userRole: Role }) => {
   }
 
   return (
-    <div className="absolute top-4 right-4">
+    <div ref={notificationRef}>
       <div
         onClick={toggleNotifications}
-        className="absolute top-4 right-4 w-16 h-16 shadow-md bg-white rounded-full flex justify-center items-center cursor-pointer"
+        className="relative w-16 h-16 shadow-md bg-white rounded-full flex justify-center items-center cursor-pointer"
       >
         <i>
           <BiSolidBell size={25} />
@@ -43,7 +61,7 @@ const Notification = (props: { userRole: Role }) => {
         ></span>
       </div>
       {isOpen && (
-        <div className="relative top-24 right-24 bg-white w-[30vw] border-2 border-black rounded z-30">
+        <div className="absolute top-20 right-20 bg-white w-[30vw] border-2 border-black rounded z-30">
           <section className="w-full bg-[#393939] text-white font-bold p-4">
             Notifications
           </section>
