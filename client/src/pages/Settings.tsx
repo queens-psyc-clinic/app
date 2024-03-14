@@ -17,20 +17,20 @@ const Settings = (props: { userRole: Role }) => {
         </i>
       </Link>
       <div className=" w-full h-full pt-10 pl-16">
-        <section className="flex mb-10 w-[75%]">
-          <img className="w-20 mr-16" src={profilePic} alt="profile" />
-          <DropFile />
-        </section>
         <section className="w-max space-y-8">
+          <section className="flex mb-10 w-full">
+            <img className="w-20 mr-16" src={profilePic} alt="profile" />
+            <DropFile />
+          </section>
           <section className="flex  w-full h-full space-x-8 mt-4">
             <InputField
               label="First Name"
-              styles="border-[1px] bg-white px-4 w-96"
+              styles="border-[1px] bg-white px-4 w-[30.5rem]"
               value="John"
             ></InputField>
             <InputField
               label="Last Name"
-              styles="border-[1px] bg-white px-4 w-96"
+              styles="border-[1px] bg-white px-4 w-[30.5rem]"
               value="Doe"
             ></InputField>
           </section>
