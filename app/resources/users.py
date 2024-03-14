@@ -1,7 +1,7 @@
 import json
 from flask_restful import Resource, abort, marshal_with, reqparse, request
 
-from resources.user import user_fields
+from resources.auth import user_fields
 from common.db import execute_sql_query, select_table, check_exists
 
 # for getting args not in BODY or PATH
@@ -18,7 +18,7 @@ class Users(Resource):
     @marshal_with(user_fields)
     def put(self, id):
         """
-        Update woth data at filters
+        Update with data at filters
         ---
         tags:
           - Users

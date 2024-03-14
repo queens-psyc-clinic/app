@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flasgger import Swagger
 
-from resources.user import User
+from resources.auth import User
 from resources.users import Users
 
 app = Flask(__name__)

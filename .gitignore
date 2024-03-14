@@ -6,6 +6,9 @@ __pycache__/
 # ignore vs code file
 .vscode/
 
+# ignore apple stuff
+.DS_Store
+
 # C extensions
 *.so
 
