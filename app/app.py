@@ -4,6 +4,8 @@ from flasgger import Swagger
 
 from resources.user import User
 from resources.users import Users
+from resources.test import Test
+from resources.tests import Tests
 
 app = Flask(__name__)
 api = Api(app)
@@ -14,7 +16,8 @@ api.add_resource(User, '/user/<string:email>/<string:password>')
 
 api.add_resource(Users, '/users/<id>')
 # api.add_resource(Loans, '/loans/<id>')
-# api.add_resource(Tests, '/tests/<id>')
+api.add_resource(Test, '/test/<string:Name>')
+api.add_resource(Tests, '/tests')
 # api.add_resource(Items, '/items/<id>')
 
 

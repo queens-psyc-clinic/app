@@ -129,8 +129,16 @@ def execute_sql_query(operation: str, table: str,
         params = [tuple(list(data[0].values()) + list(str(c) for c in conditions.values()))]
         query = f"UPDATE {table} SET {update_part} WHERE {condition_part}"
 
+    elif operation == "DELETE":
+        if not conditions:
+            raise ValueError("Conditions are required for DELETE operation")
+        condition_part = " AND ".join(
+            [f"{key} = %s" for key in conditions.keys()])
+        params = list(conditions.values())
+        query = f"DELETE FROM {table} WHERE {condition_part}"
+
     else:
         raise ValueError("Unsupported operation")
 
     # Execute the query
-    return execute_query(query, params, commit=operation in ["INSERT", "UPDATE"])
+    return execute_query(query, params, commit=operation in ["INSERT", "UPDATE", "DELETE"])
