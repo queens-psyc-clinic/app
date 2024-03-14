@@ -1,14 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoFilter } from "react-icons/io5";
 import Dropdown from "./DropDown";
-import {
-  ItemType,
-  ItemTypeOptions,
-  LevelOfUse,
-  Measure,
-} from "../models/libraryItem";
+import { ItemTypeOptions, LevelOfUse, Measure } from "../models/libraryItem";
 
-type FilterOptions = "measure" | "item" | "level";
 type Filter = {
   measure?: string;
   item?: string;
@@ -16,7 +10,6 @@ type Filter = {
 };
 const Filter2 = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currFilters, setCurrFilters] = useState<Filter>({});
   const [filters, setFilters] = useState<Filter>({});
   const handleApply = () => {
     setIsOpen(false);

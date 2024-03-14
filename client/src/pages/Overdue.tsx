@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+// import Filter from "../components/Filter";
 import { BiSolidBell } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import Table from "../components/Table";

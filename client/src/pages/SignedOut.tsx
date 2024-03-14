@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+// import Filter from "../components/Filter";
 
 import Table from "../components/Table";
 import { signedOutMockData } from "../utils/mockData";

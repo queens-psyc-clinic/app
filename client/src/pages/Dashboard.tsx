@@ -11,7 +11,7 @@ import { MdDelete } from "react-icons/md";
 import { Role } from "../models/User";
 import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+// import Filter from "../components/Filter";
 import Card from "../components/Card";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
