@@ -1,47 +1,50 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "./components/Navbar";
-import Card from "./components/Card";
-import CardsModal from "./components/CardsModal";
-import cardSampleData, { CardData } from "./models/cardSampleData";
+import Notification from "./components/Notification";
+import { Role } from "./models/User";
+import Archive from "./pages/Archive";
+import Dashboard from "./pages/Dashboard";
+import LowStock from "./pages/LowStock";
+import Overdue from "./pages/Overdue";
+import SignedOut from "./pages/SignedOut";
+import { Pages } from "./models/Pages";
+import Settings from "./pages/Settings";
+import Cart from "./components/Cart";
 
-export function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
-  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+interface AppProps {
+  page: Pages;
+  userRole: Role;
+}
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  const handleCardClick = (data: CardData, color: string) => {
-    if (data.Stock !== "0") {
-      setSelectedCard(data);
-      setSelectedCardColor(color);
-      setIsModalOpen(true);
-    }
-  };
-
+function App({ page, userRole }: AppProps) {
+  // Call service function that checks if user is client or admin, placeholder for now
   return (
-    <div className="w-screen h-screen bg-white flex items-center px-4">
-      <Navbar />
-      <div className="m-10 pb-10 w-full mt-96 max-w-screen-lg">
-        <div className="ml-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-          {cardSampleData.map((data) => (
-            <Card key={data.id} data={data} openModal={(color) => handleCardClick(data, color)} />
-          ))}
-        </div>
-      </div>
-      <CardsModal
-        modalTitle={selectedCard?.Name || ""}
-        buttonLabel="Add to Cart"
-        secButtonLabel="Close"
-        isOpen={isModalOpen}
-        closeModal={toggleModal}
-        cardData={selectedCard}
-        cardColor={selectedCardColor}
-      />
+    <div className="flex h-screen w-screen p-2 items-center">
+      <Navbar userType={userRole} />
+      {page === Pages.dashboard && <Dashboard userRole={userRole} />}
+      {page === Pages.overdue && <Overdue userRole={userRole} />}
+      {page === Pages.signedOut && <SignedOut userRole={userRole} />}
+      {page === Pages.archive && <Archive userRole={userRole} />}
+      {page === Pages.lowStock && <LowStock userRole={userRole} />}
+      {page === Pages.settings && <Settings userRole={userRole} />}
+      {userRole === "client" && (
+        <section className="flex absolute top-4 right-4">
+          <Cart userRole={userRole} />
+          <div className="w-6"></div>
+          <Notification userRole={userRole} />
+        </section>
+      )}
+      {userRole === "admin" && (
+        <section className="absolute top-4 right-4">
+          <Notification userRole={userRole} />
+        </section>
+      )}
     </div>
   );
 }
 
+App.defaultProps = {
+  userRole: "client",
+  page: Pages.dashboard,
+};
 export default App;

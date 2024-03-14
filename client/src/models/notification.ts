@@ -1,5 +1,8 @@
 export interface Notification {
-  notificationType: "overdue" | "low stock";
+  notificationType: notificationType;
+  itemName: string;
+  date: string;
+  time: string;
 }
 
 export enum notificationType {

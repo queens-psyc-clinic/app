@@ -1,0 +1,9 @@
+#file-upload::file-selector-button {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #004b85;
+  display: block;
+  margin: auto;
+  content: "Click to upload";
+}

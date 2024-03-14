@@ -1,21 +1,54 @@
 import { User } from "./User";
 
 export interface LibraryItem {
-  name: string;
-  itemName: string;
-  itemType: ItemType;
-  measure: Measure;
-  levelOfUse: LevelOfUse;
-  acronym: string;
-  editionNumber: number;
-  quantity: number;
-  location: string;
+  id?: string;
+  Name: string;
+  "Item Name": string;
+  Item: ItemType;
+  Measure: Measure;
+  Level: LevelOfUse;
+  Acronym: string;
+  Edition: number;
+  Quantity: number;
+  Location?: string;
   isAvailable: boolean;
   borrower: User;
   minAge: number;
   maxAge: number;
   orderingCompanyUrl: string;
 }
+
+export type CartItem = {
+  id: string;
+  Name: string;
+  "Item Name": string;
+  Item: ItemType;
+  minAge: number;
+  maxAge: number;
+} & Partial<LibraryItem>;
+
+export const getPillColor = (pillName: string) => {
+  switch (pillName) {
+    case "Book":
+      return "yellow";
+    case "CD":
+      return "blue";
+    case "Form":
+      return "green";
+    case "Install Disk":
+      return "teal";
+    case "Kit":
+      return "orange";
+    case "Manual":
+      return "red";
+    case "Scoring":
+      return "pink";
+    case "USB Stick":
+      return "purple";
+    default:
+      return "gray";
+  }
+};
 
 export type ItemType =
   | "Book"
@@ -27,6 +60,18 @@ export type ItemType =
   | "Scoring"
   | "USB Stick"
   | "Textbook";
+
+export const ItemTypeOptions: ItemType[] = [
+  "Book",
+  "CD",
+  "Form",
+  "Install Disk",
+  "Kit",
+  "Manual",
+  "Scoring",
+  "USB Stick",
+  "Textbook",
+];
 
 export const itemTypeOptions: string[] = [
   "Book",
@@ -64,10 +109,10 @@ export enum Measure {
 }
 
 export enum LevelOfUse {
-  A,
-  B,
-  C,
-  S,
+  A = "A",
+  B = "B",
+  C = "C",
+  S = "S",
 }
 
 export enum Location {
