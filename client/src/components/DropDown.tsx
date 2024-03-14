@@ -28,6 +28,10 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
+    if (onChange) {
+      onChange(option, label);
+    }
+
     setShowDropdown(false);
   };
 
@@ -70,7 +74,6 @@ const Dropdown: React.FC<DropdownProps> = ({
             name="inputText"
             id="inputText"
             value={selectedOption}
-            onChange={(e) => (onChange ? onChange(e) : null)}
             readOnly
             className="block w-full pl-2 rounded-tl-lg rounded-bl-lg pr-4 bg-gray-100 border-0 py-2 text-black placeholder:text-black focus:ring-3 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-6 shadow-sm cursor-pointer"
             placeholder={placeholder}
