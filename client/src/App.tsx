@@ -14,9 +14,11 @@ export function App() {
   };
 
   const handleCardClick = (data: CardData, color: string) => {
-    setSelectedCard(data);
-    setSelectedCardColor(color);
-    setIsModalOpen(true);
+    if (data.Stock !== "0") {
+      setSelectedCard(data);
+      setSelectedCardColor(color);
+      setIsModalOpen(true);
+    }
   };
 
   return (
