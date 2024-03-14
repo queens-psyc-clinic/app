@@ -4,7 +4,7 @@ import { ItemType } from "../models/libraryItem";
 
 interface CardProps {
   data: CardData;
-  openModal: () => void;
+  openModal: (color: string) => void;
 }
 
 const itemTitleToType: Record<string, ItemType> = {
@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({ data, openModal }: CardProps) => {
   const itemColorClass = getItemColorClass(itemType);
 
   const handleClick = () => {
-    openModal();
+    openModal(itemColorClass);
   };
 
   return (
