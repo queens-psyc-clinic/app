@@ -7,13 +7,15 @@ import cardSampleData, { CardData } from "./models/cardSampleData";
 export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: CardData) => {
+  const handleCardClick = (data: CardData, color: string) => {
     setSelectedCard(data);
+    setSelectedCardColor(color);
     setIsModalOpen(true);
   };
 
@@ -23,7 +25,7 @@ export function App() {
       <div className="m-10 pb-10 w-full mt-96 max-w-screen-lg">
         <div className="ml-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
           {cardSampleData.map((data) => (
-            <Card key={data.id} data={data} openModal={() => handleCardClick(data)} />
+            <Card key={data.id} data={data} openModal={(color) => handleCardClick(data, color)} />
           ))}
         </div>
       </div>
@@ -34,6 +36,7 @@ export function App() {
         isOpen={isModalOpen}
         closeModal={toggleModal}
         cardData={selectedCard}
+        cardColor={selectedCardColor}
       />
     </div>
   );

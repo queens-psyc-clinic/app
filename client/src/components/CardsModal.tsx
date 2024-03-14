@@ -8,6 +8,7 @@ interface CardsModalProps {
   isOpen: boolean;
   closeModal: () => void;
   cardData: CardData | null;
+  cardColor: string;
 }
 
 const CardsModal: React.FC<CardsModalProps> = ({
@@ -17,6 +18,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
   isOpen,
   closeModal,
   cardData,
+  cardColor,
 }: CardsModalProps) => {
   return (
     <div>
@@ -30,7 +32,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                 <h3>{cardData["Item Name"]}</h3>
                 <div className="flex flex-row text-xs pt-6">
                   <div className="">
-                    <p className="mr-4 rounded-full py-1 px-6 text-gray-900 bg-gray-100">
+                    <p className={`mr-4 rounded-full py-1 px-6 text-gray-900 bg-gray-100 ${cardColor}`}>
                       {cardData.Item.data.title}
                     </p>
                   </div>
@@ -43,7 +45,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                 <div className="flex flex-row gap-14 py-8">
                   <div className="">
                     <h3 className="font-bold">Level of Use</h3>
-                    <p className="mr-4 rounded-full py-1 px-6">
+                    <p className="mr-4 rounded-full py-1">
                       {cardData.Level}
                     </p>
                   </div>
