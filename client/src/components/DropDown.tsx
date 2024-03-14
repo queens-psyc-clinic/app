@@ -7,6 +7,7 @@ interface DropdownProps {
   important?: boolean;
   type?: string;
   options: string[];
+  onChange?: Function;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -14,6 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   label = "",
   important = false,
   type = "text",
+  onChange,
   options,
 }: DropdownProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -30,7 +32,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   const handleContainerClick = () => {
-    setShowDropdown(true);
+    setShowDropdown(!showDropdown);
   };
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             name="inputText"
             id="inputText"
             value={selectedOption}
+            onChange={(e) => (onChange ? onChange(e) : null)}
             readOnly
             className="block w-full pl-2 rounded-tl-lg rounded-bl-lg pr-4 bg-gray-100 border-0 py-2 text-black placeholder:text-black focus:ring-3 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-6 shadow-sm cursor-pointer"
             placeholder={placeholder}
@@ -80,7 +83,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </button>
         </div>
         {showDropdown && (
-          <div className="absolute z-10 mt-1 w-40 rounded-md bg-white shadow-lg max-h-40 overflow-y-auto">
+          <div className="absolute z-20 mt-1 w-40 rounded-md bg-white shadow-lg max-h-40 overflow-y-auto">
             {options.map((option, index) => (
               <button
                 key={index}

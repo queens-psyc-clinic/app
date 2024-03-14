@@ -16,6 +16,7 @@ import Card from "../components/Card";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
+import Filter2 from "../components/Filter2";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -38,7 +39,7 @@ const Dashboard = (props: { userRole: Role }) => {
     /*
   Fetch real data from backend, preprocess using services if needed, and then set it to the data useState above
    */
-    console.log(data);
+    // console.log(data);
   }, [data]);
 
   const deleteSelectedRows = () => {
@@ -53,9 +54,9 @@ const Dashboard = (props: { userRole: Role }) => {
           Queen’s Psychology Clinic Test Library
         </h1>
       )}
-      <section className="mt-6 space-y-6 mb-6">
+      <section className="mt-6 flex align-center space-x-4 mb-10">
         <SearchBar />
-        <Filter />
+        <Filter2 />
       </section>
 
       {/* ADMIN DASHBOARD */}
