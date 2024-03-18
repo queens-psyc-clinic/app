@@ -14,7 +14,7 @@ const Navbar = (props: { userType: Role }) => {
     props.userType === "admin" ? adminMenuOptions : clientMenuOptions;
 
   return (
-    <div className="h-[95%] w-[6rem] rounded-3xl bg-gray-100 py-4 flex flex-col items-center">
+    <div className="h-[95%] w-[7rem] rounded-3xl bg-gray-100 py-4 flex flex-col items-center">
       <img src={profilePic} alt="profile" className="mt-4"></img>
       <div
         className={`flex flex-col w-full justify-between items-center self-center justify-self-center mb-auto ${
@@ -25,16 +25,11 @@ const Navbar = (props: { userType: Role }) => {
           return (
             <Link to={option.url} className="w-full">
               <span
-                className={`w-[93%] flex items-center justify-center p-4 rounded-full cursor-pointer transition-all	 ${
-                  selected === option.page ? "bg-white pr-1" : null
+                className={`w-[93%] flex items-center flex-col justify-center p-4 pr-1 rounded-full cursor-pointer transition-all	 ${
+                  selected === option.page ? "bg-white px-1" : null
                 }`}
                 onClick={() => setSelected(option.page)}
               >
-                <span
-                  className={`w-2 h-2 bg-green-200 rounded-full ${
-                    selected === option.page ? "mr-3" : "hidden"
-                  }`}
-                ></span>
                 <i>
                   <img
                     src={
@@ -45,10 +40,10 @@ const Navbar = (props: { userType: Role }) => {
                     alt={`{${option.page} icon}`}
                   ></img>
                 </i>
+                <div>
+                  <span className="text-xs mt-1">{option.title}</span>
+                </div>
               </span>
-              <div>
-                <span className="text-xs mt-1">{option.title}</span>
-              </div>
             </Link>
           );
         })}
