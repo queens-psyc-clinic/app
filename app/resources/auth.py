@@ -1,17 +1,19 @@
 import re
+from typing import Optional
 from flask_restful import abort, fields, marshal_with, reqparse, Resource
+import pymysql
 
 from common.pbkdf2 import hash_password, verify_password
 from common.db import execute_sql_query
 
 
-def email(email_str: str):
+def check_email(email_str: str):
     """Return email_str if valid, raise an exception in other case."""
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if re.match(pattern, email_str):
         return email_str
     else:
-        raise ValueError('{} is not a valid email'.format(email_str))
+        abort(400)
 
 user_fields = {
     'ID': fields.String,
@@ -36,11 +38,14 @@ class User(Resource):
         """
         Create a new user
         ---
+        tags:
+          - Authentication
         parameters:
           - in: path
             name: email
             type: string
             required: true
+            pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
           - in: path
             name: password
             type: string
@@ -68,23 +73,35 @@ class User(Resource):
                 IsAdmin:
                   type: boolean
                   description: Permissions
+          400:
+            description: Invalid details
         """
+        
         args = user_parser.parse_args()
-        new_user = _default_user(args['UserName'], email)
-        new_user["Hash"] = hash_password(password)
-        _insert(new_user)
-        return _select_one({"ID": new_user["ID"]}), 201
+        if check_email(email):
+            if not args['UserName']:
+                abort(400, message='Invalid details')
+            new_user = _default_user(args['UserName'], email)
+            new_user["Hash"] = hash_password(password)
+            try:
+                _insert(new_user)
+            except:
+                abort(400, message='Invalid details')
+            return _select({"ID": new_user["ID"]}), 200
 
     @marshal_with(user_fields)
     def get(self, email, password):
         """
         Authenticate user
         ---
+        tags:
+          - Authentication
         parameters:
           - in: path
             name: email
             type: string
             required: true
+            pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
           - in: path
             name: password
             type: string
@@ -97,13 +114,14 @@ class User(Resource):
           400:
             description: Incorrect credentials
         """
-        id_hash = _select_cols_one({"Email": email}, ["ID", "Hash"])
-        if verify_password(id_hash["Hash"], password) and (id, hash):
-            return _select_one({'ID': id_hash['ID']}), 200
-        abort(400, message="Incorrect Password")
+        id_hash = _select_cols({"Email": check_email(email)}, ["ID", "Hash"])
+        id_hash = id_hash[0] if len(id_hash) else abort(400, message='Incorrect credentials')
+        if verify_password(id_hash['Hash'], password) and id_hash:
+            return _select({'ID': id_hash['ID']}), 200
+        abort(400, message="Incorrect credentials")
 
 
-def _default_user(name: str = "abc", email: str = "abc@xyz.ca"):
+def _default_user(name: str = "abc", email = "abc@xyz.ca"):
     return _make_user(hash(email), name, email, False)
 
 
@@ -118,8 +136,5 @@ def _insert(d): return execute_sql_query(
 def _select_cols(cn, cl): return execute_sql_query(
     "SELECT", "Users", conditions=cn, columns=cl)
 
+def _select(cn): return _select_cols(cn, None)
 
-def _select_cols_one(cn, cl): return _select_cols(cn, cl)[0]
-
-
-def _select_one(cn): return _select_cols_one(cn, None)

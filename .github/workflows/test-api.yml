@@ -1,0 +1,32 @@
+name: Backend Tests
+run-name: ${{ github.actor }} is testing out the API 🚀
+on: [pull_request]
+
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: 🔎 Check out repository code
+        uses: actions/checkout@v4
+
+      - name: 💸 setup docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: 👷 build containers
+        uses: docker/bake-action@v3
+        with: 
+          load: true
+
+      - name: 🍳 start backend
+        run: docker-compose up -d
+
+      - name: 🧪 test api
+        uses: schemathesis/action@v1
+        with:
+          schema: 'http://localhost:5050/apispec_1.json'
+          checks: 'all'
+
+      - name: 🧼 clean up
+        if: always()
+        run: docker-compose down
