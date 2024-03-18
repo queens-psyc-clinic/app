@@ -28,6 +28,10 @@ services:
       - mynetwork
     ports:
       - "5050:5000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./app:/app
 
 networks:
   mynetwork:
