@@ -106,8 +106,8 @@ def execute_sql_query(operation: str, table: str,
         column_part = ", ".join(columns) if columns else "*"
         condition_part = " AND ".join(
             [f"{key} = %s" for key in conditions.keys()]) if conditions else "1 = 1"
-        params = list(conditions.values()) if conditions else []
-        query = f"SELECT {column_part} FROM {table} WHERE {condition_part}"
+        params = [tuple(conditions.values())] if conditions else []
+        query = f"SELECT {column_part} FROM {table} WHERE {condition_part}" 
 
     elif operation == "INSERT":
         if not data or not isinstance(data, list) or not all(isinstance(row, dict) for row in data):

@@ -16,7 +16,7 @@ class Tests(Resource):
       ---
       responses:
         201:
-          description: A list of user items
+          description: A list of Tests
           schema:
             id: Tests
         500:
@@ -26,6 +26,49 @@ class Tests(Resource):
     if table is not None:
         return table, 201
     return abort(500, message="Internal error fetching results")
+
+  @marshal_with(test_fields)
+  def post(self):
+    """
+    Get tests with filters
+    ---
+    requestBody:
+      content:
+        application/json:
+          schema:
+            id: FilteredTests
+    parameters:
+    - in: body
+      name: data
+      description: filters to retrieve
+      schema:
+        id: FilteredTests
+        properties:
+          filters:
+            type: object
+            description: The filters to select tests
+      required: false
+    responses:
+      201:
+        description: Tests Retrieved
+        schema:
+          id: Tests
+      500:
+        description: Internal error updating tests
+    """
+    data = request.get_json()
+    filters = data['filters']
+
+    # if filters are empty, return all tests
+    if filters == {}:
+      tests = select_table("Tests")
+      if tests:
+        return tests, 201
+    # filters are not empty, return tests with filters
+    selected_tests = _select(filters)
+    if selected_tests is not None:
+      return selected_tests, 201
+    abort(500, message="Internal error retrieving tests")
 
   @marshal_with(test_fields)
   def put(self):
