@@ -9,6 +9,11 @@ test_fields = {
 }
 
 class Tests(Resource):
+  """
+  This is the Test controller for handling batch data.
+  All data is returned in JSON format
+  """
+
   @marshal_with(test_fields)
   def get(self):
     """
@@ -115,6 +120,13 @@ class Tests(Resource):
     abort(500, message="Internal error updating tests")
 
 def _update_tests(update_data, filters):
+  """
+  Performs an UPDATE SQL query on the Tests table in the database
+
+  Parameters:
+  - update_data (List[Dict[str, Any]]): The data to update for each test
+  
+  """
   execute_sql_query("UPDATE", "Tests", data=[update_data], conditions=filters)
 
 
