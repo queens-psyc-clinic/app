@@ -1,1012 +1,764 @@
-ID,Status,Type,Name,Edition Number,Ages,NumberOfParts,Location,Ordering Company,TestID
-1,1,Form,Adult Form,2,16 to 89,2,Archive Third Floor,WPS - 3rd ed available,1
-2,1,Form,Parent/Primary Caregiver Form,2,0 to 5,9,Archive Third Floor,WPS - 3rd ed available,1
-3,1,Form,Teacher/Daycare Provider Form,2,2 to 5,13,Archive Third Floor,WPS - 3rd ed available,1
-4,1,Form,Parent Form,2,5 to 21,1,Archive Third Floor,WPS - 3rd ed available,1
-5,1,Form,Teacher Form,2,5 to 21,1,Archive Third Floor,WPS - 3rd ed available,1
-6,1,Manual,,3,,1,Second Floor,WPS,1
-7,1,CD,Scoring Assistant and Intervention Planner,3,,1,Second Floor,WPS,1
-8,1,USB Stick,Scoring Assistant and Intervention Planner,3,,1,Ask Clinic Admin,WPS,1
-9,1,Book,Intervention Planner,3,,,,WPS,1
-10,1,Form,Adult Form,3,16 to 89,Around 50,Second Floor,WPS,1
-11,1,Form,Parent/Primary Caregiver Form,3,0 to 5,3,Second Floor,WPS,1
-12,1,Form,Teacher/Daycare Provider Form,3,2 to 5,4,Second Floor,WPS,1
-13,1,Form,Parent Form,3,5 to 21,22,Second Floor,WPS,1
-14,1,Form,Teacher Form,3,5 to 21,20,Second Floor,WPS,1
-15,1,Manual,,3,,,Online Platform,WPS Login,1
-16,1,Form,Adult-Self Form,3,16 to 89,,Online Platform,WPS Login,1
-17,1,Form,Parent Form,3,5 to 21,,Online Platform,WPS Login,1
-18,1,Form,Teacher Form,3,5 to 21,,Online Platform,WPS Login,1
-19,1,Scoring,,3,,,Computer-186 Side,USB Key Needed,1
-31,1,Manual,,,,1,Second Floor,WPS,5
-32,1,Form,Interview Booklet,,,10,Second Floor,WPS,5
-33,1,Form,Comprehensive Algorithm Form,,,20,Second Floor,WPS,5
-34,1,Manual,,2,,3,Second Floor,WPS,6
-35,1,Book,Training Videos Guidebook,2,,1,Second Floor,WPS,6
-36,1,Form,"Toddler Module
-Pre-Verbal/Single 
-Words",2,,14,Second Floor,WPS,6
-37,1,Form,"Module 1
-Pre-Verbal/Single 
-Words",2,,22,Second Floor,WPS,6
-38,1,Form,"Module 2
-Phrase Speech",2,,38,Second Floor,WPS,6
-39,1,Form,"Module 3
-Fluent Speech
-Child/Adolescent",2,,27,Second Floor,WPS,6
-40,1,Form,"Module 4
-Fluent Speech
-Adolescent/Adult",2,,40,Second Floor,WPS,6
-41,1,,"Test materials/stimulus items
-and
-Toddler Module Stimulus Items",2,,,,WPS,6
-42,1,CD,Training Protocols,2,,1,Second Floor,WPS,6
-43,1,CD,"Training and Practice Video (Part 2): Toddler Module
-Workshop Video 3: Toddler Module",2,,1,Second Floor,WPS,6
-44,1,Manual,,,,2,Archive Third Floor,WPS - 2nd ed available,6
-45,1,Form,"Module 1
-Pre-Verbal/Single 
-Words",,,3,Archive Third Floor,WPS - 2nd ed available,6
-46,1,Form,"Module 2
-Phrase Speech",,,10,Archive Third Floor,WPS - 2nd ed available,6
-47,1,Form,"Module 4
-Fluent Speech
-Adolescent/Adult",,,1,Archive Third Floor,WPS - 2nd ed available,6
-48,1,CD,"Workshop Video
-(DVD 1)",,,1,Archive Third Floor,WPS - 2nd ed available,6
-49,1,CD,"Workshop Video
-(DVD 2)",,,1,Archive Third Floor,WPS - 2nd ed available,6
-66,1,Manual,For Children and Adolescents,,,1,Second Floor,Pearson,8
-67,1,Form,"Diagnostic Form
-Children",,3 to 12,7,Second Floor,Pearson,8
-68,1,Form,"Diagnostic Form
-for Adolescents
-Revised",,12 to 18,9,Second Floor,Pearson,8
-69,1,Form,"Adolescent
-Ready Score Answer Document",,,5,Second Floor,Pearson,8
-70,1,Form,"Parent Form
-Ready Score Answer Document",,3 to 7,5,Second Floor,Pearson,8
-71,1,Form,"Teacher Form
-Ready Score Answer Document",,3 to 7,5,Second Floor,Pearson,8
-72,1,Form,"Parent Form
-Ready Score Answer Document",,8 to 12,5,Second Floor,Pearson,8
-73,1,Form,"Teacher Form
-Ready Score Answer Document",,8 to 12,5,Second Floor,Pearson,8
-74,1,Form,"Self Report Form
-Ready Score Answer Document",,8 to 12,5,Second Floor,Pearson,8
-75,1,Manual,For Adolescents and Adults,,,,,Pearson,8
-76,1,Form,Adult Readyscore Self-Report Forms/Answer Documents,,,,,Pearson,8
-77,1,Form,Adult Diagnostic Record Forms,,,,,Pearson,8
-78,1,Form,Treatment Monitoring Worksheet,,,,,Pearson,8
-79,1,Manual,,,,1,Second Floor,Pearson,9
-80,1,Form,Record Form,,,Around 25,Second Floor,Pearson,9
-81,1,Form,Response Sheet,,,,,Pearson,9
-82,1,Form,"For remote, on-screen administration",,,,Online Platform,Pearson Login,9
-83,1,Manual,,3,,1,Second Floor,Pearson,10
-84,1,Form,"Self-Report Interview
-(SRP)",3,6 to 7,Around 20,Second Floor,Pearson,10
-85,1,Form,"Self-Report Child
-(SRP)",3,8 to 11,Around 15,Second Floor,Pearson,10
-86,1,Form,"Self-Report Adolescent
-(SRP)",3,,,,Pearson,10
-87,1,Form,"Self-Report College
-(SRP)",3,18 to 25,Over 25,Second Floor,Pearson,10
-88,1,Form,"Parent Rating Scales (PRS)
-Preschool",3,2 to 5,Around 25,Second Floor,Pearson,10
-89,1,Form,"Teacher Rating Scales (TRS)
-Preschool",3,2 to 5,Around 25,Second Floor,Pearson,10
-90,1,Form,"Parent Rating Scales (PRS)
-Child",3,6 to 11,Around 50,Second Floor,Pearson,10
-91,1,Form,"Teacher Rating Scales (TRS)
-Child",3,6 to 11,Around 25,Second Floor,Pearson,10
-92,1,Form,"Parent Rating Scales (PRS)
-Adolescent",3,12 to 21,Around 25,Second Floor,Pearson,10
-93,1,Form,"Teacher Rating Scales (TRS)
-Adolescent",3,12 to 21,Around 25,Second Floor,Pearson,10
-94,1,Form,"Structured Developmental History
-(SDH)",3,,,,Pearson,10
-95,1,Form,"Student Observation System
-(SOS)",3,,,,Pearson,10
-96,1,Manual,,3,,,Online Platform,Pearson Login,10
-97,1,Form,"Administration, scoring and reporting for the TRS, PRS, SRP, SDH, PRQ or SOS",3,,,Online Platform,Pearson Login,10
-98,1,Manual,,2,,1,Second Floor,Pearson,11
-99,1,Form,Record Form,2,,Over 25,Second Floor,Pearson,11
-100,1,Form,Response Sheet,2,,,,Pearson,11
-105,1,Manual,,5,,1,Archive Third Floor,WPS - 6th ed available,15
-106,1,Form,Testing Booklet (green) (SHORT FORM),5,2 through 7,1,Archive Third Floor,WPS - 6th ed available,15
-107,1,Manual,,6,,1,Second Floor,WPS,15
-108,1,Form,Testing Booklet (beige),5,2 through 18,1,Archive Third Floor,WPS - 6th ed available,16
-109,1,Form,Testing Booklet (beige),6,2 to 100,Less than 50,Second Floor,WPS,16
-110,1,Form,Testing Booklet (blue),5,2 through 18,1,Archive Third Floor,WPS - 6th ed available,17
-111,1,Form,Testing Booklet (blue),6,2 to 100,Over 50,Second Floor,WPS,17
-112,1,Form,Testing Booklet (green) (FULL FORM),6,2 through 100,Around 30,Second Floor,WPS,18
-113,1,Form,Testing Booklet (green) (SHORT FORM),6,2 through 7,17,Second Floor,WPS,18
-114,1,Manual,***,,,1,Second Floor,Pearson,19
-115,1,Form,Record Form,,,Around 20,Second Floor,Pearson,19
-116,1,Manual,Examiner's Manual,3,,1,Second Floor,Pearson - 4th ed available,20
-117,1,Book,Stimulus Book,3,,1,Second Floor,Pearson - 4th ed available,20
-118,1,Form,Record Form,3,,14,Second Floor,Pearson - 4th ed available,20
-119,1,Form,Parent/Teacher Conference Form,3,,Around 25,Second Floor,Pearson - 4th ed available,20
-120,1,Manual,,,,1,Second Floor,Pearson,21
-121,1,Form,Record Form,,,Around 20,Second Floor,Pearson,21
-122,1,Form,Response Sheet,,,,,Pearson,21
-123,1,Kit,Books and booklets,3,,1,Archive Third Floor,Pearson - 5th ed available,22
-124,1,Manual,,2,,,,Pearson,23
-125,1,Form,Combination Booklet,2,,8,Second Floor,Pearson,23
-126,1,Form,Depression Inventory Response Sheet,2,,,,Pearson,23
-127,1,Form,Anxiety Inventory Response Sheet,2,,,,Pearson,23
-128,1,Form,Anger Inventory Response Sheet,2,,,,Pearson,23
-129,1,Form,Disruptive Behavior Inventory Response Sheet,2,,,,Pearson,23
-130,1,Form,Self Concept Inventory Response Sheet,2,,,,Pearson,23
-131,1,Form,Record Form,,,Around 25,Second Floor,MHS,24
-132,1,Form,Record Form,,,Around 25,Second Floor,MHS,25
-133,1,Form,Record Form,,,Around 25,Second Floor,MHS,26
-134,1,Form,Record Form,,,Around 25,Second Floor,MHS,27
-135,1,Form,Record Form,,,Around 25,Second Floor,MHS,28
-136,1,Form,Record Form,,,Around 25,Second Floor,MHS,29
-137,1,Manual,Technical Manual,,,1,Second Floor,MHS,30
-138,1,Form,Profile Report,,,,Online Platform,MHS Login,30
-139,1,Manual,,2,,1,Archive Third Floor,Pearson - The Enhanced Version available,31
-140,1,Manual,,2,,1,Second Floor,WPS,32
-141,1,Manual,,,,1,Archive Third Floor,WPS - 2nd ed available,32
-142,1,Form,Rating Sheet,,,9,Archive Third Floor,WPS - 2nd ed available,32
-143,1,Form,Rating Booklet,2,,Around 20,Second Floor,WPS,33
-144,1,Form,Rating Booklet,2,,Around 25,Second Floor,WPS,34
-145,1,Form,Rating Booklet,2,,Around 20,Second Floor,WPS,35
-146,1,Manual,,,,1,Second Floor,Pearson,36
-147,1,Form,Record Form,,,Around 25,Second Floor,Pearson,36
-150,1,Manual,Technical Manual,2,,1,Second Floor,MHS,38
-151,1,Form,Parent,2,,23,Second Floor,MHS,38
-152,1,Form,Teacher,2,,18,Second Floor,MHS,38
-153,1,Form,Self-Report,2,,21,Second Floor,MHS,38
-154,1,Form,Self-Report Short,2,,Around 25,Second Floor,MHS,38
-155,1,Manual,Technical Manual,,,1,Archive Third Floor,MHS - 2nd ed available,38
-156,1,Form,Record Form,,,3,Archive Third Floor,MHS - 2nd ed available,38
-157,1,Manual,,,,1,Archive Third Floor,PAR,39
-158,1,Form,"Record Form
-Third Revision (1976)",,,Around 50,Archive Third Floor,PAR,39
-159,1,Install Disk,"Scoring Assistant
-Windows Version 1.0",4,,1,Archive Third Floor,Pearson - 5th ed available,40
-160,1,CD,"Scoring Assistant
-Windows Version 1.0.2",4,,1,Archive Third Floor,Pearson - 5th ed available,40
-161,1,Form,Record Form 1,4,5 to 8,10,Archive Third Floor,Pearson - 5th ed available,40
-162,1,Form,Record Form 2,4,9 to 21,Around 25,Archive Third Floor,Pearson - 5th ed available,40
-163,1,Form,Observational Rating Scale,4,,Over 50,Archive Third Floor,Pearson - 5th ed available,40
-164,1,Kit,Manual and testing books,4,,1,Archive Third Floor,Pearson - 5th ed available,40
-165,1,Kit,"Kit Contents:
--Examiner's Manual 
--Technical Manual  
--Stimulus Book
--Record Form (found on second floor in filing cabinet)",5,,1,Second Floor,Pearson,41
-166,1,Form,Record Form,5,,Around 25,Second Floor,Pearson,41
-171,1,Manual,,2,,1,Archive Third Floor,MHS,43
-172,1,Manual,,,,1,Archive Third Floor,MHS - 2nd ed available,43
-173,1,Form,"Record Form
-Adolescent",,,25,Archive Third Floor,MHS - 2nd ed available,43
-174,1,Form,Record Form,,5 to 8,13,Second Floor,MHS,44
-175,1,Form,Record Form,,9 to 16,11,Second Floor,MHS,44
-176,1,Manual,,,,,,MHS,44
-177,1,Form,Stimulus Booklet #1,,,,,MHS,44
-178,1,Form,Stimulus Booklet #2,,,,,MHS,44
-179,1,,Response Chip Set,,,,,MHS,44
-180,1,,Grid and Picture Set,,,,,MHS,44
-181,1,Manual,,3,,1,Second Floor,MHS - 4th ed available,45
-182,1,USB Stick,,3,,1,Ask Clinic Admin,MHS - 4th ed available,45
-183,1,Form,"Self-Report 
-Response Booklet",3,,16,Second Floor,MHS - 4th ed available,45
-184,1,Form,Self-Report Short,3,,11,Second Floor,MHS - 4th ed available,45
-185,1,Form,"Teacher
-Response Booklet",3,,32,Second Floor,MHS - 4th ed available,45
-186,1,Form,Teacher Short,3,,1,Second Floor,MHS - 4th ed available,45
-187,1,Form,"Parent
-Response Booklet",3,,34,Second Floor,MHS - 4th ed available,45
-188,1,Form,Parent Short,3,,3,Second Floor,MHS - 4th ed available,45
-189,1,,DSM-5 Supplement,3,,,,MHS - 4th ed available,45
-190,1,Scoring,,3,,,Computer-184 Side,USB Key Needed,45
-191,1,Scoring,,3,,,Computer-186 Side,USB Key Needed,45
-192,1,Form,Self-Report/Parent/Teacher,3,,,Online Platform,MHS Login,45
-196,1,Manual,"Adult Form
-Professional Manual",,,1,Second Floor,PAR,49
-197,1,Form,Adult Item Booklet—Actual Form,,,10,Second Floor,PAR,49
-198,1,Form,Adult Answer Sheet,,,14,Second Floor,PAR,49
-199,1,Form,Adult Item Booklet—Ideal Form,,,,,PAR,49
-200,1,Manual,An Update on Research Applications and Validity (Manual Supplement),,,,,PAR,49
-201,1,Manual,"Youth Form
-Professional Manual",,,,,PAR,49
-202,1,Form,Youth Item Booklet—Actual Form,,,,,PAR,49
-203,1,Form,Youth Item Booklet—Ideal Form,,,,,PAR,49
-204,1,Form,Youth Answer Sheet,,,,,PAR,49
-212,1,Manual,,,,1,Archive Third Floor,MHS,56
-213,1,Form,Record Form,,,Around 20,Archive Third Floor,MHS,56
-214,1,Manual,Professional Manual,2,,1,Archive Third Floor,PAR - 3rd ed available,57
-215,1,Form,Answer Sheet,2,,Around 20,Archive Third Floor,PAR - 3rd ed available,57
-216,1,Manual,Professional Manual,3,,1,Second Floor,PAR,57
-217,1,Form,Item Booklet,3,,Around 25,Second Floor,PAR,57
-218,1,Form,Answer Sheet,3,,Around 25,Second Floor,PAR,57
-219,1,Form,Percentile/T-Score Profile Form,3,,,,PAR,57
-220,1,Form,Symptom Checklist,3,,,,PAR,57
-221,1,Manual,Referral Form Manual,3,,,,PAR,57
-222,1,Form,Referral Form,3,,,,PAR,57
-223,1,Kit,"Kit Contents:
--
-Manual and question book
-Form A",3,,1,Second Floor,Pearson,58
-224,1,Form,"Record Form
-Form A",3,,Around 25,Second Floor,Pearson,58
-233,1,Kit,"Manual and testing materials
-Model 32025",,,1,Archive Third Floor,Lafayette Instrument,61
-235,1,Manual,,,,"3
-(1 is 2nd ed manual)",Second Floor,SIGMA,63
-236,1,Book,Applications Handbook,,,1,Second Floor,SIGMA,63
-237,1,Form,Record Form,,,Around 30,Second Floor,SIGMA,63
-238,1,Book,Questionnaire Booklet,,,27,Second Floor,SIGMA,63
-239,1,Book,"JVIS Basic Interest Descriptions
-(sheets)",,,16,Second Floor,SIGMA,63
-240,1,Manual,Examiner's Manual,,,1,Second Floor,WPS,64
-241,1,Form,"Profile/Examiner Record Form
-Elementary",,6 to 11,Around 50,Second Floor,WPS,64
-242,1,Form,"Profile/Examiner Record Form
-Secondary",,12 to 21,Around 50,Second Floor,WPS,64
-243,1,USB Stick,,3,,1,Ask Clinic Admin,Pearson,65
-244,1,Kit,"Kit Contents:
--",3,,"1 
-(Labelled as Kit B)",Second Floor,Pearson,65
-245,1,Form,"Record Form
-Form B",3,,Around 25,Second Floor,Pearson,65
-246,1,Form,"Response Booklet
-Form B",3,,Around 25,Second Floor,Pearson,65
-248,1,Manual,Technical Manual,2,,2,Second Floor,MHS,67
-249,1,Form,Self-Report Form,2,,Around 20,Second Floor,MHS,67
-250,1,Form,Parent Form,2,,Around 50,Second Floor,MHS,67
-251,1,Manual,Technical Manual,,,1,Archive Third Floor,MHS - 2nd ed available,67
-252,1,Form,Record Form,,,1,Archive Third Floor,MHS - 2nd ed available,67
-253,1,Manual,Professional Manual,,,1,Second Floor,PAR,68
-254,1,Form,Interview Booklet,,,Around 25,Second Floor,PAR,68
-256,1,CD,"Interpretive System
-Version 3.11",,,1,Second Floor,PAR - version 5 available,70
-257,1,CD,"Interpretive System
-Version 5.00",,,1,Second Floor,PAR,70
-258,1,Manual,"Manual for Administration, Scoring, and Interpretation",,,1,Second Floor,Pearson,70
-259,1,Book,Hardcover Test Booklet,,,1,Second Floor,Pearson,70
-260,1,Book,Softcover Test Booklet,,,18,Second Floor,Pearson,70
-261,1,Form,Answer Sheet for Hardcover,,,1,Second Floor,Pearson,70
-262,1,Manual,User's Guide,,,,,Pearson,70
-263,1,Manual,Manual Supplement,,,,,Pearson,70
-264,1,CD,Audio CD,,,,,Pearson,70
-265,1,,Validity/Clinical Scales Answer Key Set For Softcover,,,,,Pearson,70
-266,1,,Validity/Clinical Scales Answer Key Set For Hardcover,,,,,Pearson,70
-267,1,,Clinical Subscales Answer Key Set For Softcover,,,,,Pearson,70
-268,1,,Clinical Subscales Answer Key Set For Hardcover,,,,,Pearson,70
-269,1,,Content/Supplementary Scales Answer Key Set For Softcover,,,,,Pearson,70
-270,1,,Content/Supplementary Scales Answer Key Set For Hardcover,,,,,Pearson,70
-271,1,,Content Component Scales Answer Key Set For Softcover,,,,,Pearson,70
-272,1,,Content Component Scales Answer Key Set For Hardcover,,,,,Pearson,70
-273,1,Form,Answer Sheet for Softcover,,,,,Pearson,70
-274,1,Form,Handscore Answer Sheet For Softcover,,,,,Pearson,70
-275,1,Form,Handscore Answer Sheet For Hardcover,,,,,Pearson,70
-276,1,Form,Validity/Clinical Scales Profile Forms,,,,,Pearson,70
-277,1,Form,Clinical Subscales Profile Forms,,,,,Pearson,70
-278,1,Form,Content Scales Profile Forms,,,,,Pearson,70
-279,1,Form,Content Component Scales Profile Forms,,,,,Pearson,70
-280,1,Form,Supplementary Scales Profile Forms,,,,,Pearson,70
-281,1,,Content Component Scales Test Monograph,,,,,Pearson,70
-282,1,,Critical Item Set Test Monograph,,,,,Pearson,70
-283,1,,Assessing Readability Test Monograph,,,,,Pearson,70
-284,1,Scoring,,,,,Computer-184 Side,,70
-285,1,Form,Profile for Validity Scales,,,Around 25,Second Floor,Pearson,71
-286,1,Form,Profile for Higher-Order (H-O) and Restructured Clinical (RC) Scales,,,Around 25,Second Floor,Pearson,71
-287,1,Form,Profile for Somatic/Cognitive and Internalizing Scales,,,Around 25,Second Floor,Pearson,71
-288,1,Form,Profile for Externalizing and Interpersonal Scales,,,Around 25,Second Floor,Pearson,71
-289,1,Form,Profile for Personality Psychopathology Five (PSY-5) Scales,,,Around 25,Second Floor,Pearson,71
-290,1,Form,Hand-Scoring Answer Sheet,,,Around 25,Second Floor,Pearson,71
-291,1,Book,Durable Spiral-Bound Test Booklet,,,1,Second Floor,Pearson,71
-292,1,Manual,,,,,,Pearson,71
-293,1,Manual,User's Guide For Reports,,,,,Pearson,71
-294,1,CD,Audio CD,,,,,Pearson,71
-295,1,Book,Softcover Test Booklet,,,,,Pearson,71
-296,1,,Validity Scales Answer Key Set,,,,,Pearson,71
-297,1,,Higher-Order and Restructured Clinical Answer Key Set,,,,,Pearson,71
-298,1,,Externalizing and Interpersonal Scales Answer Key Set,,,,,Pearson,71
-299,1,,Somatic/Cognitive and Internalizing Answer Key Set,,,,,Pearson,71
-300,1,,PSY-5 Handscore Answer Key Set,,,,,Pearson,71
-301,1,CD,Adult Interpretive System Version 3,2,,1,Second Floor,PAR - version 4 available,72
-302,1,Manual,Professional Manual,2,,1,Second Floor,Pearson,72
-303,1,Manual,User's Guide,2,,1,Second Floor,Pearson,72
-304,1,Manual,Manual for administration and scoring,2,,3,Second Floor,Pearson,72
-305,1,Book,Softcover Test Booklet,2,,2,Second Floor,Pearson,72
-306,1,Form,"Profile for Supplementary 
-Scales***",2,,Around 25,Second Floor,Pearson,72
-307,1,Form,"Profile for Basic 
-Scales***",2,,Over 75,Second Floor,Pearson,72
-308,1,Form,Profile for Content Scales***,2,,Over 75,Second Floor,Pearson,72
-309,1,Form,"Softcover Answer Sheet
-Handscoring",2,,5,Second Floor,Pearson,72
-310,1,Form,TRIN Scale Recording Grid,2,,12,Second Floor,Pearson,72
-311,1,Form,VRIN Scale Recording Grid,2,,12,Second Floor,Pearson,72
-312,1,Scoring,,2,,,Computer-184 Side,,72
-313,1,Manual,,2,,,Computer-184 Side,,72
-314,1,Form,Answer Sheet,2,,3,Second Floor,Pearson,73
-315,1,Manual,Professional Manual,,,1,Second Floor,PAR,74
-316,1,Form,Hand-Scoring Answer Sheet,,,Over 25,Second Floor,PAR,74
-317,1,Form,Item Booklet - Form S,,,5,Second Floor,PAR,74
-318,1,Form,"Item Booklet - Form R
-(Women)",,,10,Second Floor,PAR,74
-319,1,Form,"Item Booklet - Form R
-(Men)",,,13,Second Floor,PAR,74
-320,1,Form,Form R (Ratings) Profile Form,,,Around 25,Second Floor,PAR,74
-321,1,Form,Form S (Self-Report) Profile Form,,,Around 50,Second Floor,PAR,74
-322,1,,Bibliography for the NEO PI-R and NEO-FFI,,,1,Second Floor,PAR,74
-323,1,Form,College Student Profile Form,,,,,PAR,74
-324,1,Kit,"Kit Contents:
--",2,,1,Second Floor,Pearson,75
-325,1,Form,Record Form,2,3 to 4,Around 25,Second Floor,Pearson,75
-326,1,Form,Response Booklet,2,3 to 4,Around 25,Second Floor,Pearson,75
-327,1,Form,Response Booklet,2,5 to 16,5,Second Floor,Pearson,75
-328,1,Form,Record Form,,3 to 4,1,Archive Third Floor,Pearson - 2nd ed available,75
-329,1,Form,Record Form,,5 to 12,1,Archive Third Floor,Pearson - 2nd ed available,75
-330,1,Form,Response Booklet,,3 to 4,1,Archive Third Floor,Pearson - 2nd ed available,75
-331,1,Form,Response Booklet,,5 to 12,1,Archive Third Floor,Pearson - 2nd ed available,75
-335,1,Manual,Professional Manual,,,2,Second Floor,PAR,77
-336,1,Book,Item Booklet,,,7,Second Floor,PAR,77
-337,1,Form,Profile Form,,,Over 25,Second Floor,PAR,77
-338,1,Form,Critical Items Form,,,Over 50,Second Floor,PAR,77
-339,1,Form,Answer Sheet,,,Around 30,Second Floor,PAR,77
-340,1,Form,Structural Summary Form,,,,,PAR,77
-341,1,Manual,Professional Manual,,,1,Second Floor,PAR,78
-342,1,Book,Item Booklet,,,2,Second Floor,PAR,78
-343,1,Form,Profile Form,,,10,Second Floor,PAR,78
-344,1,Form,Critical Items Form,,,around 25,Second Floor,PAR,78
-345,1,Form,Answer Sheet,,,12,Second Floor,PAR,78
-351,1,Form,Record Form,4,,Around 25,Second Floor,Pearson - 5th ed available,82
-352,1,Manual,Examiner's Manual,4,,,,Pearson - 5th ed available,82
-353,1,Manual,Picture Manual,4,,,,Pearson - 5th ed available,82
-357,1,Book,TestKit for Form IIIB,3,,1,Archive Third Floor,Pearson - 5th ed available,84
-358,1,Form,"Performance Record
-Form IIIA",3,,Around 25,Archive Third Floor,Pearson - 5th ed available,84
-359,1,Form,"Performance Record
-Form IIIB",3,,Around 10,Archive Third Floor,Pearson - 5th ed available,84
-360,1,CD,"ASSIST
-Scoring and Reporting System
-Version 1.1",4,,2,Archive Third Floor,Pearson - 5th ed available,84
-361,1,Form,"Record Form
-Form A",4,,7,Archive Third Floor,Pearson - 5th ed available,84
-362,1,Form,"Record Form
-Form B",4,,2,Archive Third Floor,Pearson - 5th ed available,84
-363,1,Kit,"Kit Contents:
--
-Manual and question book
-Form A",5,,1,Second Floor,Pearson,84
-364,1,Form,"Record Form
-Form A",5,,12,Second Floor,Pearson,84
-365,1,Manual,,,,2,Archive Third Floor,SIGMA,85
-366,1,Book,Form E,,,1,Archive Third Floor,SIGMA,85
-367,1,Manual,Professional Manual,2,,1,Second Floor,PAR,86
-368,1,Form,Test Booklet,2,,6,Second Floor,PAR,86
-369,1,Form,Summary/Profile Form,2,,9,Second Floor,PAR,86
-375,1,Manual,,,,1,Second Floor,Pearson,90
-376,1,Form,Combination Booklet,,,Around 20,Second Floor,Pearson,90
-377,1,Form,Emotional Reactivity Scale Booklet,,,,,Pearson,90
-378,1,Form,Sense of Mastery Scale Booklet,,,,,Pearson,90
-379,1,Form,Sense of Relatedness Scale Booklet,,,,,Pearson,90
-380,1,Kit,"Kit Contents:
--",5,,1,Second Floor,PAR,91
-381,1,Form,Record Form,5,,Around 25,Second Floor,PAR,91
-382,1,Manual,,,,1,Second Floor,WPS,92
-383,1,Form,"AutoScore Form
-Lifetime",,,14,Second Floor,WPS,92
-384,1,Form,"AutoScore Form
-Current",,,14,Second Floor,WPS,92
-385,1,Manual,Preliminary Manual,,,1,Second Floor,PAR,93
-386,1,Form,Record Form***,,,Around 25,Second Floor,PAR,93
-387,1,Form,Record Form***,,,Around 25,Second Floor,PAR,94
-388,1,Manual,,2,,1,Second Floor,PAR,95
-389,1,Form,"Profile Sheet
-School-Age
-(Package with male, female, and AutoScore forms)",2,,Around 30,Second Floor,PAR,95
-390,1,Form,"Profile Sheet
-Adult (Self-Report)",2,,Around 20,Second Floor,PAR,95
-391,1,Form,"Profile Sheet
-Preschool",2,,Around 20,Second Floor,PAR,95
-392,1,Form,"Profile Sheet
-Adult (Relative/Other Report)",2,,Around 20,Second Floor,PAR,95
-393,1,Manual,,2,,,Online Platform,WPS Login,95
-394,1,Form,School-Age Form,2,4 to 18,,Online Platform,WPS Login,95
-395,1,Form,Adult Relative/Other Report Form,2,19 & up,,Online Platform,WPS Login,95
-396,1,Form,Adult Self-Report Form,2,19 & up,,Online Platform,WPS Login,95
-401,1,Form,Procedural Guide and Scoring Sheet,,,2,Second Floor,Pearson - 2nd ed available,98
-402,1,Manual,,,,,,Pearson - 2nd ed available,98
-403,1,Kit,,,,1,Archive Third Floor,WPS - 5th ed available,99
-404,1,Manual,Professional Manual,,,1,Second Floor,PAR,100
-405,1,Form,Profile Form: Females,,8 to 12,Around 20,Second Floor,PAR,100
-406,1,Form,Profile Form: Males,,8 to 12,Around 20,Second Floor,PAR,100
-407,1,Form,Booklet,,,Around 20,Second Floor,PAR,100
-408,1,Manual,Professional Manual,2,,1,Second Floor,PAR,101
-409,1,Form,Profile Form,2,,Around 30,Second Floor,PAR,101
-410,1,Form,Item Booklet,2,,8,Second Floor,PAR,101
-411,1,Form,Answer Sheet,2,,Around 25,Second Floor,PAR,101
-412,1,Manual,Professional Manual,,,1,Archive Third Floor,PAR - 2nd ed available,101
-413,1,Form,Profile Form: Females,,,Around 20,Archive Third Floor,PAR - 2nd ed available,101
-414,1,Form,Profile Form: Males,,,Around 20,Archive Third Floor,PAR - 2nd ed available,101
-415,1,Form,Item Booklet,,,4,Archive Third Floor,PAR - 2nd ed available,101
-416,1,Form,Answer Sheet,,,1,Archive Third Floor,PAR - 2nd ed available,101
-417,1,Manual,Survey Forms Manual,2,,1,Archive Third Floor,AGS Publishing - 3rd ed available,102
-418,1,Form,"Record Booklet
-Survey Interview Form",2,,8,Archive Third Floor,AGS Publishing - 3rd ed available,102
-419,1,Form,"Record Booklet
-Parent/Caregiver Rating Form",2,,19,Archive Third Floor,AGS Publishing - 3rd ed available,102
-420,1,Form,"Survey Forms
-Report to Caregivers",2,,Around 25,Archive Third Floor,AGS Publishing - 3rd ed available,102
-421,1,Form,"Survey Forms
-Report to Parents",2,,Around 25,Archive Third Floor,AGS Publishing - 3rd ed available,102
-422,1,Manual,,3,,1,Second Floor,Pearson,102
-423,1,Form,Domain-Level Interview Form,3,,Around 25,Second Floor,Pearson,102
-424,1,Form,Domain-Level Parent/Caregiver Form,3,,Around 20,Second Floor,Pearson,102
-425,1,Form,Domain-Level Teacher Form,3,,25,Second Floor,Pearson,102
-426,1,Form,Comprehensive Interview Form,3,,15,Second Floor,Pearson,102
-427,1,Form,"Comprehensive Interview Form 
-Without Item-Level Probes",3,,25,Second Floor,Pearson,102
-428,1,Form,Comprehensive Parent/Caregiver Form,3,,23,Second Floor,Pearson,102
-429,1,Form,Comprehensive Teacher Form,3,,25,Second Floor,Pearson,102
-430,1,Kit,"French version
-(in kit with WISC-IV French)",3,,1,Archive Third Floor,Pearson - 4th ed available,103
-431,1,Form,Record Form,3,,Over 50,Archive Third Floor,Pearson - 4th ed available,103
-432,1,Form,Response Booklet,3,,11,Archive Third Floor,Pearson - 4th ed available,103
-433,1,CD,"Scoring Assistant
-Windows Version 1.0",3,,1,Archive Third Floor,Pearson - 4th ed available,103
-434,1,Install Disk,"Scoring Assistant
-Windows Version 1.0",3,,1,Archive Third Floor,Pearson - 4th ed available,103
-435,1,CD,"Scoring Assistant
-Windows Version 1.0.0",4,,6,Second Floor,Pearson,103
-436,1,Kit,,4,,"7
-(Labelled as Kit A, Kit B, Kit C, Kit D, Kit E, Kit F, and Kit G)",Second Floor,Pearson,103
-437,1,Form,Record Form,4,,Over 100,Second Floor,Pearson,103
-438,1,Form,"Response Booklet 1
-Symbol Search
-Coding",4,,Over 100,Second Floor,Pearson,103
-439,1,Form,"Response Booklet 2
-Cancellation",4,,Over 50,Second Floor,Pearson,103
-440,1,Scoring,,4,,,Computer-184 Side,PsychCorp II,103
-441,1,Scoring,,,,,Online Platform,Pearson Login,103
-442,1,Kit,,2,,1,Second Floor,Pearson,104
-443,1,Form,Record Form,2,,Over 50,Second Floor,Pearson,104
-444,1,Form,Record Form,,,6,Archive Third Floor,Pearson - 2nd ed available,104
-445,1,Form,Canadian Record Form,3,,10,Archive Third Floor,Pearson - 5th ed available,105
-446,1,Form,"Mazes
-Response Booklet",3,,22,Archive Third Floor,Pearson - 5th ed available,105
-447,1,Form,"Symbol Search
-Response Booklet",3,,8,Archive Third Floor,Pearson - 5th ed available,105
-448,1,Kit,"French version
-(in kit with WAIS-III French)",4,,1,Archive Third Floor,Pearson - 5th ed available,105
-449,1,CD,"Scoring Assistant
-Windows Version 1.0.3",4,,1,Archive Third Floor,Pearson - 5th ed available,105
-450,1,Manual,,4,,1,Archive Third Floor,Pearson - 5th ed available,105
-451,1,Book,"Technical Report #4
-General Ability Index",4,,1,Archive Third Floor,Pearson - 5th ed available,105
-452,1,Form,"Record Form
-Canadian Edition",4,,Over 50,Archive Third Floor,Pearson - 5th ed available,105
-453,1,Form,"Integrated
-Record Form",4,,1,Archive Third Floor,Pearson - 5th ed available,105
-454,1,Form,"Coding
-Symbol Search
-Response Booklet 1***",4,,Around 30,Archive Third Floor,Pearson - 5th ed available,105
-455,1,Form,"Cancellation
-Response Booklet 2",4,,Around 30,Archive Third Floor,Pearson - 5th ed available,105
-456,1,Form,"Integrated
-Response Booklet 3",4,,1,Archive Third Floor,Pearson - 5th ed available,105
-457,1,Kit,,5,,"6
-(Labelled as Kit A, C, Kit D, PCQ Kit F, PCQ Kit G, and 1 has no label and is in a blue bag)",Second Floor,Pearson,105
-458,1,Form,Record Form***,5,,Over 100,Second Floor,Pearson,105
-459,1,Form,"Response Booklet 1***
-Coding
-Symbol Search",5,,Over 100,Second Floor,Pearson,105
-460,1,Form,"Response Booklet 2***
-Cancellation",5,,Over 50,Second Floor,Pearson,105
-461,1,CD,"Scoring Assistant
-Windows Version 1.0",4,,1,Second Floor,Pearson,106
-462,1,CD,Training CD,4,,1,Second Floor,Pearson,106
-463,1,Form,"Response Booklet
-for Brief Cognitive Status Exam and Visual Reproduction I and II",4,,Over 50,Second Floor,Pearson,106
-464,1,Form,"Record Form
-Adult Battery",4,16 to 69,Less than 50,Second Floor,Pearson,106
-465,1,Form,"Record Form
-Older Adult Battery",4,65 to 90,Around 25,Second Floor,Pearson,106
-466,1,Kit,"Testing materials
-Scoring Template
-Stimulus books 1 and 2
-2 manuals",4,,1,Second Floor,Pearson,106
-469,1,Form,Record Form,3,2:6 to 3:11,Over 50,Archive Third Floor,Pearson - 4th ed available,108
-470,1,Form,Record Form,3,4:0 to 7:3,Around 25,Archive Third Floor,Pearson - 4th ed available,108
-471,1,Form,Response Booklet,3,,Around 30,Archive Third Floor,Pearson - 4th ed available,108
-472,1,Kit,,4,,1,Second Floor,Pearson,108
-473,1,Form,Record Form,4,2:6 to 3:11,20,Second Floor,Pearson,108
-474,1,Form,Record Form,4,4:0 to 7:7,17,Second Floor,Pearson,108
-475,1,Form,"Response Booklet 1
-Bug Search",4,,20,Second Floor,Pearson,108
-476,1,Form,"Response Booklet 2
-Cancellation",4,,21,Second Floor,Pearson,108
-477,1,Form,"Response Booklet 3
-Animal Coding",4,,23,Second Floor,Pearson,108
-478,1,Manual,Administrator's Manual***,5,,1,Second Floor,Pearson,109
-479,1,Book,Questionnaire Booklet,5,,8,Second Floor,Pearson,109
-480,1,Form,Answer Sheet,5,,Around 20,Second Floor,Pearson,109
-481,1,Form,"Individual Record Form
-Profile Sheet",5,,Around 20,Second Floor,Pearson,109
-482,1,Manual,Administration Manual,3,,,,Pearson - 4th ed available,110
-483,1,Manual,Technical Manual,3,,,,Pearson - 4th ed available,110
-484,1,Book,Picture Book,3,,,,Pearson - 4th ed available,110
-485,1,Book,Stimulus Book,3,,,,Pearson - 4th ed available,110
-486,1,Form,Observational Checklist,3,,,,Pearson - 4th ed available,110
-487,1,Form,Cognitive Record Forms,3,,,,Pearson - 4th ed available,110
-488,1,Form,Language Record Forms,3,,,,Pearson - 4th ed available,110
-489,1,Form,Motor Record Forms,3,,,,Pearson - 4th ed available,110
-490,1,,Stimulus items/toys,3,,,,Pearson - 4th ed available,110
-491,1,Form,Cognitive Language Motor Record Forms,3,,18,Second Floor,Pearson - 4th ed available,110
-492,1,Form,Caregiver Report Forms,3,,19,Second Floor,Pearson - 4th ed available,110
-493,1,Form,Social-Emotional and Adaptive Behavior Questionnaire,3,,17,Second Floor,Pearson - 4th ed available,110
-494,1,Form,Scoring and Recording Form,,,Around 25,Archive Third Floor,PAR - 2nd ed available,111
-495,1,Manual,Professional Manual,2,,1,Second Floor,PAR,112
-496,1,Book,Fast Guide,2,,1,Second Floor,PAR,112
-497,1,Form,Teacher Form,2,,Around 50,Second Floor,PAR,112
-498,1,Form,Teacher Form Scoring Summary,2,,Around 50,Second Floor,PAR,112
-499,1,Form,Parent Form,2,,Around 30,Second Floor,PAR ,112
-500,1,Form,Parent Form Scoring Summary,2,,Around 50,Second Floor,PAR ,112
-501,1,Form,Self-Report Form,2,,18,Second Floor,PAR ,112
-502,1,Form,Self-Report Form Scoring Summary,2,,Around 30,Second Floor,PAR ,112
-503,1,Form,Self + score reports,2,,,Online Platform,PAR Login,112
-504,1,Form,Parent Form + score reports,2,,,Online Platform,PAR Login,112
-505,1,Form,Teacher Form + score reports,2,,,Online Platform,PAR Login,112
-506,1,Manual,Professional Manual,,,1,Archive Third Floor,PAR - 2nd ed available,112
-507,1,Form,Teacher Form,,,15,Archive Third Floor,PAR - 2nd ed available,112
-508,1,Form,Teacher Form Scoring Summary,,,Around 50,Archive Third Floor,PAR - 2nd ed available,112
-509,1,Form,Parent Form,,,9,Archive Third Floor,PAR - 2nd ed available,112
-510,1,Form,Parent Form Scoring Summary,,,3,Archive Third Floor,PAR - 2nd ed available,112
-511,1,Manual,Professional Manual,,,1,Second Floor,PAR,113
-512,1,Form,Informant Report Form,,,Around 25,Second Floor,PAR,113
-513,1,Form,Informant Report Scoring Summary,,,Around 30,Second Floor,PAR,113
-514,1,Form,Self-Report Form,,,15,Second Floor,PAR,113
-515,1,Form,Self-Report Scoring Summary,,,Around 25,Second Floor,PAR,113
-516,1,Form,Self-Report/Informant i-Admin/Score Report,,,,Online Platform,PAR Login,113
-517,1,Manual,Professional Manual,,,1,Second Floor,PAR,114
-518,1,Form,Rating Form,,,8,Second Floor,PAR,114
-519,1,Form,Preschool Scoring Summary,,,Around 10,Second Floor,PAR,114
-520,1,Manual,Professional Manual,,,1,Second Floor,PAR,115
-521,1,Form,Rating Form,,,18,Second Floor,PAR,115
-522,1,Form,Self-Report Scoring Summary,,,Around 50,Second Floor,PAR,115
-523,1,Form,Feedback Form,,,Around 25,Second Floor,A.D.D. WareHouse,116
-524,1,Kit,"Kit Contents:
--Manual
--Analogies Picture Book 
--Categories Picture Book
--Sequences Picture Book
--Record Form (found on second floor in filing cabinet)",2,,1,Second Floor,WPS,117
-525,1,Form,Record Form,2,,23,Second Floor,WPS,117
-526,1,Kit,"Kit Contents:
--Manual
--Supplemental Subtests CD
--Core Subtests CD
--Picture Book
--Examiner Record Booklet Ages 4 to 6 (found on second floor in filing cabinet)
--Examiner Record Booklet Ages 7 to 24 (found on second floor in filing cabinet)",2,,1,Second Floor,WPS,118
-527,1,Form,"Examiner Record 
-Booklet",2,4 to 6,Around 25,Second Floor,WPS,118
-528,1,Form,"Examiner Record 
-Booklet",2,7 to 24,Around 50,Second Floor,WPS,118
-529,1,Manual,Examiner's Manual,,,2,Archive Third Floor,WPS - 2nd ed available,118
-530,1,Book,Picture Book,,,2,Archive Third Floor,WPS - 2nd ed available,118
-531,1,CD,,,,2,Archive Third Floor,WPS - 2nd ed available,118
-532,1,Form,Profile/Examiner Record Booklet,,5 and 6,Around 30,Archive Third Floor,WPS - 2nd ed available,118
-533,1,Form,Profile/Examiner Record Booklet,,7 through 24,1,Archive Third Floor,WPS - 2nd ed available,118
-534,1,CD,"Comprehensive Scoring System
-Windows Version 1.0",2,,1,Second Floor,Pearson - 3rd ed available,119
-535,1,Install Disk,"Comprehensive Scoring System
-Windows Version 1.0",2,,1,Second Floor,Pearson - 3rd ed available,119
-536,1,Manual,,2,,1,Second Floor,Pearson - 3rd ed available,119
-537,1,Form,Short Form,2,,Around 25,Second Floor,Pearson - 3rd ed available,119
-538,1,Form,Standard Form,2,,13,Second Floor,Pearson - 3rd ed available,119
-539,1,Form,Alternate Form,2,,25,Second Floor,Pearson - 3rd ed available,119
-540,1,Manual,"Research Edition
-Adult Version
-Version 1",,,1,Archive Third Floor,Pearson - 3rd ed available,119
-541,1,Form,"Research Edition
-Adult Version",,,Around 25,Archive Third Floor,Pearson - 3rd ed available,119
-542,1,Manual,,,,1,Second Floor,Pearson,120
-543,1,Form,Record Form,,,11,Second Floor,Pearson,120
-544,1,Form,Early Years Record Form,2,,6,Second Floor,Pearson,121
-545,1,Form,School-Age Record Form,2,,Over 50,Second Floor,Pearson,121
-546,1,Form,Speed of Information Processing Response Booklet A,2,,6,Second Floor,Pearson,121
-547,1,Form,Speed of Information Processing Response Booklet B,2,,5,Second Floor,Pearson,121
-548,1,Form,Speed of Information Processing Response Booklet C,2,,5,Second Floor,Pearson,121
-549,1,Book,Stimulus Book 1,2,,,,Pearson,121
-550,1,Book,Stimulus Book 2,2,,,,Pearson,121
-551,1,Book,Stimulus Book 3,2,,,,Pearson,121
-552,1,Book,Stimulus Book 4,2,,,,Pearson,121
-553,1,Manual,Administration and Scoring Manual ,2,,,,Pearson,121
-554,1,Manual,Normative Update School-Age Manual ,2,,,,Pearson,121
-555,1,Manual,Introductory and Technical Manual ,2,,,,Pearson,121
-556,1,Manual,Early Years Normative Data Tables Manual ,2,,,,Pearson,121
-557,1,Manual,Administration and Scoring Manual,2,,,,Pearson,121
-558,1,,Test materials/stimulus items/toys,2,,,,Pearson,121
-559,1,Form,Basic Number Skills,,,15,Archive Third Floor,Pearson - 2nd ed available,121
-560,1,Form,Preschool Record Form,,,15,Archive Third Floor,Pearson - 2nd ed available,121
-561,1,Form,School-Age Record Form,,,6,Archive Third Floor,Pearson - 2nd ed available,121
-562,1,Form,Speed of Information Processing Booklet A,,,7,Archive Third Floor,Pearson - 2nd ed available,121
-563,1,Form,Speed of Information Processing Booklet B,,,8,Archive Third Floor,Pearson - 2nd ed available,121
-564,1,Form,Speed of Information Processing Booklet C,,,9,Archive Third Floor,Pearson - 2nd ed available,121
-565,1,Form,Sequential and Quantitative Reasoning (Set A),,,5,Archive Third Floor,Pearson - 2nd ed available,121
-566,1,Install Disk,"Scoring Assistant
-Windows Version 1.0.2",,,1,Second Floor,Pearson,122
-567,1,CD,"Scoring Assistant
-Windows Version 1.0.2",,,1,Second Floor,Pearson - version 2.0.1 available,122
-568,1,CD,"Scoring Assistant
-Windows Version 2.0.1",,,1,Second Floor,Pearson,122
-569,1,Kit,"Kit Contents:
--Examiner's and Technical Manual
--Stimulus Booklet 
--Sorting Cards (3 sets of 6 cards each)
--1 Tower stand with 5 color disks
--Standard Record Forms 
--Design Fluency Response Booklets 
--Trail Making Response Booklet sets (each set contains Response Booklets for the 5 Trail Making conditions)",,,"2 
-(Labelled as Kit A and Kit B)",Second Floor,Pearson,122
-570,1,Form,Standard Record Form,,,1,Second Floor,Pearson,122
-571,1,Form,"Design Fluency Test 
-Condition 1 - Filled Dots",,,Around 25,Second Floor,Pearson,122
-572,1,Form,"Trail Making Test 
-Condition 1 - Visual Scanning",,,Around 50,Second Floor,Pearson,122
-573,1,Form,"Trail Making Test 
-Condition 2 - Number Sequencing",,,Around 50,Second Floor,Pearson,122
-574,1,Form,"Trail Making Test 
-Condition 3 - Letter Sequencing",,,Around 25,Second Floor,Pearson,122
-575,1,Form,"Trail Making Test 
-Condition 4 - Number-Letter Switching",,,6,Second Floor,Pearson,122
-576,1,Form,"Trail Making Test 
-Condition 5 - Motor Speed",,,5,Second Floor,Pearson,122
-577,1,Form,Color-Word Interference Test: Standard Record Form,,,Around 50,Second Floor,Pearson,122
-578,1,Scoring,,,,,Computer-184 Side,PsychCorp,122
-583,1,Manual,,4,,1,Second Floor,WPS - 5th ed available,125
-584,1,Book,Student Book,4,,1,Second Floor,WPS - 5th ed available,125
-585,1,Form,"Record Booklet
-Form A",4,,15,Second Floor,WPS - 5th ed available,125
-586,1,Form,"Record Booklet
-Form B",4,,20,Second Floor,WPS - 5th ed available,125
-590,1,Manual,Technical Manual,,,1,Second Floor,MHS,129
-591,1,Book,Scoring Templates,,,1,Second Floor,MHS,129
-592,1,Form,Item Booklet,,,10,Second Floor,MHS,129
-593,1,Form,Response Sheet,,,25,Second Floor,MHS,129
-594,1,Manual,,,,1,Archive Third Floor,SIGMA - 2nd ed available,130
-595,1,Book,"Multidimensional Aptitude Battery-Form L
-Performance",,,1,Archive Third Floor,SIGMA - 2nd ed available,130
-596,1,Book,"Multidimensional Aptitude Battery-Form L
-Verbal",,,1,Archive Third Floor,SIGMA - 2nd ed available,130
-597,1,Form,Multidimensional Aptitude Battery - Performance***,,,2,Archive Third Floor,SIGMA - 2nd ed available,130
-598,1,Form,Multidimensional Aptitude Battery - Verbal***,,,2,Archive Third Floor,SIGMA - 2nd ed available,130
-602,1,Manual,,2,,1,Archive Third Floor,Pearson - 4th ed available,132
-604,1,Form,Checklist,,,Around 50,Second Floor,Pearson - 3rd ed available,134
-605,1,Form,"Record Form
-Age Band 1",,4 to 6,21,Second Floor,Pearson - 3rd ed available,134
-606,1,Form,"Record Form
-Age Band 2",,7 to 8,8,Second Floor,Pearson - 3rd ed available,134
-607,1,Form,"Record Form
-Age Band 3",,9 to 10,9,Second Floor,Pearson - 3rd ed available,134
-608,1,Form,"Record Form
-Age Band 4",,11 to 12,9,Second Floor,Pearson - 3rd ed available,134
-609,1,Manual,Professional Manual,,,1,Second Floor,PAR,135
-610,1,Form,Item Booklet,,,Around 20,Second Floor,PAR,135
-611,1,Form,Rating Sheet,,,11,Second Floor,PAR,135
-612,1,Form,Profile Form,,,10,Second Floor,PAR,135
-613,1,Manual,,,,1,Second Floor,WPS,136
-614,1,Book,Stimulus Book,,,1,Second Floor,WPS,136
-615,1,Form,Record Form,,,Around 25,Second Floor,WPS,136
-616,1,,Test Materials,,,,,WPS,136
-620,1,Manual,"Manual for Scoring and Interpretation
-Forms G and H",,,1,Second Floor,PAR - NDRT I & J version available,139
-621,1,Manual,"Directions for Administration
-Forms G and H",,,1,Second Floor,PAR - NDRT I & J version available,139
-622,1,Book,"Test Booklet
-Form G",,,Around 25,Second Floor,PAR - NDRT I & J version available,139
-623,1,Form,"Self-Scorable Answer Sheet
-For use with forms G and H only",,,Around 50,Second Floor,PAR - NDRT I & J version available,139
-624,1,Form,"Personal Record
-Forms G and H",,,Over 25,Second Floor,PAR - NDRT I & J version available,139
-625,1,Form,"Class Record Sheet
-Forms G and H",,,1,Second Floor,PAR - NDRT I & J version available,139
-626,1,Form,Response Booklet for Reading and Writing,2,,Around 25,Second Floor,Pearson,140
-627,1,Form,Record Form for Reading and Writing,2,,Around 25,Second Floor,Pearson,140
-628,1,Form,Response Booklet for Math,2,,8,Second Floor,Pearson,140
-629,1,Form,Record Form for Math,2,,7,Second Floor,Pearson,140
-630,1,Manual,Reading/Writing Administration and Scoring Manual,2,,,,Pearson,140
-631,1,Book,Reading/Writing Stimulus Book,2,,,,Pearson,140
-632,1,Book,Reading/Writing Stimulus Booklet A,2,,,,Pearson,140
-633,1,Book,Reading/ Writing Stimulus Booklet B,2,,,,Pearson,140
-634,1,Manual,Math Administration and Scoring Manual,2,,,,Pearson,140
-635,1,Book,Math Stimulus Book ,2,,,,Pearson,140
-636,1,Book,Math Stimulus Booklet,2,,,,Pearson,140
-637,1,,Talking Letters Student Guides,2,,,,Pearson,140
-638,1,Manual,,,,1,Archive Third Floor,Pearson,141
-639,1,Form,QuikScore Form,,,Around 25,Archive Third Floor,Pearson,141
-640,1,Form,Booklet,,,23,Archive Third Floor,Pearson,142
-642,1,Manual,,2,,1,Second Floor,WPS - 3rd ed available,144
-643,1,Install Disk,2-Use Intro Disk,2,,1,Second Floor,WPS - 3rd ed available,144
-644,1,Form,Profile Sheet,2,,Around 25,Second Floor,WPS - 3rd ed available,144
-645,1,Form,PC Answer Sheet,2,,1,Second Floor,WPS - 3rd ed available,144
-648,1,Manual,Professional Manual,4,,1,Second Floor,PAR,146
-649,1,Form,Item Booklet,4,,5,Second Floor,PAR,146
-650,1,Form,Answer Sheet,4,,12,Second Floor,PAR,146
-651,1,Form,Profile Form,4,,Around 20,Second Floor,PAR,146
-655,1,Manual,Professional Manual,,,1,Second Floor,PAR,149
-656,1,Manual,Supplemental Norms for Children and Adolescents,,,1,Second Floor,PAR,149
-657,1,Form,Test Booklet,,,Around 25,Second Floor,PAR,149
-658,1,,Folder with testing sheets/materials,,,1,Second Floor,PAR,149
-659,1,CD,Version 5,,,1,Archive Third Floor,PAR,150
-660,1,Form,Record Form/Scoring Profile,2,,Around 20,Second Floor,WPS,151
-661,1,Manual,Manual,2,,,,WPS,151
-662,1,,Test Pictures,2,,,,WPS,151
-663,1,,Casebook,2,,,,WPS,151
-664,1,,Quick Reference Guide,2,,,,WPS,151
-665,1,Manual,,,,1,Archive Third Floor,WPS - 2nd ed available,151
-666,1,Book,Test Pictures,,,1,Archive Third Floor,WPS - 2nd ed available,151
-667,1,Form,Record Booklet,,,14,Archive Third Floor,WPS - 2nd ed available,151
-669,1,Form,Scoring Worksheet,,,3,Archive Third Floor,Pearson,153
-671,1,Manual,Comprehensive Manual,,,1,Second Floor,Nelson,155
-672,1,Book,Interview Book,,,1,Second Floor,Nelson,155
-673,1,Form,"Response Booklet
-Early Development 
-Form",,,2,Second Floor,Nelson,155
-674,1,Form,"Individual Plan Recommendations
-Early Development 
-Form",,,5,Second Floor,Nelson,155
-675,1,Form,"Response Booklet
-Short Form",,,3,Second Floor,Nelson,155
-676,1,Form,"Individual Plan Recommendations
-Short Form",,,5,Second Floor,Nelson,155
-677,1,Form,"Response Booklet
-Full Scale",,,2,Second Floor,Nelson,155
-678,1,Manual,Professional Manual,,,1,Second Floor,PAR,156
-679,1,Form,Item Booklet,,,Around 30,Second Floor,PAR,156
-680,1,Form,Answer Sheet,,,Around 25,Second Floor,PAR,156
-681,1,Manual,Professional Manual,,,1,Archive Third Floor,PAR - 2nd ed available,157
-682,1,Form,Interview Booklet,,,12,Archive Third Floor,PAR - 2nd ed available,157
-683,1,Manual,A Manual for Clinical and Experimental Uses,,,1,Archive Third Floor,PAR,158
-685,1,Manual,,,,1,Second Floor,Pearson,160
-686,1,Book,Trial 1,,,1,Second Floor,Pearson,160
-687,1,Book,Trial 2,,,1,Second Floor,Pearson,160
-688,1,Book,Retention Trial,,,1,Second Floor,Pearson,160
-689,1,Form,Score Sheet,,,Over 50,Second Floor,Pearson,160
-690,1,Manual,Examiner's Manual,,,1,Second Floor,WPS - 2nd ed available,161
-691,1,Form,"Profile/Examiner Record Booklet
-Form A",,,11,Second Floor,WPS - 2nd ed available,161
-692,1,Form,"Profile/Examiner Record Booklet
-Form B",,,21,Second Floor,WPS - 2nd ed available,161
-693,1,,Folder with testing sheets/materials,,,1,Second Floor,WPS - 2nd ed available,161
-695,1,Kit,Materials for practice in administration and scoring,,,1,Second Floor,PAR,163
-696,1,Manual,Revised and Expanded,,,1,Second Floor,PAR,163
-697,1,Form,Record Booklet,,,Over 50,Second Floor,PAR,163
-698,1,Form,Record Form,2,,7,Archive Third Floor,Pearson - 3rd ed available,164
-699,1,Form,Response Booklet,2,,Around 20,Archive Third Floor,Pearson - 3rd ed available,164
-700,1,Install Disk,"Scoring Assistant
-Windows Version 1.0",2,,1,Archive Third Floor,Pearson - 3rd ed available,164
-701,1,CD,"Scoring Assistant
-Windows Version 1.0",2,,1,Archive Third Floor,Pearson - 3rd ed available,164
-702,1,Kit,,3,,"2
-(Labelled as Clinic Kit A and 1 is not in a case)",Second Floor,Pearson,164
-703,1,CD,Audio CD,3,,3,Second Floor,Pearson,164
-704,1,CD,"Scoring Assistant
-Windows Version 1.0",3,,2,Second Floor,Pearson - version 1.0.2 available,164
-705,1,CD,"Scoring Assistant
-Windows Version 1.0.2",3,,2,Second Floor,Pearson,164
-706,1,CD,Technical Manual with Supplementary Materials      ,3,,4,Second Floor,Pearson,164
-707,1,Form,Record Form,3,,Over 100,Second Floor,Pearson,164
-708,1,Form,Response Booklet,3,,Over 100,Second Floor,Pearson,164
-709,1,Scoring,,,,,Online Platform,Pearson Login,164
-712,1,Form,"Test Record
-Tests of Cognitive Abilities
-Standard and Extended Batteries",3,,1,Archive Third Floor,Nelson - 4th ed available,166
-713,1,Form,"Subject Response Booklet
-Tests of Cognitive Abilities
-Extended Battery",3,,1,Archive Third Floor,Nelson - 4th ed available,166
-716,1,CD,"Tests of Cognitive Abilities
-Audio Recording",4,,1,Second Floor,Nelson,166
-719,1,Book,"Examiner Training Workbook
-Tests of Cognitive Abilities",4,,1,Second Floor,Nelson,166
-722,1,Manual,Tests of Cognitive Abilities,4,,1,Second Floor,Nelson,166
-727,1,Book,"Standard Test Book
-Tests of Cognitive Abilities
-Tests 1-10",4,,1,Second Floor,Nelson,166
-728,1,Book,"Extended Test Book
-Tests of Cognitive Abilities
-Tests 11-18",4,,1,Second Floor,Nelson,166
-732,1,Form,"Response Booklet
-Tests of Cognitive Abilities
-Standard and Extended Batteries",4,,Around 25,Second Floor,Nelson,166
-733,1,Book,"Scoring Guides
-Test 4, 11, & 17
-Tests of Cognitive Abilities",4,,1,Second Floor,Nelson,166
-734,1,Form,"Test Record
-Tests of Cognitive Abilities
-Standard and Extended Batteries",4,,Around 25,Second Floor,Nelson,166
-714,1,Book,"Test Book
-Tests of Oral Language
-Tests 1-12",4,,1,Second Floor,Nelson,166
-715,1,CD,"Tests of Oral Language
-Audio Recording",4,,1,Second Floor,Nelson,166
-717,1,Form,"Test Record
-Tests of Oral Language",4,,Around 25,Second Floor,Nelson,166
-718,1,Book,"Examiner Training Workbook
-Tests of Achievement",4,,1,Second Floor,Nelson,166
-720,1,Book,"Examiner Training Workbook
-Tests of Oral Language",4,,1,Second Floor,Nelson,166
-721,1,Manual,Tests of Achievement,4,,1,Second Floor,Nelson,166
-723,1,Manual,Tests of Oral Language,4,,1,Second Floor,Nelson,166
-724,1,CD,"Tests of Achievement
-Audio Recording",4,,1,Second Floor,Nelson,166
-725,1,Book,"Standard Test Book**
-Tests of Achievement
-Form A
-Tests 1-11",4,,1,Second Floor,Nelson,166
-726,1,Book,"Extended Test Book
-Tests of Achievement
-Tests 12-20",4,,1,Second Floor,Nelson,166
-729,1,Form,"Response Booklet
-Tests of Achievement
-Standard and Extended Batteries
-Form A",4,,Around 25,Second Floor,Nelson,166
-730,1,Book,"Scoring Guides
-Test 9, 10, and 15
-Tests of Achievement
-Form A",4,,1,Second Floor,Nelson,166
-731,1,Form,"Test Record
-Tests of Achievement
-Standard and Extended Batteries
-Form A",4,,Around 25,Second Floor,Nelson,166
-711,1,CD,"Compuscore and Profiles Program
-Version 2.1",3,,1,Archive Third Floor,Nelson - newer editions and versions available,166
-735,1,Kit,,2,,"1
-(Labelled as Kit B)",Archive Third Floor,Pearson - 3rd ed available,167
-736,1,Form,Picture Memory Response Form,2,,3,Archive Third Floor,Pearson - 3rd ed available,167
-737,1,Form,Picture Memory Recognition Form,2,,12,Archive Third Floor,Pearson - 3rd ed available,167
-738,1,Form,Design Memory Response Form,2,,1,Archive Third Floor,Pearson - 3rd ed available,167
-739,1,Form,Design Memory Recognition Form,2,,7,Archive Third Floor,Pearson - 3rd ed available,167
-740,1,Kit,,3,,1,Second Floor,Pearson,167
-741,1,Form,Brief Record Form,3,,5,Second Floor,Pearson,167
-742,1,Form,Brief Response Booklet,3,,5,Second Floor,Pearson,167
-743,1,Form,Record Form,3,,Over 100,Second Floor,Pearson,167
-744,1,Form,Recall Response Booklet,3,,Over 100,Second Floor,Pearson,167
-745,1,Form,Recognition Response Booklet,3,,Over 100,Second Floor,Pearson,167
-746,1,Manual,Professional Manual,4,,1,Archive Third Floor,WPS - 5th ed available,168
-747,1,Kit,,4,,1,Archive Third Floor,WPS - 5th ed available,168
-748,1,Form,Blue Test Form,4,,16,Archive Third Floor,WPS - 5th ed available,168
-749,1,Form,Blue Response Form,4,,21,Archive Third Floor,WPS - 5th ed available,168
-750,1,Form,Blue Sentence Comprehension Test Form****,4,,20,Archive Third Floor,WPS - 5th ed available,168
-751,1,Form,Green Sentence Comprehension Test Form,4,,Around 25,Archive Third Floor,WPS - 5th ed available,168
-752,1,Form,Green Test Form,4,,Around 25,Archive Third Floor,WPS - 5th ed available,168
-753,1,Form,Green Response Form,4,,Around 25,Archive Third Floor,WPS - 5th ed available,168
-20,1,Manual,Examiner's Manual,2,,1,Second Floor,Canada Skill Builders,2
-21,1,Form,Examination Booklet,2,,Around 20,Second Floor,Canada Skill Builders,2
-22,1,Form,Profile/Summary Form,2,,Around 25,Second Floor,Canada Skill Builders,2
-23,1,Form,Booklet,,,Around 25,Second Floor,Mind Garden,3
-24,1,Form,Profile Form,,,Around 25,Second Floor,Mind Garden,3
-25,1,Form,Answer Sheet,,,1,Second Floor,Mind Garden,3
-26,1,Form,Parker Answer Sheet,,,Around 15,Second Floor,Mind Garden,3
-27,1,Manual,,,,,,Mind Garden,3
-28,1,Manual,1973 Revision,,,1,Archive Third Floor,Publisher - Consulting Psychologists Press,4
-29,1,Book,1973 Revision,,,1,Archive Third Floor,Publisher - Consulting Psychologists Press,4
-30,1,Form,Recording Sheet for 1973 Revision,,,Around 20,Archive Third Floor,Publisher - Consulting Psychologists Press,4
-50,1,Manual,"SCICA
-Semistructured Clinical Interview for Children & Adolescents",2,,1,Second Floor,ASEBA,7
-51,1,Manual,Manual for the ASEBA Preschool Forms & Profiles,,,1,Second Floor,ASEBA,7
-52,1,Manual,Manual for the ASEBA School-Age Forms & Profiles,,,1,Second Floor,ASEBA,7
-53,1,Form,"Semistructured Clinical Interview for Children & Adolescents
-Protocol Form",,6 to 18,11,Second Floor,ASEBA,7
-54,1,Form,"Semistructured Clinical Interview
-Observation Form",,,Around 30,Second Floor,ASEBA,7
-55,1,Form,Youth Self-Report,,11 to 18,Around 50,Second Floor,ASEBA,7
-56,1,Form,"TRF
-Teacher's Report Form",,6 to 18,Over 50,Second Floor,ASEBA,7
-57,1,Form,"CBCL
-Child Behaviour Checklist",,1 1/2 to 5,Over 25,Second Floor,ASEBA,7
-58,1,Form,"CBCL
-Child Behaviour Checklist",,6 to 18,Over 25,Second Floor,ASEBA,7
-59,1,Form,French Version - Child Behaviour Checklist,,6 to 18,Over 25,Second Floor,ASEBA,7
-60,1,Form,Caregiver-Teacher Report Form,,1 1/2 to 5,Over 25,Second Floor,ASEBA,7
-61,1,CD,"Assessment Data Manager
-Version 6.5",,,1,Second Floor,ASEBA,7
-62,1,CD,"Training for the SCICA
-Semistructured Clinical Interview for Children & Adolescents",,,1,Second Floor,ASEBA,7
-63,1,CD,"Assessment Data Manager
-Version 6.0",,,2,Second Floor,ASEBA - version 6.5 available,7
-64,1,CD,"Assessment Data Manager
-Version 5.0",,,1,Second Floor,ASEBA - version 6.5 available,7
-65,1,CD,"SCICA
-Semistructured Clinical Interview for Children & Adolescents
-VHS - Videotape Training Segment",,,1,Second Floor,ASEBA,7
-101,1,Manual,Professional Manual,,,2,Second Floor,"Publisher - Psychological Assessment Resources
-As of January 2002, publisher advises test is now out of print",12
-102,1,Form,Record Form 2 - 12,,,1 of each,Second Floor,"Publisher - Psychological Assessment Resources
-As of January 2002, publisher advises test is now out of print",13
-103,1,Book,Stimulus Card Set,,,2,Second Floor,"Publisher - Psychological Assessment Resources
-As of January 2002, publisher advises test is now out of print",14
-104,1,Form,Record Form,,,Around 30,Second Floor,"Publisher - Psychological Assessment Resources
-As of January 2002, publisher advises test is now out of print",14
-148,1,Manual,,,,2,Archive Third Floor,Publisher - Research Psychologists Press,37
-149,1,Form,Record Form,,,2,Archive Third Floor,Publisher - Research Psychologists Press,37
-167,1,Manual,Directions for Administering,,,1,Second Floor,PsychCorp,42
-168,1,Form,Exploring Interests: An Introduction to the Career Interest Inventory,,,1,Second Floor,PsychCorp,42
-169,1,Form,"Answer Document
-Machine-Scorable Edition Type 1
-Level 1",,,1,Second Floor,PsychCorp,42
-170,1,Form,"Hand-Scorable Booklet
-Level 2",,,1,Second Floor,PsychCorp,42
-193,1,Form,Record Form,,,1,Archive Third Floor,MHS,46
-194,1,Form,Record Form,,,1,Archive Third Floor,MHS,47
-195,1,Manual,"Computer Program for Windows
-Technical Guide and Software Manual******",2,,1,Archive Third Floor,MHS,48
-205,1,Manual,,,,1,Archive Third Floor,MHS,50
-206,1,Manual,Technical Manual,,,2,Archive Third Floor,MHS,51
-207,1,Form,Record Form,,,Around 50,Archive Third Floor,MHS,52
-208,1,Form,Record Form,,,1,Archive Third Floor,MHS,53
-209,1,Form,Record Form,,,1,Archive Third Floor,MHS,54
-210,1,Manual,,,,1,Second Floor,PsychCorp,55
-211,1,Book,Scoring Chart,,,1,Second Floor,PsychCorp,55
-225,1,Manual,,,,3,Second Floor,GL Assessment,59
-226,1,Manual,Manual for the adult version ,,,1,Second Floor,GL Assessment,59
-227,1,Form,Record Sheet for Adults,,,3,Second Floor,GL Assessment,59
-228,1,Form,Scoring Sheet for Adults,,,4,Second Floor,GL Assessment,59
-229,1,Form,Record Sheet for Older Children,,,Around 25,Second Floor,GL Assessment,59
-230,1,Form,Scoring Sheet for Older Children,,,Around 30,Second Floor,GL Assessment,59
-231,1,Form,Scoring Sheet for Young Children,,,Around 30,Second Floor,GL Assessment,59
-232,1,Form,,,,,Online Platform,Available on Teams,60
-234,1,Manual,Manual and Norms for the HSPQ,,,1,Archive Third Floor,Publisher - IPAT,62
-247,1,Form,Record Form,,,3,Second Floor,H&H Publishing,66
-255,1,Manual,"Memory-for-Designs 
-Test: Revised General Manual****",,,1,Archive Third Floor,Publisher - Psychological Test Specialists,69
-332,1,Form,Record Form,,2 to 4,6,Second Floor,,76
-333,1,Form,Record Form,,5 to 8,3,Second Floor,,76
-334,1,Form,Record Form,,9 and up,6,Second Floor,,76
-346,1,Form,,,,,Online Platform,Available on Teams,79
-347,1,Form,Hand-Scoring Answer Sheet,,,2,Archive Third Floor,Publisher - NCS,80
-348,1,Form,"Hand-Scoring 
-Worksheet",,,2,Archive Third Floor,Publisher - NCS,80
-349,1,Book,Hand-Scoring Directions,,,1,Archive Third Floor,Publisher - NCS,80
-350,1,Form,,,,,Online Platform,Available on Teams,81
-354,1,Manual,,,,1,Archive Third Floor,Publisher - EdITS,83
-355,1,Form,Record Form***,,,Around 50,Archive Third Floor,Publisher - EdITS,83
-356,1,Form,Profile Sheet,,,1,Archive Third Floor,Publisher - EdITS,83
-370,1,Form,Record Form,2,,Around 20,Second Floor,Publisher - NFER-Nelson,87
-371,1,Manual,Manual of Directions,,,1,Archive Third Floor,WPS,88
-372,1,Manual,***,,,1,Archive Third Floor,Nelson,89
-373,1,Form,Girl's Booklet,,,2,Archive Third Floor,Nelson,89
-374,1,Form,Boy's Booklet,,,11,Archive Third Floor,Nelson,89
-397,1,Manual,,,,1,Archive Third Floor,"Publisher - Consulting Psychologists Press, Inc.",96
-398,1,Form,STAI Form X-1,,,10,Archive Third Floor,"Publisher - Consulting Psychologists Press, Inc.",96
-399,1,Manual,Preliminary Manual,,,1,Archive Third Floor,"Publisher - Consulting Psychologists Press, Inc.",97
-400,1,Form,STAIC Form C-1 & C-2,,,9,Archive Third Floor,"Publisher - Consulting Psychologists Press, Inc.",97
-467,1,Manual,For Windows,,,1,Second Floor,Green's Publishing,107
-468,1,CD,,,,1,Second Floor,Green's Publishing,107
-579,1,Kit,,,,1,Archive Third Floor,,123
-580,1,Book,Instructions and questions for answer sheet,,,1,Archive Third Floor,Publisher - NFER-Nelson,124
-581,1,Form,Answer sheet,,,2,Archive Third Floor,Publisher - NFER-Nelson,124
-582,1,Form,Record Form,,,Around 20,Archive Third Floor,Publisher - NFER-Nelson,124
-587,1,Form,Record Form,,,Around 20,Archive Third Floor,PAR,126
-588,1,Form,Record Form,,,Around 20,Archive Third Floor,PAR,127
-589,1,Kit,"Manuals, profile sheets, question booklets, answer sheets, scoring templates",,,1,Archive Third Floor,MHS,128
-599,1,Manual,User's Guide and Technical Manual,2,,1,Archive Third Floor,Brookes Publishing - 3rd ed available,131
-600,1,Form,Words and Sentences Record Form,,,1,Archive Third Floor,Brookes Publishing - 3rd ed available,131
-601,1,Form,Words and Gestures Record Form,,,14,Archive Third Floor,Brookes Publishing - 3rd ed available,131
-603,1,Kit,"Report/scoring instructions, score sheet, testing binder",,,1,Archive Third Floor,N/A,133
-617,1,Kit,"Manual, clinical record of patient forms, card materials",,,1,Archive Third Floor,WPS,137
-618,1,Book,Sheet of words,,,1,Archive Third Floor,,138
-619,1,Book,Sample scoring sheet,,,14,Archive Third Floor,,138
-641,1,Form,Combined Test Record & Written Expression Response Booklet,,,Over 50,Second Floor,"Publisher - Pearson
-Not available on website",143
-646,1,Manual,,,,1,Archive Third Floor,"Publisher - Consulting Psychologists Press, Inc.",145
-647,1,Form,Form B***,,,Around 25,Archive Third Floor,"Publisher - Consulting Psychologists Press, Inc.",145
-652,1,Manual,Quick Start Manual,,,1,Archive Third Floor,MHS,147
-653,1,CD,Installation Instructions,,,1,Archive Third Floor,MHS,147
-654,1,Kit,"Sampler Set
-Instructions, Cards, and Sorting Guide",,,1,Archive Third Floor,Publisher - Mind Garden,148
-668,1,Kit,"Manual, plates, protocol booklets, record forms, inkblot pages",,,1,Archive Third Floor,"WPS/World Book Company/
-Harcourt, Brace & World/PAR",152
-670,1,Manual,,,,1,Archive Third Floor,"Publisher - Consulting Psychologists Press, Inc.",154
-684,1,Kit,"Manuals, record forms, test cards",,,1,Archive Third Floor,The Psychological Corporation/C.P.S. Inc.,159
-694,1,Manual,"Theory, Application, and Research",2,,1,Archive Third Floor,Publisher - Consulting Psychologists Press,162
-710,1,Manual,Objective Measurement of Schizophrenic Thinking: A Practical and Theoretical Guide to the Whitaker Index of Schizophrenic Thinking,,,1,Archive Third Floor,WPS,165
+ID,Status,ItemType,ItemName,Ages,NumberOfParts,Location,TestID,IsArchived,Stock
+ABAS-2-0,1,Form,Adult Form,16 to 89,2,Archive Third Floor,ABAS-2,0,1
+ABAS-2-1,1,Form,Parent/Primary Caregiver Form,0 to 5,9,Archive Third Floor,ABAS-2,0,1
+ABAS-2-2,1,Form,Teacher/Daycare Provider Form,2 to 5,13,Archive Third Floor,ABAS-2,0,1
+ABAS-2-3,1,Form,Parent Form,5 to 21,1,Archive Third Floor,ABAS-2,0,1
+ABAS-2-4,1,Form,Teacher Form,5 to 21,1,Archive Third Floor,ABAS-2,0,1
+ABAS-3-5,1,Manual,,,1,Second Floor,ABAS-3,0,1
+ABAS-3-6,1,CD,Scoring Assistant and Intervention Planner,,1,Second Floor,ABAS-3,0,1
+ABAS-3-7,1,USB Stick,Scoring Assistant and Intervention Planner,,1,Ask Clinic Admin,ABAS-3,0,1
+ABAS-3-8,1,Book,Intervention Planner,,,,ABAS-3,0,1
+ABAS-3-9,1,Form,Adult Form,16 to 89,Around 50,Second Floor,ABAS-3,0,1
+ABAS-3-10,1,Form,Parent/Primary Caregiver Form,0 to 5,3,Second Floor,ABAS-3,0,1
+ABAS-3-11,1,Form,Teacher/Daycare Provider Form,2 to 5,4,Second Floor,ABAS-3,0,1
+ABAS-3-12,1,Form,Parent Form,5 to 21,22,Second Floor,ABAS-3,0,1
+ABAS-3-13,1,Form,Teacher Form,5 to 21,20,Second Floor,ABAS-3,0,1
+ABAS-3-14,1,Manual,,,,Online Platform,ABAS-3,0,1
+ABAS-3-15,1,Form,Adult-Self Form,16 to 89,,Online Platform,ABAS-3,0,1
+ABAS-3-16,1,Form,Parent Form,5 to 21,,Online Platform,ABAS-3,0,1
+ABAS-3-17,1,Form,Teacher Form,5 to 21,,Online Platform,ABAS-3,0,1
+ABAS-3-18,1,Scoring,,,,Computer-186 Side,ABAS-3,0,1
+ABS-S:2-19,1,Manual,Examiner's Manual,,1,Second Floor,ABS-S:2,0,1
+ABS-S:2-20,1,Form,Examination Booklet,,Around 20,Second Floor,ABS-S:2,0,1
+ABS-S:2-21,1,Form,Profile/Summary Form,,Around 25,Second Floor,ABS-S:2,0,1
+ACL-22,1,Form,Booklet,,Around 25,Second Floor,ACL,0,1
+ACL-23,1,Form,Profile Form,,Around 25,Second Floor,ACL,0,1
+ACL-24,1,Form,Answer Sheet,,1,Second Floor,ACL,0,1
+ACL-25,1,Form,Parker Answer Sheet,,Around 15,Second Floor,ACL,0,1
+ACL-26,1,Manual,,,,,ACL,0,1
+ACLC-27,1,Manual,1973 Revision,,1,Archive Third Floor,ACLC,0,1
+ACLC-28,1,Book,1973 Revision,,1,Archive Third Floor,ACLC,0,1
+ACLC-29,1,Form,Recording Sheet for 1973 Revision,,Around 20,Archive Third Floor,ACLC,0,1
+ADI-R-30,1,Manual,,,1,Second Floor,ADI-R,0,1
+ADI-R-31,1,Form,Interview Booklet,,10,Second Floor,ADI-R,0,1
+ADI-R-32,1,Form,Comprehensive Algorithm Form,,20,Second Floor,ADI-R,0,1
+ADOS-33,1,Manual,,,2,Archive Third Floor,ADOS,0,1
+ADOS-34,1,Form,Module 1 Pre-Verbal/Single  Words,,3,Archive Third Floor,ADOS,0,1
+ADOS-35,1,Form,Module 2 Phrase Speech,,10,Archive Third Floor,ADOS,0,1
+ADOS-36,1,Form,Module 4 Fluent Speech Adolescent/Adult,,1,Archive Third Floor,ADOS,0,1
+ADOS-37,1,CD,Workshop Video (DVD 1),,1,Archive Third Floor,ADOS,0,1
+ADOS-38,1,CD,Workshop Video (DVD 2),,1,Archive Third Floor,ADOS,0,1
+ADOS-2-39,1,Manual,,,3,Second Floor,ADOS-2,0,1
+ADOS-2-40,1,Book,Training Videos Guidebook,,1,Second Floor,ADOS-2,0,1
+ADOS-2-41,1,Form,Toddler Module Pre-Verbal/Single  Words,,14,Second Floor,ADOS-2,0,1
+ADOS-2-42,1,Form,Module 1 Pre-Verbal/Single  Words,,22,Second Floor,ADOS-2,0,1
+ADOS-2-43,1,Form,Module 2 Phrase Speech,,38,Second Floor,ADOS-2,0,1
+ADOS-2-44,1,Form,Module 3 Fluent Speech Child/Adolescent,,27,Second Floor,ADOS-2,0,1
+ADOS-2-45,1,Form,Module 4 Fluent Speech Adolescent/Adult,,40,Second Floor,ADOS-2,0,1
+ADOS-2-46,1,,Test materials/stimulus items and Toddler Module Stimulus Items,,,,ADOS-2,0,1
+ADOS-2-47,1,CD,Training Protocols,,1,Second Floor,ADOS-2,0,1
+ADOS-2-48,1,CD,Training and Practice Video (Part 2): Toddler Module Workshop Video 3: Toddler Module,,1,Second Floor,ADOS-2,0,1
+ASEBA-49,1,Manual,Manual for the ASEBA Preschool Forms & Profiles,,1,Second Floor,ASEBA,0,1
+ASEBA-50,1,Manual,Manual for the ASEBA School-Age Forms & Profiles,,1,Second Floor,ASEBA,0,1
+ASEBA-51,1,Form,Semistructured Clinical Interview for Children & Adolescents Protocol Form,6 to 18,11,Second Floor,ASEBA,0,1
+ASEBA-52,1,Form,Semistructured Clinical Interview Observation Form,,Around 30,Second Floor,ASEBA,0,1
+ASEBA-53,1,Form,Youth Self-Report,11 to 18,Around 50,Second Floor,ASEBA,0,1
+ASEBA-54,1,Form,TRF Teacher's Report Form,6 to 18,Over 50,Second Floor,ASEBA,0,1
+ASEBA-55,1,Form,CBCL Child Behaviour Checklist,1 1/2 to 5,Over 25,Second Floor,ASEBA,0,1
+ASEBA-56,1,Form,CBCL Child Behaviour Checklist,6 to 18,Over 25,Second Floor,ASEBA,0,1
+ASEBA-57,1,Form,French Version - Child Behaviour Checklist,6 to 18,Over 25,Second Floor,ASEBA,0,1
+ASEBA-58,1,Form,Caregiver-Teacher Report Form,1 1/2 to 5,Over 25,Second Floor,ASEBA,0,1
+ASEBA-59,1,CD,Assessment Data Manager Version 6.5,,1,Second Floor,ASEBA,0,1
+ASEBA-60,1,CD,Training for the SCICA Semistructured Clinical Interview for Children & Adolescents,,1,Second Floor,ASEBA,0,1
+ASEBA-61,1,CD,Assessment Data Manager Version 6.0,,2,Second Floor,ASEBA,0,1
+ASEBA-62,1,CD,Assessment Data Manager Version 5.0,,1,Second Floor,ASEBA,0,1
+ASEBA-63,1,Manual,SCICA Semistructured Clinical Interview for Children & Adolescents,,1,Second Floor,ASEBA,0,1
+ASEBA-64,1,CD,SCICA Semistructured Clinical Interview for Children & Adolescents VHS - Videotape Training Segment,,1,Second Floor,ASEBA,0,1
+BADDS-65,1,Manual,For Children and Adolescents,,1,Second Floor,BADDS,0,1
+BADDS-66,1,Form,Diagnostic Form Children,3 to 12,7,Second Floor,BADDS,0,1
+BADDS-67,1,Form,Diagnostic Form for Adolescents Revised,12 to 18,9,Second Floor,BADDS,0,1
+BADDS-68,1,Form,Adolescent Ready Score Answer Document,,5,Second Floor,BADDS,0,1
+BADDS-69,1,Form,Parent Form Ready Score Answer Document,3 to 7,5,Second Floor,BADDS,0,1
+BADDS-70,1,Form,Teacher Form Ready Score Answer Document,3 to 7,5,Second Floor,BADDS,0,1
+BADDS-71,1,Form,Parent Form Ready Score Answer Document,8 to 12,5,Second Floor,BADDS,0,1
+BADDS-72,1,Form,Teacher Form Ready Score Answer Document,8 to 12,5,Second Floor,BADDS,0,1
+BADDS-73,1,Form,Self Report Form Ready Score Answer Document,8 to 12,5,Second Floor,BADDS,0,1
+BADDS-74,1,Manual,For Adolescents and Adults,,,,BADDS,0,1
+BADDS-75,1,Form,Adult Readyscore Self-Report Forms/Answer Documents,,,,BADDS,0,1
+BADDS-76,1,Form,Adult Diagnostic Record Forms,,,,BADDS,0,1
+BADDS-77,1,Form,Treatment Monitoring Worksheet,,,,BADDS,0,1
+BAI-78,1,Manual,,,1,Second Floor,BAI,0,1
+BAI-79,1,Form,Record Form,,Around 25,Second Floor,BAI,0,1
+BAI-80,1,Form,Response Sheet,,,,BAI,0,1
+BAI-81,1,Form,"For remote, on-screen administration",,,Online Platform,BAI,0,1
+BASC-3-82,1,Manual,,,1,Second Floor,BASC-3,0,1
+BASC-3-83,1,Form,Self-Report Interview (SRP),6 to 7,Around 20,Second Floor,BASC-3,0,1
+BASC-3-84,1,Form,Self-Report Child (SRP),8 to 11,Around 15,Second Floor,BASC-3,0,1
+BASC-3-85,1,Form,Self-Report Adolescent (SRP),,,,BASC-3,0,1
+BASC-3-86,1,Form,Self-Report College (SRP),18 to 25,Over 25,Second Floor,BASC-3,0,1
+BASC-3-87,1,Form,Parent Rating Scales (PRS) Preschool,2 to 5,Around 25,Second Floor,BASC-3,0,1
+BASC-3-88,1,Form,Teacher Rating Scales (TRS) Preschool,2 to 5,Around 25,Second Floor,BASC-3,0,1
+BASC-3-89,1,Form,Parent Rating Scales (PRS) Child,6 to 11,Around 50,Second Floor,BASC-3,0,1
+BASC-3-90,1,Form,Teacher Rating Scales (TRS) Child,6 to 11,Around 25,Second Floor,BASC-3,0,1
+BASC-3-91,1,Form,Parent Rating Scales (PRS) Adolescent,12 to 21,Around 25,Second Floor,BASC-3,0,1
+BASC-3-92,1,Form,Teacher Rating Scales (TRS) Adolescent,12 to 21,Around 25,Second Floor,BASC-3,0,1
+BASC-3-93,1,Form,Structured Developmental History (SDH),,,,BASC-3,0,1
+BASC-3-94,1,Form,Student Observation System (SOS),,,,BASC-3,0,1
+BASC-3-95,1,Manual,,,,Online Platform,BASC-3,0,1
+BASC-3-96,1,Form,"Administration, scoring and reporting for the TRS, PRS, SRP, SDH, PRQ or SOS",,,Online Platform,BASC-3,0,1
+Bayley-III-97,1,Manual,Administration Manual,,,,Bayley-III,0,1
+Bayley-III-98,1,Manual,Technical Manual,,,,Bayley-III,0,1
+Bayley-III-99,1,Book,Picture Book,,,,Bayley-III,0,1
+Bayley-III-100,1,Book,Stimulus Book,,,,Bayley-III,0,1
+Bayley-III-101,1,Form,Observational Checklist,,,,Bayley-III,0,1
+Bayley-III-102,1,Form,Cognitive Record Forms,,,,Bayley-III,0,1
+Bayley-III-103,1,Form,Language Record Forms,,,,Bayley-III,0,1
+Bayley-III-104,1,Form,Motor Record Forms,,,,Bayley-III,0,1
+Bayley-III-105,1,,Stimulus items/toys,,,,Bayley-III,0,1
+Bayley-III-106,1,Form,Cognitive Language Motor Record Forms,,18,Second Floor,Bayley-III,0,1
+Bayley-III-107,1,Form,Caregiver Report Forms,,19,Second Floor,Bayley-III,0,1
+Bayley-III-108,1,Form,Social-Emotional and Adaptive Behavior Questionnaire,,17,Second Floor,Bayley-III,0,1
+BCT-109,1,Form,Scoring and Recording Form,,Around 25,Archive Third Floor,BCT,0,1
+BDI-2-110,1,Manual,,,1,Second Floor,BDI-2,0,1
+BDI-2-111,1,Form,Record Form,,Over 25,Second Floor,BDI-2,0,1
+BDI-2-112,1,Form,Response Sheet,,,,BDI-2,0,1
+Beery PVT and Beery PVS-113,1,Manual,Professional Manual,,2,Second Floor,Beery PVT and Beery PVS,0,1
+Beery PVS-114,1,Form,Record Form 2 - 12,,1 of each,Second Floor,Beery PVS,0,1
+Beery PVT-115,1,Book,Stimulus Card Set,,2,Second Floor,Beery PVT,0,1
+Beery PVT-116,1,Form,Record Form,,Around 30,Second Floor,Beery PVT,0,1
+Beery VMI -117,1,Manual,,,1,Archive Third Floor,Beery VMI ,0,1
+Beery VMI -118,1,Form,Testing Booklet (green) (SHORT FORM),2 through 7,1,Archive Third Floor,Beery VMI ,0,1
+Beery VMI -119,1,Form,Testing Booklet (beige),2 through 18,1,Archive Third Floor,Beery VMI ,0,1
+Beery VMI -120,1,Form,Testing Booklet (blue),2 through 18,1,Archive Third Floor,Beery VMI ,0,1
+Beery VMI -121,1,Manual,,,1,Second Floor,Beery VMI ,0,1
+Beery VMI -122,1,Form,Testing Booklet (green) (FULL FORM),2 through 100,Around 30,Second Floor,Beery VMI ,0,1
+Beery VMI -123,1,Form,Testing Booklet (green) (SHORT FORM),2 through 7,17,Second Floor,Beery VMI ,0,1
+Beery VMI -124,1,Form,Testing Booklet (beige),2 to 100,Less than 50,Second Floor,Beery VMI ,0,1
+Beery VMI -125,1,Form,Testing Booklet (blue),2 to 100,Over 50,Second Floor,Beery VMI ,0,1
+BHS-126,1,Manual,***,,1,Second Floor,BHS,0,1
+BHS-127,1,Form,Record Form,,Around 20,Second Floor,BHS,0,1
+BRIEF-128,1,Manual,Professional Manual,,1,Archive Third Floor,BRIEF,0,1
+BRIEF-129,1,Form,Teacher Form,,15,Archive Third Floor,BRIEF,0,1
+BRIEF-130,1,Form,Teacher Form Scoring Summary,,Around 50,Archive Third Floor,BRIEF,0,1
+BRIEF-131,1,Form,Parent Form,,9,Archive Third Floor,BRIEF,0,1
+BRIEF-132,1,Form,Parent Form Scoring Summary,,3,Archive Third Floor,BRIEF,0,1
+BRIEF2-133,1,Manual,Professional Manual,,1,Second Floor,BRIEF2,0,1
+BRIEF2-134,1,Book,Fast Guide,,1,Second Floor,BRIEF2,0,1
+BRIEF2-135,1,Form,Teacher Form,,Around 50,Second Floor,BRIEF2,0,1
+BRIEF2-136,1,Form,Teacher Form Scoring Summary,,Around 50,Second Floor,BRIEF2,0,1
+BRIEF2-137,1,Form,Parent Form,,Around 30,Second Floor,BRIEF2,0,1
+BRIEF2-138,1,Form,Parent Form Scoring Summary,,Around 50,Second Floor,BRIEF2,0,1
+BRIEF2-139,1,Form,Self-Report Form,,18,Second Floor,BRIEF2,0,1
+BRIEF2-140,1,Form,Self-Report Form Scoring Summary,,Around 30,Second Floor,BRIEF2,0,1
+BRIEF2-141,1,Form,Self + score reports,,,Online Platform,BRIEF2,0,1
+BRIEF2-142,1,Form,Parent Form + score reports,,,Online Platform,BRIEF2,0,1
+BRIEF2-143,1,Form,Teacher Form + score reports,,,Online Platform,BRIEF2,0,1
+BRIEF-A-144,1,Manual,Professional Manual,,1,Second Floor,BRIEF-A,0,1
+BRIEF-A-145,1,Form,Informant Report Form,,Around 25,Second Floor,BRIEF-A,0,1
+BRIEF-A-146,1,Form,Informant Report Scoring Summary,,Around 30,Second Floor,BRIEF-A,0,1
+BRIEF-A-147,1,Form,Self-Report Form,,15,Second Floor,BRIEF-A,0,1
+BRIEF-A-148,1,Form,Self-Report Scoring Summary,,Around 25,Second Floor,BRIEF-A,0,1
+BRIEF-A-149,1,Form,Self-Report/Informant i-Admin/Score Report,,,Online Platform,BRIEF-A,0,1
+BRIEF-P-150,1,Manual,Professional Manual,,1,Second Floor,BRIEF-P,0,1
+BRIEF-P-151,1,Form,Rating Form,,8,Second Floor,BRIEF-P,0,1
+BRIEF-P-152,1,Form,Preschool Scoring Summary,,Around 10,Second Floor,BRIEF-P,0,1
+BRIEF-SR-153,1,Manual,Professional Manual,,1,Second Floor,BRIEF-SR,0,1
+BRIEF-SR-154,1,Form,Rating Form,,18,Second Floor,BRIEF-SR,0,1
+BRIEF-SR-155,1,Form,Self-Report Scoring Summary,,Around 50,Second Floor,BRIEF-SR,0,1
+BSRA-3-156,1,Manual,Examiner's Manual,,1,Second Floor,BSRA-3,0,1
+BSRA-3-157,1,Book,Stimulus Book,,1,Second Floor,BSRA-3,0,1
+BSRA-3-158,1,Form,Record Form,,14,Second Floor,BSRA-3,0,1
+BSRA-3-159,1,Form,Parent/Teacher Conference Form,,Around 25,Second Floor,BSRA-3,0,1
+BSS-160,1,Manual,,,1,Second Floor,BSS,0,1
+BSS-161,1,Form,Record Form,,Around 20,Second Floor,BSS,0,1
+BSS-162,1,Form,Response Sheet,,,,BSS,0,1
+BVRT-163,1,Kit,Books and booklets,,1,Archive Third Floor,BVRT,0,1
+BYI-2-164,1,Manual,,,,,BYI-2,0,1
+BYI-2-165,1,Form,Combination Booklet,,8,Second Floor,BYI-2,0,1
+BYI-2-166,1,Form,Depression Inventory Response Sheet,,,,BYI-2,0,1
+BYI-2-167,1,Form,Anxiety Inventory Response Sheet,,,,BYI-2,0,1
+BYI-2-168,1,Form,Anger Inventory Response Sheet,,,,BYI-2,0,1
+BYI-2-169,1,Form,Disruptive Behavior Inventory Response Sheet,,,,BYI-2,0,1
+BYI-2-170,1,Form,Self Concept Inventory Response Sheet,,,,BYI-2,0,1
+CAARS-O:L-171,1,Form,Record Form,,Around 25,Second Floor,CAARS-O:L,0,1
+CAARS-O:S-172,1,Form,Record Form,,Around 25,Second Floor,CAARS-O:S,0,1
+CAARS-O:SV-173,1,Form,Record Form,,Around 25,Second Floor,CAARS-O:SV,0,1
+CAARS-S:L-174,1,Form,Record Form,,Around 25,Second Floor,CAARS-S:L,0,1
+CAARS-S:S-175,1,Form,Record Form,,Around 25,Second Floor,CAARS-S:S,0,1
+CAARS-S:SV-176,1,Form,Record Form,,Around 25,Second Floor,CAARS-S:SV,0,1
+CAARS-177,1,Manual,Technical Manual,,1,Second Floor,CAARS,0,1
+CAARS-178,1,Form,Profile Report,,,Online Platform,CAARS,0,1
+CAI-179,1,Manual,,,1,Archive Third Floor,CAI,0,1
+CARS-180,1,Manual,,,1,Archive Third Floor,CARS,0,1
+CARS-181,1,Form,Rating Sheet,,9,Archive Third Floor,CARS,0,1
+CARS2-182,1,Manual,,,1,Second Floor,CARS2,0,1
+CARS2-HF-183,1,Form,Rating Booklet,,Around 20,Second Floor,CARS2-HF,0,1
+CARS2-QPC-184,1,Form,Rating Booklet,,Around 25,Second Floor,CARS2-QPC,0,1
+CARS2-ST-185,1,Form,Rating Booklet,,Around 20,Second Floor,CARS2-ST,0,1
+CASS:L-186,1,Form,Feedback Form,,Around 25,Second Floor,CASS:L,0,1
+CBOCI-187,1,Manual,,,1,Second Floor,CBOCI,0,1
+CBOCI-188,1,Form,Record Form,,Around 25,Second Floor,CBOCI,0,1
+CDI-189,1,Manual,,,2,Archive Third Floor,CDI,0,1
+CDI-190,1,Form,Record Form,,2,Archive Third Floor,CDI,0,1
+CDI-191,1,Manual,Technical Manual,,1,Archive Third Floor,CDI,0,1
+CDI-192,1,Form,Record Form,,3,Archive Third Floor,CDI,0,1
+CDI 2-193,1,Manual,Technical Manual,,1,Second Floor,CDI 2,0,1
+CDI 2-194,1,Form,Parent,,23,Second Floor,CDI 2,0,1
+CDI 2-195,1,Form,Teacher,,18,Second Floor,CDI 2,0,1
+CDI 2-196,1,Form,Self-Report,,21,Second Floor,CDI 2,0,1
+CDI 2-197,1,Form,Self-Report Short,,Around 25,Second Floor,CDI 2,0,1
+CDS-198,1,Manual,,,1,Archive Third Floor,CDS,0,1
+CDS-199,1,Form,Record Form Third Revision (1976),,Around 50,Archive Third Floor,CDS,0,1
+CELF-4-200,1,Install Disk,Scoring Assistant Windows Version 1.0,,1,Archive Third Floor,CELF-4,0,1
+CELF-4-201,1,CD,Scoring Assistant Windows Version 1.0.2,,1,Archive Third Floor,CELF-4,0,1
+CELF-4-202,1,Form,Record Form 1,5 to 8,10,Archive Third Floor,CELF-4,0,1
+CELF-4-203,1,Form,Record Form 2,9 to 21,Around 25,Archive Third Floor,CELF-4,0,1
+CELF-4-204,1,Form,Observational Rating Scale,,Over 50,Archive Third Floor,CELF-4,0,1
+CELF-4-205,1,Kit,Manual and testing books,,1,Archive Third Floor,CELF-4,0,1
+CELF-5 Metalinguistics-206,1,Kit,Kit Contents: -Examiner's Manual  -Technical Manual   -Stimulus Book -Record Form (found on second floor in filing cabinet),,1,Second Floor,CELF-5 Metalinguistics,0,1
+CELF-5 Metalinguistics-207,1,Form,Record Form,,Around 25,Second Floor,CELF-5 Metalinguistics,0,1
+CII-208,1,Manual,Directions for Administering,,1,Second Floor,CII,0,1
+CII-209,1,Form,Exploring Interests: An Introduction to the Career Interest Inventory,,1,Second Floor,CII,0,1
+CII-210,1,Form,Answer Document Machine-Scorable Edition Type 1 Level 1,,1,Second Floor,CII,0,1
+CII-211,1,Form,Hand-Scorable Booklet Level 2,,1,Second Floor,CII,0,1
+CISS-212,1,Manual,,,1,Archive Third Floor,CISS,0,1
+CISS-213,1,Form,Record Form Adolescent,,25,Archive Third Floor,CISS,0,1
+CISS-214,1,Manual,,,1,Archive Third Floor,CISS,0,1
+CMS-215,1,Form,Record Form,5 to 8,13,Second Floor,CMS,0,1
+CMS-216,1,Form,Record Form,9 to 16,11,Second Floor,CMS,0,1
+CMS-217,1,Manual,,,,,CMS,0,1
+CMS-218,1,Form,Stimulus Booklet #1,,,,CMS,0,1
+CMS-219,1,Form,Stimulus Booklet #2,,,,CMS,0,1
+CMS-220,1,,Response Chip Set,,,,CMS,0,1
+CMS-221,1,,Grid and Picture Set,,,,CMS,0,1
+Conners 3-222,1,Manual,,,1,Second Floor,Conners 3,0,1
+Conners 3-223,1,USB Stick,,,1,Ask Clinic Admin,Conners 3,0,1
+Conners 3-224,1,Form,Self-Report  Response Booklet,,16,Second Floor,Conners 3,0,1
+Conners 3-225,1,Form,Self-Report Short,,11,Second Floor,Conners 3,0,1
+Conners 3-226,1,Form,Teacher Response Booklet,,32,Second Floor,Conners 3,0,1
+Conners 3-227,1,Form,Teacher Short,,1,Second Floor,Conners 3,0,1
+Conners 3-228,1,Form,Parent Response Booklet,,34,Second Floor,Conners 3,0,1
+Conners 3-229,1,Form,Parent Short,,3,Second Floor,Conners 3,0,1
+Conners 3-230,1,,DSM-5 Supplement,,,,Conners 3,0,1
+Conners 3-231,1,Scoring,,,,Computer-184 Side,Conners 3,0,1
+Conners 3-232,1,Scoring,,,,Computer-186 Side,Conners 3,0,1
+Conners 3-233,1,Form,Self-Report/Parent/Teacher,,,Online Platform,Conners 3,0,1
+CPRS-48-234,1,Form,Record Form,,1,Archive Third Floor,CPRS-48,0,1
+CPRS-93-235,1,Form,Record Form,,1,Archive Third Floor,CPRS-93,0,1
+CPT II-236,1,Manual,Computer Program for Windows Technical Guide and Software Manual******,,1,Archive Third Floor,CPT II,0,1
+CRI-237,1,Manual,Adult Form Professional Manual,,1,Second Floor,CRI,0,1
+CRI-238,1,Form,Adult Item Booklet—Actual Form,,10,Second Floor,CRI,0,1
+CRI-239,1,Form,Adult Answer Sheet,,14,Second Floor,CRI,0,1
+CRI-240,1,Form,Adult Item Booklet—Ideal Form,,,,CRI,0,1
+CRI-241,1,Manual,An Update on Research Applications and Validity (Manual Supplement),,,,CRI,0,1
+CRI-242,1,Manual,Youth Form Professional Manual,,,,CRI,0,1
+CRI-243,1,Form,Youth Item Booklet—Actual Form,,,,CRI,0,1
+CRI-244,1,Form,Youth Item Booklet—Ideal Form,,,,CRI,0,1
+CRI-245,1,Form,Youth Answer Sheet,,,,CRI,0,1
+CRS-246,1,Manual,,,1,Archive Third Floor,CRS,0,1
+CRS-R-247,1,Manual,Technical Manual,,2,Archive Third Floor,CRS-R,0,1
+CTONI-2-248,1,Kit,Kit Contents: -Manual -Analogies Picture Book  -Categories Picture Book -Sequences Picture Book -Record Form (found on second floor in filing cabinet),,1,Second Floor,CTONI-2,0,1
+CTONI-2-249,1,Form,Record Form,,23,Second Floor,CTONI-2,0,1
+CTOPP-250,1,Manual,Examiner's Manual,,2,Archive Third Floor,CTOPP,0,1
+CTOPP-251,1,Book,Picture Book,,2,Archive Third Floor,CTOPP,0,1
+CTOPP-252,1,CD,,,2,Archive Third Floor,CTOPP,0,1
+CTOPP-253,1,Form,Profile/Examiner Record Booklet,5 and 6,Around 30,Archive Third Floor,CTOPP,0,1
+CTOPP-254,1,Form,Profile/Examiner Record Booklet,7 through 24,1,Archive Third Floor,CTOPP,0,1
+CTOPP-2-255,1,Kit,Kit Contents: -Manual -Supplemental Subtests CD -Core Subtests CD -Picture Book -Examiner Record Booklet Ages 4 to 6 (found on second floor in filing cabinet) -Examiner Record Booklet Ages 7 to 24 (found on second floor in filing cabinet),,1,Second Floor,CTOPP-2,0,1
+CTOPP-2-256,1,Form,Examiner Record  Booklet,4 to 6,Around 25,Second Floor,CTOPP-2,0,1
+CTOPP-2-257,1,Form,Examiner Record  Booklet,7 to 24,Around 50,Second Floor,CTOPP-2,0,1
+CTRS-R:L-258,1,Form,Record Form,,Around 50,Archive Third Floor,CTRS-R:L,0,1
+CTRS-28-259,1,Form,Record Form,,1,Archive Third Floor,CTRS-28,0,1
+CTRS-39-260,1,Form,Record Form,,1,Archive Third Floor,CTRS-39,0,1
+CVLT-261,1,Manual,Research Edition Adult Version Version 1,,1,Archive Third Floor,CVLT,0,1
+CVLT-262,1,Form,Research Edition Adult Version,,Around 25,Archive Third Floor,CVLT,0,1
+CVLT-II -263,1,CD,Comprehensive Scoring System Windows Version 1.0,,1,Second Floor,CVLT-II ,0,1
+CVLT-II -264,1,Install Disk,Comprehensive Scoring System Windows Version 1.0,,1,Second Floor,CVLT-II ,0,1
+CVLT-II -265,1,Manual,,,1,Second Floor,CVLT-II ,0,1
+CVLT-II -266,1,Form,Short Form,,Around 25,Second Floor,CVLT-II ,0,1
+CVLT-II -267,1,Form,Standard Form,,13,Second Floor,CVLT-II ,0,1
+CVLT-II -268,1,Form,Alternate Form,,25,Second Floor,CVLT-II ,0,1
+CVLT-C-269,1,Manual,,,1,Second Floor,CVLT-C,0,1
+CVLT-C-270,1,Form,Record Form,,11,Second Floor,CVLT-C,0,1
+DAP-271,1,Manual,,,1,Second Floor,DAP,0,1
+DAP-272,1,Book,Scoring Chart,,1,Second Floor,DAP,0,1
+DAS-273,1,Form,Basic Number Skills,,15,Archive Third Floor,DAS,0,1
+DAS-274,1,Form,Preschool Record Form,,15,Archive Third Floor,DAS,0,1
+DAS-275,1,Form,School-Age Record Form,,6,Archive Third Floor,DAS,0,1
+DAS-276,1,Form,Speed of Information Processing Booklet A,,7,Archive Third Floor,DAS,0,1
+DAS-277,1,Form,Speed of Information Processing Booklet B,,8,Archive Third Floor,DAS,0,1
+DAS-278,1,Form,Speed of Information Processing Booklet C,,9,Archive Third Floor,DAS,0,1
+DAS-279,1,Form,Sequential and Quantitative Reasoning (Set A),,5,Archive Third Floor,DAS,0,1
+DAS-II-280,1,Form,Early Years Record Form,,6,Second Floor,DAS-II,0,1
+DAS-II-281,1,Form,School-Age Record Form,,Over 50,Second Floor,DAS-II,0,1
+DAS-II-282,1,Form,Speed of Information Processing Response Booklet A,,6,Second Floor,DAS-II,0,1
+DAS-II-283,1,Form,Speed of Information Processing Response Booklet B,,5,Second Floor,DAS-II,0,1
+DAS-II-284,1,Form,Speed of Information Processing Response Booklet C,,5,Second Floor,DAS-II,0,1
+DAS-II-285,1,Book,Stimulus Book 1,,,,DAS-II,0,1
+DAS-II-286,1,Book,Stimulus Book 2,,,,DAS-II,0,1
+DAS-II-287,1,Book,Stimulus Book 3,,,,DAS-II,0,1
+DAS-II-288,1,Book,Stimulus Book 4,,,,DAS-II,0,1
+DAS-II-289,1,Manual,Administration and Scoring Manual ,,,,DAS-II,0,1
+DAS-II-290,1,Manual,Normative Update School-Age Manual ,,,,DAS-II,0,1
+DAS-II-291,1,Manual,Introductory and Technical Manual ,,,,DAS-II,0,1
+DAS-II-292,1,Manual,Early Years Normative Data Tables Manual ,,,,DAS-II,0,1
+DAS-II-293,1,Manual,Administration and Scoring Manual,,,,DAS-II,0,1
+DAS-II-294,1,,Test materials/stimulus items/toys,,,,DAS-II,0,1
+D-KEFS-295,1,Install Disk,Scoring Assistant Windows Version 1.0.2,,1,Second Floor,D-KEFS,0,1
+D-KEFS-296,1,CD,Scoring Assistant Windows Version 1.0.2,,1,Second Floor,D-KEFS,0,1
+D-KEFS-297,1,CD,Scoring Assistant Windows Version 2.0.1,,1,Second Floor,D-KEFS,0,1
+D-KEFS-298,1,Kit,Kit Contents: -Examiner's and Technical Manual -Stimulus Booklet  -Sorting Cards (3 sets of 6 cards each) -1 Tower stand with 5 color disks -Standard Record Forms  -Design Fluency Response Booklets  -Trail Making Response Booklet sets (each set contains Response Booklets for the 5 Trail Making conditions),,2  (Labelled as Kit A and Kit B),Second Floor,D-KEFS,0,1
+D-KEFS-299,1,Form,Standard Record Form,,1,Second Floor,D-KEFS,0,1
+D-KEFS-300,1,Form,Design Fluency Test  Condition 1 - Filled Dots,,Around 25,Second Floor,D-KEFS,0,1
+D-KEFS-301,1,Form,Trail Making Test  Condition 1 - Visual Scanning,,Around 50,Second Floor,D-KEFS,0,1
+D-KEFS-302,1,Form,Trail Making Test  Condition 2 - Number Sequencing,,Around 50,Second Floor,D-KEFS,0,1
+D-KEFS-303,1,Form,Trail Making Test  Condition 3 - Letter Sequencing,,Around 25,Second Floor,D-KEFS,0,1
+D-KEFS-304,1,Form,Trail Making Test  Condition 4 - Number-Letter Switching,,6,Second Floor,D-KEFS,0,1
+D-KEFS-305,1,Form,Trail Making Test  Condition 5 - Motor Speed,,5,Second Floor,D-KEFS,0,1
+D-KEFS-306,1,Form,Color-Word Interference Test: Standard Record Form,,Around 50,Second Floor,D-KEFS,0,1
+D-KEFS-307,1,Scoring,,,,Computer-184 Side,D-KEFS,0,1
+DMI-308,1,Kit,,,1,Archive Third Floor,DMI,0,1
+DTS-309,1,Manual,,,1,Archive Third Floor,DTS,0,1
+DTS-310,1,Form,Record Form,,Around 20,Archive Third Floor,DTS,0,1
+EDI-2-311,1,Manual,Professional Manual,,1,Archive Third Floor,EDI-2,0,1
+EDI-2-312,1,Form,Answer Sheet,,Around 20,Archive Third Floor,EDI-2,0,1
+EDI-3-313,1,Manual,Professional Manual,,1,Second Floor,EDI-3,0,1
+EDI-3-314,1,Form,Item Booklet,,Around 25,Second Floor,EDI-3,0,1
+EDI-3-315,1,Form,Answer Sheet,,Around 25,Second Floor,EDI-3,0,1
+EDI-3-316,1,Form,Percentile/T-Score Profile Form,,,,EDI-3,0,1
+EDI-3-317,1,Form,Symptom Checklist,,,,EDI-3,0,1
+EDI-3-318,1,Manual,Referral Form Manual,,,,EDI-3,0,1
+EDI-3-319,1,Form,Referral Form,,,,EDI-3,0,1
+EVT-3-320,1,Kit,Kit Contents: - Manual and question book Form A,,1,Second Floor,EVT-3,0,1
+EVT-3-321,1,Form,Record Form Form A,,Around 25,Second Floor,EVT-3,0,1
+FRT-322,1,Manual,,,3,Second Floor,FRT,0,1
+FRT-323,1,Manual,Manual for the adult version ,,1,Second Floor,FRT,0,1
+FRT-324,1,Form,Record Sheet for Adults,,3,Second Floor,FRT,0,1
+FRT-325,1,Form,Scoring Sheet for Adults,,4,Second Floor,FRT,0,1
+FRT-326,1,Form,Record Sheet for Older Children,,Around 25,Second Floor,FRT,0,1
+FRT-327,1,Form,Scoring Sheet for Older Children,,Around 30,Second Floor,FRT,0,1
+FRT-328,1,Form,Scoring Sheet for Young Children,,Around 30,Second Floor,FRT,0,1
+GAD-7-329,1,Form,,,,Online Platform,GAD-7,0,1
+GHQ-330,1,Book,Instructions and questions for answer sheet,,1,Archive Third Floor,GHQ,0,1
+GHQ-331,1,Form,Answer sheet,,2,Archive Third Floor,GHQ,0,1
+GHQ-30-332,1,Form,Record Form,,Around 20,Archive Third Floor,GHQ-30,0,1
+GORT-4-333,1,Manual,,,1,Second Floor,GORT-4,0,1
+GORT-4-334,1,Book,Student Book,,1,Second Floor,GORT-4,0,1
+GORT-4-335,1,Form,Record Booklet Form A,,15,Second Floor,GORT-4,0,1
+GORT-4-336,1,Form,Record Booklet Form B,,20,Second Floor,GORT-4,0,1
+GPT-337,1,Kit,Manual and testing materials Model 32025,,1,Archive Third Floor,GPT,0,1
+HPC for Women-338,1,Form,Record Form,,Around 20,Archive Third Floor,HPC for Women,0,1
+HPC for Men-339,1,Form,Record Form,,Around 20,Archive Third Floor,HPC for Men,0,1
+HSPQ-340,1,Manual,Manual and Norms for the HSPQ,,1,Archive Third Floor,HSPQ,0,1
+JI and JBC-341,1,Kit,"Manuals, profile sheets, question booklets, answer sheets, scoring templates",,1,Archive Third Floor,JI and JBC,0,1
+JI-R-342,1,Manual,Technical Manual,,1,Second Floor,JI-R,0,1
+JI-R-343,1,Book,Scoring Templates,,1,Second Floor,JI-R,0,1
+JI-R-344,1,Form,Item Booklet,,10,Second Floor,JI-R,0,1
+JI-R-345,1,Form,Response Sheet,,25,Second Floor,JI-R,0,1
+JVIS-346,1,Manual,,,3 (1 is 2nd ed manual),Second Floor,JVIS,0,1
+JVIS-347,1,Book,Applications Handbook,,1,Second Floor,JVIS,0,1
+JVIS-348,1,Form,Record Form,,Around 30,Second Floor,JVIS,0,1
+JVIS-349,1,Book,Questionnaire Booklet,,27,Second Floor,JVIS,0,1
+JVIS-350,1,Book,JVIS Basic Interest Descriptions (sheets),,16,Second Floor,JVIS,0,1
+KADI-351,1,Manual,Examiner's Manual,,1,Second Floor,KADI,0,1
+KADI-352,1,Form,Profile/Examiner Record Form Elementary,6 to 11,Around 50,Second Floor,KADI,0,1
+KADI-353,1,Form,Profile/Examiner Record Form Secondary,12 to 21,Around 50,Second Floor,KADI,0,1
+KTEA-3-354,1,USB Stick,,,1,Ask Clinic Admin,KTEA-3,0,1
+KTEA-3-355,1,Kit,Kit Contents: -,,1  (Labelled as Kit B),Second Floor,KTEA-3,0,1
+KTEA-3-356,1,Form,Record Form Form B,,Around 25,Second Floor,KTEA-3,0,1
+KTEA-3-357,1,Form,Response Booklet Form B,,Around 25,Second Floor,KTEA-3,0,1
+LASSI-HS-358,1,Form,Record Form,,3,Second Floor,LASSI-HS,0,1
+MAB-359,1,Manual,,,1,Archive Third Floor,MAB,0,1
+MAB-360,1,Book,Multidimensional Aptitude Battery-Form L Performance,,1,Archive Third Floor,MAB,0,1
+MAB-361,1,Book,Multidimensional Aptitude Battery-Form L Verbal,,1,Archive Third Floor,MAB,0,1
+MAB-362,1,Form,Multidimensional Aptitude Battery - Performance***,,2,Archive Third Floor,MAB,0,1
+MAB-363,1,Form,Multidimensional Aptitude Battery - Verbal***,,2,Archive Third Floor,MAB,0,1
+MacArthur-Bates CDI-364,1,Form,Words and Sentences Record Form,,1,Archive Third Floor,MacArthur-Bates CDI,0,1
+MacArthur-Bates CDI-365,1,Form,Words and Gestures Record Form,,14,Archive Third Floor,MacArthur-Bates CDI,0,1
+MacArthur-Bates CDI-366,1,Manual,User's Guide and Technical Manual,,1,Archive Third Floor,MacArthur-Bates CDI,0,1
+MASC-367,1,Manual,Technical Manual,,1,Archive Third Floor,MASC,0,1
+MASC-368,1,Form,Record Form,,1,Archive Third Floor,MASC,0,1
+MASC 2-369,1,Manual,Technical Manual,,2,Second Floor,MASC 2,0,1
+MASC 2-370,1,Form,Self-Report Form,,Around 20,Second Floor,MASC 2,0,1
+MASC 2-371,1,Form,Parent Form,,Around 50,Second Floor,MASC 2,0,1
+MCMI-III-372,1,Manual,,,1,Archive Third Floor,MCMI-III,0,1
+M-Fast-373,1,Manual,Professional Manual,,1,Second Floor,M-Fast,0,1
+M-Fast-374,1,Form,Interview Booklet,,Around 25,Second Floor,M-Fast,0,1
+MFD-375,1,Manual,Memory-for-Designs  Test: Revised General Manual****,,1,Archive Third Floor,MFD,0,1
+MFF-376,1,Kit,"Report/scoring instructions, score sheet, testing binder",,1,Archive Third Floor,MFF,0,1
+MMPI-A-377,1,CD,Interpretive System Version 3.11,,1,Second Floor,MMPI-A,0,1
+MMPI-A-378,1,CD,Interpretive System Version 5.00,,1,Second Floor,MMPI-A,0,1
+MMPI-A-379,1,Manual,"Manual for Administration, Scoring, and Interpretation",,1,Second Floor,MMPI-A,0,1
+MMPI-A-380,1,Book,Hardcover Test Booklet,,1,Second Floor,MMPI-A,0,1
+MMPI-A-381,1,Book,Softcover Test Booklet,,18,Second Floor,MMPI-A,0,1
+MMPI-A-382,1,Form,Answer Sheet for Hardcover,,1,Second Floor,MMPI-A,0,1
+MMPI-A-383,1,Manual,User's Guide,,,,MMPI-A,0,1
+MMPI-A-384,1,Manual,Manual Supplement,,,,MMPI-A,0,1
+MMPI-A-385,1,CD,Audio CD,,,,MMPI-A,0,1
+MMPI-A-386,1,,Validity/Clinical Scales Answer Key Set For Softcover,,,,MMPI-A,0,1
+MMPI-A-387,1,,Validity/Clinical Scales Answer Key Set For Hardcover,,,,MMPI-A,0,1
+MMPI-A-388,1,,Clinical Subscales Answer Key Set For Softcover,,,,MMPI-A,0,1
+MMPI-A-389,1,,Clinical Subscales Answer Key Set For Hardcover,,,,MMPI-A,0,1
+MMPI-A-390,1,,Content/Supplementary Scales Answer Key Set For Softcover,,,,MMPI-A,0,1
+MMPI-A-391,1,,Content/Supplementary Scales Answer Key Set For Hardcover,,,,MMPI-A,0,1
+MMPI-A-392,1,,Content Component Scales Answer Key Set For Softcover,,,,MMPI-A,0,1
+MMPI-A-393,1,,Content Component Scales Answer Key Set For Hardcover,,,,MMPI-A,0,1
+MMPI-A-394,1,Form,Answer Sheet for Softcover,,,,MMPI-A,0,1
+MMPI-A-395,1,Form,Handscore Answer Sheet For Softcover,,,,MMPI-A,0,1
+MMPI-A-396,1,Form,Handscore Answer Sheet For Hardcover,,,,MMPI-A,0,1
+MMPI-A-397,1,Form,Validity/Clinical Scales Profile Forms,,,,MMPI-A,0,1
+MMPI-A-398,1,Form,Clinical Subscales Profile Forms,,,,MMPI-A,0,1
+MMPI-A-399,1,Form,Content Scales Profile Forms,,,,MMPI-A,0,1
+MMPI-A-400,1,Form,Content Component Scales Profile Forms,,,,MMPI-A,0,1
+MMPI-A-401,1,Form,Supplementary Scales Profile Forms,,,,MMPI-A,0,1
+MMPI-A-402,1,,Content Component Scales Test Monograph,,,,MMPI-A,0,1
+MMPI-A-403,1,,Critical Item Set Test Monograph,,,,MMPI-A,0,1
+MMPI-A-404,1,,Assessing Readability Test Monograph,,,,MMPI-A,0,1
+MMPI-A-405,1,Scoring,,,,Computer-184 Side,MMPI-A,0,1
+MMPI-A-RF-406,1,Form,Profile for Validity Scales,,Around 25,Second Floor,MMPI-A-RF,0,1
+MMPI-A-RF-407,1,Form,Profile for Higher-Order (H-O) and Restructured Clinical (RC) Scales,,Around 25,Second Floor,MMPI-A-RF,0,1
+MMPI-A-RF-408,1,Form,Profile for Somatic/Cognitive and Internalizing Scales,,Around 25,Second Floor,MMPI-A-RF,0,1
+MMPI-A-RF-409,1,Form,Profile for Externalizing and Interpersonal Scales,,Around 25,Second Floor,MMPI-A-RF,0,1
+MMPI-A-RF-410,1,Form,Profile for Personality Psychopathology Five (PSY-5) Scales,,Around 25,Second Floor,MMPI-A-RF,0,1
+MMPI-A-RF-411,1,Form,Hand-Scoring Answer Sheet,,Around 25,Second Floor,MMPI-A-RF,0,1
+MMPI-A-RF-412,1,Book,Durable Spiral-Bound Test Booklet,,1,Second Floor,MMPI-A-RF,0,1
+MMPI-A-RF-413,1,Manual,,,,,MMPI-A-RF,0,1
+MMPI-A-RF-414,1,Manual,User's Guide For Reports,,,,MMPI-A-RF,0,1
+MMPI-A-RF-415,1,CD,Audio CD,,,,MMPI-A-RF,0,1
+MMPI-A-RF-416,1,Book,Softcover Test Booklet,,,,MMPI-A-RF,0,1
+MMPI-A-RF-417,1,,Validity Scales Answer Key Set,,,,MMPI-A-RF,0,1
+MMPI-A-RF-418,1,,Higher-Order and Restructured Clinical Answer Key Set,,,,MMPI-A-RF,0,1
+MMPI-A-RF-419,1,,Externalizing and Interpersonal Scales Answer Key Set,,,,MMPI-A-RF,0,1
+MMPI-A-RF-420,1,,Somatic/Cognitive and Internalizing Answer Key Set,,,,MMPI-A-RF,0,1
+MMPI-A-RF-421,1,,PSY-5 Handscore Answer Key Set,,,,MMPI-A-RF,0,1
+MMPI-2-422,1,CD,Adult Interpretive System Version 3,,1,Second Floor,MMPI-2,0,1
+MMPI-2-423,1,Manual,Professional Manual,,1,Second Floor,MMPI-2,0,1
+MMPI-2-424,1,Manual,User's Guide,,1,Second Floor,MMPI-2,0,1
+MMPI-2-425,1,Manual,Manual for administration and scoring,,3,Second Floor,MMPI-2,0,1
+MMPI-2-426,1,Book,Softcover Test Booklet,,2,Second Floor,MMPI-2,0,1
+MMPI-2-427,1,Form,Profile for Supplementary  Scales***,,Around 25,Second Floor,MMPI-2,0,1
+MMPI-2-428,1,Form,Profile for Basic  Scales***,,Over 75,Second Floor,MMPI-2,0,1
+MMPI-2-429,1,Form,Profile for Content Scales***,,Over 75,Second Floor,MMPI-2,0,1
+MMPI-2-430,1,Form,Softcover Answer Sheet Handscoring,,5,Second Floor,MMPI-2,0,1
+MMPI-2-431,1,Form,TRIN Scale Recording Grid,,12,Second Floor,MMPI-2,0,1
+MMPI-2-432,1,Form,VRIN Scale Recording Grid,,12,Second Floor,MMPI-2,0,1
+MMPI-2-433,1,Scoring,,,,Computer-184 Side,MMPI-2,0,1
+MMPI-2-434,1,Manual,,,,Computer-184 Side,MMPI-2,0,1
+MMPI-2-RF-435,1,Form,Answer Sheet,,3,Second Floor,MMPI-2-RF,0,1
+Movement ABC-436,1,Form,Checklist,,Around 50,Second Floor,Movement ABC,0,1
+Movement ABC-437,1,Form,Record Form Age Band 1,4 to 6,21,Second Floor,Movement ABC,0,1
+Movement ABC-438,1,Form,Record Form Age Band 2,7 to 8,8,Second Floor,Movement ABC,0,1
+Movement ABC-439,1,Form,Record Form Age Band 3,9 to 10,9,Second Floor,Movement ABC,0,1
+Movement ABC-440,1,Form,Record Form Age Band 4,11 to 12,9,Second Floor,Movement ABC,0,1
+MSEI-441,1,Manual,Professional Manual,,1,Second Floor,MSEI,0,1
+MSEI-442,1,Form,Item Booklet,,Around 20,Second Floor,MSEI,0,1
+MSEI-443,1,Form,Rating Sheet,,11,Second Floor,MSEI,0,1
+MSEI-444,1,Form,Profile Form,,10,Second Floor,MSEI,0,1
+MSEL-445,1,Manual,,,1,Second Floor,MSEL,0,1
+MSEL-446,1,Book,Stimulus Book,,1,Second Floor,MSEL,0,1
+MSEL-447,1,Form,Record Form,,Around 25,Second Floor,MSEL,0,1
+MSEL-448,1,,Test Materials,,,,MSEL,0,1
+MTDDA-449,1,Kit,"Manual, clinical record of patient forms, card materials",,1,Archive Third Floor,MTDDA,0,1
+NAART-450,1,Book,Sheet of words,,1,Archive Third Floor,NAART,0,1
+NAART-451,1,Book,Sample scoring sheet,,14,Archive Third Floor,NAART,0,1
+NDRT-452,1,Manual,Manual for Scoring and Interpretation Forms G and H,,1,Second Floor,NDRT,0,1
+NDRT-453,1,Manual,Directions for Administration Forms G and H,,1,Second Floor,NDRT,0,1
+NDRT-454,1,Book,Test Booklet Form G,,Around 25,Second Floor,NDRT,0,1
+NDRT-455,1,Form,Self-Scorable Answer Sheet For use with forms G and H only,,Around 50,Second Floor,NDRT,0,1
+NDRT-456,1,Form,Personal Record Forms G and H,,Over 25,Second Floor,NDRT,0,1
+NDRT-457,1,Form,Class Record Sheet Forms G and H,,1,Second Floor,NDRT,0,1
+NEO PI-R-458,1,Manual,Professional Manual,,1,Second Floor,NEO PI-R,0,1
+NEO PI-R-459,1,Form,Hand-Scoring Answer Sheet,,Over 25,Second Floor,NEO PI-R,0,1
+NEO PI-R-460,1,Form,Item Booklet - Form S,,5,Second Floor,NEO PI-R,0,1
+NEO PI-R-461,1,Form,Item Booklet - Form R (Women),,10,Second Floor,NEO PI-R,0,1
+NEO PI-R-462,1,Form,Item Booklet - Form R (Men),,13,Second Floor,NEO PI-R,0,1
+NEO PI-R-463,1,Form,Form R (Ratings) Profile Form,,Around 25,Second Floor,NEO PI-R,0,1
+NEO PI-R-464,1,Form,Form S (Self-Report) Profile Form,,Around 50,Second Floor,NEO PI-R,0,1
+NEO PI-R-465,1,,Bibliography for the NEO PI-R and NEO-FFI,,1,Second Floor,NEO PI-R,0,1
+NEO PI-R-466,1,Form,College Student Profile Form,,,,NEO PI-R,0,1
+NEPSY-467,1,Form,Record Form,3 to 4,1,Archive Third Floor,NEPSY,0,1
+NEPSY-468,1,Form,Record Form,5 to 12,1,Archive Third Floor,NEPSY,0,1
+NEPSY-469,1,Form,Response Booklet,3 to 4,1,Archive Third Floor,NEPSY,0,1
+NEPSY-470,1,Form,Response Booklet,5 to 12,1,Archive Third Floor,NEPSY,0,1
+NEPSY-II-471,1,Kit,Kit Contents: -,,1,Second Floor,NEPSY-II,0,1
+NEPSY-II-472,1,Form,Record Form,3 to 4,Around 25,Second Floor,NEPSY-II,0,1
+NEPSY-II-473,1,Form,Response Booklet,3 to 4,Around 25,Second Floor,NEPSY-II,0,1
+NEPSY-II-474,1,Form,Response Booklet,5 to 16,5,Second Floor,NEPSY-II,0,1
+NINA-475,1,Form,Record Form,2 to 4,6,Second Floor,NINA,0,1
+NINA-476,1,Form,Record Form,5 to 8,3,Second Floor,NINA,0,1
+NINA-477,1,Form,Record Form,9 and up,6,Second Floor,NINA,0,1
+PAI-478,1,Manual,Professional Manual,,2,Second Floor,PAI,0,1
+PAI-479,1,Book,Item Booklet,,7,Second Floor,PAI,0,1
+PAI-480,1,Form,Profile Form,,Over 25,Second Floor,PAI,0,1
+PAI-481,1,Form,Critical Items Form,,Over 50,Second Floor,PAI,0,1
+PAI-482,1,Form,Answer Sheet,,Around 30,Second Floor,PAI,0,1
+PAI-483,1,Form,Structural Summary Form,,,,PAI,0,1
+PAI-A-484,1,Manual,Professional Manual,,1,Second Floor,PAI-A,0,1
+PAI-A-485,1,Book,Item Booklet,,2,Second Floor,PAI-A,0,1
+PAI-A-486,1,Form,Profile Form,,10,Second Floor,PAI-A,0,1
+PAI-A-487,1,Form,Critical Items Form,,Around 25,Second Floor,PAI-A,0,1
+PAI-A-488,1,Form,Answer Sheet,,12,Second Floor,PAI-A,0,1
+PAL-II-489,1,Form,Response Booklet for Reading and Writing,,Around 25,Second Floor,PAL-II,0,1
+PAL-II-490,1,Form,Record Form for Reading and Writing,,Around 25,Second Floor,PAL-II,0,1
+PAL-II-491,1,Form,Response Booklet for Math,,8,Second Floor,PAL-II,0,1
+PAL-II-492,1,Form,Record Form for Math,,7,Second Floor,PAL-II,0,1
+PAL-II-493,1,Manual,Reading/Writing Administration and Scoring Manual,,,,PAL-II,0,1
+PAL-II-494,1,Book,Reading/Writing Stimulus Book,,,,PAL-II,0,1
+PAL-II-495,1,Book,Reading/Writing Stimulus Booklet A,,,,PAL-II,0,1
+PAL-II-496,1,Book,Reading/ Writing Stimulus Booklet B,,,,PAL-II,0,1
+PAL-II-497,1,Manual,Math Administration and Scoring Manual,,,,PAL-II,0,1
+PAL-II-498,1,Book,Math Stimulus Book ,,,,PAL-II,0,1
+PAL-II-499,1,Book,Math Stimulus Booklet,,,,PAL-II,0,1
+PAL-II-500,1,,Talking Letters Student Guides,,,,PAL-II,0,1
+PANSS-501,1,Manual,,,1,Archive Third Floor,PANSS,0,1
+PANSS-502,1,Form,QuikScore Form,,Around 25,Archive Third Floor,PANSS,0,1
+PANSS (SCI-PANSS)-503,1,Form,Booklet,,23,Archive Third Floor,PANSS (SCI-PANSS),0,1
+PCL-5-504,1,Form,,,,Online Platform,PCL-5,0,1
+PDS-505,1,Form,Hand-Scoring Answer Sheet,,2,Archive Third Floor,PDS,0,1
+PDS-506,1,Form,Hand-Scoring  Worksheet,,2,Archive Third Floor,PDS,0,1
+PDS-507,1,Book,Hand-Scoring Directions,,1,Archive Third Floor,PDS,0,1
+PHQ-9-508,1,Form,,,,Online Platform,PHQ-9,0,1
+PIAT-R-509,1,Form,Combined Test Record & Written Expression Response Booklet,,Over 50,Second Floor,PIAT-R,0,1
+Piers-Harris 2-510,1,Manual,,,1,Second Floor,Piers-Harris 2,0,1
+Piers-Harris 2-511,1,Install Disk,2-Use Intro Disk,,1,Second Floor,Piers-Harris 2,0,1
+Piers-Harris 2-512,1,Form,Profile Sheet,,Around 25,Second Floor,Piers-Harris 2,0,1
+Piers-Harris 2-513,1,Form,PC Answer Sheet,,1,Second Floor,Piers-Harris 2,0,1
+PLS-4-514,1,Form,Record Form,,Around 25,Second Floor,PLS-4,0,1
+PLS-4-515,1,Manual,Examiner's Manual,,,,PLS-4,0,1
+PLS-4-516,1,Manual,Picture Manual,,,,PLS-4,0,1
+POMS-517,1,Manual,,,1,Archive Third Floor,POMS,0,1
+POMS-518,1,Form,Record Form***,,Around 50,Archive Third Floor,POMS,0,1
+POMS-519,1,Form,Profile Sheet,,1,Archive Third Floor,POMS,0,1
+PPVT-3-520,1,Book,TestKit for Form IIIB,,1,Archive Third Floor,PPVT-3,0,1
+PPVT-3-521,1,Form,Performance Record Form IIIA,,Around 25,Archive Third Floor,PPVT-3,0,1
+PPVT-3-522,1,Form,Performance Record Form IIIB,,Around 10,Archive Third Floor,PPVT-3,0,1
+PPVT-4-523,1,CD,ASSIST Scoring and Reporting System Version 1.1,,2,Archive Third Floor,PPVT-4,0,1
+PPVT-4-524,1,Form,Record Form Form A,,7,Archive Third Floor,PPVT-4,0,1
+PPVT-4-525,1,Form,Record Form Form B,,2,Archive Third Floor,PPVT-4,0,1
+PPVT-5-526,1,Kit,Kit Contents: - Manual and question book Form A,,1,Second Floor,PPVT-5,0,1
+PPVT-5-527,1,Form,Record Form Form A,,12,Second Floor,PPVT-5,0,1
+PRF-528,1,Manual,,,2,Archive Third Floor,PRF,0,1
+PRF-529,1,Book,Form E,,1,Archive Third Floor,PRF,0,1
+PSI-530,1,Manual,,,1,Archive Third Floor,PSI,0,1
+PSI-531,1,Form,Form B***,,Around 25,Archive Third Floor,PSI,0,1
+PSI-4-532,1,Manual,Professional Manual,,1,Second Floor,PSI-4,0,1
+PSI-4-533,1,Form,Item Booklet,,5,Second Floor,PSI-4,0,1
+PSI-4-534,1,Form,Answer Sheet,,12,Second Floor,PSI-4,0,1
+PSI-4-535,1,Form,Profile Form,,Around 20,Second Floor,PSI-4,0,1
+PsychManager Lite-536,1,Manual,Quick Start Manual,,1,Archive Third Floor,PsychManager Lite,0,1
+PsychManager Lite-537,1,CD,Installation Instructions,,1,Archive Third Floor,PsychManager Lite,0,1
+Q-Sort-538,1,Kit,"Sampler Set Instructions, Cards, and Sorting Guide",,1,Archive Third Floor,Q-Sort,0,1
+RADS-2-539,1,Manual,Professional Manual,,1,Second Floor,RADS-2,0,1
+RADS-2-540,1,Form,Test Booklet,,6,Second Floor,RADS-2,0,1
+RADS-2-541,1,Form,Summary/Profile Form,,9,Second Floor,RADS-2,0,1
+RCFT-542,1,Manual,Professional Manual,,1,Second Floor,RCFT,0,1
+RCFT-543,1,Manual,Supplemental Norms for Children and Adolescents,,1,Second Floor,RCFT,0,1
+RCFT-544,1,Form,Test Booklet,,Around 25,Second Floor,RCFT,0,1
+RCFT-545,1,,Folder with testing sheets/materials,,1,Second Floor,RCFT,0,1
+RDLS-546,1,Form,Record Form,,Around 20,Second Floor,RDLS,0,1
+RIAP5-547,1,CD,Version 5,,1,Archive Third Floor,RIAP5,0,1
+Roberts-548,1,Manual,,,1,Archive Third Floor,Roberts,0,1
+Roberts-549,1,Book,Test Pictures,,1,Archive Third Floor,Roberts,0,1
+Roberts-550,1,Form,Record Booklet,,14,Archive Third Floor,Roberts,0,1
+Roberts-2-551,1,Form,Record Form/Scoring Profile,,Around 20,Second Floor,Roberts-2,0,1
+Roberts-2-552,1,Manual,Manual,,,,Roberts-2,0,1
+Roberts-2-553,1,,Test Pictures,,,,Roberts-2,0,1
+Roberts-2-554,1,,Casebook,,,,Roberts-2,0,1
+Roberts-2-555,1,,Quick Reference Guide,,,,Roberts-2,0,1
+Rorschach-556,1,Kit,"Manual, plates, protocol booklets, record forms, inkblot pages",,1,Archive Third Floor,Rorschach,0,1
+RPAI:R/PAI-557,1,Manual,Manual of Directions,,1,Archive Third Floor,RPAI:R/PAI,0,1
+RPAI:R-558,1,Manual,***,,1,Archive Third Floor,RPAI:R,0,1
+RPAI:R-559,1,Form,Girl's Booklet,,2,Archive Third Floor,RPAI:R,0,1
+RPAI:R-560,1,Form,Boy's Booklet,,11,Archive Third Floor,RPAI:R,0,1
+RSCA-561,1,Manual,,,1,Second Floor,RSCA,0,1
+RSCA-562,1,Form,Combination Booklet,,Around 20,Second Floor,RSCA,0,1
+RSCA-563,1,Form,Emotional Reactivity Scale Booklet,,,,RSCA,0,1
+RSCA-564,1,Form,Sense of Mastery Scale Booklet,,,,RSCA,0,1
+RSCA-565,1,Form,Sense of Relatedness Scale Booklet,,,,RSCA,0,1
+SB-5-566,1,Kit,Kit Contents: -,,1,Second Floor,SB-5,0,1
+SB-5-567,1,Form,Record Form,,Around 25,Second Floor,SB-5,0,1
+SCL-90-R-568,1,Form,Scoring Worksheet,,3,Archive Third Floor,SCL-90-R,0,1
+SCQ-569,1,Manual,,,1,Second Floor,SCQ,0,1
+SCQ-570,1,Form,AutoScore Form Lifetime,,14,Second Floor,SCQ,0,1
+SCQ-571,1,Form,AutoScore Form Current,,14,Second Floor,SCQ,0,1
+SEI-572,1,Manual,,,1,Archive Third Floor,SEI,0,1
+SIB-R-573,1,Manual,Comprehensive Manual,,1,Second Floor,SIB-R,0,1
+SIB-R-574,1,Book,Interview Book,,1,Second Floor,SIB-R,0,1
+SIB-R-575,1,Form,Response Booklet Early Development  Form,,2,Second Floor,SIB-R,0,1
+SIB-R-576,1,Form,Individual Plan Recommendations Early Development  Form,,5,Second Floor,SIB-R,0,1
+SIB-R-577,1,Form,Response Booklet Short Form,,3,Second Floor,SIB-R,0,1
+SIB-R-578,1,Form,Individual Plan Recommendations Short Form,,5,Second Floor,SIB-R,0,1
+SIB-R-579,1,Form,Response Booklet Full Scale,,2,Second Floor,SIB-R,0,1
+SIPA-580,1,Manual,Professional Manual,,1,Second Floor,SIPA,0,1
+SIPA-581,1,Form,Item Booklet,,Around 30,Second Floor,SIPA,0,1
+SIPA-582,1,Form,Answer Sheet,,Around 25,Second Floor,SIPA,0,1
+SIQ-583,1,Manual,Preliminary Manual,,1,Second Floor,SIQ,0,1
+SIQ-584,1,Form,Record Form***,,Around 25,Second Floor,SIQ,0,1
+SIQ-JR-585,1,Form,Record Form***,,Around 25,Second Floor,SIQ-JR,0,1
+SIRS-586,1,Manual,Professional Manual,,1,Archive Third Floor,SIRS,0,1
+SIRS-587,1,Form,Interview Booklet,,12,Archive Third Floor,SIRS,0,1
+SRS-2-588,1,Manual,,,1,Second Floor,SRS-2,0,1
+SRS-2-589,1,Form,"Profile Sheet School-Age (Package with male, female, and AutoScore forms)",,Around 30,Second Floor,SRS-2,0,1
+SRS-2-590,1,Form,Profile Sheet Adult (Self-Report),,Around 20,Second Floor,SRS-2,0,1
+SRS-2-591,1,Form,Profile Sheet Preschool,,Around 20,Second Floor,SRS-2,0,1
+SRS-2-592,1,Form,Profile Sheet Adult (Relative/Other Report),,Around 20,Second Floor,SRS-2,0,1
+SRS-2-593,1,Manual,,,,Online Platform,SRS-2,0,1
+SRS-2-594,1,Form,School-Age Form,4 to 18,,Online Platform,SRS-2,0,1
+SRS-2-595,1,Form,Adult Relative/Other Report Form,19 & up,,Online Platform,SRS-2,0,1
+SRS-2-596,1,Form,Adult Self-Report Form,19 & up,,Online Platform,SRS-2,0,1
+STAI-597,1,Manual,,,1,Archive Third Floor,STAI,0,1
+STAI-598,1,Form,STAI Form X-1,,10,Archive Third Floor,STAI,0,1
+STAIC-599,1,Manual,Preliminary Manual,,1,Archive Third Floor,STAIC,0,1
+STAIC-600,1,Form,STAIC Form C-1 & C-2,,9,Archive Third Floor,STAIC,0,1
+Stroop-601,1,Manual,A Manual for Clinical and Experimental Uses,,1,Archive Third Floor,Stroop,0,1
+TAT-602,1,Kit,"Manuals, record forms, test cards",,1,Archive Third Floor,TAT,0,1
+TEA-Ch-603,1,Form,Procedural Guide and Scoring Sheet,,2,Second Floor,TEA-Ch,0,1
+TEA-Ch-604,1,Manual,,,,,TEA-Ch,0,1
+TOLD-605,1,Kit,,,1,Archive Third Floor,TOLD,0,1
+TOMM-606,1,Manual,,,1,Second Floor,TOMM,0,1
+TOMM-607,1,Book,Trial 1,,1,Second Floor,TOMM,0,1
+TOMM-608,1,Book,Trial 2,,1,Second Floor,TOMM,0,1
+TOMM-609,1,Book,Retention Trial,,1,Second Floor,TOMM,0,1
+TOMM-610,1,Form,Score Sheet,,Over 50,Second Floor,TOMM,0,1
+TOWRE-611,1,Manual,Examiner's Manual,,1,Second Floor,TOWRE,0,1
+TOWRE-612,1,Form,Profile/Examiner Record Booklet Form A,,11,Second Floor,TOWRE,0,1
+TOWRE-613,1,Form,Profile/Examiner Record Booklet Form B,,21,Second Floor,TOWRE,0,1
+TOWRE-614,1,,Folder with testing sheets/materials,,1,Second Floor,TOWRE,0,1
+TSCC-615,1,Manual,Professional Manual,,1,Second Floor,TSCC,0,1
+TSCC-616,1,Form,Profile Form: Females,8 to 12,Around 20,Second Floor,TSCC,0,1
+TSCC-617,1,Form,Profile Form: Males,8 to 12,Around 20,Second Floor,TSCC,0,1
+TSCC-618,1,Form,Booklet,,Around 20,Second Floor,TSCC,0,1
+TSI-619,1,Manual,Professional Manual,,1,Archive Third Floor,TSI,0,1
+TSI-620,1,Form,Profile Form: Females,,Around 20,Archive Third Floor,TSI,0,1
+TSI-621,1,Form,Profile Form: Males,,Around 20,Archive Third Floor,TSI,0,1
+TSI-622,1,Form,Item Booklet,,4,Archive Third Floor,TSI,0,1
+TSI-623,1,Form,Answer Sheet,,1,Archive Third Floor,TSI,0,1
+TSI-2-624,1,Manual,Professional Manual,,1,Second Floor,TSI-2,0,1
+TSI-2-625,1,Form,Profile Form,,Around 30,Second Floor,TSI-2,0,1
+TSI-2-626,1,Form,Item Booklet,,8,Second Floor,TSI-2,0,1
+TSI-2-627,1,Form,Answer Sheet,,Around 25,Second Floor,TSI-2,0,1
+Vineland-II-628,1,Manual,Survey Forms Manual,,1,Archive Third Floor,Vineland-II,0,1
+Vineland-II-629,1,Form,Record Booklet Survey Interview Form,,8,Archive Third Floor,Vineland-II,0,1
+Vineland-II-630,1,Form,Record Booklet Parent/Caregiver Rating Form,,19,Archive Third Floor,Vineland-II,0,1
+Vineland-II-631,1,Form,Survey Forms Report to Caregivers,,Around 25,Archive Third Floor,Vineland-II,0,1
+Vineland-II-632,1,Form,Survey Forms Report to Parents,,Around 25,Archive Third Floor,Vineland-II,0,1
+Vineland-3-633,1,Manual,,,1,Second Floor,Vineland-3,0,1
+Vineland-3-634,1,Form,Domain-Level Interview Form,,Around 25,Second Floor,Vineland-3,0,1
+Vineland-3-635,1,Form,Domain-Level Parent/Caregiver Form,,Around 20,Second Floor,Vineland-3,0,1
+Vineland-3-636,1,Form,Domain-Level Teacher Form,,25,Second Floor,Vineland-3,0,1
+Vineland-3-637,1,Form,Comprehensive Interview Form,,15,Second Floor,Vineland-3,0,1
+Vineland-3-638,1,Form,Comprehensive Interview Form  Without Item-Level Probes,,25,Second Floor,Vineland-3,0,1
+Vineland-3-639,1,Form,Comprehensive Parent/Caregiver Form,,23,Second Floor,Vineland-3,0,1
+Vineland-3-640,1,Form,Comprehensive Teacher Form,,25,Second Floor,Vineland-3,0,1
+VS-641,1,Manual,"Theory, Application, and Research",,1,Archive Third Floor,VS,0,1
+WAIS-III-642,1,Kit,French version (in kit with WISC-IV French),,1,Archive Third Floor,WAIS-III,0,1
+WAIS-III-643,1,Form,Record Form,,Over 50,Archive Third Floor,WAIS-III,0,1
+WAIS-III-644,1,Form,Response Booklet,,11,Archive Third Floor,WAIS-III,0,1
+WAIS-III-645,1,CD,Scoring Assistant Windows Version 1.0,,1,Archive Third Floor,WAIS-III,0,1
+WAIS-III-646,1,Install Disk,Scoring Assistant Windows Version 1.0,,1,Archive Third Floor,WAIS-III,0,1
+WAIS-III-WMS-III-WIAT-II-647,1,CD,Scoring Assistant Windows Version 1.0.2,,1,Archive Third Floor,WAIS-III-WMS-III-WIAT-II,0,1
+WAIS-III-WMS-III-WIAT-II-648,1,Install Disk,Scoring Assistant Windows Version 1.0.2,,1,Archive Third Floor,WAIS-III-WMS-III-WIAT-II,0,1
+WAIS-IV-649,1,CD,Scoring Assistant Windows Version 1.0.0,,6,Second Floor,WAIS-IV,0,1
+WAIS-IV-650,1,Kit,,,"7 (Labelled as Kit A, Kit B, Kit C, Kit D, Kit E, Kit F, and Kit G)",Second Floor,WAIS-IV,0,1
+WAIS-IV-651,1,Form,Record Form,,Over 100,Second Floor,WAIS-IV,0,1
+WAIS-IV-652,1,Form,Response Booklet 1 Symbol Search Coding,,Over 100,Second Floor,WAIS-IV,0,1
+WAIS-IV-653,1,Form,Response Booklet 2 Cancellation,,Over 50,Second Floor,WAIS-IV,0,1
+WAIS-IV-654,1,Scoring,,,,Computer-184 Side,WAIS-IV,0,1
+WAIS-655,1,Scoring,,,,Online Platform,WAIS,0,1
+WASI-656,1,Form,Record Form,,6,Archive Third Floor,WASI,0,1
+WASI-II-657,1,Kit,,,1,Second Floor,WASI-II,0,1
+WASI-II-658,1,Form,Record Form,,Over 50,Second Floor,WASI-II,0,1
+WCST-659,1,Kit,Materials for practice in administration and scoring,,1,Second Floor,WCST,0,1
+WCST-660,1,Manual,Revised and Expanded,,1,Second Floor,WCST,0,1
+WCST-661,1,Form,Record Booklet,,Over 50,Second Floor,WCST,0,1
+WIAT-II-662,1,Form,Record Form,,7,Archive Third Floor,WIAT-II,0,1
+WIAT-II-663,1,Form,Response Booklet,,Around 20,Archive Third Floor,WIAT-II,0,1
+WIAT-II-664,1,Install Disk,Scoring Assistant Windows Version 1.0,,1,Archive Third Floor,WIAT-II,0,1
+WIAT-II-665,1,CD,Scoring Assistant Windows Version 1.0,,1,Archive Third Floor,WIAT-II,0,1
+WIAT-III-666,1,Kit,,,2 (Labelled as Clinic Kit A and 1 is not in a case),Second Floor,WIAT-III,0,1
+WIAT-III-667,1,CD,Audio CD,,3,Second Floor,WIAT-III,0,1
+WIAT-III-668,1,CD,Scoring Assistant Windows Version 1.0,,2,Second Floor,WIAT-III,0,1
+WIAT-III-669,1,CD,Scoring Assistant Windows Version 1.0.2,,2,Second Floor,WIAT-III,0,1
+WIAT-III-670,1,CD,Technical Manual with Supplementary Materials      ,,4,Second Floor,WIAT-III,0,1
+WIAT-III-671,1,Form,Record Form,,Over 100,Second Floor,WIAT-III,0,1
+WIAT-III-672,1,Form,Response Booklet,,Over 100,Second Floor,WIAT-III,0,1
+WIAT-673,1,Scoring,,,,Online Platform,WIAT,0,1
+WISC-III-674,1,Form,Canadian Record Form,,10,Archive Third Floor,WISC-III,0,1
+WISC-III-675,1,Form,Mazes Response Booklet,,22,Archive Third Floor,WISC-III,0,1
+WISC-III-676,1,Form,Symbol Search Response Booklet,,8,Archive Third Floor,WISC-III,0,1
+WISC-IV-677,1,Kit,French version (in kit with WAIS-III French),,1,Archive Third Floor,WISC-IV,0,1
+WISC-IV-678,1,CD,Scoring Assistant Windows Version 1.0.3,,1,Archive Third Floor,WISC-IV,0,1
+WISC-IV-679,1,Manual,,,1,Archive Third Floor,WISC-IV,0,1
+WISC-IV-680,1,Book,Technical Report #4 General Ability Index,,1,Archive Third Floor,WISC-IV,0,1
+WISC-IV-681,1,Form,Record Form Canadian Edition,,Over 50,Archive Third Floor,WISC-IV,0,1
+WISC-IV-682,1,Form,Integrated Record Form,,1,Archive Third Floor,WISC-IV,0,1
+WISC-IV-683,1,Form,Coding Symbol Search Response Booklet 1***,,Around 30,Archive Third Floor,WISC-IV,0,1
+WISC-IV-684,1,Form,Cancellation Response Booklet 2,,Around 30,Archive Third Floor,WISC-IV,0,1
+WISC-IV-685,1,Form,Integrated Response Booklet 3,,1,Archive Third Floor,WISC-IV,0,1
+WISC-V-686,1,Kit,,,"6 (Labelled as Kit A, C, Kit D, PCQ Kit F, PCQ Kit G, and 1 has no label and is in a blue bag)",Second Floor,WISC-V,0,1
+WISC-V-687,1,Form,Record Form***,,Over 100,Second Floor,WISC-V,0,1
+WISC-V-688,1,Form,Response Booklet 1*** Coding Symbol Search,,Over 100,Second Floor,WISC-V,0,1
+WISC-V-689,1,Form,Response Booklet 2*** Cancellation,,Over 50,Second Floor,WISC-V,0,1
+WIST-690,1,Manual,Objective Measurement of Schizophrenic Thinking: A Practical and Theoretical Guide to the Whitaker Index of Schizophrenic Thinking,,1,Archive Third Floor,WIST,0,1
+WJ III-691,1,CD,Compuscore and Profiles Program Version 2.1,,1,Archive Third Floor,WJ III,0,1
+WJ III-692,1,Form,Test Record Tests of Cognitive Abilities Standard and Extended Batteries,,1,Archive Third Floor,WJ III,0,1
+WJ III-693,1,Form,Subject Response Booklet Tests of Cognitive Abilities Extended Battery,,1,Archive Third Floor,WJ III,0,1
+WJ IV-694,1,Book,Test Book Tests of Oral Language Tests 1-12,,1,Second Floor,WJ IV,0,1
+WJ IV-695,1,CD,Tests of Oral Language Audio Recording,,1,Second Floor,WJ IV,0,1
+WJ IV-696,1,CD,Tests of Cognitive Abilities Audio Recording,,1,Second Floor,WJ IV,0,1
+WJ IV-697,1,Form,Test Record Tests of Oral Language,,Around 25,Second Floor,WJ IV,0,1
+WJ IV-698,1,Book,Examiner Training Workbook Tests of Achievement,,1,Second Floor,WJ IV,0,1
+WJ IV-699,1,Book,Examiner Training Workbook Tests of Cognitive Abilities,,1,Second Floor,WJ IV,0,1
+WJ IV-700,1,Book,Examiner Training Workbook Tests of Oral Language,,1,Second Floor,WJ IV,0,1
+WJ IV-701,1,Manual,Tests of Achievement,,1,Second Floor,WJ IV,0,1
+WJ IV-702,1,Manual,Tests of Cognitive Abilities,,1,Second Floor,WJ IV,0,1
+WJ IV-703,1,Manual,Tests of Oral Language,,1,Second Floor,WJ IV,0,1
+WJ IV-704,1,CD,Tests of Achievement Audio Recording,,1,Second Floor,WJ IV,0,1
+WJ IV-705,1,Book,Standard Test Book** Tests of Achievement Form A Tests 1-11,,1,Second Floor,WJ IV,0,1
+WJ IV-706,1,Book,Extended Test Book Tests of Achievement Tests 12-20,,1,Second Floor,WJ IV,0,1
+WJ IV-707,1,Book,Standard Test Book Tests of Cognitive Abilities Tests 1-10,,1,Second Floor,WJ IV,0,1
+WJ IV-708,1,Book,Extended Test Book Tests of Cognitive Abilities Tests 11-18,,1,Second Floor,WJ IV,0,1
+WJ IV-709,1,Form,Response Booklet Tests of Achievement Standard and Extended Batteries Form A,,Around 25,Second Floor,WJ IV,0,1
+WJ IV-710,1,Book,"Scoring Guides Test 9, 10, and 15 Tests of Achievement Form A",,1,Second Floor,WJ IV,0,1
+WJ IV-711,1,Form,Test Record Tests of Achievement Standard and Extended Batteries Form A,,Around 25,Second Floor,WJ IV,0,1
+WJ IV-712,1,Form,Response Booklet Tests of Cognitive Abilities Standard and Extended Batteries,,Around 25,Second Floor,WJ IV,0,1
+WJ IV-713,1,Book,"Scoring Guides Test 4, 11, & 17 Tests of Cognitive Abilities",,1,Second Floor,WJ IV,0,1
+WJ IV-714,1,Form,Test Record Tests of Cognitive Abilities Standard and Extended Batteries,,Around 25,Second Floor,WJ IV,0,1
+WMS-IV -715,1,CD,Scoring Assistant Windows Version 1.0,,1,Second Floor,WMS-IV ,0,1
+WMS-IV -716,1,CD,Training CD,,1,Second Floor,WMS-IV ,0,1
+WMS-IV -717,1,Form,Response Booklet for Brief Cognitive Status Exam and Visual Reproduction I and II,,Over 50,Second Floor,WMS-IV ,0,1
+WMS-IV -718,1,Form,Record Form Adult Battery,16 to 69,Less than 50,Second Floor,WMS-IV ,0,1
+WMS-IV -719,1,Form,Record Form Older Adult Battery,65 to 90,Around 25,Second Floor,WMS-IV ,0,1
+WMS-IV -720,1,Kit,Testing materials Scoring Template Stimulus books 1 and 2 2 manuals,,1,Second Floor,WMS-IV ,0,1
+WMT-721,1,Manual,For Windows,,1,Second Floor,WMT,0,1
+WMT-722,1,CD,,,1,Second Floor,WMT,0,1
+WPPSI-III-723,1,Form,Record Form,2:6 to 3:11,Over 50,Archive Third Floor,WPPSI-III,0,1
+WPPSI-III-724,1,Form,Record Form,4:0 to 7:3,Around 25,Archive Third Floor,WPPSI-III,0,1
+WPPSI-III-725,1,Form,Response Booklet,,Around 30,Archive Third Floor,WPPSI-III,0,1
+WPPSI-IV-726,1,Kit,,,1,Second Floor,WPPSI-IV,0,1
+WPPSI-IV-727,1,Form,Record Form,2:6 to 3:11,20,Second Floor,WPPSI-IV,0,1
+WPPSI-IV-728,1,Form,Record Form,4:0 to 7:7,17,Second Floor,WPPSI-IV,0,1
+WPPSI-IV-729,1,Form,Response Booklet 1 Bug Search,,20,Second Floor,WPPSI-IV,0,1
+WPPSI-IV-730,1,Form,Response Booklet 2 Cancellation,,21,Second Floor,WPPSI-IV,0,1
+WPPSI-IV-731,1,Form,Response Booklet 3 Animal Coding,,23,Second Floor,WPPSI-IV,0,1
+WRAML2-732,1,Kit,,,1 (Labelled as Kit B),Archive Third Floor,WRAML2,0,1
+WRAML2-733,1,Form,Picture Memory Response Form,,3,Archive Third Floor,WRAML2,0,1
+WRAML2-734,1,Form,Picture Memory Recognition Form,,12,Archive Third Floor,WRAML2,0,1
+WRAML2-735,1,Form,Design Memory Response Form,,1,Archive Third Floor,WRAML2,0,1
+WRAML2-736,1,Form,Design Memory Recognition Form,,7,Archive Third Floor,WRAML2,0,1
+WRAML3-737,1,Kit,,,1,Second Floor,WRAML3,0,1
+WRAML3-738,1,Form,Brief Record Form,,5,Second Floor,WRAML3,0,1
+WRAML3-739,1,Form,Brief Response Booklet,,5,Second Floor,WRAML3,0,1
+WRAML3-740,1,Form,Record Form,,Over 100,Second Floor,WRAML3,0,1
+WRAML3-741,1,Form,Recall Response Booklet,,Over 100,Second Floor,WRAML3,0,1
+WRAML3-742,1,Form,Recognition Response Booklet,,Over 100,Second Floor,WRAML3,0,1
+WRAT4-743,1,Manual,Professional Manual,,1,Archive Third Floor,WRAT4,0,1
+WRAT4-744,1,Kit,,,1,Archive Third Floor,WRAT4,0,1
+WRAT4-745,1,Form,Blue Test Form,,16,Archive Third Floor,WRAT4,0,1
+WRAT4-746,1,Form,Blue Response Form,,21,Archive Third Floor,WRAT4,0,1
+WRAT4-747,1,Form,Blue Sentence Comprehension Test Form****,,20,Archive Third Floor,WRAT4,0,1
+WRAT4-748,1,Form,Green Sentence Comprehension Test Form,,Around 25,Archive Third Floor,WRAT4,0,1
+WRAT4-749,1,Form,Green Test Form,,Around 25,Archive Third Floor,WRAT4,0,1
+WRAT4-750,1,Form,Green Response Form,,Around 25,Archive Third Floor,WRAT4,0,1
+16PF-5-751,1,Manual,Administrator's Manual***,,1,Second Floor,16PF-5,0,1
+16PF-5-752,1,Book,Questionnaire Booklet,,8,Second Floor,16PF-5,0,1
+16PF-5-753,1,Form,Answer Sheet,,Around 20,Second Floor,16PF-5,0,1
+16PF-5-754,1,Form,Individual Record Form Profile Sheet,,Around 20,Second Floor,16PF-5,0,1
+CBT-755,1,CD,Constructing NEW Core Beliefs,,1,Second Floor,CBT,0,1
+CBT-756,1,CD,Cognitive Therapy for Panic Disorder,,1,Second Floor,CBT,0,1
+CBT-757,1,CD,CBT for Social Anxiety,,1,Second Floor,CBT,0,1
+CBT-758,1,CD,Guided Discovery Using Socratic Dialogue,,1,Second Floor,CBT,0,1
+CBT-759,1,CD,Collaborative Case Conceptualization,,1,Second Floor,CBT,0,1
+CBT-760,1,CD,Constructing NEW Underlying Assumptions & Behavioral Experiments,,1,Second Floor,CBT,0,1
+CBT-761,1,CD,Testing Automatic Thoughts with Thought Records,,1,Second Floor,CBT,0,1
+IDK-762,1,CD,Preventing Neurotrauma A Casebook of Evidence Based Practices,,1,Second Floor,IDK,0,1
