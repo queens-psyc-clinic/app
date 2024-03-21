@@ -43,6 +43,9 @@ test_parser.add_argument(
 )
 
 class Test(Resource):
+  """
+  This is the Test controller for handling single data operations.
+  """
 
   @marshal_with(test_fields)
   def post(self, acronym):
@@ -158,15 +161,49 @@ class Test(Resource):
 def _delete_test(test_id):
   """
   Delete a test by its ID
+
+  Parameters:
+  - test_id (str): The ID of the test to delete
+
+  Returns:
+  - None
   """
   return execute_sql_query("DELETE", "Tests", conditions=test_id)
 
 
 def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", levelOfUser: str = "", editionNumber: str = "", orderingCompany: str = ""):
+  """
+  Creates a test with default values and passes it to _make_test to 
+
+  Parameters:
+  - acronym (str): The acronym of the test
+  - name (str): The name of the test
+  - measureOf (str): The measure of the test
+  - levelOfUser (str): The level of the user necessary for the test
+  - editionNumber (str): The edition number of the test
+  - orderingCompany (str): The ordering company of the test
+
+  Returns:
+  - dict: A dictionary containing specified values after _make_test
+  """
   return _make_test(acronym, name, measureOf, levelOfUser, editionNumber, orderingCompany)
 
 
 def _make_test(acronym: str, name: str, measureOf: str, levelOfUser: str, editionNumber: str, orderingCompany: str):
+  """
+  Creates a test with the given values to be inserted for the INSERT operation
+
+  Parameters:
+  - acronym (str): The acronym of the test
+  - name (str): The name of the test
+  - measureOf (str): The measure of the test
+  - levelOfUser (str): The level of the user necessary for the test
+  - editionNumber (str): The edition number of the test
+  - orderingCompany (str): The ordering company of the test
+  
+  Returns:
+  - dict: A dictionary containing specified values
+  """
   return {'ID': acronym, 'Name': name, 'MeasureOf': measureOf, 'LevelOfUser': levelOfUser, 'EditionNumber': editionNumber, 'OrderingCompany': orderingCompany}
 
 

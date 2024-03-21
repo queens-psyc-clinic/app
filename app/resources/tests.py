@@ -5,12 +5,14 @@ test_fields = {
   'ID': fields.String,
   'Name': fields.String,
   'MeasureOf': fields.String,
-  'LevelOfUser': fields.String
+  'LevelOfUser': fields.String,
+  'EditionNumber' : fields.String,
+  'OrderingCompany' : fields.String
 }
 
 class Tests(Resource):
   """
-  This is the Test controller for handling batch data.
+  This is the Test controller for handling batch data operations.
   All data is returned in JSON format
   """
 
@@ -70,7 +72,7 @@ class Tests(Resource):
       if tests:
         return tests, 201
     # filters are not empty, return tests with filters
-    selected_tests = _select(filters)
+    selected_tests = _select_cols(filters, None)
     if selected_tests is not None:
       return selected_tests, 201
     abort(500, message="Internal error retrieving tests")
@@ -125,7 +127,9 @@ def _update_tests(update_data, filters):
 
   Parameters:
   - update_data (List[Dict[str, Any]]): The data to update for each test
-  
+
+  Returns:
+  - None
   """
   execute_sql_query("UPDATE", "Tests", data=[update_data], conditions=filters)
 
