@@ -4,18 +4,6 @@ from flask_restful import Resource, abort, marshal_with, reqparse, request, fiel
 
 from common.db import execute_sql_query, select_table, check_exists, execute_query
 from resources.item import item_fields
-# item_fields = {
-#     'ID': fields.String,
-#     'Status': fields.String,
-#     'ItemType': fields.String,
-#     'ItemName': fields.String,
-#     'EditionNumber': fields.String,
-#     'Ages': fields.String,
-#     'NumberOfParts': fields.String,
-#     'Location': fields.String,
-#     'OrderingCompany': fields.String,
-#     'TestID': fields.String,
-# }
 
 class Items(Resource):
 
