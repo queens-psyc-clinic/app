@@ -39,9 +39,6 @@ function App({ page, userRole }: AppProps) {
   }
   return (
     <div className="flex h-screen w-screen p-2 items-center">
-      <button className="bg-red-200 p-10 text-bold" onClick={() => getData()}>
-        YES BITCH
-      </button>
       <Navbar userType={userRole} />
       {page === Pages.dashboard && <Dashboard userRole={userRole} />}
       {page === Pages.overdue && <Overdue userRole={userRole} />}
