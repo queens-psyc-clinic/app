@@ -25,7 +25,9 @@ CREATE TABLE Tests (
     ID VARCHAR(64) PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     MeasureOf VARCHAR(255),
-    LevelOfUser VARCHAR(10)
+    LevelOfUser VARCHAR(10),
+    EditionNumber VARCHAR(100),
+    OrderingCompany VARCHAR(155)
 );
 
 CREATE TABLE Items (
@@ -33,12 +35,12 @@ CREATE TABLE Items (
     Status BOOLEAN NOT NULL, -- Available (True) or Borrowed (False)
     ItemType VARCHAR(75),
     ItemName VARCHAR(355),
-    EditionNumber VARCHAR(100),
     Ages VARCHAR(50),
     NumberOfParts VARCHAR(100),
     Location VARCHAR(155),
-    OrderingCompany VARCHAR(155),
     TestID VARCHAR(64), 
+    IsArchived BOOLEAN NOT NULL,
+    Stock INT,
     FOREIGN KEY (TestID) REFERENCES Tests(ID)
 );
 
