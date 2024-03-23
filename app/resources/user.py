@@ -16,6 +16,8 @@ def email(email_str: str):
 user_fields = {
     'ID': fields.String,
     'UserName': fields.String,
+    'FirstName': fields.String,
+    'LastName': fields.String,
     'Email': fields.String,
     'IsAdmin': fields.Boolean,
 }
