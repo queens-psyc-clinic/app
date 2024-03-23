@@ -19,7 +19,7 @@ const PillCell = (props: {
         {props.data.title}
       </p>
     );
-  } else if (props.data.type == "item") {
+  } else if (props.data.type === "item") {
     return (
       <p
         className={`${getPillStyle(props.data.title)} 

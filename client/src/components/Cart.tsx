@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Role } from "../models/User";
-import { CartItem, getPillColor } from "../models/libraryItem";
+import { CartItem } from "../models/libraryItem";
 import { MdDelete } from "react-icons/md";
 import PillCell from "./PillCell";
 import ReserveModal from "./ReserveModal";
