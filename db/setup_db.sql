@@ -6,7 +6,6 @@ USE psychClinic;
 
 CREATE TABLE Users (
     ID VARCHAR(64) PRIMARY KEY,
-    UserName VARCHAR(255) NOT NULL,
     FirstName VARCHAR(255) NOT NULL,
     LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
@@ -17,11 +16,11 @@ CREATE TABLE Users (
 
 -- Add dummy data for users
 INSERT INTO Users (ID, UserName, FirstName, LastName, Email, IsAdmin) VALUES
-(1, 'JohnDoe', 'John', 'Doe', 'john.doe@example.com', true),
-(2, 'JaneSmith', 'Jane', 'Smith',  'jane.smith@example.com', false),
-(3, 'AdminUser',  'Admin', 'User', 'admin@example.com', true),
-(4, 'AliceJohnson',  'Alice', 'Johnson', 'alice.johnson@example.com', false),
-(5, 'BobMiller',  'Bob', 'Miller', 'bob.miller@example.com', false);
+(1,  'John', 'Doe', 'john.doe@example.com', true),
+(2,  'Jane', 'Smith',  'jane.smith@example.com', false),
+(3,   'Admin', 'User', 'admin@example.com', true),
+(4,   'Alice', 'Johnson', 'alice.johnson@example.com', false),
+(5,   'Bob', 'Miller', 'bob.miller@example.com', false);
 
 CREATE TABLE Tests (
     ID VARCHAR(64) PRIMARY KEY,

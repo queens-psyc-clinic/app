@@ -15,7 +15,6 @@ def email(email_str: str):
 
 user_fields = {
     'ID': fields.String,
-    'UserName': fields.String,
     'FirstName': fields.String,
     'LastName': fields.String,
     'Email': fields.String,
@@ -24,10 +23,16 @@ user_fields = {
 
 user_parser = reqparse.RequestParser()
 user_parser.add_argument(
-    'UserName', dest='UserName',
+    'FirstName', dest='FirstName',
     location='args',
     required=True,
-    help='The user\'s username',
+    help='The user\'s first name',
+)
+user_parser.add_argument(
+    'LastName', dest='LastName',
+    location='args',
+    required=True,
+    help='The user\'s first name',
 )
 
 
@@ -72,7 +77,8 @@ class User(Resource):
                   description: Permissions
         """
         args = user_parser.parse_args()
-        new_user = _default_user(args['UserName'], email)
+        print(args)
+        new_user = _default_user(args['FirstName'], args['LastName'], email)
         new_user["Hash"] = hash_password(password)
         _insert(new_user)
         return _select_one({"ID": new_user["ID"]}), 201
@@ -105,12 +111,12 @@ class User(Resource):
         abort(400, message="Incorrect Password")
 
 
-def _default_user(name: str = "abc", email: str = "abc@xyz.ca"):
-    return _make_user(hash(email), name, email, False)
+def _default_user(firstName = "abc", lastName ="def", email: str = "abc@xyz.ca"):
+    return _make_user(hash(email), firstName, lastName,  email, False)
 
 
-def _make_user(id: int, username: str, email: str, isAdmin: bool):
-    return {'ID': id, 'UserName': username, 'Email': email, 'IsAdmin': isAdmin, "Hash": None}
+def _make_user(id: int, firstName: str, lastName: str, email: str, isAdmin: bool):
+    return {'ID': id, 'FirstName': firstName, 'LastName': lastName, 'Email': email, 'IsAdmin': isAdmin, "Hash": None}
 
 
 def _insert(d): return execute_sql_query(

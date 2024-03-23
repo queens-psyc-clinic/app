@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./components/Navbar";
 import Notification from "./components/Notification";
 import { Role } from "./models/User";
@@ -10,7 +9,7 @@ import SignedOut from "./pages/SignedOut";
 import { Pages } from "./models/Pages";
 import Settings from "./pages/Settings";
 import Cart from "./components/Cart";
-import axios from "axios";
+import { authenticateAccount } from "./services/UserService";
 
 interface AppProps {
   page: Pages;
@@ -19,24 +18,10 @@ interface AppProps {
 
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
+  authenticateAccount("john.doe@example.com", "password123").then((res) =>
+    console.log(res)
+  );
 
-  function getData() {
-    axios({
-      method: "GET",
-      url: "/user/farah@gmail.com/password/",
-    })
-      .then((response) => {
-        const res = response.data;
-        console.log(res);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
-  }
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />

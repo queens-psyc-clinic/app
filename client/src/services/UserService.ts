@@ -4,6 +4,24 @@ This service handles authentication, and getting/ editing user information
 
 import axios, { AxiosResponse } from "axios";
 
+function getData() {
+  axios({
+    method: "GET",
+    url: "/user/farah@gmail.com/password/",
+  })
+    .then((response) => {
+      const res = response.data;
+      console.log(res);
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+}
+
 // Define the interface for the data returned by the API
 interface UserData {
   id: number;
@@ -15,6 +33,8 @@ interface UserData {
 export async function createNewAccount(
   email: string,
   username: string,
+  firstName: string,
+  lastName: string,
   password: string
 ) {
   // Check if there already exists an account with the email, can call authenticateAccount
@@ -24,6 +44,22 @@ export async function createNewAccount(
 
 export async function authenticateAccount(email: string, password: string) {
   // Check if there already exists an account with the email
+  axios({
+    method: "GET",
+    url: `/user/${email}/${password}/`,
+  })
+    .then((response) => {
+      const res = response.data;
+      return res;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+      throw Error("User Does Not Exist");
+    });
 }
 
 export async function getUserSettingsData(id: string) {
