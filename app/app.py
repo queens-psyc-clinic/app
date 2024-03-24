@@ -7,7 +7,7 @@ from resources.user import User
 from resources.users import Users
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['http://localhost:3000'])
 api = Api(app)
 swagger = Swagger(app)
 
