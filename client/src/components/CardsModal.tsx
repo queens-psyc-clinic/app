@@ -8,7 +8,7 @@ interface CardsModalProps {
   isOpen: boolean;
   closeModal: () => void;
   cardData: CardData | null;
-  cardColor: string;
+  cardColor?: string;
 }
 
 const CardsModal: React.FC<CardsModalProps> = ({
@@ -27,12 +27,16 @@ const CardsModal: React.FC<CardsModalProps> = ({
           <div className="bg-white rounded-lg p-8 min-w-20 max-h-full min-w-fit overflow-y-auto">
             {cardData && (
               <div>
-                <h3 className="text-base italic font-light pb-1 pt-8">{cardData.Measure.data.title}</h3>
+                <h3 className="text-base italic font-light pb-1 pt-8">
+                  {cardData.Measure.data.title}
+                </h3>
                 <h1 className="text-2xl font-bold mb-4">{modalTitle}</h1>
                 <h3>{cardData["Item Name"]}</h3>
                 <div className="flex flex-row text-xs pt-6">
                   <div className="">
-                    <p className={`mr-4 rounded-full py-1 px-6 text-gray-900 bg-gray-100 ${cardColor}`}>
+                    <p
+                      className={`mr-4 rounded-full py-1 px-6 text-gray-900 bg-gray-100 ${cardColor}`}
+                    >
                       {cardData.Item.data.title}
                     </p>
                   </div>
@@ -45,9 +49,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                 <div className="flex flex-row gap-14 py-8">
                   <div className="">
                     <h3 className="font-bold">Level of Use</h3>
-                    <p className="mr-4 rounded-full py-1">
-                      {cardData.Level}
-                    </p>
+                    <p className="mr-4 rounded-full py-1">{cardData.Level}</p>
                   </div>
                   <div className="">
                     <h3 className="font-bold">Edition</h3>
