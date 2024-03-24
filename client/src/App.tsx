@@ -9,7 +9,6 @@ import SignedOut from "./pages/SignedOut";
 import { Pages } from "./models/Pages";
 import Settings from "./pages/Settings";
 import Cart from "./components/Cart";
-import { authenticateAccount } from "./services/UserService";
 
 interface AppProps {
   page: Pages;
@@ -18,9 +17,6 @@ interface AppProps {
 
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-  authenticateAccount("john.doe@example.com", "password123").then((res) =>
-    console.log(res)
-  );
 
   return (
     <div className="flex h-screen w-screen p-2 items-center">
