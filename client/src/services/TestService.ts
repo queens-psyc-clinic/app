@@ -4,6 +4,7 @@ This service handles all operations with Library tests and items
 
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Test, LibraryItem } from "../models/libraryItem";
+import { columnCustomComponents } from "../models/tableColumns";
 // Define the interface for the data returned by the API
 interface testQuery {
   measure?: string;
@@ -58,9 +59,10 @@ export async function getTestById(testId: string) {
     throw error;
   }
 }
-
+// Acronym, name, measure, edition, ages, level
 export async function getAllTests() {
   // Get all the tests in the database
+
   try {
     const response: AxiosResponse = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/tests`

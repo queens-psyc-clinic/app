@@ -49,6 +49,28 @@ const Table = (props: {
   }
 
   const data = props.data;
+  console.log(data);
+
+  const mapColumnTitleToDataIndex = (colTitle: string) => {
+    switch (colTitle) {
+      case "Acronym":
+        return "ID";
+      case "Name":
+        return "Name";
+      case "Measure":
+        return "MeasureOf";
+      case "Level":
+        return "LevelOfUser";
+      case "Edition":
+        return "EditionNumber";
+      case "Edition":
+        return "EditionNumber";
+      case "Ordering Company":
+        return "OrderingCompany";
+      default:
+        return colTitle;
+    }
+  };
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
@@ -119,87 +141,108 @@ const Table = (props: {
         </thead>
         <tbody>
           {data.map((row, rowInd: number) => {
-            const isExpanded = isRowExpanded(row.id.toString());
-            return (
-              <React.Fragment key={row.id.toString()}>
-                <tr
-                  className={`rounded-full relative ${
-                    rowInd % 2 !== 0 ? "bg-gray-100" : null
-                  }`}
-                  onClick={() => toggleRowExpansion(row.id.toString())}
-                >
-                  <td className="px-4 py-2" key={uuid()}>
-                    <input
-                      type="checkbox"
-                      checked={props.selectedRows.includes(row.id as string)}
-                      onChange={() => handleCheckbox(row.id as string)}
-                      className="cursor-pointer mx-2"
-                    />
-                  </td>
-                  <td className="px-4 py-2" key={uuid()}>
-                    <FaAngleDown
-                      className={
-                        isRowExpanded(row.id.toString()) ? "rotate-180" : ""
-                      }
-                    />
-                  </td>
-                  {props.isEditable && (
+            if (row.ID) {
+              const isExpanded = isRowExpanded(row.ID.toString());
+              return (
+                <React.Fragment key={row.ID.toString()}>
+                  <tr
+                    className={`rounded-full relative ${
+                      rowInd % 2 !== 0 ? "bg-gray-100" : null
+                    }`}
+                    onClick={() => toggleRowExpansion(row.ID.toString())}
+                  >
                     <td className="px-4 py-2" key={uuid()}>
-                      <i className="text-black cursor-pointer">
-                        <FiEdit size={15} />
-                      </i>
+                      <input
+                        type="checkbox"
+                        checked={props.selectedRows.includes(row.id as string)}
+                        onChange={() => handleCheckbox(row.id as string)}
+                        className="cursor-pointer mx-2"
+                      />
                     </td>
-                  )}
-                  {columns.map((col, ind) => {
-                    const cellContent = row[col.title].toString();
-                    return (
-                      <td key={ind} className="px-4 py-2">
-                        <p
-                          className={`text-wrap h-min ${
-                            centerIndices.includes(ind)
-                              ? "flex justify-center items-center"
-                              : null
-                          }`}
-                        >
-                          {cellContent}
-                        </p>
+                    <td className="px-4 py-2" key={uuid()}>
+                      <FaAngleDown
+                        className={
+                          isRowExpanded(row.ID.toString()) ? "rotate-180" : ""
+                        }
+                      />
+                    </td>
+                    {props.isEditable && (
+                      <td className="px-4 py-2" key={uuid()}>
+                        <i className="text-black cursor-pointer">
+                          <FiEdit size={15} />
+                        </i>
                       </td>
-                    );
-                  })}
-                </tr>
-                {isExpanded &&
-                  (props.currentPage === "dashboard" ||
-                    props.currentPage === "archive") && (
-                    <tr>
-                      <td colSpan={columns.length + 3}>
-                        <div className="ml-32 mb-4">
-                          {expandedRowsData
-                            .filter((item) => item.id === row.id.toString())
-                            .map((expandedRow) =>
-                              expandedRow.items.map((item, index) => (
-                                <div
-                                  className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
-                                  key={index}
-                                >
-                                  <div>
-                                    <p
-                                      className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${item.color}-100`}
-                                    >
-                                      {item.item}
-                                    </p>
+                    )}
+                    {columns.map((col, ind) => {
+                      if (row[mapColumnTitleToDataIndex(col.title)]) {
+                        const cellContent =
+                          row[mapColumnTitleToDataIndex(col.title)].toString();
+                        // const cellContent = row[col.title].toString();
+
+                        return (
+                          <td key={ind} className="px-4 py-2">
+                            <p
+                              className={`text-wrap h-min ${
+                                centerIndices.includes(ind)
+                                  ? "flex justify-center items-center"
+                                  : null
+                              }`}
+                            >
+                              {cellContent}
+                            </p>
+                          </td>
+                        );
+                      } else {
+                        return (
+                          <td key={ind} className="px-4 py-2">
+                            <p
+                              className={`text-wrap h-min ${
+                                centerIndices.includes(ind)
+                                  ? "flex justify-center items-center"
+                                  : null
+                              }`}
+                            >
+                              <span></span>
+                            </p>
+                          </td>
+                        );
+                      }
+                    })}
+                  </tr>
+                  {isExpanded &&
+                    (props.currentPage === "dashboard" ||
+                      props.currentPage === "archive") && (
+                      <tr>
+                        <td colSpan={columns.length + 3}>
+                          <div className="ml-32 mb-4">
+                            {expandedRowsData
+                              .filter((item) => item.id === row.id.toString())
+                              .map((expandedRow) =>
+                                expandedRow.items.map((item, index) => (
+                                  <div
+                                    className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
+                                    key={index}
+                                  >
+                                    <div>
+                                      <p
+                                        className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${item.color}-100`}
+                                      >
+                                        {item.item}
+                                      </p>
+                                    </div>
+                                    <div className="pl-10">
+                                      <p>{item.itemName}</p>
+                                    </div>
                                   </div>
-                                  <div className="pl-10">
-                                    <p>{item.itemName}</p>
-                                  </div>
-                                </div>
-                              ))
-                            )}
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-              </React.Fragment>
-            );
+                                ))
+                              )}
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                </React.Fragment>
+              );
+            }
           })}
         </tbody>
       </table>
