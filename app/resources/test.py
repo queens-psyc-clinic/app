@@ -131,6 +131,57 @@ class Test(Resource):
       return test, 200
     
     abort(404, message="Test not found")
+
+  
+  @marshal_with(test_fields)
+  def put(self, acronym):
+    """
+    Update a test by ID
+    ---
+    parameters:
+      - in: path
+        name: acronym
+        type: string
+        required: true
+      - in: query
+        name: Name
+        type: string
+        required: false
+      - in: query
+        name: MeasureOf
+        type: string
+        required: false
+      - in: query
+        name: LevelOfUser
+        type: string
+        required: false
+      - in: query
+        name: EditionNumber
+        type: string
+        required: false
+      - in: query
+        name: OrderingCompany
+        type: string
+        required: false
+    responses:
+      201:
+        description: A single test item
+        schema:
+          id: Tests
+      500:
+        description: Internal Error updating tests
+    """
+    args = test_parser.parse_args()
+    test = _select_one({"ID": acronym})
+    if test:
+      update_data = {}
+      for key in args:
+        if args[key] is not None:
+          update_data[key] = args[key]
+      _update_test(update_data, {"ID": acronym})
+      return _select_one({"ID": acronym}), 201
+    else:
+      abort(404, message="Test not found")
     
 
   @marshal_with(test_fields)
@@ -169,6 +220,20 @@ def _delete_test(test_id):
   - None
   """
   return execute_sql_query("DELETE", "Tests", conditions=test_id)
+
+
+def _update_test(update_data, test_id):
+  """
+  Update a test by its ID
+
+  Parameters:
+  - update_data (dict): The data to update
+  - test_id (str): The ID of the test to update
+
+  Returns:
+  - dict: The updated test
+  """
+  return execute_sql_query("UPDATE", "Tests", data=[update_data], conditions=test_id)
 
 
 def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", levelOfUser: str = "", editionNumber: str = "", orderingCompany: str = ""):
