@@ -136,16 +136,7 @@ export enum Location {
   Upstairs = "Upstairs",
 }
 
-export type MinAge =
-  | "0"
-  | "5"
-  | "10"
-  | "15"
-  | "21"
-  | "45"
-  | "65"
-  | "80"
-  | "32";
+export type MinAge = "0" | "5" | "10" | "15" | "21" | "45" | "65" | "80" | "32";
 
 export const MinimumAge: MinAge[] = [
   "0",
@@ -181,6 +172,3 @@ export const MaximumAge: MaxAge[] = [
   "46",
   "12",
 ];
-
-}
-
