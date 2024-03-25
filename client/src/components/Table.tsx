@@ -8,20 +8,25 @@ import {
 } from "../models/tableColumns";
 
 import { FiEdit } from "react-icons/fi";
-
 import "./Table.css";
 import uuid from "react-uuid";
 import ColumnComponent from "./ColumnComponent";
+import expandedRowsData from "../models/tableExpandRows";
+import { useState } from "react";
+import { FaAngleDown } from "react-icons/fa";
+import React from "react";
 
 const Table = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
   data: Record<string, string | Object>[];
+  currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
 }) => {
   /* the tableType props must match the data given!*/
+  const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
   let columns: Column[];
 
@@ -64,24 +69,34 @@ const Table = (props: {
     });
   };
 
+  const toggleRowExpansion = (id: string) => {
+    setExpandedRows((prevExpandedRows) =>
+      prevExpandedRows.includes(id)
+        ? prevExpandedRows.filter((rowId) => rowId !== id)
+        : [...prevExpandedRows, id]
+    );
+  };
+
+  const isRowExpanded = (id: string) => expandedRows.includes(id);
+
   return (
-    <div className="overflow-scroll max-w-[99%] h-[75%] max-h-[75%] min-h-[60%] text-xs shadow-sm">
-      <table className="">
+    <div className="overflow-scroll h-[55vh] max-h-[75%] text-xs shadow-sm">
+      <table className="w-full">
         <thead className="sticky top-0 z-10 bg-[#393939] font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
-            {props.isCheckable && (
-              <td className="px-4 py-4 min-w-min" key={uuid()}>
-                <input type="checkbox" className="cursor-pointer ml-2"></input>
-              </td>
-            )}
-            {props.isEditable && (
-              <td className="px-4 py-4 min-w-min" key={uuid()}>
-                <span></span>
-              </td>
-            )}
+            <td className="px-4 py-4 min-w-min" key={uuid()}>
+              <input type="checkbox" className="cursor-pointer ml-2"></input>
+            </td>
+            <td className="px-4 py-4 min-w-min" key={uuid()}>
+              <span></span>
+            </td>
+            <td className="px-4 py-4 min-w-min" key={uuid()}>
+              <span></span>
+            </td>
             {columns.map((col, ind) => {
               return (
                 <td
+                  key={ind}
                   className={`px-4 py-4 ${
                     col.size === "large" ? "min-w-80" : null
                   }
@@ -91,7 +106,7 @@ const Table = (props: {
                   <p
                     className={`${
                       centerIndices.includes(ind)
-                        ? "flex justify-center items-center"
+                        ? "flex justify-center items-center "
                         : null
                     }`}
                   >
@@ -104,14 +119,15 @@ const Table = (props: {
         </thead>
         <tbody>
           {data.map((row, rowInd: number) => {
+            const isExpanded = isRowExpanded(row.id.toString());
             return (
-              <tr
-                className={`rounded-full relative ${
-                  rowInd % 2 !== 0 ? "bg-gray-100" : null
-                }`}
-                key={uuid()}
-              >
-                {props.isCheckable && (
+              <React.Fragment key={row.id.toString()}>
+                <tr
+                  className={`rounded-full relative ${
+                    rowInd % 2 !== 0 ? "bg-gray-100" : null
+                  }`}
+                  onClick={() => toggleRowExpansion(row.id.toString())}
+                >
                   <td className="px-4 py-2" key={uuid()}>
                     <input
                       type="checkbox"
@@ -120,20 +136,24 @@ const Table = (props: {
                       className="cursor-pointer mx-2"
                     />
                   </td>
-                )}
-                {props.isEditable && (
                   <td className="px-4 py-2" key={uuid()}>
-                    <i className="text-black cursor-pointer">
-                      <FiEdit size={15} />
-                    </i>
+                    <FaAngleDown
+                      className={
+                        isRowExpanded(row.id.toString()) ? "rotate-180" : ""
+                      }
+                    />
                   </td>
-                )}
-
-                {columns.map((col, ind) => {
-                  if (!Object.hasOwn(row[col.title] as Object, "type")) {
-                    const cell = row[col.title].toString();
+                  {props.isEditable && (
+                    <td className="px-4 py-2" key={uuid()}>
+                      <i className="text-black cursor-pointer">
+                        <FiEdit size={15} />
+                      </i>
+                    </td>
+                  )}
+                  {columns.map((col, ind) => {
+                    const cellContent = row[col.title].toString();
                     return (
-                      <td className="px-4 py-2" key={uuid()}>
+                      <td key={ind} className="px-4 py-2">
                         <p
                           className={`text-wrap h-min ${
                             centerIndices.includes(ind)
@@ -141,29 +161,44 @@ const Table = (props: {
                               : null
                           }`}
                         >
-                          {cell}
+                          {cellContent}
                         </p>
                       </td>
                     );
-                  } else {
-                    const customData = row[col.title] as {
-                      type: columnCustomComponents;
-                      data: Object;
-                    };
-
-                    return (
-                      <td className="px-4 py-2" key={uuid()}>
-                        {
-                          <ColumnComponent
-                            type={customData.type}
-                            data={customData.data}
-                          />
-                        }
+                  })}
+                </tr>
+                {isExpanded &&
+                  (props.currentPage === "dashboard" ||
+                    props.currentPage === "archive") && (
+                    <tr>
+                      <td colSpan={columns.length + 3}>
+                        <div className="ml-32 mb-4">
+                          {expandedRowsData
+                            .filter((item) => item.id === row.id.toString())
+                            .map((expandedRow) =>
+                              expandedRow.items.map((item, index) => (
+                                <div
+                                  className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
+                                  key={index}
+                                >
+                                  <div>
+                                    <p
+                                      className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${item.color}-100`}
+                                    >
+                                      {item.item}
+                                    </p>
+                                  </div>
+                                  <div className="pl-10">
+                                    <p>{item.itemName}</p>
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                        </div>
                       </td>
-                    );
-                  }
-                })}
-              </tr>
+                    </tr>
+                  )}
+              </React.Fragment>
             );
           })}
         </tbody>

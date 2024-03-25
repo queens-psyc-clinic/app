@@ -19,28 +19,32 @@ import CardsModal from "../components/CardsModal";
 import { getAllTests } from "../services/TestService";
 
 const Dashboard = (props: { userRole: Role }) => {
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
-  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+ const [selectedRows, setSelectedRows] = useState<string[]>([]);
+ const [isModalOpen, setIsModalOpen] = useState(false);
+ const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+ const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+ const [currentPage, setCurrentPage] = useState("dashboard");
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
 
-  const handleCardClick = (data: CardData, color: string) => {
-    if (data.Stock !== "0") {
-      setSelectedCard(data);
-      setSelectedCardColor(color);
-      setIsModalOpen(true);
-    }
-  };
-  const [data, setData] =
-    useState<Record<string, string | Object>[]>(defaultMockData);
+ const toggleModal = () => {
+   setIsModalOpen(!isModalOpen);
+ };
 
-  /* FETCHING REAL DATA */
-  useEffect(() => {
-    /*
+
+ const handleCardClick = (data: CardData, color: string) => {
+   if (data.Stock !== "0") {
+     setSelectedCard(data);
+     setSelectedCardColor(color);
+     setIsModalOpen(true);
+   }
+ };
+ const [data, setData] =
+   useState<Record<string, string | Object>[]>(defaultMockData);
+
+
+ /* FETCHING REAL DATA */
+ useEffect(() => {
+   /*
  Fetch real data from backend, preprocess using services if needed, and then set it to the data useState above
   */
     getAllTests().then((res) => console.log(res));
@@ -70,56 +74,59 @@ const Dashboard = (props: { userRole: Role }) => {
             <section className="flex">
               {/* Quantity should be pulled from backend in the useEffect, these are
            mock values  */}
-              <AdminCards userRole="admin" />
-            </section>
-            <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
-              <Modal modalTitle="Add Item" buttonLabel="Add" />
-              <button
-                onClick={deleteSelectedRows}
-                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
-              >
-                <i className="mr-4">
-                  <MdDelete size={20} />
-                </i>
-                <p>Delete</p>
-              </button>
-            </section>
-          </section>
+             <AdminCards userRole="admin" />
+           </section>
+           <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
+             <Modal modalTitle="Add Item" buttonLabel="Add" />
+             <button
+               onClick={deleteSelectedRows}
+               className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+             >
+               <i className="mr-4">
+                 <MdDelete size={20} />
+               </i>
+               <p>Delete</p>
+             </button>
+           </section>
+         </section>
 
-          <Table
-            tableType="default"
-            setSelectedRows={setSelectedRows}
-            selectedRows={selectedRows}
-            data={data}
-          />
-        </>
-      )}
 
-      {/* CLIENT DASHBOARD */}
-      {props.userRole === "client" && (
-        <>
-          <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            {cardSampleData.map((data) => (
-              <Card
-                key={data.id}
-                data={data}
-                openModal={(color) => handleCardClick(data, color)}
-              />
-            ))}
-          </div>
-          <CardsModal
-            modalTitle={selectedCard?.Name || ""}
-            buttonLabel="Add to Cart"
-            secButtonLabel="Close"
-            isOpen={isModalOpen}
-            closeModal={toggleModal}
-            cardData={selectedCard}
-            cardColor={selectedCardColor}
-          />
-        </>
-      )}
-    </div>
-  );
+         <Table
+           tableType="default"
+           currentPage={currentPage} 
+           setSelectedRows={setSelectedRows}
+           selectedRows={selectedRows}
+           data={data}
+         />
+       </>
+     )}
+
+
+     {/* CLIENT DASHBOARD */}
+     {props.userRole === "client" && (
+       <>
+         <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+           {cardSampleData.map((data) => (
+             <Card
+               key={data.id}
+               data={data}
+               openModal={(color) => handleCardClick(data, color)}
+             />
+           ))}
+         </div>
+         <CardsModal
+           modalTitle={selectedCard?.Name || ""}
+           buttonLabel="Add to Cart"
+           secButtonLabel="Close"
+           isOpen={isModalOpen}
+           closeModal={toggleModal}
+           cardData={selectedCard}
+           cardColor={selectedCardColor}
+         />
+       </>
+     )}
+   </div>
+ );
 };
 
 Dashboard.defaultProps = {
