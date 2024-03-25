@@ -104,12 +104,17 @@ class Test(Resource):
               type: string
               description: The ordering company of the test
       """
-    args = test_parser.parse_args()
-    new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'])
-    _insert(new_test)
-    return _select_one({"ID": new_test["ID"]}), 201
-    
-    
+    try:
+      args = test_parser.parse_args()
+      new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'])
+      _insert(new_test)
+      return _select_one({"ID": new_test["ID"]}), 201
+    # except ValueError:
+    #    abort(404, message="Duplicate Test")
+    except Exception :
+      abort(404, message="Duplicate Test")
+  
+     
   @marshal_with(test_fields)
   def get(self, acronym):
     """
@@ -136,7 +141,6 @@ class Test(Resource):
         res = _corsify_actual_response(make_response(test))
         return res, 200
     except KeyError as e:
-      print("CAUGHT")
       abort(404, message="Test not found")
     
 

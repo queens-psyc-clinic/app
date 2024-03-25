@@ -12,11 +12,47 @@ interface testQuery {
   age?: string;
 }
 
-export async function createNewTest(newTest: Test) {
+export async function createNewTest(
+  acronym: string,
+  testName: string,
+  measure: string,
+  level: string,
+  edition: string,
+  orderingCompany: string
+) {
   // Add new Test
+  // WAITING ON: ages and status to be added to Tests db
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/test/${acronym}?LevelOfUser=${level}&EditionNumber=${edition}&Name=${testName}&MeasureOf=${measure}&OrderingCompany=${orderingCompany}`
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
-export async function createNewItem(newItem: LibraryItem) {
+export async function createNewItem(newItem: LibraryItem, forTest: Test) {
   // Add new item
 }
 
@@ -98,6 +134,7 @@ export async function getTestsByQuery(query: testQuery) {
 export async function getAllSignedOutTests(userId?: string) {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
+  // WAITING: on status being added to tests
 }
 
 export async function getAllArchivedTests() {
