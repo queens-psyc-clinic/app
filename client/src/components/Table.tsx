@@ -8,12 +8,12 @@ import {
 } from "../models/tableColumns";
 
 import { FiEdit } from "react-icons/fi";
-
 import "./Table.css";
 import uuid from "react-uuid";
 import ColumnComponent from "./ColumnComponent";
 import expandedRowsData from "../models/tableExpandRows";
 import { useState } from "react";
+import { FaAngleDown } from "react-icons/fa";
 
 const Table = (props: {
   tableType: string;
@@ -99,7 +99,7 @@ const Table = (props: {
                   <p
                     className={`${
                       centerIndices.includes(ind)
-                        ? "flex justify-center items-center"
+                        ? "flex justify-center items-center "
                         : null
                     }`}
                   >
@@ -128,6 +128,13 @@ const Table = (props: {
                       checked={props.selectedRows.includes(row.id as string)}
                       onChange={() => handleCheckbox(row.id as string)}
                       className="cursor-pointer mx-2"
+                    />
+                  </td>
+                  <td className="px-4 py-2" key={uuid()}>
+                    <FaAngleDown
+                      className={
+                        isRowExpanded(row.id.toString()) ? "rotate-180" : ""
+                      }
                     />
                   </td>
                   <td className="px-4 py-2" key={uuid()}>
@@ -171,29 +178,37 @@ const Table = (props: {
                     }
                   })}
                 </tr>
-                {isExpanded && (props.currentPage === "dashboard" || props.currentPage === "archive") && (
-                  <tr key={uuid()}>
-                    <td colSpan={columns.length + 2}>
-                      <div className="ml-10 -mt-1">
-                        {expandedRowsData
-                          .filter((item) => item.id === row.id.toString())
-                          .map((expandedRow) =>
-                            expandedRow.items.map((item, index) => (
-                              <div
-                                className={`p-5 pl-5 rounded relative ${
-                                  index % 2 !== 0 ? "bg-gray-100" : null
-                                }`}
-                                key={uuid()}
-                              >
-                                <p>Item Name: {item.itemName}</p>
-                                <p>Item Type: {item.item}</p>
-                              </div>
-                            ))
-                          )}
-                      </div>
-                    </td>
-                  </tr>
-                )}
+                {isExpanded &&
+                  (props.currentPage === "dashboard" ||
+                    props.currentPage === "archive") && (
+                    <tr key={uuid()}>
+                      <td colSpan={columns.length + 2}>
+                        <div className="ml-32 mb-4">
+                          {expandedRowsData
+                            .filter((item) => item.id === row.id.toString())
+                            .map((expandedRow) =>
+                              expandedRow.items.map((item) => (
+                                <div
+                                  className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
+                                  key={uuid()}
+                                >
+                                  <div>
+                                    <p
+                                      className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${item.color}-100`}
+                                    >
+                                      {item.item}
+                                    </p>
+                                  </div>
+                                  <div className="pl-10">
+                                    <p>{item.itemName}</p>
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
               </>
             );
           })}

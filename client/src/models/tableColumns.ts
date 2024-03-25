@@ -19,7 +19,7 @@ export enum columnCustomComponents {
 
 export const defaultColumns: Column[] = [
   { title: "Acronym", size: "small", center: true },
-  { title: "Name", size: "large", center: false },
+  { title: "Name", size: "large", center: true },
   // { title: "Item Name", size: "small", center: false },
   {
     title: "Measure",
