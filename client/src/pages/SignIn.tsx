@@ -28,8 +28,7 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn }) => {
             <div className="pl-8 flex flex-col">
               <div className="flex flex-col">
                 <div className="">
-                  <InputField label="Queen's Email" type="email" />{" "}
-                  {/* EMAIL RESTRICTION ISN'T WORKING */}
+                  <InputField label="Queen's Email" type="text" />{" "}
                 </div>
                 <div className="py-8">
                   <InputField label="Password" />

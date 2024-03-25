@@ -27,15 +27,13 @@ const SignUp: React.FC<SignUpProps> = ({ onSignIn }) => {
                 <div className="flex flex-row pb-8 mt-10">
                   <div className="">
                     <InputField label="First Name" type="text" />{" "}
-                    {/* TEXT RESTRICTION ISN'T WORKING */}
                   </div>
                   <div className="pl-5">
                     <InputField label="Last Name" type="text" />
                   </div>
                 </div>
                 <div className="">
-                  <InputField label="Queen's Email" type="email" />{" "}
-                  {/* EMAIL RESTRICTION ISN'T WORKING */}
+                  <InputField label="Queen's Email" type="text" />{" "}
                 </div>
                 <div className="py-8">
                   <InputField label="Password" />
