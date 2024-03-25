@@ -4,7 +4,6 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 function DropFile() {
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({});
   const file = acceptedFiles.map((file) => <p key={Date.now()}>{file.name}</p>);
-  console.log(acceptedFiles);
 
   return (
     <section className="container w-min">

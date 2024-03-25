@@ -17,7 +17,6 @@ interface ModalProps {
 }
 
 const measureOptions = Object.values(Measure).map((value) => value as string);
-console.log(measureOptions);
 const levelOptions = Object.values(LevelOfUse).map((value) => value as string);
 const LocationOptions = Object.values(Location).map((value) => value as string);
 
