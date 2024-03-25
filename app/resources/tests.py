@@ -36,7 +36,7 @@ class Tests(Resource):
     try:
       table = select_table('Tests')
       if table is not None:
-          return _corsify_actual_response(make_response(table)), 201
+          return table, 201
       return abort(500, message="Internal error fetching results")
     except KeyError as e:
       abort(400, message="Email does not exist.")

@@ -16,6 +16,7 @@ import Card from "../components/Card";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
+import { getAllTests } from "../services/TestService";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -42,8 +43,8 @@ const Dashboard = (props: { userRole: Role }) => {
     /*
  Fetch real data from backend, preprocess using services if needed, and then set it to the data useState above
   */
-    console.log(data);
-  }, [data]);
+    getAllTests().then((res) => console.log(res));
+  });
 
   const deleteSelectedRows = () => {
     // TODO: SHOULD POP MODAL FIRST

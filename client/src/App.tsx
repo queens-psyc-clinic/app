@@ -21,7 +21,7 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    getTestById("BOOB").then((res) => console.log(res));
+    getAllTests().then((res) => console.log(res));
   });
   return (
     <div className="flex h-screen w-screen p-2 items-center">
