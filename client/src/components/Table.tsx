@@ -15,6 +15,7 @@ import expandedRowsData from "../models/tableExpandRows";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
+import { mapColumnTitleToDataIndex } from "../utils/data";
 
 const Table = (props: {
   tableType: string;
@@ -50,27 +51,6 @@ const Table = (props: {
 
   const data = props.data;
   console.log(data);
-
-  const mapColumnTitleToDataIndex = (colTitle: string) => {
-    switch (colTitle) {
-      case "Acronym":
-        return "ID";
-      case "Name":
-        return "Name";
-      case "Measure":
-        return "MeasureOf";
-      case "Level":
-        return "LevelOfUser";
-      case "Edition":
-        return "EditionNumber";
-      case "Edition":
-        return "EditionNumber";
-      case "Ordering Company":
-        return "OrderingCompany";
-      default:
-        return colTitle;
-    }
-  };
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
