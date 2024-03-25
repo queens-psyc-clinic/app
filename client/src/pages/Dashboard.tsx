@@ -11,25 +11,28 @@ import { MdDelete } from "react-icons/md";
 import { Role } from "../models/User";
 import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
-// import Filter from "../components/Filter";
+import Filter from "../components/Filter";
 import Card from "../components/Card";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
-import Filter2 from "../components/Filter2";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: CardData) => {
-    setSelectedCard(data);
-    setIsModalOpen(true);
+  const handleCardClick = (data: CardData, color: string) => {
+    if (data.Stock !== "0") {
+      setSelectedCard(data);
+      setSelectedCardColor(color);
+      setIsModalOpen(true);
+    }
   };
   const [data, setData] =
     useState<Record<string, string | Object>[]>(defaultMockData);
@@ -37,9 +40,9 @@ const Dashboard = (props: { userRole: Role }) => {
   /* FETCHING REAL DATA */
   useEffect(() => {
     /*
-  Fetch real data from backend, preprocess using services if needed, and then set it to the data useState above
-   */
-    // console.log(data);
+ Fetch real data from backend, preprocess using services if needed, and then set it to the data useState above
+  */
+    console.log(data);
   }, [data]);
 
   const deleteSelectedRows = () => {
@@ -54,9 +57,9 @@ const Dashboard = (props: { userRole: Role }) => {
           Queen’s Psychology Clinic Test Library
         </h1>
       )}
-      <section className="mt-6 flex align-center space-x-4 mb-10">
+      <section className="mt-6 space-y-6 mb-6">
         <SearchBar />
-        <Filter2 />
+        <Filter />
       </section>
 
       {/* ADMIN DASHBOARD */}
@@ -65,7 +68,7 @@ const Dashboard = (props: { userRole: Role }) => {
           <section className="relative w-full h-fit flex justify-between items-end mb-10">
             <section className="flex">
               {/* Quantity should be pulled from backend in the useEffect, these are
-            mock values  */}
+           mock values  */}
               <AdminCards userRole="admin" />
             </section>
             <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
@@ -99,7 +102,7 @@ const Dashboard = (props: { userRole: Role }) => {
               <Card
                 key={data.id}
                 data={data}
-                openModal={() => handleCardClick(data)}
+                openModal={(color) => handleCardClick(data, color)}
               />
             ))}
           </div>
@@ -110,6 +113,7 @@ const Dashboard = (props: { userRole: Role }) => {
             isOpen={isModalOpen}
             closeModal={toggleModal}
             cardData={selectedCard}
+            cardColor={selectedCardColor}
           />
         </>
       )}

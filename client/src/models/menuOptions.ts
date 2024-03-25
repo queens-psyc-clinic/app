@@ -15,18 +15,21 @@ export const clientMenuOptions = [
     defaultIcon: home,
     selectedIcon: homeColor,
     url: "/client",
+    title: "Dashboard",
   },
   {
     page: Pages.signedOut,
     defaultIcon: signOut,
     selectedIcon: signOutColor,
     url: "/client/signed-out",
+    title: "Signed Out",
   },
   {
     page: Pages.overdue,
     defaultIcon: overdue,
     selectedIcon: overdueColor,
     url: "/client/overdue",
+    title: "Overdue",
   },
 ];
 
@@ -36,29 +39,34 @@ export const adminMenuOptions = [
     defaultIcon: home,
     selectedIcon: homeColor,
     url: "/admin",
+    title: "Dashboard",
   },
   {
     page: Pages.signedOut,
     defaultIcon: signOut,
     selectedIcon: signOutColor,
     url: "/admin/signed-out",
+    title: "Signed Out",
   },
   {
     page: Pages.overdue,
     defaultIcon: overdue,
     selectedIcon: overdueColor,
     url: "/admin/overdue",
+    title: "Overdue",
   },
   {
     page: Pages.lowStock,
     defaultIcon: lowStock,
     selectedIcon: lowStockColor,
     url: "/admin/low-stock",
+    title: "Low Stock",
   },
   {
     page: Pages.archive,
     defaultIcon: archive,
     selectedIcon: archive,
     url: "/admin/archive",
+    title: "Archive",
   },
 ];
