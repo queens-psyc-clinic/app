@@ -1,7 +1,6 @@
-import random
 from flask_restful import Resource, marshal_with, reqparse, request
 
-from common.db import execute_sql_query, select_table, execute_query
+from common.db import execute_sql_query, select_table
 from resources.item import item_fields
 
 # for getting args not in BODY or PATH
@@ -47,7 +46,7 @@ class Items(Resource):
           content:
             application/json:
               schema:
-                id: User
+                id: Item
         parameters:
           - in: body
             name: filters
@@ -67,34 +66,6 @@ class Items(Resource):
             description: A list of items
             schema:
               id: Item
-              properties:
-                ID:
-                  type: string
-                  description: The item ID.
-                Status:
-                  type: integer
-                  description: Item status
-                ItemType:
-                  type: string
-                  description: Item type
-                ItemName:
-                  type: string
-                  description: The name of the item.
-                NumberOfParts:
-                  type: string
-                  description: The number of parts
-                Location:
-                  type: string
-                  description: The item location
-                TestID:
-                  type: string
-                  description: The related testID
-                IsArchived:
-                  type: integer
-                  description: If the item is archived
-                Stock:
-                  type: integer
-                  description: The number of stock
           403:
             description: bad request
         example:

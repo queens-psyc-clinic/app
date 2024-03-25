@@ -1,6 +1,5 @@
-import json
 import random
-from flask_restful import Resource, abort, marshal_with, reqparse, request, fields
+from flask_restful import Resource, marshal_with, request
 
 from common.db import execute_sql_query, select_table, check_exists, execute_query
 from resources.item import item_fields

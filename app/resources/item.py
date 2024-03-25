@@ -38,37 +38,6 @@ class Item(Resource):
                 $ref: '#/definitions/Item'
           500:
             description: Error fetching items
-        definitions:
-          Item:
-            type: object
-            properties:
-              ID:
-                type: string
-                description: The item ID.
-              Status:
-                type: integer
-                description: Item status
-              ItemType:
-                type: string
-                description: Item type
-              ItemName:
-                type: string
-                description: The name of the item.
-              NumberOfParts:
-                type: string
-                description: The number of parts
-              Location:
-                type: string
-                description: The item location
-              TestID:
-                type: string
-                description: The related testID
-              IsArchived:
-                type: integer
-                description: If the item is archived
-              Stock:
-                type: integer
-                description: The number of stock
         """
         return _select_with_id(id)
     
