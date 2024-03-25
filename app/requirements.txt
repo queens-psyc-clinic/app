@@ -8,6 +8,7 @@ cryptography==42.0.2
 flasgger==0.9.7.1
 Flask==3.0.2
 flask-mysql-connector==1.1.0
+Flask-Cors==1.10.3
 Flask-RESTful==0.3.10
 importlib-metadata==7.0.1
 importlib_resources==6.1.2

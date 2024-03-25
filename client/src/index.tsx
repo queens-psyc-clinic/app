@@ -51,6 +51,10 @@ const router = createBrowserRouter([
     path: "/admin/settings",
     element: <App page={Pages.settings} userRole="admin" />,
   },
+  {
+    path: "/admin/student",
+    element: <App page={Pages.student} userRole="admin" />,
+  },
   // ADD NEW PATHS HERE
 ]);
 

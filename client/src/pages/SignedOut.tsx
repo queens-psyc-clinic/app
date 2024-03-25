@@ -14,14 +14,18 @@ const SignedOut = (props: { userRole: Role }) => {
   const data = signedOutMockData;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: CardData) => {
-    setSelectedCard(data);
-    setIsModalOpen(true);
+  const handleCardClick = (data: CardData, color: string) => {
+    if (data.Stock !== "0") {
+      setSelectedCard(data);
+      setSelectedCardColor(color);
+      setIsModalOpen(true);
+    }
   };
 
   return (
@@ -52,7 +56,7 @@ const SignedOut = (props: { userRole: Role }) => {
               <Card
                 key={data.id}
                 data={data}
-                openModal={() => handleCardClick(data)}
+                openModal={(color) => handleCardClick(data, color)}
               />
             ))}
           </div>
@@ -63,6 +67,7 @@ const SignedOut = (props: { userRole: Role }) => {
             isOpen={isModalOpen}
             closeModal={toggleModal}
             cardData={selectedCard}
+            cardColor={selectedCardColor}
           />
         </>
       )}
