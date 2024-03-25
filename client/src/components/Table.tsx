@@ -77,8 +77,8 @@ const Table = (props: {
   const isRowExpanded = (id: string) => expandedRows.includes(id);
 
   return (
-    <div className="overflow-scroll max-w-[99%] h-[55vh] max-h-[75%] text-xs shadow-sm">
-      <table className="">
+    <div className="overflow-scroll h-[55vh] max-h-[75%] text-xs shadow-sm">
+      <table className="w-full">
         <thead className="sticky top-0 z-10 bg-[#393939] font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
             <td className="px-4 py-4 min-w-min" key={uuid()}>
