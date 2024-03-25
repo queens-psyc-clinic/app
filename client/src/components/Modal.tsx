@@ -7,7 +7,6 @@ import {
   Measure,
   itemTypeOptions,
   LevelOfUse,
-  Location,
 } from "../models/libraryItem";
 
 interface ModalProps {
@@ -17,7 +16,6 @@ interface ModalProps {
 }
 
 const measureOptions = Object.values(Measure).map((value) => value as string);
-console.log(measureOptions);
 const levelOptions = Object.values(LevelOfUse).map((value) => value as string);
 const LocationOptions = Object.values(Location).map((value) => value as string);
 
@@ -116,10 +114,9 @@ export default function Modal({
             </div>
             <div className="flex flex-row py-4">
               <div className="pr-4">
-                <Dropdown
+                <InputField
                   placeholder="Select an item"
                   label="Location"
-                  options={LocationOptions}
                   important={true}
                 />
               </div>

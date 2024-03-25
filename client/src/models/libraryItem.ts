@@ -16,6 +16,22 @@ export interface LibraryItem {
   minAge: number;
   maxAge: number;
   orderingCompanyUrl: string;
+  test: Test;
+}
+
+export interface Test {
+  id?: string;
+  Name: string;
+  Measure: Measure;
+  Acronym: string;
+  Quantity: number;
+  Location?: string;
+  isAvailable: boolean;
+  borrower: User;
+  minAge: number;
+  maxAge: number;
+  orderingCompanyUrl: string;
+  items: LibraryItem[];
 }
 
 export type CartItem = {
@@ -113,9 +129,4 @@ export enum LevelOfUse {
   B = "B",
   C = "C",
   S = "S",
-}
-
-export enum Location {
-  MainFloor = "Main Floor",
-  Upstairs = "Upstairs",
 }

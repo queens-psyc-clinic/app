@@ -21,6 +21,8 @@ const Table = (props: {
   selectedRows: string[];
   data: Record<string, string | Object>[];
   currentPage?: string;
+  isCheckable?: boolean;
+  isEditable?: boolean;
 }) => {
   /* the tableType props must match the data given!*/
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
@@ -140,12 +142,14 @@ const Table = (props: {
                       }
                     />
                   </td>
+                )}
+                {props.isEditable && (
                   <td className="px-4 py-2" key={uuid()}>
                     <i className="text-black cursor-pointer">
                       <FiEdit size={15} />
                     </i>
                   </td>
-
+                )}
                   {columns.map((col, ind) => {
                     if (!Object.hasOwn(row[col.title] as Object, "type")) {
                       const cell = row[col.title].toString();
@@ -223,6 +227,8 @@ const Table = (props: {
 
 Table.defaultProps = {
   tableType: "default",
+  isCheckable: true,
+  isEditable: true,
 };
 
 export default Table;

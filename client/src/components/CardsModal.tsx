@@ -9,7 +9,7 @@ interface CardsModalProps {
   isOpen: boolean;
   closeModal: () => void;
   cardData: CardData | null;
-  cardColor: string;
+  cardColor?: string;
 }
 
 const CardsModal: React.FC<CardsModalProps> = ({
@@ -43,8 +43,10 @@ const CardsModal: React.FC<CardsModalProps> = ({
                 <h1 className="text-2xl font-bold mb-4">{modalTitle}</h1>
                 {/* <h3>{cardData["Item Name"]}</h3> */}
                 <div className="flex flex-row text-xs pt-6">
-                  {/* <div className="">
-                    <p className={`mr-4 rounded-full py-1 px-6 text-gray-900 bg-gray-100 ${cardColor}`}>
+                  <div className="">
+                    <p
+                      className={`mr-4 rounded-full py-1 px-6 text-gray-900 bg-gray-100 ${cardColor}`}
+                    >
                       {cardData.Item.data.title}
                     </p>
                   </div> */}

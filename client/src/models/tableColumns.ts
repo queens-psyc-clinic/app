@@ -58,15 +58,15 @@ export const signedOutColums: Column[] = [
     center: false,
     customComponent: columnCustomComponents.pill,
   },
-  {
-    title: "Item",
-    size: "small",
-    center: true,
-    customComponent: columnCustomComponents.pill,
-  },
-  { title: "Ages", size: "small", center: true },
-  { title: "Level", size: "xs", center: true },
-  { title: "Edition", size: "xs", center: true },
+  // {
+  //   title: "Item",
+  //   size: "small",
+  //   center: true,
+  //   customComponent: columnCustomComponents.pill,
+  // },
+  // { title: "Ages", size: "small", center: true },
+  // { title: "Level", size: "xs", center: true },
+  // { title: "Edition", size: "xs", center: true },
 ];
 
 export const overdueColumns: Column[] = [
@@ -91,15 +91,15 @@ export const overdueColumns: Column[] = [
     center: false,
     customComponent: columnCustomComponents.pill,
   },
-  {
-    title: "Item",
-    size: "small",
-    center: true,
-    customComponent: columnCustomComponents.pill,
-  },
-  { title: "Ages", size: "small", center: true },
-  { title: "Level", size: "xs", center: true },
-  { title: "Edition", size: "xs", center: true },
+  // {
+  //   title: "Item",
+  //   size: "small",
+  //   center: true,
+  //   customComponent: columnCustomComponents.pill,
+  // },
+  // { title: "Ages", size: "small", center: true },
+  // { title: "Level", size: "xs", center: true },
+  // { title: "Edition", size: "xs", center: true },
 ];
 
 export const lowStockColumns: Column[] = [
@@ -116,21 +116,21 @@ export const lowStockColumns: Column[] = [
     size: "small",
     center: false,
   },
-  {
-    title: "Measure",
-    size: "medium",
-    center: false,
-    customComponent: columnCustomComponents.pill,
-  },
-  {
-    title: "Item",
-    size: "small",
-    center: true,
-    customComponent: columnCustomComponents.pill,
-  },
-  { title: "Ages", size: "small", center: true },
-  { title: "Acronym", size: "small", center: true },
-  { title: "Level", size: "xs", center: true },
+  // {
+  //   title: "Measure",
+  //   size: "medium",
+  //   center: false,
+  //   customComponent: columnCustomComponents.pill,
+  // },
+  // {
+  //   title: "Item",
+  //   size: "small",
+  //   center: true,
+  //   customComponent: columnCustomComponents.pill,
+  // },
+  // { title: "Ages", size: "small", center: true },
+  // { title: "Acronym", size: "small", center: true },
+  // { title: "Level", size: "xs", center: true },
   { title: "Edition", size: "xs", center: true },
 ];
 // this one doesn't need checkboxes on the rows
