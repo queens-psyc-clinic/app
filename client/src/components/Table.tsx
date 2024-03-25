@@ -16,6 +16,7 @@ import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { mapColumnTitleToDataIndex } from "../utils/data";
+import { testUser } from "../utils/mockData";
 
 const Table = (props: {
   tableType: string;
@@ -54,6 +55,7 @@ const Table = (props: {
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
+  const pilledColumns: string[] = ["Measure", "Item"];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -86,15 +88,24 @@ const Table = (props: {
       <table className="w-full">
         <thead className="sticky top-0 z-10 bg-[#393939] font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <input type="checkbox" className="cursor-pointer ml-2"></input>
-            </td>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <span></span>
-            </td>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <span></span>
-            </td>
+            {props.isCheckable && (
+              <>
+                <td className="px-4 py-4 min-w-min" key={uuid()}>
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer ml-2"
+                  ></input>
+                </td>
+                <td className="px-4 py-4 min-w-min" key={uuid()}>
+                  <span></span>
+                </td>
+              </>
+            )}
+            {props.isEditable && (
+              <td className="px-4 py-4 min-w-min" key={uuid()}>
+                <span></span>
+              </td>
+            )}
             {columns.map((col, ind) => {
               return (
                 <td
@@ -155,30 +166,72 @@ const Table = (props: {
                     )}
                     {columns.map((col, ind) => {
                       if (row[mapColumnTitleToDataIndex(col.title)]) {
-                        const cellContent =
-                          row[mapColumnTitleToDataIndex(col.title)].toString();
-                        // const cellContent = row[col.title].toString();
+                        if (!pilledColumns.includes(col.title)) {
+                          const cell =
+                            row[
+                              mapColumnTitleToDataIndex(col.title)
+                            ].toString();
+                          return (
+                            <td key={ind} className="px-4 py-2">
+                              <p
+                                className={`text-wrap h-min ${
+                                  centerIndices.includes(ind)
+                                    ? "flex justify-center items-center p-2"
+                                    : null
+                                }`}
+                              >
+                                {cell}
+                              </p>
+                            </td>
+                          );
+                        } else {
+                          var customData = {
+                            type: columnCustomComponents.pill,
+                            data: {},
+                          };
 
-                        return (
-                          <td key={ind} className="px-4 py-2">
-                            <p
-                              className={`text-wrap h-min ${
-                                centerIndices.includes(ind)
-                                  ? "flex justify-center items-center"
-                                  : null
-                              }`}
-                            >
-                              {cellContent}
-                            </p>
-                          </td>
-                        );
+                          if (col.title === "Measure" || col.title === "Item") {
+                            customData = {
+                              type: columnCustomComponents.pill,
+                              data: {
+                                title:
+                                  row[mapColumnTitleToDataIndex(col.title)],
+                                type: col.title.toLowerCase(),
+                              },
+                            };
+                          }
+                          if (col.title.includes("By")) {
+                            customData = {
+                              type: columnCustomComponents.user,
+                              data: testUser, // TODO REPLACE THIS WHEN YOU CHECK LOANS
+                            };
+                          }
+
+                          if (col.title.includes("Ordering Company")) {
+                            customData = {
+                              type: columnCustomComponents.link,
+                              data: {
+                                link: row[mapColumnTitleToDataIndex(col.title)],
+                              }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
+                            };
+                          }
+
+                          return (
+                            <td className="px-4 py-2" key={uuid()}>
+                              <ColumnComponent
+                                type={customData.type}
+                                data={customData.data}
+                              />
+                            </td>
+                          );
+                        }
                       } else {
                         return (
                           <td key={ind} className="px-4 py-2">
                             <p
                               className={`text-wrap h-min ${
                                 centerIndices.includes(ind)
-                                  ? "flex justify-center items-center"
+                                  ? "flex justify-center items-center p-2"
                                   : null
                               }`}
                             >

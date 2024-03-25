@@ -257,7 +257,7 @@ export const defaultMockData: Record<string, string | Object>[] = [
   },
 ];
 
-const testUser: User = {
+export const testUser: User = {
   firstName: "John",
   lastName: "Doe",
   email: "18dasta@queensu.ca",
