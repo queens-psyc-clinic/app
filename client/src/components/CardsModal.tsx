@@ -49,7 +49,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                     >
                       {cardData.Item.data.title}
                     </p>
-                  </div> */}
+                  </div>
                   <div className="">
                     <p className="mr-4 ring-gray-900 rounded-full ring-1 py-1 px-5 ring-inset">
                       {cardData.Ages}

@@ -14,6 +14,7 @@ import ColumnComponent from "./ColumnComponent";
 import expandedRowsData from "../models/tableExpandRows";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import React from "react";
 
 const Table = (props: {
   tableType: string;
@@ -95,6 +96,7 @@ const Table = (props: {
             {columns.map((col, ind) => {
               return (
                 <td
+                  key={ind}
                   className={`px-4 py-4 ${
                     col.size === "large" ? "min-w-80" : null
                   }
@@ -119,12 +121,11 @@ const Table = (props: {
           {data.map((row, rowInd: number) => {
             const isExpanded = isRowExpanded(row.id.toString());
             return (
-              <>
+              <React.Fragment key={row.id.toString()}>
                 <tr
                   className={`rounded-full relative ${
                     rowInd % 2 !== 0 ? "bg-gray-100" : null
                   }`}
-                  key={uuid()}
                   onClick={() => toggleRowExpansion(row.id.toString())}
                 >
                   <td className="px-4 py-2" key={uuid()}>
@@ -142,62 +143,43 @@ const Table = (props: {
                       }
                     />
                   </td>
-                )}
-                {props.isEditable && (
-                  <td className="px-4 py-2" key={uuid()}>
-                    <i className="text-black cursor-pointer">
-                      <FiEdit size={15} />
-                    </i>
-                  </td>
-                )}
+                  {props.isEditable && (
+                    <td className="px-4 py-2" key={uuid()}>
+                      <i className="text-black cursor-pointer">
+                        <FiEdit size={15} />
+                      </i>
+                    </td>
+                  )}
                   {columns.map((col, ind) => {
-                    if (!Object.hasOwn(row[col.title] as Object, "type")) {
-                      const cell = row[col.title].toString();
-                      return (
-                        <td className="px-4 py-2" key={uuid()}>
-                          <p
-                            className={`text-wrap h-min ${
-                              centerIndices.includes(ind)
-                                ? "flex justify-center items-center"
-                                : null
-                            }`}
-                          >
-                            {cell}
-                          </p>
-                        </td>
-                      );
-                    } else {
-                      const customData = row[col.title] as {
-                        type: columnCustomComponents;
-                        data: Object;
-                      };
-
-                      return (
-                        <td className="px-4 py-2" key={uuid()}>
-                          {
-                            <ColumnComponent
-                              type={customData.type}
-                              data={customData.data}
-                            />
-                          }
-                        </td>
-                      );
-                    }
+                    const cellContent = row[col.title].toString();
+                    return (
+                      <td key={ind} className="px-4 py-2">
+                        <p
+                          className={`text-wrap h-min ${
+                            centerIndices.includes(ind)
+                              ? "flex justify-center items-center"
+                              : null
+                          }`}
+                        >
+                          {cellContent}
+                        </p>
+                      </td>
+                    );
                   })}
                 </tr>
                 {isExpanded &&
                   (props.currentPage === "dashboard" ||
                     props.currentPage === "archive") && (
-                    <tr key={uuid()}>
-                      <td colSpan={columns.length + 2}>
+                    <tr>
+                      <td colSpan={columns.length + 3}>
                         <div className="ml-32 mb-4">
                           {expandedRowsData
                             .filter((item) => item.id === row.id.toString())
                             .map((expandedRow) =>
-                              expandedRow.items.map((item) => (
+                              expandedRow.items.map((item, index) => (
                                 <div
                                   className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
-                                  key={uuid()}
+                                  key={index}
                                 >
                                   <div>
                                     <p
@@ -216,7 +198,7 @@ const Table = (props: {
                       </td>
                     </tr>
                   )}
-              </>
+              </React.Fragment>
             );
           })}
         </tbody>
