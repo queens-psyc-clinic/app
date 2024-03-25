@@ -7,7 +7,6 @@ import {
   Measure,
   itemTypeOptions,
   LevelOfUse,
-  Location,
 } from "../models/libraryItem";
 
 interface ModalProps {
