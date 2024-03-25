@@ -13,6 +13,7 @@ import StudentPage from "./pages/StudentPage";
 import { useEffect } from "react";
 import {
   createNewTest,
+  deleteTest,
   getAllTests,
   getTestById,
 } from "./services/TestService";
@@ -25,10 +26,15 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    createNewTest("LOLOL", "App", "Autism", "C", "2", "farah.com")
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
-  });
+    createNewTest("heeeee", "BLEH", "BLEH", "BLEH", "BLEH", "BLEH")
+      .catch((e) => console.log(e))
+      .then((res) => console.log("successfully created"))
+      .then(() => {
+        getTestById("ABAS-2")
+          .then((res) => console.log(res))
+          .catch((e) => console.log(e));
+      });
+  }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />

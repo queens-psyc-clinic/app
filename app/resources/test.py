@@ -112,7 +112,7 @@ class Test(Resource):
     # except ValueError:
     #    abort(404, message="Duplicate Test")
     except Exception :
-      abort(404, message="Duplicate Test")
+      abort(400, message="Duplicate Test")
   
      
   @marshal_with(test_fields)
@@ -138,8 +138,7 @@ class Test(Resource):
     try:
       test = _select_one({"ID": acronym})
       if test:
-        res = _corsify_actual_response(make_response(test))
-        return res, 200
+        return test, 200
     except KeyError as e:
       abort(404, message="Test not found")
     
