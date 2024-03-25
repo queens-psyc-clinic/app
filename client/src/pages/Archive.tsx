@@ -9,6 +9,7 @@ import Filter2 from "../components/Filter2";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState("archive");
   const data = defaultMockData;
   if (props.userRole !== "admin") {
     return <></>;
@@ -33,6 +34,7 @@ const Archive = (props: { userRole: Role }) => {
         </section>
         <Table
           tableType="default"
+          currentPage={currentPage}
           setSelectedRows={setSelectedRows}
           selectedRows={selectedRows}
           data={data}
