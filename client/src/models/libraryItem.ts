@@ -130,8 +130,3 @@ export enum LevelOfUse {
   C = "C",
   S = "S",
 }
-
-export enum Location {
-  MainFloor = "Main Floor",
-  Upstairs = "Upstairs",
-}

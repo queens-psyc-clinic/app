@@ -1,7 +1,7 @@
-tbody tr td:first-child {
+/* tbody tr td:first-child {
   border-top-left-radius: 45%;
   border-bottom-left-radius: 45%;
-}
+} */
 
 #measure-pill {
   inline-size: min-content;

@@ -9,6 +9,7 @@ import SignedOut from "./pages/SignedOut";
 import { Pages } from "./models/Pages";
 import Settings from "./pages/Settings";
 import Cart from "./components/Cart";
+import StudentPage from "./pages/StudentPage";
 
 interface AppProps {
   page: Pages;
@@ -27,6 +28,7 @@ function App({ page, userRole }: AppProps) {
       {page === Pages.archive && <Archive userRole={userRole} />}
       {page === Pages.lowStock && <LowStock userRole={userRole} />}
       {page === Pages.settings && <Settings userRole={userRole} />}
+      {page === Pages.student && <StudentPage userRole={userRole} />}
       {userRole === "client" && (
         <section className="flex absolute top-4 right-4">
           <Cart userRole={userRole} />

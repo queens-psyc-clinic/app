@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
 

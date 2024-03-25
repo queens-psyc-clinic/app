@@ -18,6 +18,8 @@ const Table = (props: {
   setSelectedRows: Function;
   selectedRows: string[];
   data: Record<string, string | Object>[];
+  isCheckable?: boolean;
+  isEditable?: boolean;
 }) => {
   /* the tableType props must match the data given!*/
 
@@ -63,16 +65,20 @@ const Table = (props: {
   };
 
   return (
-    <div className="overflow-scroll max-w-[99%] h-[55vh] max-h-[75%] text-xs shadow-sm">
+    <div className="overflow-scroll max-w-[99%] h-[75%] max-h-[75%] min-h-[60%] text-xs shadow-sm">
       <table className="">
         <thead className="sticky top-0 z-10 bg-[#393939] font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <input type="checkbox" className="cursor-pointer ml-2"></input>
-            </td>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <span></span>
-            </td>
+            {props.isCheckable && (
+              <td className="px-4 py-4 min-w-min" key={uuid()}>
+                <input type="checkbox" className="cursor-pointer ml-2"></input>
+              </td>
+            )}
+            {props.isEditable && (
+              <td className="px-4 py-4 min-w-min" key={uuid()}>
+                <span></span>
+              </td>
+            )}
             {columns.map((col, ind) => {
               return (
                 <td
@@ -105,19 +111,23 @@ const Table = (props: {
                 }`}
                 key={uuid()}
               >
-                <td className="px-4 py-2" key={uuid()}>
-                  <input
-                    type="checkbox"
-                    checked={props.selectedRows.includes(row.id as string)}
-                    onChange={() => handleCheckbox(row.id as string)}
-                    className="cursor-pointer mx-2"
-                  />
-                </td>
-                <td className="px-4 py-2" key={uuid()}>
-                  <i className="text-black cursor-pointer">
-                    <FiEdit size={15} />
-                  </i>
-                </td>
+                {props.isCheckable && (
+                  <td className="px-4 py-2" key={uuid()}>
+                    <input
+                      type="checkbox"
+                      checked={props.selectedRows.includes(row.id as string)}
+                      onChange={() => handleCheckbox(row.id as string)}
+                      className="cursor-pointer mx-2"
+                    />
+                  </td>
+                )}
+                {props.isEditable && (
+                  <td className="px-4 py-2" key={uuid()}>
+                    <i className="text-black cursor-pointer">
+                      <FiEdit size={15} />
+                    </i>
+                  </td>
+                )}
 
                 {columns.map((col, ind) => {
                   if (!Object.hasOwn(row[col.title] as Object, "type")) {
@@ -164,6 +174,8 @@ const Table = (props: {
 
 Table.defaultProps = {
   tableType: "default",
+  isCheckable: true,
+  isEditable: true,
 };
 
 export default Table;
