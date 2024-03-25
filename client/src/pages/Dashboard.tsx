@@ -24,6 +24,7 @@ const Dashboard = (props: { userRole: Role }) => {
  const [isModalOpen, setIsModalOpen] = useState(false);
  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+ const [currentPage, setCurrentPage] = useState("dashboard");
 
 
  const toggleModal = () => {
@@ -95,6 +96,7 @@ const Dashboard = (props: { userRole: Role }) => {
 
          <Table
            tableType="default"
+           currentPage={currentPage} 
            setSelectedRows={setSelectedRows}
            selectedRows={selectedRows}
            data={data}

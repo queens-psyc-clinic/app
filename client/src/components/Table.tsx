@@ -20,6 +20,7 @@ const Table = (props: {
   setSelectedRows: Function;
   selectedRows: string[];
   data: Record<string, string | Object>[];
+  currentPage?: string;
 }) => {
   /* the tableType props must match the data given!*/
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
@@ -170,7 +171,7 @@ const Table = (props: {
                     }
                   })}
                 </tr>
-                {isExpanded && (
+                {isExpanded && (props.currentPage === "dashboard" || props.currentPage === "archive") && (
                   <tr key={uuid()}>
                     <td colSpan={columns.length + 2}>
                       <div className="ml-10 -mt-1">
