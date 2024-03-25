@@ -87,6 +87,9 @@ const Table = (props: {
             <td className="px-4 py-4 min-w-min" key={uuid()}>
               <span></span>
             </td>
+            <td className="px-4 py-4 min-w-min" key={uuid()}>
+              <span></span>
+            </td>
             {columns.map((col, ind) => {
               return (
                 <td
