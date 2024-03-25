@@ -10,6 +10,8 @@ import { Pages } from "./models/Pages";
 import Settings from "./pages/Settings";
 import Cart from "./components/Cart";
 import StudentPage from "./pages/StudentPage";
+import { useEffect } from "react";
+import { getAllTests, getTestById } from "./services/TestService";
 
 interface AppProps {
   page: Pages;
@@ -18,7 +20,9 @@ interface AppProps {
 
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-
+  useEffect(() => {
+    getTestById("BOOB").then((res) => console.log(res));
+  });
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />

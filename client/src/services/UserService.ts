@@ -39,7 +39,6 @@ export async function createNewAccount(
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/user/${email}/${password}?FirstName=${firstName}&LastName=${lastName}`
     );
-    console.log("YES");
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
