@@ -12,6 +12,8 @@ import { FiEdit } from "react-icons/fi";
 import "./Table.css";
 import uuid from "react-uuid";
 import ColumnComponent from "./ColumnComponent";
+import expandedRowsData from "../models/tableExpandRows";
+import { useState } from "react";
 
 const Table = (props: {
   tableType: string;
@@ -20,6 +22,7 @@ const Table = (props: {
   data: Record<string, string | Object>[];
 }) => {
   /* the tableType props must match the data given!*/
+  const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
   let columns: Column[];
 
@@ -62,6 +65,16 @@ const Table = (props: {
     });
   };
 
+  const toggleRowExpansion = (id: string) => {
+    setExpandedRows((prevExpandedRows) =>
+      prevExpandedRows.includes(id)
+        ? prevExpandedRows.filter((rowId) => rowId !== id)
+        : [...prevExpandedRows, id]
+    );
+  };
+
+  const isRowExpanded = (id: string) => expandedRows.includes(id);
+
   return (
     <div className="overflow-scroll max-w-[99%] h-[55vh] max-h-[75%] text-xs shadow-sm">
       <table className="">
@@ -98,62 +111,89 @@ const Table = (props: {
         </thead>
         <tbody>
           {data.map((row, rowInd: number) => {
+            const isExpanded = isRowExpanded(row.id.toString());
             return (
-              <tr
-                className={`rounded-full relative ${
-                  rowInd % 2 !== 0 ? "bg-gray-100" : null
-                }`}
-                key={uuid()}
-              >
-                <td className="px-4 py-2" key={uuid()}>
-                  <input
-                    type="checkbox"
-                    checked={props.selectedRows.includes(row.id as string)}
-                    onChange={() => handleCheckbox(row.id as string)}
-                    className="cursor-pointer mx-2"
-                  />
-                </td>
-                <td className="px-4 py-2" key={uuid()}>
-                  <i className="text-black cursor-pointer">
-                    <FiEdit size={15} />
-                  </i>
-                </td>
+              <>
+                <tr
+                  className={`rounded-full relative ${
+                    rowInd % 2 !== 0 ? "bg-gray-100" : null
+                  }`}
+                  key={uuid()}
+                  onClick={() => toggleRowExpansion(row.id.toString())}
+                >
+                  <td className="px-4 py-2" key={uuid()}>
+                    <input
+                      type="checkbox"
+                      checked={props.selectedRows.includes(row.id as string)}
+                      onChange={() => handleCheckbox(row.id as string)}
+                      className="cursor-pointer mx-2"
+                    />
+                  </td>
+                  <td className="px-4 py-2" key={uuid()}>
+                    <i className="text-black cursor-pointer">
+                      <FiEdit size={15} />
+                    </i>
+                  </td>
 
-                {columns.map((col, ind) => {
-                  if (!Object.hasOwn(row[col.title] as Object, "type")) {
-                    const cell = row[col.title].toString();
-                    return (
-                      <td className="px-4 py-2" key={uuid()}>
-                        <p
-                          className={`text-wrap h-min ${
-                            centerIndices.includes(ind)
-                              ? "flex justify-center items-center"
-                              : null
-                          }`}
-                        >
-                          {cell}
-                        </p>
-                      </td>
-                    );
-                  } else {
-                    const customData = row[col.title] as {
-                      type: columnCustomComponents;
-                      data: Object;
-                    };
+                  {columns.map((col, ind) => {
+                    if (!Object.hasOwn(row[col.title] as Object, "type")) {
+                      const cell = row[col.title].toString();
+                      return (
+                        <td className="px-4 py-2" key={uuid()}>
+                          <p
+                            className={`text-wrap h-min ${
+                              centerIndices.includes(ind)
+                                ? "flex justify-center items-center"
+                                : null
+                            }`}
+                          >
+                            {cell}
+                          </p>
+                        </td>
+                      );
+                    } else {
+                      const customData = row[col.title] as {
+                        type: columnCustomComponents;
+                        data: Object;
+                      };
 
-                    return (
-                      <td className="px-4 py-2" key={uuid()}>
-                        {
-                          <ColumnComponent
-                            type={customData.type}
-                            data={customData.data}
-                          />
-                        }
-                      </td>
-                    );
-                  }
-                })}
-              </tr>
+                      return (
+                        <td className="px-4 py-2" key={uuid()}>
+                          {
+                            <ColumnComponent
+                              type={customData.type}
+                              data={customData.data}
+                            />
+                          }
+                        </td>
+                      );
+                    }
+                  })}
+                </tr>
+                {isExpanded && (
+                  <tr key={uuid()}>
+                    <td colSpan={columns.length + 2}>
+                      <div className="ml-10 -mt-1">
+                        {expandedRowsData
+                          .filter((item) => item.id === row.id.toString())
+                          .map((expandedRow) =>
+                            expandedRow.items.map((item, index) => (
+                              <div
+                                className={`p-5 pl-5 rounded relative ${
+                                  index % 2 !== 0 ? "bg-gray-100" : null
+                                }`}
+                                key={uuid()}
+                              >
+                                <p>Item Name: {item.itemName}</p>
+                                <p>Item Type: {item.item}</p>
+                              </div>
+                            ))
+                          )}
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </>
             );
           })}
         </tbody>
