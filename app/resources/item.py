@@ -1,6 +1,6 @@
-from flask_restful import Resource, marshal_with, fields
+from flask_restful import Resource, marshal_with, fields, request
 
-from common.db import execute_query
+from common.db import execute_query, execute_sql_query
 
 item_fields = {
     'ID': fields.String,

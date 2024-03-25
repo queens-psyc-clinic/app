@@ -107,5 +107,47 @@ class Items(Resource):
 
         return _select_cols(filters, columns), 201
 
+    @marshal_with(item_fields)
+    def put(self):
+        """
+        Edit items
+        ---
+        tags:
+          - Items
+        parameters:
+          - in: body
+            name: data
+            description: Updated item data and filters
+            schema:
+              properties:
+                updated:
+                  schema:
+                    id: Item
+                    required: true
+                filters:
+                  schema:
+                    id: Item
+                    required: true
+            required: true
+        responses:
+          200:
+            description: Edit item
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/Item'
+          500:
+            description: Error fetching items
+        """
+        data = request.get_json()
+        updated_data = data['updated']
+        filters = data['filters']
+        _update(updated_data, filters)
+        return data
+        # return data
+
 def _select_cols(cn, cl): return execute_sql_query(
     "SELECT", "Items", conditions=cn, columns=cl)
+
+def _update(d, f): return execute_sql_query(
+    "UPDATE", "Items", data=[d], conditions=f)
