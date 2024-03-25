@@ -4,7 +4,7 @@ autopep8==2.0.4
 blinker==1.7.0
 cffi==1.16.0
 click==8.1.7
-cryptography==42.0.2
+cryptography==42.0.4
 flasgger==0.9.7.1
 Flask==3.0.2
 flask-mysql-connector==1.1.0
