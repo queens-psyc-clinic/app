@@ -7,6 +7,7 @@ interface DropdownProps {
   important?: boolean;
   type?: string;
   options: string[];
+  onChange?: Function;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -14,6 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   label = "",
   important = false,
   type = "text",
+  onChange,
   options,
 }: DropdownProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -26,11 +28,15 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
+    if (onChange) {
+      onChange(option, label);
+    }
+
     setShowDropdown(false);
   };
 
   const handleContainerClick = () => {
-    setShowDropdown(true);
+    setShowDropdown(!showDropdown);
   };
 
   useEffect(() => {
