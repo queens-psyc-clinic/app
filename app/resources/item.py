@@ -1,15 +1,12 @@
-import json
-import random
-from flask_restful import Resource, abort, marshal_with, reqparse, request, fields
+from flask_restful import Resource, marshal_with, fields
 
-from common.db import execute_query, execute_sql_query, select_table, check_exists
+from common.db import execute_query
 
 item_fields = {
     'ID': fields.String,
     'Status': fields.Integer,
     'ItemType': fields.String,
     'ItemName': fields.String,
-    'EditionNumber': fields.String,
     'Ages': fields.String,
     'NumberOfParts': fields.String,
     'Location': fields.String,
@@ -57,11 +54,6 @@ class Item(Resource):
               ItemName:
                 type: string
                 description: The name of the item.
-              EditionNumber:
-                type: string
-                description: The edition number
-                type: string
-                description: The intended ages
               NumberOfParts:
                 type: string
                 description: The number of parts
