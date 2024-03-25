@@ -1,5 +1,4 @@
 import React from "react";
-import brainPic from "../assets/brain.png";
 import clinicLogo from "../assets/clinic-logo.svg";
 import profilePic from "../assets/profile.svg";
 import lockPic from "../assets/lock.svg";
@@ -9,6 +8,10 @@ interface AccountTypeProps {
 }
 
 const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
+  const handleSignin = () => {
+    window.location.href = '/sign-in';
+  };
+
   return (
     <div>
       <div className="absolute top-0 left-0 pl-10 pt-10 flex flex-row items-center">
@@ -30,7 +33,7 @@ const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
               <div className="flex flex-row">
                 <div
                   className="flex flex-row mt-10 p-5 border border-gray-900 rounded-full mr-10 cursor-pointer"
-                  onClick={onSignIn}
+                  onClick={handleSignin}
                 >
                   <div className="">
                     <img
@@ -45,7 +48,7 @@ const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
                 </div>
                 <div
                   className="flex flex-row mt-10 p-5 border border-gray-900 rounded-full cursor-pointer"
-                  onClick={onSignIn}
+                  onClick={handleSignin}
                 >
                   <div className="">
                     <img

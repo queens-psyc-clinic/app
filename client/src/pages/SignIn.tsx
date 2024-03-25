@@ -8,6 +8,10 @@ interface SignInProps {
 }
 
 const SignIn: React.FC<SignInProps> = ({ onSignIn }) => {
+  const handleSignUp = () => {
+    window.location.href = '/sign-up';
+  };
+
   return (
     <div>
       <div className="absolute inset-y-0 left-0 pl-10 pt-10">
@@ -18,7 +22,7 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn }) => {
           <div className="flex flex-col">
             <div className="pl-8 pt-10 flex flex-col">
               <div>
-                <h1 className="font-bold text-2xl pt-14">Sign In</h1>
+                <h1 className="font-bold text-2xl pt-14 pb-10">Sign In</h1>
               </div>
             </div>
             <div className="pl-8 flex flex-col">
@@ -42,7 +46,7 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn }) => {
             </div>
             <div className="ml-8 pt-10">
               <span>Don't already have an account?</span>
-              <span className="pl-2 underline text-blue-200 cursor-pointer">
+              <span className="pl-2 underline text-blue-200 cursor-pointer" onClick={handleSignUp}>
                 Sign Up
               </span>
             </div>

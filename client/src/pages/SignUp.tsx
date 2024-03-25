@@ -7,6 +7,10 @@ interface SignUpProps {
 }
 
 const SignUp: React.FC<SignUpProps> = ({ onSignIn }) => {
+  const handleSignIn = () => {
+    window.location.href = '/sign-up';
+  };
+
   return (
     <div>
       <div className="absolute inset-y-0 left-0 pl-10 pt-10">
@@ -51,7 +55,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignIn }) => {
             </div>
             <div className="ml-8 pt-8">
               <span>Don't already have an account?</span>
-              <span className="pl-2 underline text-blue-200 cursor-pointer">
+              <span className="pl-2 underline text-blue-200 cursor-pointer" onClick={handleSignIn}>
                 Sign In
               </span>
             </div>
