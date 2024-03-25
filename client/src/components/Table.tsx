@@ -84,15 +84,24 @@ const Table = (props: {
       <table className="w-full">
         <thead className="sticky top-0 z-10 bg-[#393939] font-semibold">
           <tr className="text-white h-auto" key={uuid()}>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <input type="checkbox" className="cursor-pointer ml-2"></input>
-            </td>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <span></span>
-            </td>
-            <td className="px-4 py-4 min-w-min" key={uuid()}>
-              <span></span>
-            </td>
+            {props.isCheckable && (
+              <>
+                <td className="px-4 py-4 min-w-min" key={uuid()}>
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer ml-2"
+                  ></input>
+                </td>
+                <td className="px-4 py-4 min-w-min" key={uuid()}>
+                  <span></span>
+                </td>
+              </>
+            )}
+            {props.isEditable && (
+              <td className="px-4 py-4 min-w-min" key={uuid()}>
+                <span></span>
+              </td>
+            )}
             {columns.map((col, ind) => {
               return (
                 <td
@@ -151,20 +160,36 @@ const Table = (props: {
                     </td>
                   )}
                   {columns.map((col, ind) => {
-                    const cellContent = row[col.title].toString();
-                    return (
-                      <td key={ind} className="px-4 py-2">
-                        <p
-                          className={`text-wrap h-min ${
-                            centerIndices.includes(ind)
-                              ? "flex justify-center items-center"
-                              : null
-                          }`}
-                        >
-                          {cellContent}
-                        </p>
-                      </td>
-                    );
+                    if (!Object.hasOwn(row[col.title] as Object, "type")) {
+                      const cell = row[col.title].toString();
+                      return (
+                        <td key={ind} className="px-4 py-2">
+                          <p
+                            className={`text-wrap h-min ${
+                              centerIndices.includes(ind)
+                                ? "flex justify-center items-center p-2"
+                                : null
+                            }`}
+                          >
+                            {cell}
+                          </p>
+                        </td>
+                      );
+                    } else {
+                      const customData = row[col.title] as {
+                        type: columnCustomComponents;
+                        data: Object;
+                      };
+
+                      return (
+                        <td className="px-4 py-2" key={uuid()}>
+                          <ColumnComponent
+                            type={customData.type}
+                            data={customData.data}
+                          />
+                        </td>
+                      );
+                    }
                   })}
                 </tr>
                 {isExpanded &&
