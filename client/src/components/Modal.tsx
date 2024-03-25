@@ -116,10 +116,9 @@ export default function Modal({
             </div>
             <div className="flex flex-row py-4">
               <div className="pr-4">
-                <Dropdown
+                <InputField
                   placeholder="Select an item"
                   label="Location"
-                  options={LocationOptions}
                   important={true}
                 />
               </div>
