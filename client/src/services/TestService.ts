@@ -12,6 +12,19 @@ interface testQuery {
   age?: string;
 }
 
+interface item {
+  Ages: string;
+  ID: string;
+  IsArchived: Number; //
+  ItemName: string;
+  ItemType: string;
+  Location: string;
+  NumberOfParts: string;
+  Status: Number;
+  Stock: Number;
+  TestID: string;
+}
+
 export async function createNewTest(
   acronym: string,
   testName: string,
@@ -52,14 +65,75 @@ export async function createNewTest(
   }
 }
 
-export async function createNewItem(newItem: LibraryItem, forTest: Test) {
+export async function createNewItem(newItem: item) {
   // Add new item
-  // WAITING ON item controller to be approved
+
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/createItem`,
+      JSON.stringify(newItem),
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function deleteItem(itemId: string) {
   // delete an item
-  // WAITING ON item controller to be approved
+  try {
+    const response: AxiosResponse = await axios.delete(
+      `${process.env.REACT_APP_BASE_URL}/item/${itemId}`
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function deleteTest(acronym: string) {
@@ -253,7 +327,7 @@ export async function markTestAsSignedOut(
   recipientUserId: string
 ) {
   // When a reserved test is picked up by the client that reserved it, all items in test should have their quantities decremented by one
-  // WAITING ON items controller
+  // WAITING ON items controller THIS
 }
 
 export async function unArchiveTest(testId: string) {
@@ -269,10 +343,10 @@ export async function archiveTest(testId: string) {
 export async function markTestAsAvailable(testId: string) {
   // When clients return a test, admin should be able to mark the test as returned and now available
   // Increment quantities of all items in test
-  // WAITING ON items controller
+  // WAITING ON items controller THIS
 }
 
 export async function isTestAvailable(testId: string, quantity: Number) {
   // Check if all items in the test are available in quantity
-  // WAITING ON items controller
+  // WAITING ON items controller THIS
 }

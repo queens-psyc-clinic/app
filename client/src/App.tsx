@@ -12,7 +12,9 @@ import Cart from "./components/Cart";
 import StudentPage from "./pages/StudentPage";
 import { useEffect } from "react";
 import {
+  createNewItem,
   createNewTest,
+  deleteItem,
   deleteTest,
   editTest,
   getAllTests,
@@ -27,14 +29,7 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    editTest({
-      acronym: "Boo",
-      name: "NEW NAME",
-      level: "F",
-      measure: "Test measure",
-      orderingCompany: "farah.com",
-      edition: "8",
-    })
+    deleteItem("sasdsds")
       .then((res) => {
         console.log(res);
       })

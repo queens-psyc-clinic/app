@@ -12,7 +12,7 @@ from resources.test import Test
 from resources.tests import Tests
 
 app = Flask(__name__)
-CORS(app, origins=['http://localhost:3000'])
+CORS(app, origins=['http://localhost:3000'], allow_headers=["Content-Type"])
 api = Api(app)
 swagger = Swagger(app)
 
