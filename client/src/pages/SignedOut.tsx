@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
@@ -8,13 +8,19 @@ import { signedOutMockData } from "../utils/mockData";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
+import { Test } from "../models/BEModels";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const data = signedOutMockData;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+  const [data, setData] = useState<Test[]>([]);
+
+  /* FETCHING REAL DATA */
+  useEffect(() => {
+    // WATITNG ON loan controller
+  }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);

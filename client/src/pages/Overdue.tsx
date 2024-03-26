@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
@@ -9,13 +9,19 @@ import { overdueMockData } from "../utils/mockData";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
+import { Test } from "../models/BEModels";
 
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const data = overdueMockData;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+  const [data, setData] = useState<Test[]>([]);
+
+  useEffect(() => {
+    // WAITING ON loan controller
+    setData([]);
+  }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -57,6 +63,7 @@ const Overdue = (props: { userRole: Role }) => {
           </section>
           <Table
             tableType="overdue"
+            currentPage="overdue"
             setSelectedRows={setSelectedRows}
             selectedRows={selectedRows}
             data={data}

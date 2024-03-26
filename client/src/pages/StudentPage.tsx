@@ -2,15 +2,25 @@ import Table from "../components/Table";
 import { Role } from "../models/User";
 import { IoMdArrowBack } from "react-icons/io";
 import { defaultMockData, signedOutMockData } from "../utils/mockData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Test } from "../models/BEModels";
 
 const StudentPage = (props: { userRole: Role }) => {
-  const data = defaultMockData;
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [signedOutData, setSignedOutData] = useState<Test[]>([]);
+  const [overdueData, setoverdueData] = useState<Test[]>([]);
+
+  useEffect(() => {
+    // WAITING ON loan controller
+    setSignedOutData([]);
+    setoverdueData([]);
+  }, []);
+
   if (props.userRole !== "admin") {
     return <></>;
   }
+
   return (
     <div className="flex flex-col overflow-x-hidden px-16 py-10 w-full h-full">
       <Link to="/admin">
@@ -26,7 +36,7 @@ const StudentPage = (props: { userRole: Role }) => {
         tableType="default"
         setSelectedRows={setSelectedRows}
         selectedRows={selectedRows}
-        data={data}
+        data={signedOutData}
         isEditable={false}
         isCheckable={true}
       />
@@ -36,7 +46,7 @@ const StudentPage = (props: { userRole: Role }) => {
           tableType="signedOut"
           setSelectedRows={setSelectedRows}
           selectedRows={selectedRows}
-          data={signedOutMockData}
+          data={overdueData}
           isEditable={false}
           isCheckable={true}
         />

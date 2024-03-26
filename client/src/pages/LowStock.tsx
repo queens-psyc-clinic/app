@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Table from "../components/Table";
-import { lowStockMockData } from "../utils/mockData";
+import { Test } from "../models/BEModels";
+// import { lowStockMockData } from "../utils/mockData";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const data = lowStockMockData;
+  const [data, setData] = useState<Test[]>([]);
+
+  useEffect(() => {
+    // WAITING ON loan controller
+    setData([]);
+  }, []);
+
   if (props.userRole === "client") {
     return <></>;
   }
@@ -24,8 +31,15 @@ const SignedOut = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
           </section>
+          {/* <Table
+            tableType="lowStock"
+            setSelectedRows={setSelectedRows}
+            selectedRows={selectedRows}
+            data={data}
+          /> */}
           <Table
             tableType="lowStock"
+            currentPage="lowStock"
             setSelectedRows={setSelectedRows}
             selectedRows={selectedRows}
             data={data}
