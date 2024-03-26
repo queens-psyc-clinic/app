@@ -38,7 +38,7 @@ class Items(Resource):
     @marshal_with(item_fields)
     def post(self):
         """
-        Get (optional) columns from users satisfying filters
+        Get items satisfying filters
         ---
         tags:
           - Items
@@ -115,7 +115,6 @@ class Items(Resource):
         filters = data['filters']
         _update(updated_data, filters)
         return data
-        # return data
 
 def _select_cols(cn, cl): return execute_sql_query(
     "SELECT", "Items", conditions=cn, columns=cl)

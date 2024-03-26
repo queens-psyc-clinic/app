@@ -1,6 +1,5 @@
-from flask_restful import Resource, marshal_with, fields, request
-
-from common.db import execute_query, execute_sql_query
+from flask_restful import Resource, marshal_with, fields
+from common.db import execute_query
 
 loan_fields = {
     'ID': fields.String,
@@ -33,9 +32,11 @@ class Loan(Resource):
                 ID:
                   type: string
                 StartDate:
-                  type: datetime
+                  type: string
+                  format: date
                 EndDate:
-                  type: datetime
+                  type: string
+                  format: date
                 UserID:
                   type: string
                 ItemID:
