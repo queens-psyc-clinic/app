@@ -6,6 +6,7 @@ import {
   lowStockColumns,
   columnCustomComponents,
 } from "../models/tableColumns";
+import { getPillColor } from "../models/libraryItem";
 
 import { FiEdit } from "react-icons/fi";
 import "./Table.css";
@@ -17,18 +18,23 @@ import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { mapColumnTitleToDataIndex } from "../utils/data";
 import { testUser } from "../utils/mockData";
+import { Item, getItemsForTest } from "../services/TestService";
+import { Test } from "../models/BEModels";
 
 const Table = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
-  data: Record<string, string | Object>[];
+  data: Test[];
   currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
 }) => {
   /* the tableType props must match the data given!*/
-  const [expandedRows, setExpandedRows] = useState<string[]>([]);
+
+  const [expandedRows, setExpandedRows] = useState<
+    { rowId: string; items: Item[] }[]
+  >([]);
 
   let columns: Column[];
 
@@ -51,7 +57,6 @@ const Table = (props: {
   }
 
   const data = props.data;
-  console.log(data);
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
@@ -73,15 +78,35 @@ const Table = (props: {
     });
   };
 
-  const toggleRowExpansion = (id: string) => {
-    setExpandedRows((prevExpandedRows) =>
-      prevExpandedRows.includes(id)
-        ? prevExpandedRows.filter((rowId) => rowId !== id)
-        : [...prevExpandedRows, id]
-    );
+  const toggleRowExpansion = (selectedRow: Test) => {
+    // setExpandedRows((prevExpandedRows) =>
+    //   prevExpandedRows.includes(id)
+    //     ? prevExpandedRows.filter((rowId) => rowId !== id)
+    //     : [...prevExpandedRows, id]
+    // );
+    if (expandedRows.some((elem) => elem.rowId === selectedRow.ID)) {
+      setExpandedRows(
+        expandedRows.filter((elem) => elem.rowId !== selectedRow.ID)
+      );
+    } else {
+      getItemsForTest(selectedRow.ID).then((res: Item[]) => {
+        setExpandedRows((prev) => [
+          ...prev,
+          { rowId: selectedRow.ID, items: res },
+        ]);
+      });
+    }
   };
 
-  const isRowExpanded = (id: string) => expandedRows.includes(id);
+  const isRowExpanded = (id: string) => {
+    return expandedRows.some((row) => row.rowId === id);
+  };
+
+  const getRowExpansionArray = (rowId: string) => {
+    const row = expandedRows.find((row) => row.rowId === rowId);
+    if (row?.items) return row.items;
+    else return [];
+  };
 
   return (
     <div className="overflow-scroll h-[55vh] max-h-[75%] text-xs shadow-sm">
@@ -137,24 +162,22 @@ const Table = (props: {
               return (
                 <React.Fragment key={row.ID.toString()}>
                   <tr
-                    className={`rounded-full relative ${
+                    className={`rounded-full cursor-pointer relative ${
                       rowInd % 2 !== 0 ? "bg-gray-100" : null
                     }`}
-                    onClick={() => toggleRowExpansion(row.ID.toString())}
+                    onClick={() => toggleRowExpansion(row as unknown as Test)}
                   >
                     <td className="px-4 py-2" key={uuid()}>
                       <input
                         type="checkbox"
-                        checked={props.selectedRows.includes(row.id as string)}
-                        onChange={() => handleCheckbox(row.id as string)}
+                        checked={props.selectedRows.includes(row.ID as string)}
+                        onChange={() => handleCheckbox(row.ID as string)}
                         className="cursor-pointer mx-2"
                       />
                     </td>
                     <td className="px-4 py-2" key={uuid()}>
                       <FaAngleDown
-                        className={
-                          isRowExpanded(row.ID.toString()) ? "rotate-180" : ""
-                        }
+                        className={isRowExpanded(row.ID) ? "rotate-180" : ""}
                       />
                     </td>
                     {props.isEditable && (
@@ -165,11 +188,13 @@ const Table = (props: {
                       </td>
                     )}
                     {columns.map((col, ind) => {
-                      if (row[mapColumnTitleToDataIndex(col.title)]) {
+                      if (
+                        row[mapColumnTitleToDataIndex(col.title) as keyof Test]
+                      ) {
                         if (!pilledColumns.includes(col.title)) {
                           const cell =
                             row[
-                              mapColumnTitleToDataIndex(col.title)
+                              mapColumnTitleToDataIndex(col.title) as keyof Test
                             ].toString();
                           return (
                             <td key={ind} className="px-4 py-2">
@@ -195,7 +220,11 @@ const Table = (props: {
                               type: columnCustomComponents.pill,
                               data: {
                                 title:
-                                  row[mapColumnTitleToDataIndex(col.title)],
+                                  row[
+                                    mapColumnTitleToDataIndex(
+                                      col.title
+                                    ) as keyof Test
+                                  ],
                                 type: col.title.toLowerCase(),
                               },
                             };
@@ -211,7 +240,11 @@ const Table = (props: {
                             customData = {
                               type: columnCustomComponents.link,
                               data: {
-                                link: row[mapColumnTitleToDataIndex(col.title)],
+                                link: row[
+                                  mapColumnTitleToDataIndex(
+                                    col.title
+                                  ) as keyof Test
+                                ],
                               }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };
                           }
@@ -248,27 +281,25 @@ const Table = (props: {
                       <tr>
                         <td colSpan={columns.length + 3}>
                           <div className="ml-32 mb-4">
-                            {expandedRowsData
-                              .filter((item) => item.id === row.id.toString())
-                              .map((expandedRow) =>
-                                expandedRow.items.map((item, index) => (
-                                  <div
-                                    className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
-                                    key={index}
+                            {getRowExpansionArray(row.ID).map((item, index) => (
+                              <div
+                                className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
+                                key={index}
+                              >
+                                <div>
+                                  <p
+                                    className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${getPillColor(
+                                      item.ItemType
+                                    )}-100`}
                                   >
-                                    <div>
-                                      <p
-                                        className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${item.color}-100`}
-                                      >
-                                        {item.item}
-                                      </p>
-                                    </div>
-                                    <div className="pl-10">
-                                      <p>{item.itemName}</p>
-                                    </div>
-                                  </div>
-                                ))
-                              )}
+                                    {item.ItemType}
+                                  </p>
+                                </div>
+                                <div className="pl-10">
+                                  <p>{item.ItemName}</p>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </td>
                       </tr>

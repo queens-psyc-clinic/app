@@ -17,6 +17,7 @@ import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
 import { getAllTests } from "../services/TestService";
+import { Test } from "../models/BEModels";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -36,7 +37,7 @@ const Dashboard = (props: { userRole: Role }) => {
       setIsModalOpen(true);
     }
   };
-  const [data, setData] = useState<Record<string, string | Object>[]>([]);
+  const [data, setData] = useState<Test[]>([]);
 
   /* FETCHING REAL DATA */
   useEffect(() => {
@@ -48,7 +49,7 @@ const Dashboard = (props: { userRole: Role }) => {
 
   const deleteSelectedRows = () => {
     // TODO: SHOULD POP MODAL FIRST
-    setData(data.filter((row) => !selectedRows.includes(row.id as string)));
+    setData(data.filter((row) => !selectedRows.includes(row.ID as string)));
     setSelectedRows([]);
   };
   return (
