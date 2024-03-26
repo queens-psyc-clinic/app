@@ -1,4 +1,4 @@
-from flask_restful import Resource, marshal_with, fields
+from flask_restful import Resource, marshal_with, fields, abort
 from common.db import execute_query
 
 loan_fields = {
@@ -41,10 +41,17 @@ class Loan(Resource):
                   type: string
                 ItemID:
                   type: string
+          400:
+            description: ID does not exist
           500:
             description: Error fetching loans
         """
-        return _select_with_id(id)
+        response = _select_with_id(id)
+
+        if not response:
+          abort(400, message="ID does not exist")
+
+        return response
 
     @marshal_with(loan_fields)
     def delete(self, id):
@@ -65,9 +72,13 @@ class Loan(Resource):
               type: array
               loan:
                 $ref: '#/definitions/Loan'
+          400:
+            description: ID does not exist
           500:
             description: Error fetching loans
         """
+        if not _select_with_id(id):
+          abort(400, message="ID does not exist")
         return _delete_by_id(id)
 
 def _select_with_id(id): 
