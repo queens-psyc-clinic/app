@@ -1,5 +1,5 @@
 import random
-from flask_restful import Resource, marshal_with, request
+from flask_restful import Resource, marshal_with, request, abort
 from common.db import execute_sql_query, execute_query
 from resources.loan import loan_fields
 from datetime import datetime
@@ -30,11 +30,15 @@ class CreateLoan(Resource):
             description: Loan created
             schema:
               id: Loan
-          403:
-            description: bad request
+          400:
+            description: Bad request
         example:
         """
         data = request.get_json()
+
+        _verify_item_id(data['ItemID'])
+        _verify_user_id(data['UserID'])
+
         data['ID'] = _generate_unique_id()
 
         # Convert date strings to datetime objects
@@ -47,6 +51,16 @@ class CreateLoan(Resource):
 
 def _insert(d): return execute_sql_query(
     "INSERT", "Loans", data=[dict(d)])
+
+def _verify_item_id(id): 
+  if not execute_query("SELECT * FROM `Items` WHERE `ID` = %s", [(id,)], False):
+    abort(400, message="Item ID does not exist")
+  return True
+
+def _verify_user_id(id):
+  if not execute_query("SELECT * FROM `Users` WHERE `ID` = %s", [(id,)], False):
+    abort(400, message="User ID does not exist")
+  return True
 
 def _generate_unique_id(): 
 
