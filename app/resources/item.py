@@ -1,4 +1,4 @@
-from flask_restful import Resource, marshal_with, fields, request
+from flask_restful import Resource, marshal_with, fields, abort
 
 from common.db import execute_query, execute_sql_query
 
@@ -39,7 +39,12 @@ class Item(Resource):
           500:
             description: Error fetching items
         """
-        return _select_with_id(id)
+        response = _select_with_id(id)
+
+        if not response:
+          abort(400, message="ID does not exist")
+
+        return response
     
     @marshal_with(item_fields)
     def delete(self, id):
@@ -60,9 +65,13 @@ class Item(Resource):
               type: array
               items:
                 $ref: '#/definitions/Item'
+          400:
+            description: ID does not exist
           500:
             description: Error fetching items
         """
+        if not _select_with_id(id):
+          abort(400, message="ID does not exist")
         return _delete_by_id(id)
 
 def _select_with_id(id): 
