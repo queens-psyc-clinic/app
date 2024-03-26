@@ -30,13 +30,13 @@ interface AppProps {
 
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-  useEffect(() => {
-    getItemsForTest("ABAS-2")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   getItemsForTest("ABAS-2")
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />

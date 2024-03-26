@@ -408,7 +408,6 @@ export async function isTestAvailable(testId: string, quantity: Number) {
         unavailableItems.push(item);
       }
     }
-    console.log(unavailableItems);
     if (unavailableItems.length > 0) {
       return {
         isTestAvailable: false,

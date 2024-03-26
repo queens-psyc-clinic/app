@@ -22,30 +22,24 @@ import { Test } from "../models/BEModels";
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+  const [selectedCard, setSelectedCard] = useState<Test | null>(null);
   const [selectedCardColor, setSelectedCardColor] = useState<string>("");
   const [currentPage, setCurrentPage] = useState("dashboard");
+  const [data, setData] = useState<Test[]>([]);
+
+  /* FETCHING REAL DATA */
+  useEffect(() => {
+    getAllTests().then((res) => setData(res));
+  }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: CardData, color: string) => {
-    if (data.Stock !== "0") {
-      setSelectedCard(data);
-      setSelectedCardColor(color);
-      setIsModalOpen(true);
-    }
+  const handleCardClick = (data: Test) => {
+    setSelectedCard(data);
+    setIsModalOpen(true);
   };
-  const [data, setData] = useState<Test[]>([]);
-
-  /* FETCHING REAL DATA */
-  useEffect(() => {
-    /*
- Fetch real data from backend, preprocess using services if needed, and then set it to the data useState above
-  */
-    getAllTests().then((res) => setData(res));
-  }, []);
 
   const deleteSelectedRows = () => {
     // TODO: SHOULD POP MODAL FIRST
@@ -101,11 +95,11 @@ const Dashboard = (props: { userRole: Role }) => {
       {props.userRole === "client" && (
         <>
           <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            {cardSampleData.map((data) => (
+            {data.map((test) => (
               <Card
-                key={data.id}
-                data={data}
-                openModal={(color) => handleCardClick(data, color)}
+                key={test.ID}
+                data={test}
+                openModal={() => handleCardClick(test)}
               />
             ))}
           </div>
@@ -116,7 +110,6 @@ const Dashboard = (props: { userRole: Role }) => {
             isOpen={isModalOpen}
             closeModal={toggleModal}
             cardData={selectedCard}
-            cardColor={selectedCardColor}
           />
         </>
       )}
