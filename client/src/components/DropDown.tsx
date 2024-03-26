@@ -86,7 +86,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </button>
         </div>
         {showDropdown && (
-          <div className="absolute z-20 mt-1 w-40 rounded-md bg-white shadow-lg max-h-40 overflow-y-auto">
+          <div className="absolute z-30 mt-1 w-40 rounded-md bg-white shadow-lg max-h-40 overflow-y-auto">
             {options.map((option, index) => (
               <button
                 key={index}

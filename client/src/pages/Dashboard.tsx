@@ -88,8 +88,6 @@ const Dashboard = (props: { userRole: Role }) => {
              </button>
            </section>
          </section>
-
-
          <Table
            tableType="default"
            currentPage={currentPage} 
