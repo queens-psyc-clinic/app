@@ -178,18 +178,20 @@ class Test(Resource):
       500:
         description: Internal Error updating tests
     """
-    args = test_parser.parse_args()
-    test = _select_one({"ID": acronym})
-    if test:
-      update_data = {}
-      for key in args:
-        if args[key] is not None:
-          update_data[key] = args[key]
-      _update_test(update_data, {"ID": acronym})
-      return _select_one({"ID": acronym}), 201
-    else:
-      abort(404, message="Test not found")
-    
+    try:
+      args = test_parser.parse_args()
+      test = _select_one({"ID": acronym})
+      if test:
+        update_data = {}
+        for key in args:
+          if args[key] is not None:
+            update_data[key] = args[key]
+        _update_test(update_data, {"ID": acronym})
+        return _select_one({"ID": acronym}), 201
+      else:
+        abort(404, message="Test not found")
+    except KeyError:
+       abort(404, message="Test not found")
 
   @marshal_with(test_fields)
   def delete(self, acronym):

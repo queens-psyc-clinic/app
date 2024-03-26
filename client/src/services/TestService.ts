@@ -181,8 +181,57 @@ export async function getAllOverdueTests(userId?: string) {
   // WAITING ON loan controller
 }
 
-export async function editTest(testId: string, updatedTest: Test) {
+export async function editTest(edits: {
+  acronym: string;
+  name?: string;
+  measure?: string;
+  level?: string;
+  edition?: string;
+  orderingCompany?: string;
+}) {
   // Update a test's attributes
+  let endpoint = `/test/${edits.acronym}?`;
+  if (edits.name) {
+    endpoint += `&Name=${edits.name}`;
+  }
+  if (edits.measure) {
+    endpoint += `&MeasureOf=${edits.measure}`;
+  }
+  if (edits.level) {
+    endpoint += `&LevelOfUser=${edits.level}`;
+  }
+  if (edits.edition) {
+    endpoint += `&EditionNumber=${edits.edition}`;
+  }
+  if (edits.orderingCompany) {
+    endpoint += `&OrderingCompany=${edits.orderingCompany}`;
+  }
+
+  try {
+    const response: AxiosResponse = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}${endpoint}`
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function markOverdueTestAsGone(testId: string) {
@@ -204,6 +253,7 @@ export async function markTestAsSignedOut(
   recipientUserId: string
 ) {
   // When a reserved test is picked up by the client that reserved it, all items in test should have their quantities decremented by one
+  // WAITING ON items controller
 }
 
 export async function unArchiveTest(testId: string) {
@@ -219,8 +269,10 @@ export async function archiveTest(testId: string) {
 export async function markTestAsAvailable(testId: string) {
   // When clients return a test, admin should be able to mark the test as returned and now available
   // Increment quantities of all items in test
+  // WAITING ON items controller
 }
 
 export async function isTestAvailable(testId: string, quantity: Number) {
   // Check if all items in the test are available in quantity
+  // WAITING ON items controller
 }

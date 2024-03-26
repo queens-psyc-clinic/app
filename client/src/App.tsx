@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import {
   createNewTest,
   deleteTest,
+  editTest,
   getAllTests,
   getTestById,
 } from "./services/TestService";
@@ -26,14 +27,18 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    createNewTest("heeeee", "BLEH", "BLEH", "BLEH", "BLEH", "BLEH")
-      .catch((e) => console.log(e))
-      .then((res) => console.log("successfully created"))
-      .then(() => {
-        getTestById("ABAS-2")
-          .then((res) => console.log(res))
-          .catch((e) => console.log(e));
-      });
+    editTest({
+      acronym: "Boo",
+      name: "NEW NAME",
+      level: "F",
+      measure: "Test measure",
+      orderingCompany: "farah.com",
+      edition: "8",
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => console.log(e));
   }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">
