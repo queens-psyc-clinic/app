@@ -13,6 +13,7 @@ interface CardsModalProps {
   closeModal: () => void;
   cardData: Test | null;
   cardColor?: string;
+  items: Item[];
 }
 
 const CardsModal: React.FC<CardsModalProps> = ({
@@ -22,12 +23,13 @@ const CardsModal: React.FC<CardsModalProps> = ({
   isOpen,
   closeModal,
   cardData,
+  items,
 }: CardsModalProps) => {
-  const [items, setItems] = useState<Item[]>([]);
+  const [testItems, setTestItems] = useState<Item[]>(items);
   useEffect(() => {
     if (cardData) {
       getItemsForTest(cardData.ID)
-        .then((res) => setItems(res))
+        .then((res) => setTestItems(res))
         .then(() => console.log(items));
     }
   }, []);
@@ -86,7 +88,17 @@ const CardsModal: React.FC<CardsModalProps> = ({
               </p>
             </div>
             <div>
-              <h3 className="pt-8 font-bold pb-4">Items in kit:</h3>
+              <section className="flex items-center mt-8 mb-4">
+                <h3 className="font-bold">Items in kit:</h3>
+                <div className="ml-auto">
+                  <button
+                    className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm font-semibold"
+                    onClick={() => handleSelectAll()}
+                  >
+                    Select All
+                  </button>
+                </div>
+              </section>
               {items.map((item, index) => (
                 <div key={item.ID}>
                   {/* {row.items.map((item, index) => ( */}
@@ -115,14 +127,6 @@ const CardsModal: React.FC<CardsModalProps> = ({
                   </div>
                 </div>
               ))}
-              <div className="flex justify-end pt-4">
-                <button
-                  className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm font-semibold"
-                  onClick={() => handleSelectAll()}
-                >
-                  Select All
-                </button>
-              </div>
             </div>
 
             <div className="flex justify-end pt-10">

@@ -16,14 +16,14 @@ import Card from "../components/Card";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
-import { getAllTests } from "../services/TestService";
+import { Item, getAllTests, isTestAvailable } from "../services/TestService";
 import { Test } from "../models/BEModels";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<Test | null>(null);
-  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [data, setData] = useState<Test[]>([]);
 
@@ -36,9 +36,14 @@ const Dashboard = (props: { userRole: Role }) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: Test) => {
-    setSelectedCard(data);
-    setIsModalOpen(true);
+  const handleCardClick = (data: Test, items: Item[]) => {
+    isTestAvailable(data.ID, 1).then((res) => {
+      if (res.isTestAvailable) {
+        setSelectedCard(data);
+        setIsModalOpen(true);
+      }
+    });
+    setSelectedItems(items);
   };
 
   const deleteSelectedRows = () => {
@@ -96,11 +101,7 @@ const Dashboard = (props: { userRole: Role }) => {
         <>
           <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
             {data.map((test) => (
-              <Card
-                key={test.ID}
-                data={test}
-                openModal={() => handleCardClick(test)}
-              />
+              <Card key={test.ID} data={test} openModal={handleCardClick} />
             ))}
           </div>
           <CardsModal
@@ -110,6 +111,7 @@ const Dashboard = (props: { userRole: Role }) => {
             isOpen={isModalOpen}
             closeModal={toggleModal}
             cardData={selectedCard}
+            items={selectedItems}
           />
         </>
       )}

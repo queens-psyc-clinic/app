@@ -10,12 +10,13 @@ import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
 import { Test } from "../models/BEModels";
+import { Item, isTestAvailable } from "../services/TestService";
 
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
-  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
+  const [selectedCard, setSelectedCard] = useState<Test | null>(null);
+  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
   const [data, setData] = useState<Test[]>([]);
 
   useEffect(() => {
@@ -27,12 +28,13 @@ const Overdue = (props: { userRole: Role }) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: CardData, color: string) => {
-    if (data.Stock !== "0") {
-      setSelectedCard(data);
-      setSelectedCardColor(color);
-      setIsModalOpen(true);
-    }
+  const handleCardClick = (data: Test) => {
+    isTestAvailable(data.ID, 1).then((res) => {
+      if (res.isTestAvailable) {
+        setSelectedCard(data);
+        setIsModalOpen(true);
+      }
+    });
   };
   return (
     <div
@@ -73,11 +75,11 @@ const Overdue = (props: { userRole: Role }) => {
       {props.userRole === "client" && (
         <>
           <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            {cardSampleData.map((data) => (
+            {data.map((data) => (
               <Card
-                key={data.id}
+                key={data.ID}
                 data={data}
-                openModal={(color) => handleCardClick(data, color)}
+                openModal={() => handleCardClick(data)}
               />
             ))}
           </div>
@@ -88,7 +90,7 @@ const Overdue = (props: { userRole: Role }) => {
             isOpen={isModalOpen}
             closeModal={toggleModal}
             cardData={selectedCard}
-            cardColor={selectedCardColor}
+            items={selectedItems}
           />
         </>
       )}

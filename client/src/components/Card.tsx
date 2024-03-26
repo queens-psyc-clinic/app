@@ -6,19 +6,23 @@ import { Item, isTestAvailable } from "../services/TestService";
 
 interface CardProps {
   data: Test;
-  openModal: () => void;
+  openModal: (data: Test, items: Item[]) => void;
 }
 
 const Card: React.FC<CardProps> = ({ data, openModal }: CardProps) => {
   const [isAvailable, setIsAvailable] = useState(true);
+  const [payLoad, setPayload] = useState<Item[]>([]);
   const { MeasureOf, Name, ID } = data;
 
   useEffect(() => {
-    isTestAvailable(ID, 1).then((res) => setIsAvailable(res.isTestAvailable));
+    isTestAvailable(ID, 1).then((res) => {
+      setIsAvailable(res.isTestAvailable);
+      setPayload(res.payload);
+    });
   }, []);
 
   const handleClick = () => {
-    openModal();
+    openModal(data, payLoad);
   };
 
   return (
