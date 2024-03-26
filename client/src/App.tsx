@@ -19,6 +19,7 @@ import {
   editTest,
   getAllTests,
   getTestById,
+  isTestAvailable,
 } from "./services/TestService";
 
 interface AppProps {
@@ -29,7 +30,7 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    deleteItem("sasdsds")
+    isTestAvailable("ABAS-2", 4)
       .then((res) => {
         console.log(res);
       })

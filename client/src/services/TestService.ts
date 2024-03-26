@@ -327,7 +327,7 @@ export async function markTestAsSignedOut(
   recipientUserId: string
 ) {
   // When a reserved test is picked up by the client that reserved it, all items in test should have their quantities decremented by one
-  // WAITING ON items controller THIS
+  // WAITING ON loan controller
 }
 
 export async function unArchiveTest(testId: string) {
@@ -343,10 +343,65 @@ export async function archiveTest(testId: string) {
 export async function markTestAsAvailable(testId: string) {
   // When clients return a test, admin should be able to mark the test as returned and now available
   // Increment quantities of all items in test
-  // WAITING ON items controller THIS
+  // WAITING ON loan controller
 }
 
 export async function isTestAvailable(testId: string, quantity: Number) {
   // Check if all items in the test are available in quantity
-  // WAITING ON items controller THIS
+  try {
+    // Get items related to that test
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/items`,
+      JSON.stringify({
+        TestID: testId,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    const testItems = response.data;
+    var unavailableItems = [];
+    // Check if each item is available in at least the given quantity
+    for (const item of testItems) {
+      if (item.Stock < quantity) {
+        unavailableItems.push(item);
+      }
+    }
+    console.log(unavailableItems);
+    if (unavailableItems.length > 0) {
+      return {
+        isTestAvailable: false,
+        payload: unavailableItems,
+      };
+    } else {
+      return {
+        isTestAvailable: true,
+        payload: testItems,
+      };
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }

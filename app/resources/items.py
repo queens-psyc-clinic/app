@@ -1,3 +1,4 @@
+from flask import abort
 from flask_restful import Resource, marshal_with, reqparse, request
 
 from common.cors import _build_cors_preflight_response, _corsify_actual_response
@@ -80,7 +81,7 @@ class Items(Resource):
         # get data from BODY
         filters = request.get_json()
 
-        return _corsify_actual_response(_select_cols(filters, columns)), 201
+        return _select_cols(filters, columns), 201
 
     @marshal_with(item_fields)
     def put(self):
@@ -116,12 +117,15 @@ class Items(Resource):
         """
         if request.method == "OPTIONS": # CORS preflight
             return _build_cors_preflight_response()
-        data = request.get_json()
-        updated_data = data['updated']
-        filters = data['filters']
-        _update(updated_data, filters)
-        return data
-        # return data
+        try:
+          data = request.get_json()
+          updated_data = data['updated']
+          filters = data['filters']
+          _update(updated_data, filters)
+          return data
+          #return data
+        except KeyError:
+            abort(400, message="Bad request")
 
 def _select_cols(cn, cl): return execute_sql_query(
     "SELECT", "Items", conditions=cn, columns=cl)
