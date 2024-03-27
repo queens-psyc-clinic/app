@@ -32,6 +32,7 @@ export interface Loan {
   ItemID: string;
   StartDate: string;
   UserID: string;
+  Acronym: string;
 }
 
 export interface itemEdits {
@@ -474,7 +475,7 @@ export async function getAllOverdueItems() {
       if (loanEnd < today) {
         result.push({
           ...signedOutItem,
-          LastNotified: new Date().toString(), // WAITING ON lastNotified to be added to loans
+          LastNotified: new Date(), // WAITING ON lastNotified to be added to loans
         });
       }
     }
@@ -516,7 +517,7 @@ export async function getAllOverdueTestsByUser(userId: string) {
         },
       }
     );
-    const signedOutItems: Loan[] = response.data;
+    const signedOutItems = await getAllSignedOutItemsByUser(userId);
     const today = new Date();
     const result = [];
     for (const signedOutItem of signedOutItems) {
@@ -743,7 +744,6 @@ export async function markItemAsAvailable(loanId: string) {
       }
     );
     const loan: Loan[] = response.data;
-    console.log(loan);
     if (loan[0]) {
       const item: Item = await getItemById(loan[0].ItemID);
       await markOverdueItemAsGone(loan[0].ID);
@@ -824,6 +824,46 @@ export async function isTestAvailable(testId: string, quantity: Number) {
         payload: testItems,
       };
     }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getItemMeasure(itemId: string) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/item/${itemId}`
+    );
+
+    const item: Item = response.data;
+    if (item) {
+      const test: Test = await getTestById(item.TestID);
+      if (test) {
+        return test.MeasureOf;
+      }
+      return "";
+    }
+    return "";
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error

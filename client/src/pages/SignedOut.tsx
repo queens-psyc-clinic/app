@@ -2,38 +2,83 @@ import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
-
+import _ from "lodash";
 import { Test, SignedOutItem } from "../models/BEModels";
 import {
   Item,
   getAllSignedOutItems,
   getAllSignedOutItemsByUser,
+  getItemById,
+  getItemMeasure,
 } from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
-
+import Card from "../components/Card";
+import uuid from "react-uuid";
+import LoadingSpinner from "../components/LoadingSpinner";
+//  TODO: Add loading while client data is fetched
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<Test | null>(null);
-  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
-  const [data, setData] = useState<SignedOutItem[]>([]);
+  const [selectedCard, setSelectedCard] = useState<Omit<
+    Test,
+    "OrderingCompany"
+  > | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
+  const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
+    []
+  );
 
   /* FETCHING REAL DATA */
   useEffect(() => {
     if (props.userRole === "admin") {
-      getAllSignedOutItems().then((res) => setData(res as SignedOutItem[]));
+      setIsLoading(true);
+      getAllSignedOutItems().then((res) => {
+        setAdminData(res as SignedOutItem[]);
+        setIsLoading(false);
+      });
     } else if (props.userRole === "client") {
-      getAllSignedOutItemsByUser("1").then((res) =>
-        setData(res as SignedOutItem[])
-      ); // WAITING ON me to set up routing
+      setIsLoading(true);
+      getAllSignedOutItemsByUser("1").then(async (res) => {
+        // WAITING ON me to set up routing for now I am just using client id 1, but this should use the signed in client's id
+
+        for (const signedOutItem of res) {
+          const itemMeasure = await getItemMeasure(signedOutItem.Acronym);
+
+          const item = await getItemById(signedOutItem.Acronym);
+
+          setClientData((prev) =>
+            _.unionBy(
+              [
+                ...prev,
+                {
+                  ...item,
+                  MeasureOf: itemMeasure,
+                  EditionNumber: "",
+                  LevelOfUser: "",
+                  LoanID: signedOutItem.ID,
+                  StartDate: signedOutItem.StartDate,
+                  EndDate: signedOutItem.EndDate,
+                },
+              ],
+              "LoanID"
+            )
+          );
+        }
+        setIsLoading(false);
+      });
     }
   }, []);
+
+  useEffect(() => {
+    console.log("CLIENT DATA: ", clientData);
+  }, [clientData]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: Test) => {
+  const handleCardClick = (data: Omit<Test, "OrderingCompany">) => {
     setSelectedCard(data);
     setIsModalOpen(true);
   };
@@ -42,45 +87,38 @@ const SignedOut = (props: { userRole: Role }) => {
     <div
       className={`relative flex flex-col ${
         props.userRole === "admin" ? "justify-end" : "py-16"
-      }  overflow-x-hidden p-6 py-10 w-full h-full`}
+      } overflow-x-hidden p-6 py-10 w-full h-full`}
     >
-      <h1 className={`text-3xl mb-4 `}>Signed Out Items </h1>
-      {props.userRole === "admin" && (
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
         <>
-          <section className="mt-6 space-y-4 mb-16">
-            <SearchBar />
-            <Filter />
-          </section>
-          <SignedOutTable
-            tableType="signedOut"
-            setSelectedRows={setSelectedRows}
-            selectedRows={selectedRows}
-            data={data}
-          />
+          <h1 className={`text-3xl mb-4 `}>Signed Out Items </h1>
+          {props.userRole === "admin" && (
+            <>
+              <section className="mt-6 space-y-4 mb-16">
+                <SearchBar />
+                <Filter />
+              </section>
+              <SignedOutTable
+                tableType="signedOut"
+                setSelectedRows={setSelectedRows}
+                selectedRows={selectedRows}
+                data={adminData}
+              />
+            </>
+          )}
+          {props.userRole === "client" && (
+            <>
+              <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+                {clientData.map((item) => {
+                  return <Card key={uuid()} data={item} type="item" />;
+                })}
+              </div>
+            </>
+          )}
         </>
       )}
-      {/* {props.userRole === "client" && (
-        <>
-          <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            {data.map((test) => (
-              <Card
-                key={test.ID}
-                data={test}
-                openModal={() => handleCardClick(test)}
-              />
-            ))}
-          </div>
-          <CardsModal
-            modalTitle={selectedCard?.Name || ""}
-            buttonLabel="Add to Cart"
-            secButtonLabel="Close"
-            isOpen={isModalOpen}
-            closeModal={toggleModal}
-            cardData={selectedCard}
-            items={selectedItems}
-          />
-        </>
-      )} */}
     </div>
   );
 };

@@ -154,6 +154,7 @@ export async function changeUserPassword(
   oldPassword: string,
   newPassword: string
 ) {
+  // WAITING ON change password
   /**
    * Changes the user's password
    * @param id

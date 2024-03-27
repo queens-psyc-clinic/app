@@ -19,3 +19,15 @@ export interface SignedOutItem {
   StartDate: Date;
   EndDate: Date;
 }
+
+export interface OverdueItem {
+  ID: string;
+  Name: string;
+  ItemName: string;
+  MeasureOf: string;
+  Acronym: string;
+  UserID: User;
+  StartDate: Date;
+  EndDate: Date;
+  LastNotified: Date;
+}
