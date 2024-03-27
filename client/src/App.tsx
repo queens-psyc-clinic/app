@@ -21,7 +21,7 @@ interface AppProps {
 }
 
 function App({ page, userRole }: AppProps) {
-  const [isSignedIn, setIsSignedIn] = useState(false); // Toggle to show sign-in/out vs other pages!!
+  const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
 
   const handleSignIn = () => {
     setIsSignedIn(true);
