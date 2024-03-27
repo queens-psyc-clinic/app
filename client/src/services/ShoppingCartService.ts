@@ -26,7 +26,7 @@ export function initializeCart() {
 }
 
 export function getCart(): CartItem[] {
-  if (_isCartInitialized()) {
+  if (!_isCartInitialized()) {
     return [];
   } else {
     const stringCart = localStorage.getItem(localStorageCart);
@@ -37,15 +37,21 @@ export function getCart(): CartItem[] {
 export async function addItemToCart(itemId: string) {
   // Add a test to the user's cart in local storage
   const cart = getCart();
+  console.log("pre: ", cart);
   const item = await getItemById(itemId);
   if (item) {
-    cart.push({
-      quantity: 1,
-      item: item,
-    });
-    localStorage.setItem(localStorageCart, JSON.stringify(cart));
+    if (isItemInCart(itemId)) {
+      console.log(getQuantityofItem(itemId));
+      increaseQuantityofTest(itemId, (getQuantityofItem(itemId) as number) + 1);
+    } else {
+      cart.push({
+        quantity: 1,
+        item: item[0],
+      });
+      localStorage.setItem(localStorageCart, JSON.stringify(cart));
+    }
+    console.log("post: ", cart);
   }
-  console.log(localStorage);
 }
 
 export async function increaseQuantityofTest(
@@ -53,7 +59,7 @@ export async function increaseQuantityofTest(
   newQuantity: Number
 ) {
   // When you increase the quantity of the a test in the shopping cart
-  const cart = getCart();
+  const cart: CartItem[] = getCart();
   const updatedCart = cart.map((cartItem) => {
     if (cartItem.item.ID === itemId) {
       return {
@@ -64,15 +70,45 @@ export async function increaseQuantityofTest(
       return cartItem;
     }
   });
-  console.log(cart);
-
   localStorage.setItem(localStorageCart, JSON.stringify(updatedCart));
+}
+
+export function isItemInCart(itemId: string) {
+  const cart = getCart();
+  const ind = cart.find((cartItem) => cartItem.item.ID === itemId);
+  if (ind) {
+    return true;
+  }
+  return false;
+}
+
+export function clearCart() {
+  localStorage.setItem(localStorageCart, JSON.stringify([]));
+}
+
+export function getQuantityofItem(itemId: string) {
+  const cart = getCart();
+  const ind = cart.findIndex((cartItem) => cartItem.item.ID === itemId);
+  if (ind >= 0) {
+    return cart[ind].quantity;
+  } else {
+    return 0;
+  }
 }
 
 export async function checkIfCartIsValid() {
   // Checks if all items in the cart (in the specified quantities) are available
+  const cart: CartItem[] = getCart();
+  for (const cartItem of cart) {
+    if (cartItem.item.Stock < cartItem.quantity) {
+      return false;
+    }
+  }
+  return true;
 }
 
 export async function checkout(userId: string) {
   // Mark all items (in the specified quantities) as reserved (for 2 hours) by the userId
+  // WAITING ON how we are gonna reserve for two hours
+  clearCart();
 }

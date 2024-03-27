@@ -25,7 +25,10 @@ import {
 } from "./services/TestService";
 import {
   addItemToCart,
+  clearCart,
+  getCart,
   increaseQuantityofTest,
+  isItemInCart,
 } from "./services/ShoppingCartService";
 
 interface AppProps {
@@ -35,10 +38,6 @@ interface AppProps {
 
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-  addItemToCart("1544479").then(() => {
-    increaseQuantityofTest("1544479", 5);
-    console.log(localStorage);
-  });
 
   return (
     <div className="flex h-screen w-screen p-2 items-center">
