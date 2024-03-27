@@ -3,7 +3,6 @@ import { Pages } from "../models/Pages";
 export function getCurrentPageFromUrl(relativeUrl: string): Pages {
   const subdirectories = relativeUrl.split("/");
   const page = subdirectories[subdirectories.length - 1];
-  console.log(page);
   switch (page) {
     case "signed-out":
       return Pages.signedOut;

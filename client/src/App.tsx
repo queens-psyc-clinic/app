@@ -12,6 +12,8 @@ import Cart from "./components/Cart";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import AccountType from "./pages/AccountType";
+import StudentPage from "./pages/StudentPage";
+import SignedOut from "./pages/SignedOut";
 
 interface AppProps {
   page: Pages;
@@ -32,9 +34,12 @@ function App({ page, userRole }: AppProps) {
           <Navbar userType={userRole} />
           {page === Pages.dashboard && <Dashboard userRole={userRole} />}
           {page === Pages.overdue && <Overdue userRole={userRole} />}
+          {page === Pages.signedOut && <SignedOut userRole={userRole} />}
           {page === Pages.archive && <Archive userRole={userRole} />}
           {page === Pages.lowStock && <LowStock userRole={userRole} />}
           {page === Pages.settings && <Settings userRole={userRole} />}
+          {page === Pages.student && <StudentPage userRole={userRole} />}
+          {userRole === "client" && (
           <section className="absolute top-4 right-4">
           <Cart userRole={userRole} />
           <div className="w-6"></div>

@@ -16,6 +16,22 @@ export interface LibraryItem {
   minAge: number;
   maxAge: number;
   orderingCompanyUrl: string;
+  test: Test;
+}
+
+export interface Test {
+  id?: string;
+  Name: string;
+  Measure: Measure;
+  Acronym: string;
+  Quantity: number;
+  Location?: string;
+  isAvailable: boolean;
+  borrower: User;
+  minAge: number;
+  maxAge: number;
+  orderingCompanyUrl: string;
+  items: LibraryItem[];
 }
 
 export type CartItem = {
@@ -119,3 +135,40 @@ export enum Location {
   MainFloor = "Main Floor",
   Upstairs = "Upstairs",
 }
+
+export type MinAge = "0" | "5" | "10" | "15" | "21" | "45" | "65" | "80" | "32";
+
+export const MinimumAge: MinAge[] = [
+  "0",
+  "5",
+  "10",
+  "15",
+  "21",
+  "45",
+  "65",
+  "80",
+  "32",
+];
+
+export type MaxAge =
+  | "89"
+  | "55"
+  | "60"
+  | "100"
+  | "72"
+  | "15"
+  | "21"
+  | "46"
+  | "12";
+
+export const MaximumAge: MaxAge[] = [
+  "89",
+  "55",
+  "60",
+  "100",
+  "72",
+  "15",
+  "21",
+  "46",
+  "12",
+];

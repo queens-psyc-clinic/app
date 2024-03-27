@@ -8,5 +8,6 @@ export enum Pages {
   notifications = "notifications",
   signin = "sign in",
   signup = "sign up",
-  accounttype = "account type"
+  accounttype = "account type",
+  student = "student",
 }

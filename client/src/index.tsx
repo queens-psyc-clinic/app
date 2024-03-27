@@ -63,6 +63,10 @@ const router = createBrowserRouter([
     path: "/account-type",
     element: <App page={Pages.accounttype} />,
   },
+  {
+    path: "/admin/student",
+    element: <App page={Pages.student} userRole="admin" />,
+  },
   // ADD NEW PATHS HERE
 ]);
 
