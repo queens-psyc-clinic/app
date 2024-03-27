@@ -3,11 +3,7 @@ import InputField from "./InputField";
 import Dropdown from "./DropDown";
 import RangeSlider from "./RangeSlider";
 import { IoMdAdd } from "react-icons/io";
-import {
-  Measure,
-  itemTypeOptions,
-  LevelOfUse,
-} from "../models/libraryItem";
+import { Measure, itemTypeOptions, LevelOfUse } from "../models/libraryItem";
 
 interface ModalProps {
   modalTitle: string;
@@ -15,9 +11,10 @@ interface ModalProps {
   secButtonLabel?: string;
 }
 
+// THIS MODAL is to add items to db
+
 const measureOptions = Object.values(Measure).map((value) => value as string);
 const levelOptions = Object.values(LevelOfUse).map((value) => value as string);
-const LocationOptions = Object.values(Location).map((value) => value as string);
 
 export default function Modal({
   modalTitle,
