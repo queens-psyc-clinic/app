@@ -109,6 +109,6 @@ export async function checkIfCartIsValid() {
 
 export async function checkout(userId: string) {
   // Mark all items (in the specified quantities) as reserved (for 2 hours) by the userId
-  // WAITING ON how we are gonna reserve for two hours
+  // WAITING ON reservation table and notification CRONs
   clearCart();
 }

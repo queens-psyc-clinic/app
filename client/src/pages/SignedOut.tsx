@@ -3,24 +3,30 @@ import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 
-import Table from "../components/Table";
-import { signedOutMockData } from "../utils/mockData";
-import cardSampleData, { CardData } from "../models/cardSampleData";
-import Card from "../components/Card";
-import CardsModal from "../components/CardsModal";
-import { Test } from "../models/BEModels";
-import { Item } from "../services/TestService";
+import { Test, SignedOutItem } from "../models/BEModels";
+import {
+  Item,
+  getAllSignedOutItems,
+  getAllSignedOutItemsByUser,
+} from "../services/TestService";
+import SignedOutTable from "../components/SignedOutTable";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<Test | null>(null);
   const [selectedItems, setSelectedItems] = useState<Item[]>([]);
-  const [data, setData] = useState<Test[]>([]);
+  const [data, setData] = useState<SignedOutItem[]>([]);
 
   /* FETCHING REAL DATA */
   useEffect(() => {
-    // WATITNG ON loan controller
+    if (props.userRole === "admin") {
+      getAllSignedOutItems().then((res) => setData(res as SignedOutItem[]));
+    } else if (props.userRole === "client") {
+      getAllSignedOutItemsByUser("1").then((res) =>
+        setData(res as SignedOutItem[])
+      ); // WAITING ON me to set up routing
+    }
   }, []);
 
   const toggleModal = () => {
@@ -45,7 +51,7 @@ const SignedOut = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
           </section>
-          <Table
+          <SignedOutTable
             tableType="signedOut"
             setSelectedRows={setSelectedRows}
             selectedRows={selectedRows}
@@ -53,7 +59,7 @@ const SignedOut = (props: { userRole: Role }) => {
           />
         </>
       )}
-      {props.userRole === "client" && (
+      {/* {props.userRole === "client" && (
         <>
           <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
             {data.map((test) => (
@@ -74,7 +80,7 @@ const SignedOut = (props: { userRole: Role }) => {
             items={selectedItems}
           />
         </>
-      )}
+      )} */}
     </div>
   );
 };

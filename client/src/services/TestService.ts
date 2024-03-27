@@ -4,6 +4,8 @@ This service handles all operations with Library tests and items
 
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Test } from "../models/BEModels";
+import { Role } from "../models/User";
+import { BackendUser, getUserSettingsData } from "./UserService";
 // Define the interface for the data returned by the API
 interface testQuery {
   measure?: string;
@@ -42,6 +44,16 @@ export interface itemEdits {
   Status?: string;
   Stock?: Number;
   TestID?: string;
+}
+
+export interface SignedOutItem {
+  Name: string;
+  ItemName: string;
+  MeasureOf: string;
+  Acronym: string;
+  UserID: string;
+  StartDate: string;
+  EndDate: string;
 }
 
 export async function createNewTest(
@@ -340,14 +352,23 @@ export async function getAllSignedOutItems() {
     for (const loan of loans) {
       const item: Item = await getItemById(loan.ItemID);
       const test: Test = await getTestById(item.TestID);
+      const user: BackendUser = await getUserSettingsData(loan.UserID);
+      console.log(new Date(loan.StartDate).toDateString());
       result.push({
+        ID: loan.ID,
         Name: test.Name,
         ItemName: item.ItemName,
         MeasureOf: test.MeasureOf,
         Acronym: item.ID,
-        UserID: loan.UserID,
-        StartDate: loan.StartDate,
-        EndDate: loan.EndDate,
+        UserID: {
+          firstName: user.FirstName,
+          lastName: user.LastName,
+          email: user.Email,
+          notifications: true, // WAITING ON adding notifications or isSubscribed to User table
+          role: user.IsAdmin ? "admin" : "client",
+        },
+        StartDate: new Date(loan.StartDate),
+        EndDate: new Date(loan.EndDate),
       });
     }
     return result;
@@ -394,14 +415,22 @@ export async function getAllSignedOutItemsByUser(userId: string) {
     for (const loan of loans) {
       const item: Item = await getItemById(loan.ItemID);
       const test: Test = await getTestById(item.TestID);
+      const user: BackendUser = await getUserSettingsData(loan.UserID);
       result.push({
+        ID: loan.ID,
         Name: test.Name,
         ItemName: item.ItemName,
         MeasureOf: test.MeasureOf,
         Acronym: item.ID,
-        UserID: loan.UserID,
-        StartDate: loan.StartDate,
-        EndDate: loan.EndDate,
+        UserID: {
+          firstName: user.FirstName,
+          lastName: user.LastName,
+          email: user.Email,
+          notifications: true, // WAITING ON adding notifications or isSubscribed to User table
+          role: user.IsAdmin ? "admin" : "client",
+        },
+        StartDate: new Date(loan.StartDate),
+        EndDate: new Date(loan.EndDate),
       });
     }
     return result;
@@ -715,7 +744,7 @@ export async function markItemAsAvailable(loanId: string) {
     );
     const loan: Loan[] = response.data;
     console.log(loan);
-    if (loan) {
+    if (loan[0]) {
       const item: Item = await getItemById(loan[0].ItemID);
       await markOverdueItemAsGone(loan[0].ID);
       await editItem(item.ID, { Stock: item.Stock.valueOf() + 1 });

@@ -263,7 +263,6 @@ export const testUser: User = {
   email: "18dasta@queensu.ca",
   notifications: true,
   role: "client",
-  profileImageUrl: "",
 };
 
 export const signedOutMockData: Record<string, string | Object>[] = [

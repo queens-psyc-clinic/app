@@ -4,12 +4,12 @@ This service handles authentication, and getting/ editing user information
 
 import axios, { AxiosError, AxiosResponse } from "axios";
 
-type BackendUser = {
+export type BackendUser = {
   ID: string;
   FirstName: string;
   LastName: string;
   Email: string;
-  IsSubscribed: string;
+  IsAdmin: boolean;
 };
 
 class InvalidEntry extends Error {
