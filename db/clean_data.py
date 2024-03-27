@@ -12,7 +12,8 @@ rename_scheme = {
     'Item Name': 'ItemName',
     'Item': 'ItemType'
 }
-original_data = original_data.rename(columns=rename_scheme).replace(r'\n', ' ', regex=True)
+original_data = original_data.rename(columns=rename_scheme).replace(r'\n', ' ', regex=True).replace(r'^\s+|\s+$', '', regex=True)
+
 
 
 
@@ -46,5 +47,3 @@ item_data = item_data[[
     'Stock'
 ]]
 item_data.to_csv('item_data.csv', index=False)
-
-

@@ -15,16 +15,16 @@ Bayley-III,Bayley Scales of Infant and Toddler Development,,B,3.0,Pearson - 4th 
 BCT,Booklet Category Test,,C,,PAR - 2nd ed available
 BDI-2,Beck Depression Inventory,Mood/Anxiety,B,2.0,Pearson
 Beery PVT and Beery PVS,Beery Picture Vocabulary Test and Beery Picture Vocabulary Screening Series,Language,,,"Publisher - Psychological Assessment Resources As of January 2002, publisher advises test is now out of print"
-Beery PVS, Beery Picture Vocabulary Screening Series,Language,,,"Publisher - Psychological Assessment Resources As of January 2002, publisher advises test is now out of print"
+Beery PVS,Beery Picture Vocabulary Screening Series,Language,,,"Publisher - Psychological Assessment Resources As of January 2002, publisher advises test is now out of print"
 Beery PVT,Beery Picture Vocabulary Test,Language,,,"Publisher - Psychological Assessment Resources As of January 2002, publisher advises test is now out of print"
-Beery VMI ,Beery-Buktenica Developmental Test of Visual-Motor Integration,Visual-Motor,C,5.0,WPS - 6th ed available
+Beery VMI,Beery-Buktenica Developmental Test of Visual-Motor Integration,Visual-Motor,C,5.0,WPS - 6th ed available
 BHS,Beck Hopelessness Scale,Mood/Anxiety,B,,Pearson
 BRIEF,Behavior Rating Inventory of Executive Function,,B,,PAR - 2nd ed available
 BRIEF2,Behavior Rating Inventory of Executive Function,,B,2.0,PAR
 BRIEF-A,Behavior Rating Inventory of Executive Function-Adult Version,,B,,PAR
 BRIEF-P,Behavior Rating Inventory of Executive Function-Preschool Version,,B,,PAR
 BRIEF-SR,Behavior Rating Inventory of Executive Function-Self-Report Version,,B,,PAR
-BSRA-3,Bracken School Readiness Assessment,Academic Achievement ,A,3.0,Pearson - 4th ed available
+BSRA-3,Bracken School Readiness Assessment,Academic Achievement,A,3.0,Pearson - 4th ed available
 BSS,Beck Scale for Suicide Ideation,Mood/Anxiety,B,,Pearson
 BVRT,Benton Visual Retention Test,Memory,C,3.0,Pearson - 5th ed available
 BYI-2,Beck Youth Inventories,Mood/Anxiety,B,2.0,Pearson
@@ -38,7 +38,7 @@ CAARS,Conners' Adult ADHD Rating Scales,Attention/ADHD,B,,MHS
 CAI,Career Assessment Inventory,Vocational,B,2.0,Pearson - The Enhanced Version available
 CARS,Childhood Autism Rating Scale,Autism,C,,WPS - 2nd ed available
 CARS2,Childhood Autism Rating Scale,Autism,C,2.0,WPS
-CARS2-HF,Childhood Autism Rating Scale  High-Functioning Version ,Autism,C,2.0,WPS
+CARS2-HF,Childhood Autism Rating Scale  High-Functioning Version,Autism,C,2.0,WPS
 CARS2-QPC,Childhood Autism Rating Scale  Questionnaire for Parents or Caregivers,Autism,C,2.0,WPS
 CARS2-ST,Childhood Autism Rating Scale  Standard Version,Autism,C,2.0,WPS
 CASS:L,Conners'-Wells' Adolescent Self-Report  Scale-Long,,B,,A.D.D. WareHouse
@@ -48,7 +48,7 @@ CDI 2,Children’s Depression Inventory,Mood/Anxiety,B,2.0,MHS
 CDS,Career Decision Scale,Vocational,B,,PAR
 CELF-4,Clinical Evaluation of Language Fundamentals,Language,B,4.0,Pearson - 5th ed available
 CELF-5 Metalinguistics,Clinical Evaluation of Language Fundamentals Metalinguistics,Language,B,5.0,Pearson
-CII,Career Interest Inventory ,Vocational,,,PsychCorp
+CII,Career Interest Inventory,Vocational,,,PsychCorp
 CISS,Coping Inventory for Stressful Situations,Coping/Resiliency,B,,MHS - 2nd ed available
 CMS,Children’s Memory Scale,Memory,C,,MHS
 Conners 3,Conners,Attention/ADHD,B,3.0,MHS - 4th ed available
@@ -65,7 +65,7 @@ CTRS-R:L,Conners' Teacher Rating Scale-Revised: Long Version,Attention/ADHD,,,MH
 CTRS-28,Conners' Teacher Rating Scale-28 items,Attention/ADHD,,,MHS
 CTRS-39,Conners' Teacher Rating Scale-39 items,Attention/ADHD,,,MHS
 CVLT,California Verbal Learning Test,,C,,Pearson - 3rd ed available
-CVLT-II ,California Verbal Learning Test,,C,2.0,Pearson - 3rd ed available
+CVLT-II,California Verbal Learning Test,,C,2.0,Pearson - 3rd ed available
 CVLT-C,California Verbal Learning Test-Children's Version,,C,,Pearson
 DAP,Draw a Person,Projective,,,PsychCorp
 DAS,Differential Ability Scales,,C,,Pearson - 2nd ed available
@@ -89,8 +89,8 @@ JI and JBC,Jesness Inventory and Jesness Behaviour Checklist,,,,MHS
 JI-R,Jesness Inventory-Revised,,B,,MHS
 JVIS,Jackson Vocational Interest Survey,Vocational,A,,SIGMA
 KADI,Krug Asperger's Disorder Index,Autism,C,,WPS
-KTEA-3,Kaufman Test of Educational Achievement,Academic Achievement ,B,3.0,Pearson
-LASSI-HS,Learning and Study Strategies Inventory-High School,Academic Achievement ,,,H&H Publishing
+KTEA-3,Kaufman Test of Educational Achievement,Academic Achievement,B,3.0,Pearson
+LASSI-HS,Learning and Study Strategies Inventory-High School,Academic Achievement,,,H&H Publishing
 MAB,Multidimensional Aptitude Battery,,C,,SIGMA - 2nd ed available
 MacArthur-Bates CDI,MacArthur-Bates Communicative Development Inventories,,,,Brookes Publishing - 3rd ed available
 MASC,Multidimensional Anxiety Scale for Children,Mood/Anxiety,B,,MHS - 2nd ed available
@@ -125,9 +125,9 @@ PIAT-R,Peabody Individual Achievement Test-Revised,,,,Publisher - Pearson Not av
 Piers-Harris 2,Piers-Harris Self-Concept Scale,,C,2.0,WPS - 3rd ed available
 PLS-4,Preschool Language Scale,Language,B,4.0,Pearson - 5th ed available
 POMS,Profile of Mood States,Mood/Anxiety,,,Publisher - EdITS
-PPVT-3,Peabody Picture Vocabulary Test ,Language,B,3.0,Pearson - 5th ed available
-PPVT-4,Peabody Picture Vocabulary Test ,Language,B,4.0,Pearson - 5th ed available
-PPVT-5,Peabody Picture Vocabulary Test ,Language,B,5.0,Pearson
+PPVT-3,Peabody Picture Vocabulary Test,Language,B,3.0,Pearson - 5th ed available
+PPVT-4,Peabody Picture Vocabulary Test,Language,B,4.0,Pearson - 5th ed available
+PPVT-5,Peabody Picture Vocabulary Test,Language,B,5.0,Pearson
 PRF,Personality Research Form,Personality,B,,SIGMA
 PSI,The Problem Solving Inventory,,,,"Publisher - Consulting Psychologists Press, Inc."
 PSI-4,Parenting Stress Index,,S,4.0,PAR
@@ -183,7 +183,7 @@ WISC-V,Wechsler Intelligence Scale for Children,Intellectual Functioning,C,5.0,P
 WIST,Whitaker Index of Schizophrenic Thinking,,,,WPS
 WJ III,Woodcock-Johnson,,,3.0,Nelson - newer editions and versions available
 WJ IV,Woodcock-Johnson,,A,4.0,Nelson
-WMS-IV ,Wechsler Memory Scale,Memory,C,4.0,Pearson
+WMS-IV,Wechsler Memory Scale,Memory,C,4.0,Pearson
 WMT,Green's Word Memory Test,Memory,,,Green's Publishing
 WPPSI-III,Wechsler Preschool and Primary Scale of Intelligence,Intellectual Functioning,C,3.0,Pearson - 4th ed available
 WPPSI-IV,Wechsler Preschool and Primary Scale of Intelligence,Intellectual Functioning,C,4.0,Pearson
