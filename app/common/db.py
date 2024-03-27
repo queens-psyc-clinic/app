@@ -17,9 +17,12 @@ _db_config: Mapping = {
 }
 
 
-def check_exists(id: int, table: str) -> bool:
+def check_exists(id: int, table: str, admin=False) -> bool:
     try:
-        res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id})")[0]
+        if admin:
+            res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id} AND IsAdmin=1)")[0]
+        else:
+            res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id})")[0]
         return res != None
     except:
         return False
