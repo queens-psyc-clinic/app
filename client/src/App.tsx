@@ -40,11 +40,12 @@ function App({ page, userRole }: AppProps) {
           {page === Pages.settings && <Settings userRole={userRole} />}
           {page === Pages.student && <StudentPage userRole={userRole} />}
           {userRole === "client" && (
-          <section className="absolute top-4 right-4">
-          <Cart userRole={userRole} />
-          <div className="w-6"></div>
-          <Notification userRole={userRole} />
-          </section>
+            <section className="absolute top-4 right-4">
+            <Cart userRole={userRole} />
+            <div className="w-6"></div>
+            <Notification userRole={userRole} />
+            </section>
+          )}
         </>
       )}
       {!isSignedIn && (
