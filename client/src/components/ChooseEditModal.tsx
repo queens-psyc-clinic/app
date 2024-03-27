@@ -30,7 +30,7 @@ export default function ChooseEditModal({
   return (
     <>
       {isOpen && (
-        <div className="fixed z-40 inset-0 flex items-center justify-center bg-gray-100 bg-opacity-50 p-10">
+        <div className="fixed z-40 inset-0 flex items-center justify-center bg-black bg-opacity-10 p-10">
           <div className="bg-white rounded-lg p-8 min-w-20 max-h-full min-w-fit overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">{modalTitle}</h2>
             <p
