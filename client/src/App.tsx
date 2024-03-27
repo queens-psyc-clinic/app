@@ -17,6 +17,7 @@ import {
   deleteItem,
   deleteTest,
   editTest,
+  getAllOverdueTestsByUser,
   getAllTests,
   getItemById,
   getItemsForTest,
@@ -38,7 +39,9 @@ interface AppProps {
 
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-
+  useEffect(() => {
+    getAllOverdueTestsByUser("1").then((res) => console.log(res));
+  }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />

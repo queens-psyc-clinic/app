@@ -46,7 +46,7 @@ export async function addItemToCart(itemId: string) {
     } else {
       cart.push({
         quantity: 1,
-        item: item[0],
+        item: item,
       });
       localStorage.setItem(localStorageCart, JSON.stringify(cart));
     }

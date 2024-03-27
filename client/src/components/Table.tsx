@@ -12,7 +12,6 @@ import { FiEdit } from "react-icons/fi";
 import "./Table.css";
 import uuid from "react-uuid";
 import ColumnComponent from "./ColumnComponent";
-import expandedRowsData from "../models/tableExpandRows";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";

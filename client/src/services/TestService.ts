@@ -3,8 +3,7 @@ This service handles all operations with Library tests and items
 */
 
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { Test, LibraryItem } from "../models/libraryItem";
-import { columnCustomComponents } from "../models/tableColumns";
+import { Test } from "../models/BEModels";
 // Define the interface for the data returned by the API
 interface testQuery {
   measure?: string;
@@ -23,6 +22,14 @@ export interface Item {
   Status: Number;
   Stock: Number;
   TestID: string;
+}
+
+export interface Loan {
+  EndDate: string;
+  ID: string;
+  ItemID: string;
+  StartDate: string;
+  UserID: string;
 }
 
 export async function createNewTest(
@@ -307,10 +314,51 @@ export async function getTestsByQuery(query: testQuery) {
   // WAITING ON search query functionality in backend
 }
 
-export async function getAllSignedOutTests(userId?: string) {
+export async function getAllSignedOutItems(userId?: string) {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
   // WAITING ON loan controller
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/loans`
+    );
+
+    const loans: Loan[] = response.data;
+    let result = [];
+    for (const loan of loans) {
+      const item: Item = await getItemById(loan.ItemID);
+      const test: Test = await getTestById(item.TestID);
+      result.push({
+        Name: test.Name,
+        ItemName: item.ItemName,
+        MeasureOf: test.MeasureOf,
+        Acronym: item.ID,
+        UserID: loan.UserID,
+        StartDate: loan.StartDate,
+        EndDate: loan.EndDate,
+      });
+    }
+    return result;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function getAllArchivedTests() {
@@ -319,10 +367,94 @@ export async function getAllArchivedTests() {
   // WAITING ON isArchived to be added to tests
 }
 
-export async function getAllOverdueTests(userId?: string) {
+export async function getAllOverdueItems() {
   // If userId, then get all of that user's overdue out tests
   // otherwise get all overdue  tests (admin)
-  // WAITING ON loan controller
+  try {
+    const signedOutItems = await getAllSignedOutItems();
+    const today = new Date();
+    const result = [];
+    for (const signedOutItem of signedOutItems) {
+      const loanEnd = new Date(signedOutItem.EndDate);
+      if (loanEnd < today) {
+        result.push({
+          ...signedOutItem,
+          LastNotified: new Date().toString(), // WAITING ON lastNotified to be added to loans
+        });
+      }
+    }
+
+    // QUESTION: do we notify users here? I think it makes more sense to have a job that checks once a day
+    return result;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getAllOverdueTestsByUser(userId: string) {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      {
+        UserID: userId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    const signedOutItems: Loan[] = response.data;
+    const today = new Date();
+    const result = [];
+    for (const signedOutItem of signedOutItems) {
+      const loanEnd = new Date(signedOutItem.EndDate);
+      if (loanEnd < today) {
+        result.push({
+          ...signedOutItem,
+          LastNotified: new Date().toString(), // WAITING ON lastNotified to be added to loans
+        });
+      }
+    }
+
+    return result;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function editTest(edits: {
