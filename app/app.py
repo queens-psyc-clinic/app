@@ -13,6 +13,7 @@ from resources.tests import Tests
 from resources.loan import Loan
 from resources.loans import Loans
 from resources.createLoan import CreateLoan
+from resources.search import Search
 
 app = Flask(__name__)
 CORS(app)
@@ -31,6 +32,7 @@ api.add_resource(Item, '/item/<id>')
 api.add_resource(CreateItem, '/createItem')
 api.add_resource(Test, '/test/<string:acronym>')
 api.add_resource(Tests, '/tests')
+api.add_resource(Search, '/search/<string:prefix>')
 
 
 if __name__ == '__main__':
