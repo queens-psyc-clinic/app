@@ -21,7 +21,7 @@ interface AppProps {
 }
 
 function App({ page, userRole }: AppProps) {
-  const [isSignedIn, setIsSignedIn] = useState(false); // Toggle to show sign-in/out vs other pages!!
+  const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
 
   const handleSignIn = () => {
     setIsSignedIn(true);
@@ -40,11 +40,13 @@ function App({ page, userRole }: AppProps) {
           {page === Pages.settings && <Settings userRole={userRole} />}
           {page === Pages.student && <StudentPage userRole={userRole} />}
           {userRole === "client" && (
-            <section className="absolute top-4 right-4">
-            <Cart userRole={userRole} />
-            <div className="w-6"></div>
-            <Notification userRole={userRole} />
-            </section>
+            <>
+              <section className="flex flex-row absolute top-10 right-10">
+              <Cart userRole={userRole} />
+              <div className="w-6"></div>
+              <Notification userRole={userRole} />
+              </section>
+            </>
           )}
         </>
       )}

@@ -31,6 +31,13 @@ export const clientMenuOptions = [
     url: "/client/overdue",
     title: "Overdue",
   },
+  {
+    page: Pages.archive,
+    defaultIcon: archive,
+    selectedIcon: archive,
+    url: "/client/archive",
+    title: "Archive",
+  },
 ];
 
 export const adminMenuOptions = [
