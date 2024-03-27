@@ -16,7 +16,7 @@ from resources.createLoan import CreateLoan
 from resources.search import Search
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['http://localhost:3000'], allow_headers=["Content-Type"])
 api = Api(app)
 swagger = Swagger(app)
 

@@ -1,13 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Table from "../components/Table";
-import { lowStockMockData } from "../utils/mockData";
+import { Item, Test } from "../models/BEModels";
+import {
+  getItemOrderingCompany,
+  getLowStockItems,
+  getTestNameByItem,
+} from "../services/TestService";
+import LowStockTable from "../components/LowStockTable";
+import LoadingSpinner from "../components/LoadingSpinner";
+import _ from "lodash";
 
-const SignedOut = (props: { userRole: Role }) => {
+const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const data = lowStockMockData;
+  const [data, setData] = useState<
+    (Item & { OrderingCompany: string; Name: string })[]
+  >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // WAITING ON trailing spaces fix on backend
+  // useEffect(() => {
+  //   // WAITING ON stock column to be adjusted in db
+  //   setIsLoading(true);
+  //   getLowStockItems().then(async (res) => {
+  //     for (const lowStockItem of res) {
+  //       const testName = await getTestNameByItem(lowStockItem.ID).catch((e) =>
+  //         console.log("TESTNAME ERROR: ", e)
+  //       );
+  //       const orderingCompany = await getItemOrderingCompany(
+  //         lowStockItem.ID
+  //       ).catch((e) => console.log("ORDERING ERROR: ", e));
+  //       setData((prev) =>
+  //         _.unionBy(
+  //           [
+  //             ...prev,
+  //             {
+  //               ...lowStockItem,
+  //               OrderingCompany: orderingCompany,
+  //               Name: testName,
+  //             },
+  //           ],
+  //           "ID"
+  //         )
+  //       );
+  //     }
+
+  //     console.log(res);
+  //     setIsLoading(false);
+  //   });
+  // }, []);
+
   if (props.userRole === "client") {
     return <></>;
   }
@@ -24,16 +67,28 @@ const SignedOut = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
           </section>
-          <Table
+          {/* <Table
             tableType="lowStock"
             setSelectedRows={setSelectedRows}
             selectedRows={selectedRows}
             data={data}
-          />
+          /> */}
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <LowStockTable
+              tableType="lowStock"
+              currentPage="lowStock"
+              setSelectedRows={setSelectedRows}
+              selectedRows={selectedRows}
+              data={data}
+              isCheckable={false}
+            />
+          )}
         </>
       )}
     </div>
   );
 };
 
-export default SignedOut;
+export default LowStock;

@@ -1,4 +1,6 @@
+from flask import make_response
 from flask_restful import abort, fields, marshal_with, reqparse, Resource, request
+from common.cors import _build_cors_preflight_response, _corsify_actual_response
 from common.db import execute_sql_query, select_table, check_exists
 
 test_fields = {
@@ -9,7 +11,7 @@ test_fields = {
   'EditionNumber' : fields.String,
   'OrderingCompany' : fields.String
 }
-
+ 
 test_parser = reqparse.RequestParser()
 test_parser.add_argument(
   'Name', dest='Name',
@@ -102,12 +104,17 @@ class Test(Resource):
               type: string
               description: The ordering company of the test
       """
-    args = test_parser.parse_args()
-    new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'])
-    _insert(new_test)
-    return _select_one({"ID": new_test["ID"]}), 201
-    
-    
+    try:
+      args = test_parser.parse_args()
+      new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'])
+      _insert(new_test)
+      return _select_one({"ID": new_test["ID"]}), 201
+    # except ValueError:
+    #    abort(404, message="Duplicate Test")
+    except Exception :
+      abort(400, message="Duplicate Test")
+  
+     
   @marshal_with(test_fields)
   def get(self, acronym):
     """
@@ -171,18 +178,20 @@ class Test(Resource):
       500:
         description: Internal Error updating tests
     """
-    args = test_parser.parse_args()
-    test = _select_one({"ID": acronym})
-    if test:
-      update_data = {}
-      for key in args:
-        if args[key] is not None:
-          update_data[key] = args[key]
-      _update_test(update_data, {"ID": acronym})
-      return _select_one({"ID": acronym}), 201
-    else:
-      abort(404, message="Test not found")
-    
+    try:
+      args = test_parser.parse_args()
+      test = _select_one({"ID": acronym})
+      if test:
+        update_data = {}
+        for key in args:
+          if args[key] is not None:
+            update_data[key] = args[key]
+        _update_test(update_data, {"ID": acronym})
+        return _select_one({"ID": acronym}), 201
+      else:
+        abort(404, message="Test not found")
+    except KeyError:
+       abort(404, message="Test not found")
 
   @marshal_with(test_fields)
   def delete(self, acronym):
@@ -202,11 +211,16 @@ class Test(Resource):
       404:
         description: No test found to delete
     """
-    test = _select_one({"ID": acronym})
-    if test:
-        return _delete_test({"ID": acronym}), 204
-    else:
-        abort(404, message="Test not found")
+    if request.method == "OPTIONS": # CORS preflight
+            return _build_cors_preflight_response()
+    try: 
+      test = _select_one({"ID": acronym})
+      if test:
+          return _delete_test({"ID": acronym}), 204
+      else:
+          abort(404, message="Test not found")
+    except KeyError:
+       abort(404, message="Test not found")
     
 
 def _delete_test(test_id):
@@ -279,8 +293,15 @@ def _select_cols(cn, cl): return execute_sql_query(
   "SELECT", "Tests", conditions=cn, columns=cl)
 
 
-def _select_cols_one(cn, cl): return _select_cols(cn, cl)[0]
+def _select_cols_one(cn, cl): 
+  res = _select_cols(cn, cl)
+  if (res):
+    return _select_cols(cn, cl)[0]
+  else:
+    raise KeyError
 
 
-def _select_one(cn): return _select_cols_one(cn, None)
+def _select_one(cn):
+  return _select_cols_one(cn, None)
+
 

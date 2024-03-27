@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Notification from "./components/Notification";
@@ -14,6 +15,34 @@ import SignIn from "./pages/SignIn";
 import AccountType from "./pages/AccountType";
 import StudentPage from "./pages/StudentPage";
 import SignedOut from "./pages/SignedOut";
+import { useEffect } from "react";
+import {
+  createNewItem,
+  createNewTest,
+  deleteItem,
+  deleteLoan,
+  deleteTest,
+  editItem,
+  editTest,
+  getAllOverdueTestsByUser,
+  getAllSignedOutItemsByUser,
+  getAllTests,
+  getItemById,
+  getItemsForTest,
+  getLoansForItem,
+  getLowStockItems,
+  getTestById,
+  isTestAvailable,
+  markItemAsAvailable,
+  markOverdueItemAsGone,
+} from "./services/TestService";
+import {
+  addItemToCart,
+  clearCart,
+  getCart,
+  increaseQuantityofTest,
+  isItemInCart,
+} from "./services/ShoppingCartService";
 
 interface AppProps {
   page: Pages;
@@ -27,6 +56,10 @@ function App({ page, userRole }: AppProps) {
     setIsSignedIn(true);
   };
 
+  // Call service function that checks if user is client or admin, placeholder for now
+  useEffect(() => {
+    // deleteLoan("917373").then((res) => console.log(res));
+  }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       {isSignedIn && (

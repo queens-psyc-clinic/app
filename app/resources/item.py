@@ -44,7 +44,7 @@ class Item(Resource):
         if not response:
           abort(400, message="ID does not exist")
 
-        return response
+        return response[0]
     
     @marshal_with(item_fields)
     def delete(self, id):

@@ -1,7 +1,7 @@
 import random
 from flask_restful import Resource, marshal_with, request
-
-from common.db import execute_sql_query, execute_query
+from common.cors import _build_cors_preflight_response, _corsify_actual_response
+from common.db import execute_sql_query, select_table, check_exists, execute_query
 from resources.item import item_fields
 
 
@@ -66,6 +66,10 @@ class CreateItem(Resource):
             description: bad request
         example:
         """
+
+        if request.method == "OPTIONS": # CORS preflight
+            return _build_cors_preflight_response()
+            
         data = request.get_json()
         data['ID'] = _generate_unique_id()
         _insert(data)
