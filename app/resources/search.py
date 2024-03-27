@@ -9,6 +9,8 @@ class Search(Resource):
         """
         Insert values into prefix tree for searching
         ---
+        tags:
+        -   Search
         parameters:
         -   in: path
             name: prefix
@@ -33,6 +35,8 @@ class Search(Resource):
         """
         Get list of values from prefix tree based on current input
         ---
+        tags: 
+            - Search
         parameters:
             - in: path
               name: prefix
