@@ -27,7 +27,6 @@ class Search(Resource):
             for row in table:
                 trie.insert(row['Name'].upper())
                 trie.insert(row['ID'].upper())
-            print(trie.root.children)
             return 201
         return abort(500, message="Internal error inserting values")
     
