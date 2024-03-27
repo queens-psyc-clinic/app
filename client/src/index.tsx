@@ -48,6 +48,10 @@ const router = createBrowserRouter([
     element: <App page={Pages.archive} userRole="admin" />,
   },
   {
+    path: "/client/archive",
+    element: <App page={Pages.archive} userRole="client" />,
+  },
+  {
     path: "/admin/settings",
     element: <App page={Pages.settings} userRole="admin" />,
   },
