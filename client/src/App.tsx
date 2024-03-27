@@ -16,13 +16,17 @@ import {
   createNewTest,
   deleteItem,
   deleteTest,
+  editItem,
   editTest,
   getAllOverdueTestsByUser,
+  getAllSignedOutItemsByUser,
   getAllTests,
   getItemById,
   getItemsForTest,
   getTestById,
   isTestAvailable,
+  markItemAsAvailable,
+  markOverdueItemAsGone,
 } from "./services/TestService";
 import {
   addItemToCart,
@@ -40,7 +44,7 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    getAllOverdueTestsByUser("1").then((res) => console.log(res));
+    markItemAsAvailable("4196489");
   }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">

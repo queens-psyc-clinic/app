@@ -32,6 +32,18 @@ export interface Loan {
   UserID: string;
 }
 
+export interface itemEdits {
+  Ages?: string;
+  IsArchived?: string;
+  ItemName?: string;
+  ItemType?: string;
+  Location?: string;
+  NumberOfParts?: string;
+  Status?: string;
+  Stock?: Number;
+  TestID?: string;
+}
+
 export async function createNewTest(
   acronym: string,
   testName: string,
@@ -314,7 +326,7 @@ export async function getTestsByQuery(query: testQuery) {
   // WAITING ON search query functionality in backend
 }
 
-export async function getAllSignedOutItems(userId?: string) {
+export async function getAllSignedOutItems() {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
   // WAITING ON loan controller
@@ -323,6 +335,60 @@ export async function getAllSignedOutItems(userId?: string) {
       `${process.env.REACT_APP_BASE_URL}/loans`
     );
 
+    const loans: Loan[] = response.data;
+    let result = [];
+    for (const loan of loans) {
+      const item: Item = await getItemById(loan.ItemID);
+      const test: Test = await getTestById(item.TestID);
+      result.push({
+        Name: test.Name,
+        ItemName: item.ItemName,
+        MeasureOf: test.MeasureOf,
+        Acronym: item.ID,
+        UserID: loan.UserID,
+        StartDate: loan.StartDate,
+        EndDate: loan.EndDate,
+      });
+    }
+    return result;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getAllSignedOutItemsByUser(userId: string) {
+  // If userId, then get all of that user's signed out tests
+  // otherwise get all signed out tests (admin)
+  // WAITING ON loan controller
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      {
+        UserID: userId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
     const loans: Loan[] = response.data;
     let result = [];
     for (const loan of loans) {
@@ -510,9 +576,170 @@ export async function editTest(edits: {
   }
 }
 
-export async function markOverdueTestAsGone(testId: string) {
+export async function editItem(
+  itemId: string,
+  edits: {
+    Ages?: string;
+    IsArchived?: string;
+    ItemName?: string;
+    ItemType?: string;
+    Location?: string;
+    NumberOfParts?: string;
+    Status?: string;
+    Stock?: Number;
+    TestID?: string;
+  }
+) {
+  // Update a item's attributes
+  let updates: itemEdits = {};
+  if (edits.Ages) {
+    updates["Ages"] = edits.Ages;
+  }
+  if (edits.IsArchived) {
+    updates["IsArchived"] = edits.IsArchived;
+  }
+  if (edits.ItemName) {
+    updates["ItemName"] = edits.ItemName;
+  }
+  if (edits.ItemType) {
+    updates["ItemType"] = edits.ItemType;
+  }
+  if (edits.Location) {
+    updates["Location"] = edits.Location;
+  }
+  if (edits.NumberOfParts) {
+    updates["NumberOfParts"] = edits.NumberOfParts;
+  }
+  if (edits.Status) {
+    updates["Status"] = edits.Status;
+  }
+  if (edits.Stock) {
+    updates["Stock"] = edits.Stock;
+  }
+  if (edits.TestID) {
+    updates["TestID"] = edits.TestID;
+  }
+
+  try {
+    const response: AxiosResponse = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/items`,
+      {
+        filters: {
+          ID: itemId,
+        },
+        updated: updates,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function markOverdueItemAsGone(loanId: string) {
   // Delete Overdue test
-  // WAITING ON loan controller
+  try {
+    const response: AxiosResponse = await axios.delete(
+      `${process.env.REACT_APP_BASE_URL}/loan/${loanId}`
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function markItemAsSignedOut(
+  testId: string,
+  recipientUserId: string
+) {
+  // When a reserved test is picked up by the client that reserved it, all items in test should have their quantities decremented by one
+  // Create new loan w test id and user id
+  // decrement quantity of item
+  // WAITING ON reservation table or isConfirmed column on loans
+}
+
+export async function markItemAsAvailable(loanId: string) {
+  // When clients return a test, admin should be able to mark the test as returned and now available
+  // Delete loan from loans table
+  // Increment quantities of item
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      {
+        ID: loanId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    const loan: Loan[] = response.data;
+    console.log(loan);
+    if (loan) {
+      const item: Item = await getItemById(loan[0].ItemID);
+      await markOverdueItemAsGone(loan[0].ID);
+      await editItem(item.ID, { Stock: item.Stock.valueOf() + 1 });
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function markTestAsReserved(
@@ -521,15 +748,7 @@ export async function markTestAsReserved(
 ) {
   // Mark items as reserved for pickup
   // temporarily lower stock of all items by 1
-  // WAITING on when we decide how to implement reservations! there should be a backend API for a cron job i think
-}
-
-export async function markTestAsSignedOut(
-  testId: string,
-  recipientUserId: string
-) {
-  // When a reserved test is picked up by the client that reserved it, all items in test should have their quantities decremented by one
-  // WAITING ON loan controller
+  // WAITING on Reservations table or isConfirmed column in loans
 }
 
 export async function unArchiveTest(testId: string) {
@@ -540,12 +759,6 @@ export async function unArchiveTest(testId: string) {
 export async function archiveTest(testId: string) {
   // Archive a test
   // WAITING ON isArchived to be added to tests
-}
-
-export async function markTestAsAvailable(testId: string) {
-  // When clients return a test, admin should be able to mark the test as returned and now available
-  // Increment quantities of all items in test
-  // WAITING ON loan controller
 }
 
 export async function isTestAvailable(testId: string, quantity: Number) {
