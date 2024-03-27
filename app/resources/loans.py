@@ -1,60 +1,58 @@
-from flask import abort
 from flask_restful import Resource, marshal_with, reqparse, request
 
-from common.cors import _build_cors_preflight_response, _corsify_actual_response
 from common.db import execute_sql_query, select_table
-from resources.item import item_fields
+from resources.loan import loan_fields
 
 # for getting args not in BODY or PATH
-items_parser = reqparse.RequestParser()
+loans_parser = reqparse.RequestParser()
 # define the args to look for
-items_parser.add_argument(
+loans_parser.add_argument(
     'columns', dest='columns',
     location='args', action='append',
     help='The columns to select'
 )
 
 
-class Items(Resource):
+class Loans(Resource):
 
-    @marshal_with(item_fields)
+    @marshal_with(loan_fields)
     def get(self):
         """
-        Retrieve all items
+        Retrieve all Loans
         ---
         tags:
-          - Items
+          - Loans
         responses:
           200:
-            description: A list of items
+            description: A list of Loans
             schema:
               type: array
               items:
-                $ref: '#/definitions/Item'
+                $ref: '#/definitions/Loan'
           500:
-            description: Error fetching items
+            description: Error fetching Loans
         """
 
-        return select_table('Items')
-
-    @marshal_with(item_fields)
+        return select_table('Loans')
+    
+    @marshal_with(loan_fields)
     def post(self):
         """
-        Get items satisfying filters
+        Get Loans satisfying filters
         ---
         tags:
-          - Items
+          - Loans
         requestBody:
           content:
             application/json:
               schema:
-                id: Item
+                id: Loan
         parameters:
           - in: body
             name: filters
             description: the filters and columns to retrive
             schema:
-              id: Item
+              id: Loan
             required: true
           - in: query
             name: columns
@@ -65,70 +63,61 @@ class Items(Resource):
             uniqueItems: true
         responses:
           201:
-            description: A list of items
+            description: A list of Loans
             schema:
-              id: Item
+              id: Loan
           403:
             description: bad request
         example:
         """
 
-        if request.method == "OPTIONS": # CORS preflight
-            return _build_cors_preflight_response()
-        
         # get data from *not* BODY or PATH
-        columns = items_parser.parse_args()['columns']
+        columns = loans_parser.parse_args()['columns']
         # get data from BODY
         filters = request.get_json()
 
         return _select_cols(filters, columns), 201
-
-    @marshal_with(item_fields)
+    
+    @marshal_with(loan_fields)
     def put(self):
         """
-        Edit items
+        Edit Loans
         ---
         tags:
-          - Items
+          - Loans
         parameters:
           - in: body
             name: data
-            description: Updated item data and filters
+            description: Updated Loan data and filters
             schema:
               properties:
                 updated:
                   schema:
-                    id: Item
+                    id: Loan
                     required: true
                 filters:
                   schema:
-                    id: Item
+                    id: Loan
                     required: true
             required: true
         responses:
           200:
-            description: Edit item
+            description: Edit loan
             schema:
               type: array
               items:
-                $ref: '#/definitions/Item'
+                $ref: '#/definitions/Loan'
           500:
-            description: Error fetching items
+            description: Error fetching Loans
         """
-        if request.method == "OPTIONS": # CORS preflight
-            return _build_cors_preflight_response()
-        try:
-          data = request.get_json()
-          updated_data = data['updated']
-          filters = data['filters']
-          _update(updated_data, filters)
-          return data
-          #return data
-        except KeyError:
-            abort(400, message="Bad request")
-
+        data = request.get_json()
+        updated_data = data['updated']
+        filters = data['filters']
+        _update(updated_data, filters)
+        return data
+    
 def _select_cols(cn, cl): return execute_sql_query(
-    "SELECT", "Items", conditions=cn, columns=cl)
+    "SELECT", "Loans", conditions=cn, columns=cl)
 
 def _update(d, f): return execute_sql_query(
-    "UPDATE", "Items", data=[d], conditions=f)
+    "UPDATE", "Loans", data=[d], conditions=f)
