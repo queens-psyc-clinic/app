@@ -17,6 +17,7 @@ import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
 import {
+  deleteEntireTest,
   deleteItem,
   deleteTest,
   getAllTests,
@@ -70,15 +71,12 @@ const Dashboard = (props: { userRole: Role }) => {
 
     for (const testId of selectedRows) {
       try {
-        const items: Item[] = await getItemsForTest(testId);
-        for (const item of items) {
-          await deleteItem(item.ID);
-        }
-        await deleteTest(testId);
+        deleteEntireTest(testId);
       } catch (e) {
         console.log(e);
       }
     }
+    window.location.reload();
   };
 
   if (props.userRole === "admin") {

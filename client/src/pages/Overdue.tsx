@@ -14,6 +14,7 @@ import {
   getItemById,
   getItemMeasure,
   isTestAvailable,
+  markOverdueItemAsGone,
 } from "../services/TestService";
 import OverdueTable from "../components/OverdueTable";
 import Card from "../components/Card";
@@ -21,8 +22,6 @@ import LoadingSpinner from "../components/LoadingSpinner";
 
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<Test | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [adminData, setAdminData] = useState<OverdueItem[]>([]);
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
@@ -64,17 +63,15 @@ const Overdue = (props: { userRole: Role }) => {
     }
   }, []);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  const handleCardClick = (data: Test) => {
-    isTestAvailable(data.ID, 1).then((res) => {
-      if (res.isTestAvailable) {
-        setSelectedCard(data);
-        setIsModalOpen(true);
+  const deleteSelected = async () => {
+    try {
+      for (const loanId of selectedRows) {
+        await markOverdueItemAsGone(loanId);
       }
-    });
+    } catch (e) {
+      console.log(e);
+    }
+    window.location.reload();
   };
   if (isLoading) {
     return (
@@ -106,11 +103,14 @@ const Overdue = (props: { userRole: Role }) => {
                   </i>
                   <p>Notify</p>
                 </button>
-                <button className="text-white  bg-black px-3 py-2.5 rounded-lg flex items-center">
+                <button
+                  className="text-white  bg-black px-3 py-2.5 w-max rounded-lg flex items-center"
+                  onClick={() => deleteSelected()}
+                >
                   <i className="mr-4">
                     <MdDelete size={20} />
                   </i>
-                  <p>Delete</p>
+                  <p>Mark As Gone</p>
                 </button>
               </section>
             </section>
