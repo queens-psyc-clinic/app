@@ -52,6 +52,18 @@ const router = createBrowserRouter([
     element: <App page={Pages.settings} userRole="admin" />,
   },
   {
+    path: "/sign-up",
+    element: <App page={Pages.signup} />,
+  },
+  {
+    path: "/sign-in",
+    element: <App page={Pages.signin} />,
+  },
+  {
+    path: "/account-type",
+    element: <App page={Pages.accounttype} />,
+  },
+  {
     path: "/admin/student",
     element: <App page={Pages.student} userRole="admin" />,
   },
