@@ -44,8 +44,6 @@ class Search(Resource):
         responses:
             201:
                 description: Values retrieved
-            404:
-                description: No values found
             500:
                 description: Internal error fetching values
         """
@@ -54,6 +52,6 @@ class Search(Resource):
         if words:
             return words, 201
         if words == []:
-            return abort(404, message="No values found")
+            return [], 201
         return abort(500, message="Internal error fetching values")
 
