@@ -16,8 +16,16 @@ import Card from "../components/Card";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
-import { Item, getAllTests, isTestAvailable } from "../services/TestService";
-import { Test } from "../models/BEModels";
+import {
+  deleteItem,
+  deleteTest,
+  getAllTests,
+  getItemById,
+  getItemsForTest,
+  getTestById,
+  isTestAvailable,
+} from "../services/TestService";
+import { Test, Item } from "../models/BEModels";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const Dashboard = (props: { userRole: Role }) => {
@@ -57,10 +65,20 @@ const Dashboard = (props: { userRole: Role }) => {
     setSelectedItems(items);
   };
 
-  const deleteSelectedRows = () => {
+  const deleteSelectedRows = async () => {
     // TODO: SHOULD POP MODAL FIRST
-    setData(data.filter((row) => !selectedRows.includes(row.ID as string)));
-    setSelectedRows([]);
+
+    for (const testId of selectedRows) {
+      try {
+        const items: Item[] = await getItemsForTest(testId);
+        for (const item of items) {
+          await deleteItem(item.ID);
+        }
+        await deleteTest(testId);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   if (props.userRole === "admin") {
