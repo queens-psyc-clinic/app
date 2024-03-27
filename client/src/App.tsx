@@ -23,6 +23,7 @@ import {
   getAllTests,
   getItemById,
   getItemsForTest,
+  getLowStockItems,
   getTestById,
   isTestAvailable,
   markItemAsAvailable,
@@ -44,7 +45,7 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    markItemAsAvailable("4196489");
+    // getLowStockItems().then((res) => console.log(res));
   }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">

@@ -9,6 +9,19 @@ export interface Test {
   OrderingCompany: String;
 }
 
+export interface Item {
+  Ages: string;
+  ID: string;
+  IsArchived: Number; //
+  ItemName: string;
+  ItemType: string;
+  Location: string;
+  NumberOfParts: string;
+  Status: Number;
+  Stock: Number;
+  TestID: string;
+}
+
 export interface SignedOutItem {
   ID: string;
   Name: string;
