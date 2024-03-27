@@ -10,6 +10,9 @@ from resources.items import Items
 from resources.createItem import CreateItem
 from resources.test import Test
 from resources.tests import Tests
+from resources.loan import Loan
+from resources.loans import Loans
+from resources.createLoan import CreateLoan
 
 app = Flask(__name__)
 CORS(app)
@@ -20,7 +23,9 @@ swagger = Swagger(app)
 api.add_resource(User, '/user/<string:email>/<string:password>')
 
 api.add_resource(Users, '/users/<id>')
-# api.add_resource(Loans, '/loans/<id>')
+api.add_resource(Loan, '/loan/<id>')
+api.add_resource(Loans, '/loans')
+api.add_resource(CreateLoan, '/createLoan')
 api.add_resource(Items, '/items')
 api.add_resource(Item, '/item/<id>')
 api.add_resource(CreateItem, '/createItem')
