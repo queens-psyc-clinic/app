@@ -15,7 +15,7 @@ import expandedRowsData from "../models/tableExpandRows";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
-import EditModal from "./EditModal";
+import ChooseEditModal from "./ChooseEditModal";
 
 const Table = (props: {
   tableType: string;
@@ -79,7 +79,14 @@ const Table = (props: {
   };
 
   const isRowExpanded = (id: string) => expandedRows.includes(id);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isChooseEditModalOpen, setIsChooseEditModalOpen] = useState(false);
+
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+
+  const handleEditClick = (row: any) => {
+    setSelectedRow(row);
+    setIsChooseEditModalOpen(true);
+  };
 
   return (
     <div className="overflow-scroll h-[55vh] max-h-[75%] text-xs shadow-sm">
@@ -158,19 +165,19 @@ const Table = (props: {
                     <td className="px-4 py-2" key={uuid()}>
                       <i
                         className="text-black cursor-pointer"
-                        onClick={() => setIsEditModalOpen(true)}
+                        onClick={() => handleEditClick(row)}
                       >
                         <FiEdit size={15} />
                       </i>
                     </td>
                   )}
-                  {isEditModalOpen && (
-                    <EditModal
+                  {isChooseEditModalOpen && (
+                    <ChooseEditModal
                       modalTitle="Edit"
                       buttonLabel="Save Changes"
                       secButtonLabel="Cancel"
-                      isOpen={isEditModalOpen}
-                      closeModal={() => setIsEditModalOpen(false)}
+                      isOpen={isChooseEditModalOpen}
+                      closeModal={() => setIsChooseEditModalOpen(false)}
                     />
                   )}
                   {columns.map((col, ind) => {

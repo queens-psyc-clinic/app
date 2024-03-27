@@ -16,7 +16,6 @@ const measureOptions = Object.values(Measure).map(
   (value) => value as string
 );
 const levelOptions = Object.values(LevelOfUse).map((value) => value as string);
-const LocationOptions = Object.values(Location).map((value) => value as string);
 
 export default function EditModal({
   modalTitle,
