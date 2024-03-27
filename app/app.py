@@ -15,7 +15,7 @@ from resources.loans import Loans
 from resources.createLoan import CreateLoan
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['http://localhost:3000'], allow_headers=["Content-Type"])
 api = Api(app)
 swagger = Swagger(app)
 

@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import archive from "../assets/icons/archive.svg";
 import Table from "../components/Table";
 import { defaultMockData } from "../utils/mockData";
+import { Test } from "../models/BEModels";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState("archive");
-  const data = defaultMockData;
+  // WAITING ON loan controller
+
+  const [data, setData] = useState<Test[]>([]);
+
+  /* FETCHING REAL DATA */
+  useEffect(() => {
+    // WAITING on isArchvied to be added to tests
+    setData([]);
+  }, []);
+
   if (props.userRole !== "admin") {
     return <></>;
   }
+
   return (
     <div
       className={`relative flex flex-col ${

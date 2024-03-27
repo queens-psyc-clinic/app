@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./components/Navbar";
 import Notification from "./components/Notification";
 import { Role } from "./models/User";
@@ -11,6 +10,31 @@ import { Pages } from "./models/Pages";
 import Settings from "./pages/Settings";
 import Cart from "./components/Cart";
 import StudentPage from "./pages/StudentPage";
+import { useEffect } from "react";
+import {
+  createNewItem,
+  createNewTest,
+  deleteItem,
+  deleteTest,
+  editItem,
+  editTest,
+  getAllOverdueTestsByUser,
+  getAllSignedOutItemsByUser,
+  getAllTests,
+  getItemById,
+  getItemsForTest,
+  getTestById,
+  isTestAvailable,
+  markItemAsAvailable,
+  markOverdueItemAsGone,
+} from "./services/TestService";
+import {
+  addItemToCart,
+  clearCart,
+  getCart,
+  increaseQuantityofTest,
+  isItemInCart,
+} from "./services/ShoppingCartService";
 
 interface AppProps {
   page: Pages;
@@ -19,7 +43,9 @@ interface AppProps {
 
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-
+  useEffect(() => {
+    markItemAsAvailable("4196489");
+  }, []);
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       <Navbar userType={userRole} />

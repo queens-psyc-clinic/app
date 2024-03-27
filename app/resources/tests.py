@@ -1,5 +1,7 @@
+from flask import make_response
 from flask_restful import abort, fields, marshal_with, reqparse, Resource, request
 from common.db import execute_sql_query, select_table
+from common.cors import _build_cors_preflight_response, _corsify_actual_response
 
 test_fields = {
   'ID': fields.String,
@@ -29,10 +31,15 @@ class Tests(Resource):
         500:
           description: Internal error fetching results
       """
-    table = select_table('Tests')
-    if table is not None:
-        return table, 201
-    return abort(500, message="Internal error fetching results")
+    if request.method == "OPTIONS": # CORS preflight
+            return _build_cors_preflight_response()
+    try:
+      table = select_table('Tests')
+      if table is not None:
+          return table, 201
+      return abort(500, message="Internal error fetching results")
+    except KeyError as e:
+      abort(400, message="Email does not exist.")
 
   @marshal_with(test_fields)
   def post(self):

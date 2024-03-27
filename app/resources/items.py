@@ -1,5 +1,7 @@
+from flask import abort
 from flask_restful import Resource, marshal_with, reqparse, request
 
+from common.cors import _build_cors_preflight_response, _corsify_actual_response
 from common.db import execute_sql_query, select_table
 from resources.item import item_fields
 
@@ -71,6 +73,9 @@ class Items(Resource):
         example:
         """
 
+        if request.method == "OPTIONS": # CORS preflight
+            return _build_cors_preflight_response()
+        
         # get data from *not* BODY or PATH
         columns = items_parser.parse_args()['columns']
         # get data from BODY
@@ -110,11 +115,17 @@ class Items(Resource):
           500:
             description: Error fetching items
         """
-        data = request.get_json()
-        updated_data = data['updated']
-        filters = data['filters']
-        _update(updated_data, filters)
-        return data
+        if request.method == "OPTIONS": # CORS preflight
+            return _build_cors_preflight_response()
+        try:
+          data = request.get_json()
+          updated_data = data['updated']
+          filters = data['filters']
+          _update(updated_data, filters)
+          return data
+          #return data
+        except KeyError:
+            abort(400, message="Bad request")
 
 def _select_cols(cn, cl): return execute_sql_query(
     "SELECT", "Items", conditions=cn, columns=cl)
