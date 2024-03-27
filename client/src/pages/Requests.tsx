@@ -4,15 +4,15 @@ import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 
 import Table from "../components/Table";
-import { signedOutMockData } from "../utils/mockData";
+import { requestsMockData } from "../utils/mockData";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
-import { MdAssignmentTurnedIn } from "react-icons/md";
+import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
 
-const SignedOut = (props: { userRole: Role }) => {
+const Requests = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const data = signedOutMockData;
+  const data = requestsMockData;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [selectedCardColor, setSelectedCardColor] = useState<string>("");
@@ -35,7 +35,7 @@ const SignedOut = (props: { userRole: Role }) => {
         props.userRole === "admin" ? "justify-end" : "py-16"
       }  overflow-x-hidden p-6 py-10 w-full h-full`}
     >
-      <h1 className={`text-3xl mb-4 `}>Signed Out Items </h1>
+      <h1 className={`text-3xl mb-4 `}>Requested Items </h1>
       {props.userRole === "admin" && (
         <>
           <section className="mt-6 space-y-4 pb-5">
@@ -44,9 +44,15 @@ const SignedOut = (props: { userRole: Role }) => {
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
                 <i className="mr-4">
-                  <MdAssignmentTurnedIn size={20} />
+                  <MdCheckCircle size={20} />
                 </i>
-                <p>Returned</p>
+                <p>Approve</p>
+              </button>
+              <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
+                <i className="mr-4">
+                  <MdRemoveCircle size={20} />
+                </i>
+                <p>Decline</p>
               </button>
             </section>
           </section>
@@ -84,4 +90,4 @@ const SignedOut = (props: { userRole: Role }) => {
   );
 };
 
-export default SignedOut;
+export default Requests;
