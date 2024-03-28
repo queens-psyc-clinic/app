@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import clinicLogo from "../assets/clinic-logo.svg";
 import InputField from "../components/InputField";
+import { createNewAccount } from "../services/UserService";
+import { useNavigate } from "react-router-dom";
 
 interface SignUpProps {
   onSignIn: () => void;
 }
 
+
 const SignUp: React.FC<SignUpProps> = ({ onSignIn }) => {
   const handleSignIn = () => {
-    window.location.href = '/sign-up';
+    window.location.href = '/sign-in';
   };
+  const navigate = useNavigate(); // Hook for programmatically navigating
+  const [accountInfo, setAccountInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setAccountInfo((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSignUp = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    try {
+      await createNewAccount(accountInfo.firstName, accountInfo.lastName,
+         accountInfo.email, accountInfo.password);
+      navigate('/sign-in');
+    } catch (error) {
+      console.error('Failed to create account', error);
+    }
+  }
 
   return (
     <div>
@@ -26,33 +57,58 @@ const SignUp: React.FC<SignUpProps> = ({ onSignIn }) => {
               <div className="flex flex-col">
                 <div className="flex flex-row pb-8 mt-10">
                   <div className="">
-                    <InputField label="First Name" type="text" />{" "}
+                    <InputField 
+                      value=""
+                      name="firstName" 
+                      label="First Name" 
+                      type="text" 
+                      onChange={handleInputChange}/>{" "}
                   </div>
                   <div className="pl-5">
-                    <InputField label="Last Name" type="text" />
+                    <InputField 
+                      value=""
+                      name="lastName" 
+                      label="Last Name" 
+                      type="text" 
+                      onChange={handleInputChange}/>
                   </div>
                 </div>
                 <div className="">
-                  <InputField label="Queen's Email" type="text" />{" "}
+                  <InputField 
+                    value=""
+                    name="email" 
+                    label="Queen's Email" 
+                    type="email" 
+                    onChange={handleInputChange}/>{" "}
                 </div>
                 <div className="py-8">
-                  <InputField label="Password" />
+                  <InputField 
+                    value=""
+                    name="password" 
+                    label="Password" 
+                    type="password" 
+                    onChange={handleInputChange}/>
                 </div>
                 <div className="pb-8">
-                  <InputField label="Confirm Password" />
+                  <InputField 
+                    value=""
+                    name="confirmPassword" 
+                    label="Confirm Password" 
+                    type="password" 
+                    onChange={handleInputChange}/>
                 </div>
                 <div>
                   <button
                     className="bg-blue-200 p-4 w-full rounded text-white font-semibold"
-                    onClick={onSignIn}
+                    onClick={handleSignUp}
                   >
-                    Sign In
+                    Sign Up
                   </button>
                 </div>
               </div>
             </div>
             <div className="ml-8 pt-8">
-              <span>Don't already have an account?</span>
+              <span>Already have an account?</span>
               <span className="pl-2 underline text-blue-200 cursor-pointer" onClick={handleSignIn}>
                 Sign In
               </span>

@@ -1,6 +1,7 @@
 import React from "react";
 
 interface InputFieldProps {
+  name?: string
   placeholder?: string;
   label: string;
   important?: boolean;
@@ -8,9 +9,11 @@ interface InputFieldProps {
   styles?: string;
   canEdit?: boolean;
   value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
+  name = "",
   placeholder = "",
   label = "",
   important = false,
@@ -18,6 +21,7 @@ const InputField: React.FC<InputFieldProps> = ({
   styles = "",
   canEdit = true,
   value = "",
+  onChange,
 }: InputFieldProps) => {
   const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
@@ -52,13 +56,14 @@ const InputField: React.FC<InputFieldProps> = ({
       </label>
       <input
         type={type}
-        name="inputText"
+        name={name}
         id="inputText"
         className={`block w-full mt-2 pl-3 rounded-md bg-gray-100 border-0 py-2 text-gray-900 placeholder:text-gray-300 focus:ring-3 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-6 shadow-sm ${styles}`}
         placeholder={placeholder}
         onKeyPress={handleInput}
         readOnly={!canEdit}
         value={value ? value : undefined}
+        onChange={onChange}
       />
     </div>
   );
