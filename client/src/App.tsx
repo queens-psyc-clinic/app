@@ -55,6 +55,15 @@ function App({ page, userRole }: AppProps) {
               </section>
             </>
           )}
+          {userRole === "admin" && (
+            <>
+              <section className="flex flex-row absolute top-10 right-10">
+                {/* <Cart userRole={userRole} />
+                <div className="w-6"></div> */}
+                <Notification userRole={userRole} />
+              </section>
+            </>
+          )}
         </>
       )}
       {!isSignedIn && (

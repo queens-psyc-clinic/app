@@ -171,7 +171,13 @@ export default function Modal({
               )}
               <button
                 onClick={closeModal}
-                className="text-white hover:bg-blue-100 bg-blue-200 px-6 py-2 rounded-lg text-sm font-semibold"
+                className="text-blue-200 hover:bg-gray-50 border border-blue-200 px-6 py-2 mr-4 rounded-lg text-sm font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={closeModal}
+                className="text-white hover:bg-blue-300 bg-blue-200 px-6 py-2 rounded-lg text-sm font-semibold"
               >
                 {buttonLabel}
               </button>
