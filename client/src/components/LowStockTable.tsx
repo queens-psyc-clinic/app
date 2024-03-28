@@ -35,7 +35,7 @@ const LowStockTable = (props: {
   >([]);
 
   let columns: Column[];
-
+  console.log(props.data);
   switch (props.tableType) {
     case "default":
       columns = defaultColumns;
@@ -80,15 +80,19 @@ const LowStockTable = (props: {
       case "Quantity":
         return "Stock";
       case "Name":
-        return "Item Name";
-      case "Ordering Company":
+        return "Name";
+      case "Item Name":
         return "ItemName";
+      case "Ordering Company":
+        return "OrderingCompany";
       case "Borrowed By":
         return "UserID";
       case "Checked Out":
         return "StartDate";
       case "Measure":
         return "MeasureOf";
+      case "Edition":
+        return "EditionNumber";
       default:
         return colTitle;
     }

@@ -7,6 +7,7 @@ import { Item, Test } from "../models/BEModels";
 import {
   getItemOrderingCompany,
   getLowStockItems,
+  getTestById,
   getTestNameByItem,
 } from "../services/TestService";
 import LowStockTable from "../components/LowStockTable";
@@ -20,36 +21,41 @@ const LowStock = (props: { userRole: Role }) => {
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // WAITING ON trailing spaces fix on backend
-  // useEffect(() => {
-  //   // WAITING ON stock column to be adjusted in db
-  //   setIsLoading(true);
-  //   getLowStockItems().then(async (res) => {
-  //     for (const lowStockItem of res) {
-  //       const testName = await getTestNameByItem(lowStockItem.ID).catch((e) =>
-  //         console.log("TESTNAME ERROR: ", e)
-  //       );
-  //       const orderingCompany = await getItemOrderingCompany(
-  //         lowStockItem.ID
-  //       ).catch((e) => console.log("ORDERING ERROR: ", e));
-  //       setData((prev) =>
-  //         _.unionBy(
-  //           [
-  //             ...prev,
-  //             {
-  //               ...lowStockItem,
-  //               OrderingCompany: orderingCompany,
-  //               Name: testName,
-  //             },
-  //           ],
-  //           "ID"
-  //         )
-  //       );
-  //     }
+  useEffect(() => {
+    // WAITING ON stock column to be adjusted in db
+    setIsLoading(true);
+    getLowStockItems().then(async (res) => {
+      for (const lowStockItem of res) {
+        const test: Test = await getTestById(lowStockItem.TestID).catch((e) =>
+          console.log(e)
+        );
+        console.log(test);
+        // const testName = await getTestNameByItem(lowStockItem.ID).catch((e) =>
+        //   console.log("TESTNAME ERROR: ", e)
+        // );
 
-  //     console.log(res);
-  //     setIsLoading(false);
-  //   });
-  // }, []);
+        // const orderingCompany = await getItemOrderingCompany(
+        //   lowStockItem.ID
+        // ).catch((e) => console.log("ORDERING ERROR: ", e));
+        setData((prev) =>
+          _.unionBy(
+            [
+              ...prev,
+              {
+                ...lowStockItem,
+                OrderingCompany: test.OrderingCompany,
+                Name: test.Name,
+                EditionNumber: test.EditionNumber,
+              },
+            ],
+            "ID"
+          )
+        );
+      }
+
+      setIsLoading(false);
+    });
+  }, []);
 
   if (props.userRole === "client") {
     return <></>;
