@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import Dropdown from "./DropDown";
 import RangeSlider from "./RangeSlider";
-import { Measure, itemTypeOptions, LevelOfUse } from "../models/libraryItem";
+import { Measure, LevelOfUse } from "../models/libraryItem";
+import { MdControlPoint } from "react-icons/md";
+import FormItem from "./FormItem";
 
 interface ModalProps {
   modalTitle: string;
@@ -22,6 +24,27 @@ export default function EditModal({
   isOpen,
   closeModal,
 }: ModalProps) {
+  const [itemCount, setItemCount] = useState(1);
+  const [itemVisibility, setItemVisibility] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    const initialVisibility = Array(itemCount).fill(true);
+    setItemVisibility(initialVisibility);
+  }, []);
+
+  const handleAddItem = () => {
+    setItemCount((prevCount) => prevCount + 1);
+    setItemVisibility((prevVisibility) => [...prevVisibility, true]);
+  };
+
+  const handleRemove = (index: number) => {
+    setItemVisibility((prevVisibility) => {
+      const updatedVisibility = [...prevVisibility];
+      updatedVisibility[index] = false;
+      return updatedVisibility;
+    });
+  };
+
   return (
     <>
       {isOpen && (
@@ -102,75 +125,23 @@ export default function EditModal({
             </div>
 
             <h2 className="text-lg font-bold mt-8">Items in Test</h2>
-            <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md">
-              <div className="pr-4">
-                <InputField
-                  placeholder="Adult Form"
-                  label="Item Name"
-                  important={true}
-                />
-              </div>
-              <div className="flex">
-                <div className="pr-4 pt-4">
-                  <Dropdown
-                    placeholder="Form"
-                    label="Item"
-                    options={itemTypeOptions}
-                    important={true}
-                  />
+            {itemVisibility.map((visible, index) =>
+              visible ? (
+                <FormItem key={index} onRemove={() => handleRemove(index)} />
+              ) : null
+            )}
+            <div className="text-sm flex items-center justify-center text-gray-200">
+              <button
+                className="py-5 flex flex-col items-center justify-center"
+                onClick={handleAddItem}
+              >
+                <div>
+                  <MdControlPoint size={40} />
                 </div>
-                <div className="pr-4 pt-4">
-                  <InputField
-                    placeholder="10"
-                    label="Quantity"
-                    type="Number"
-                    important={true}
-                  />
+                <div className="">
+                  <p className="text-center">Add Item</p>
                 </div>
-              </div>
-              <div className="pt-4">
-                <InputField
-                  placeholder="Location item is stored"
-                  label="Location"
-                  type="Text"
-                  important={true}
-                />
-              </div>
-            </div>
-            <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md">
-              <div className="pr-4">
-                <InputField
-                  placeholder="Adult Form"
-                  label="Item Name"
-                  important={true}
-                />
-              </div>
-              <div className="flex">
-                <div className="pr-4 pt-4">
-                  <Dropdown
-                    placeholder="Form"
-                    label="Item"
-                    options={itemTypeOptions}
-                    important={true}
-                  />
-                </div>
-                <div className="pr-4 pt-4">
-                  <InputField
-                    placeholder="10"
-                    label="Quantity"
-                    type="Number"
-                    important={true}
-                  />
-                </div>
-              </div>
-              <div className="pt-4">
-                <InputField
-                  placeholder="Location item is stored"
-                  label="Location"
-                  type="Text"
-                  important={true}
-                />
-              </div>
+              </button>
             </div>
             <div className="flex justify-end pt-10">
               {secButtonLabel !== " " && (
