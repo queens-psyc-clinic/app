@@ -58,7 +58,7 @@ const LowStockTable = (props: {
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
-  const pilledColumns: string[] = ["Measure", "Item"];
+  const pilledColumns: string[] = ["Measure", "Item", "Ordering Company"];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -85,12 +85,6 @@ const LowStockTable = (props: {
         return "ItemName";
       case "Ordering Company":
         return "OrderingCompany";
-      case "Borrowed By":
-        return "UserID";
-      case "Checked Out":
-        return "StartDate";
-      case "Measure":
-        return "MeasureOf";
       case "Edition":
         return "EditionNumber";
       default:
@@ -141,7 +135,7 @@ const LowStockTable = (props: {
                     className="cursor-pointer ml-2"
                   ></input>
                 </td>
-                <td className="px-4 py-4 min-w-min" key={uuid()}>
+                <td className="px-4 py-4 min-w-min bg-red-200" key={uuid()}>
                   <span></span>
                 </td>
               </>
@@ -187,19 +181,18 @@ const LowStockTable = (props: {
                     }`}
                     onClick={() => toggleRowExpansion(row as unknown as Test)}
                   >
-                    <td className="px-4 py-2" key={uuid()}>
-                      <input
-                        type="checkbox"
-                        checked={props.selectedRows.includes(row.ID as string)}
-                        onChange={() => handleCheckbox(row.ID as string)}
-                        className="cursor-pointer mx-2"
-                      />
-                    </td>
-                    <td className="px-4 py-2" key={uuid()}>
-                      <FaAngleDown
-                        className={isRowExpanded(row.ID) ? "rotate-180" : ""}
-                      />
-                    </td>
+                    {props.isCheckable && (
+                      <td className="px-4 py-2" key={uuid()}>
+                        <input
+                          type="checkbox"
+                          checked={props.selectedRows.includes(
+                            row.ID as string
+                          )}
+                          onChange={() => handleCheckbox(row.ID as string)}
+                          className="cursor-pointer mx-2"
+                        />
+                      </td>
+                    )}
                     {props.isEditable && (
                       <td className="px-4 py-2" key={uuid()}>
                         <i className="text-black cursor-pointer">
@@ -336,8 +329,8 @@ const LowStockTable = (props: {
 
 LowStockTable.defaultProps = {
   tableType: "lowStock",
-  isCheckable: true,
-  isEditable: true,
+  isCheckable: false,
+  isEditable: false,
 };
 
 export default LowStockTable;

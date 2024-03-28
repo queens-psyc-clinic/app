@@ -18,46 +18,53 @@ import _ from "lodash";
 const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [data, setData] = useState<
-    (Item & { OrderingCompany: string; Name: string })[]
+    (Item & { OrderingCompany: string; Name: string; EditionNumber: string })[]
   >([]);
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // WAITING ON trailing spaces fix on backend
-  // useEffect(() => {
-  //   // WAITING ON stock column to be adjusted in db
-  //   setIsLoading(true);
-  //   getLowStockItems().then(async (res) => {
-  //     console.log(res);
-  //     for (const lowStockItem of res) {
-  //       const testName = await getTestNameByItem(lowStockItem.ID).catch((e) =>
-  //         console.log("TESTNAME ERROR: ", e)
-  //       );
+  useEffect(() => {
+    // WAITING ON stock column to be adjusted in db
+    setIsLoading(true);
+    getLowStockItems().then(async (res) => {
+      console.log(res);
+      for (const lowStockItem of res) {
+        const testName = await getTestNameByItem(lowStockItem.ID).catch((e) =>
+          console.log("TESTNAME ERROR: ", e)
+        );
 
-  //       const orderingCompany = await getItemOrderingCompany(
-  //         lowStockItem.ID
-  //       ).catch((e) => console.log("ORDERING ERROR: ", e));
+        const orderingCompany = await getItemOrderingCompany(
+          lowStockItem.ID
+        ).catch((e) => console.log("ORDERING ERROR: ", e));
 
-  //       const editionNumber = await getItemEditionNumber(lowStockItem.ID).catch(
-  //         (e) => console.log("EDITION ERROR: ", e)
-  //       );
-  //       setData((prev) =>
-  //         _.unionBy(
-  //           [
-  //             ...prev,
-  //             {
-  //               ...lowStockItem,
-  //               OrderingCompany: orderingCompany,
-  //               Name: testName,
-  //               EditionNumber: editionNumber,
-  //             },
-  //           ],
-  //           "ID"
-  //         )
-  //       );
-  //     }
+        const editionNumber = await getItemEditionNumber(lowStockItem.ID).catch(
+          (e) => console.log("EDITION ERROR: ", e)
+        );
+        console.log({
+          ...lowStockItem,
+          OrderingCompany: orderingCompany,
+          Name: testName,
+          EditionNumber: editionNumber,
+        });
+        setData((prev) =>
+          _.unionBy(
+            [
+              ...prev,
+              {
+                ...lowStockItem,
+                OrderingCompany: orderingCompany,
+                Name: testName,
+                EditionNumber: editionNumber,
+              },
+            ],
+            "ID"
+          )
+        );
+      }
 
-  //     setIsLoading(false);
-  //   });
-  // }, []);
+      setIsLoading(false);
+    });
+  }, []);
 
   if (props.userRole === "client") {
     return <></>;
