@@ -8,6 +8,7 @@ interface InputFieldProps {
   styles?: string;
   canEdit?: boolean;
   value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -18,6 +19,8 @@ const InputField: React.FC<InputFieldProps> = ({
   styles = "",
   canEdit = true,
   value = "",
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    console.log(e.target.value),
 }: InputFieldProps) => {
   const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
@@ -28,15 +31,13 @@ const InputField: React.FC<InputFieldProps> = ({
       if (!pattern.test(event.key)) {
         event.preventDefault();
       }
-    }
-    else if (type === "text") {
+    } else if (type === "text") {
       const pattern = /^[0-9a-zA-Z-]+$/;
       if (!pattern.test(event.key)) {
         event.preventDefault();
       }
-    }
-    else if (type === "email") {
-      const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;   // Not working!!
+    } else if (type === "email") {
+      const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Not working!!
       if (!pattern.test(inputValue) && inputValue !== "") {
         event.preventDefault();
       }
@@ -59,6 +60,7 @@ const InputField: React.FC<InputFieldProps> = ({
         onKeyPress={handleInput}
         readOnly={!canEdit}
         value={value ? value : undefined}
+        onChange={onChange}
       />
     </div>
   );
