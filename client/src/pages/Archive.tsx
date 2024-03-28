@@ -5,30 +5,44 @@ import Filter from "../components/Filter";
 import archive from "../assets/icons/archive.svg";
 import Table from "../components/Table";
 import { defaultMockData } from "../utils/mockData";
-import { Test } from "../models/BEModels";
+import { Item, Test } from "../models/BEModels";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
+import { getAllArchivedTests, isTestAvailable } from "../services/TestService";
+import uuid from "react-uuid";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState("archive");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
-  const [selectedCardColor, setSelectedCardColor] = useState<string>("");
-  const data = defaultMockData;
+  const [selectedCard, setSelectedCard] = useState<Omit<
+    Test,
+    "OrderingCompany"
+  > | null>(null);
+  const [data, setData] = useState<Omit<Test, "OrderingCompany">[]>([]);
+  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleCardClick = (data: CardData, color: string) => {
-    if (data.Stock !== "0") {
-      setSelectedCard(data);
-      setSelectedCardColor(color);
-      setIsModalOpen(true);
-    }
+  const handleCardClick = (
+    data: Omit<Test, "OrderingCompany">,
+    items: Item[]
+  ) => {
+    isTestAvailable(data.ID, 1).then((res) => {
+      if (res.isTestAvailable) {
+        setSelectedCard(data);
+        setIsModalOpen(true);
+      }
+    });
+    setSelectedItems(items);
   };
+
+  useEffect(() => {
+    getAllArchivedTests().then((res) => setData(res));
+  }, []);
 
   return (
     <div
@@ -49,23 +63,24 @@ const Archive = (props: { userRole: Role }) => {
               </button>
             </section>
           </section>
-          {/* <Table
+          <Table
             tableType="default"
             currentPage={currentPage}
             setSelectedRows={setSelectedRows}
             selectedRows={selectedRows}
             data={data}
-          /> */}
+          />
         </>
       )}
-      {/* {props.userRole === "client" && (
+      {props.userRole === "client" && (
         <>
           <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            {cardSampleData.map((data) => (
+            {data.map((data) => (
               <Card
-                key={data.id}
+                key={uuid()}
+                type="test"
                 data={data}
-                openModal={(color) => handleCardClick(data, color)}
+                openModal={handleCardClick}
               />
             ))}
           </div>
@@ -76,10 +91,10 @@ const Archive = (props: { userRole: Role }) => {
             isOpen={isModalOpen}
             closeModal={toggleModal}
             cardData={selectedCard}
-            cardColor={selectedCardColor}
+            items={selectedItems}
           />
         </>
-      )} */}
+      )}
     </div>
   );
 };

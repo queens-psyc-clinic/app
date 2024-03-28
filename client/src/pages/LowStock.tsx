@@ -27,7 +27,6 @@ const LowStock = (props: { userRole: Role }) => {
     // WAITING ON stock column to be adjusted in db
     setIsLoading(true);
     getLowStockItems().then(async (res) => {
-      console.log(res);
       for (const lowStockItem of res) {
         const testName = await getTestNameByItem(lowStockItem.ID).catch((e) =>
           console.log("TESTNAME ERROR: ", e)
@@ -40,12 +39,7 @@ const LowStock = (props: { userRole: Role }) => {
         const editionNumber = await getItemEditionNumber(lowStockItem.ID).catch(
           (e) => console.log("EDITION ERROR: ", e)
         );
-        console.log({
-          ...lowStockItem,
-          OrderingCompany: orderingCompany,
-          Name: testName,
-          EditionNumber: editionNumber,
-        });
+
         setData((prev) =>
           _.unionBy(
             [

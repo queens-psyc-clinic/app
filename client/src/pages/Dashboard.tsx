@@ -148,15 +148,15 @@ const Dashboard = (props: { userRole: Role }) => {
                 />
               ))}
             </div>
-            {/* <CardsModal
-            modalTitle={selectedCard?.Name || ""}
-            buttonLabel="Add to Cart"
-            secButtonLabel="Close"
-            isOpen={isModalOpen}
-            closeModal={toggleModal}
-            cardData={selectedCard}
-            items={selectedItems}
-          /> */}
+            <CardsModal
+              modalTitle={selectedCard?.Name || ""}
+              buttonLabel="Add to Cart"
+              secButtonLabel="Close"
+              isOpen={isModalOpen}
+              closeModal={toggleModal}
+              cardData={selectedCard}
+              items={selectedItems}
+            />
           </>
         ) : (
           <LoadingSpinner />

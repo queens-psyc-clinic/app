@@ -15,7 +15,7 @@ import AccountType from "./pages/AccountType";
 import StudentPage from "./pages/StudentPage";
 import SignedOut from "./pages/SignedOut";
 import Requests from "./pages/Requests";
-import { getLowStockItems } from "./services/TestService";
+import { getAllArchivedTests, getLowStockItems } from "./services/TestService";
 
 interface AppProps {
   page: Pages;
@@ -25,8 +25,7 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    // deleteLoan("917373").then((res) => console.log(res));
-    // getLowStockItems().then((res) => console.log(res));
+    getAllArchivedTests().then((res) => console.log(res));
   }, []);
   const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
 

@@ -24,7 +24,7 @@ const Table = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
-  data: Test[];
+  data: Omit<Test, "OrderingCompany">[];
   currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
@@ -188,12 +188,19 @@ const Table = (props: {
                     )}
                     {columns.map((col, ind) => {
                       if (
-                        row[mapColumnTitleToDataIndex(col.title) as keyof Test]
+                        row[
+                          mapColumnTitleToDataIndex(col.title) as keyof Omit<
+                            Test,
+                            "OrderingCompany"
+                          >
+                        ]
                       ) {
                         if (!pilledColumns.includes(col.title)) {
                           const cell =
                             row[
-                              mapColumnTitleToDataIndex(col.title) as keyof Test
+                              mapColumnTitleToDataIndex(
+                                col.title
+                              ) as keyof Omit<Test, "OrderingCompany">
                             ].toString();
                           return (
                             <td key={ind} className="px-4 py-2">
@@ -222,7 +229,7 @@ const Table = (props: {
                                   row[
                                     mapColumnTitleToDataIndex(
                                       col.title
-                                    ) as keyof Test
+                                    ) as keyof Omit<Test, "OrderingCompany">
                                   ],
                                 type: col.title.toLowerCase(),
                               },
@@ -242,7 +249,7 @@ const Table = (props: {
                                 link: row[
                                   mapColumnTitleToDataIndex(
                                     col.title
-                                  ) as keyof Test
+                                  ) as keyof Omit<Test, "OrderingCompany">
                                 ],
                               }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };

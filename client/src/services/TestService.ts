@@ -398,7 +398,6 @@ export async function getAllSignedOutItems() {
 export async function getAllSignedOutItemsByUser(userId: string) {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
-  // WAITING ON loan controller
   try {
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/loans`,
@@ -460,7 +459,41 @@ export async function getAllSignedOutItemsByUser(userId: string) {
 export async function getAllArchivedTests() {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
-  // WAITING ON isArchived to be added to tests
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/tests`,
+      {
+        filters: {
+          IsArchived: 1,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function getAllOverdueItems() {

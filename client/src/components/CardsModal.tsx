@@ -11,7 +11,7 @@ interface CardsModalProps {
   secButtonLabel?: string;
   isOpen: boolean;
   closeModal: () => void;
-  cardData: Test | null;
+  cardData: Omit<Test, "OrderingCompany"> | null;
   cardColor?: string;
   items: Item[];
 }
@@ -47,7 +47,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
     <div>
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10">
-          <div className="bg-white rounded-lg p-8 min-w-20 max-h-full min-w-fit overflow-y-auto">
+          <div className="bg-white rounded-lg p-8 max-h-full min-w-fit overflow-y-auto">
             {cardData && (
               <div>
                 <h3 className="text-base italic font-light pb-1 pt-8">
