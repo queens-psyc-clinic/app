@@ -12,17 +12,19 @@ rename_scheme = {
     'Item Name': 'ItemName',
     'Item': 'ItemType'
 }
-original_data = original_data.rename(columns=rename_scheme).replace(r'\n', ' ', regex=True)
+original_data = original_data.rename(columns=rename_scheme).replace(r'\n', ' ', regex=True).replace(r'^\s+|\s+$', '', regex=True).replace(r'  ', ' ', regex=True)
 
 
 
+test_data = original_data['IsArchived'] = 0
 test_data = original_data[[
     'ID', 
     'Name', 
     'MeasureOf', 
     'LevelOfUser', 
     'EditionNumber', 
-    'OrderingCompany'
+    'OrderingCompany',
+    'IsArchived'
 ]].drop_duplicates(subset=['ID'], keep='first')
 test_data.to_csv('test_data.csv', index=False)
 
@@ -39,12 +41,9 @@ item_data = item_data[[
     'ItemType', 
     'ItemName', 
     'Ages',
-    'NumberOfParts',
     'Location',
     'TestID',
     'IsArchived',
     'Stock'
 ]]
 item_data.to_csv('item_data.csv', index=False)
-
-

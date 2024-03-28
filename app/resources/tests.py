@@ -22,6 +22,8 @@ class Tests(Resource):
     """
       Get all tests
       ---
+      tags:
+        - Tests
       responses:
         201:
           description: A list of Tests
@@ -40,6 +42,8 @@ class Tests(Resource):
     """
     Get tests with filters
     ---
+    tags:
+      - Tests
     requestBody:
       content:
         application/json:
@@ -83,6 +87,8 @@ class Tests(Resource):
     """
     Update tests with batch data and filters
     ---
+    tags:
+      - Tests
     requestBody:
       content:
         application/json:
