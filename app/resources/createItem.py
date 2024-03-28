@@ -47,9 +47,6 @@ class CreateItem(Resource):
                 Ages:
                   type: string
                   description: Recomended ages for item
-                NumberOfParts:
-                  type: string
-                  description: The number of parts
                 Location:
                   type: string
                   description: The item location
