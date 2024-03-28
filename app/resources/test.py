@@ -52,6 +52,8 @@ class Test(Resource):
     """
     Create a new test
     ---
+    tags:
+      - Tests
     parameters:
       - in: path
         name: acronym
@@ -113,6 +115,8 @@ class Test(Resource):
     """
     Retrieve a test
     ---
+    tags:
+      - Tests
     parameters:
       - in: path
         name: acronym
@@ -138,6 +142,8 @@ class Test(Resource):
     """
     Update a test by ID
     ---
+    tags:
+      - Tests
     parameters:
       - in: path
         name: acronym
@@ -189,6 +195,8 @@ class Test(Resource):
     """
     Delete a test
     ---
+    tags:
+      - Tests
     parameters:
       - in: path
         name: acronym
