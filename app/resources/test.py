@@ -113,6 +113,14 @@ class Test(Resource):
     #    abort(404, message="Duplicate Test")
     except Exception :
       abort(400, message="Duplicate Test")
+
+    # args = test_parser.parse_args()
+    # new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'])
+    # _insert(new_test)
+    # return _select_one({"ID": new_test["ID"]}), 201
+    # # except ValueError:
+    # #    abort(404, message="Duplicate Test")
+
   
      
   @marshal_with(test_fields)

@@ -15,7 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   label = "",
   important = false,
   type = "text",
-  onChange,
+  onChange = (option: any, label: any) => console.log(option, label),
   options,
 }: DropdownProps) => {
   const [showDropdown, setShowDropdown] = useState(false);

@@ -9,6 +9,7 @@ function valuetext(value: number) {
 interface RangeSliderProps {
   label: string;
   important?: boolean;
+  onChange?: (range: number[]) => void;
 }
 
 const MAX = 100;
@@ -27,11 +28,13 @@ const marks = [
 const RangeSlider: React.FC<RangeSliderProps> = ({
   label = " ",
   important = false,
+  onChange = (range: number[]) => console.log(range),
 }: RangeSliderProps) => {
   const [value, setValue] = React.useState<number[]>([16, 89]);
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
+    onChange(value);
   };
 
   return (

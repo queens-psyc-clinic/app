@@ -31,18 +31,18 @@ CREATE TABLE Tests (
     LevelOfUser VARCHAR(10),
     EditionNumber VARCHAR(100),
     OrderingCompany VARCHAR(155),
-    IsArchived BOOLEAN NOT NULL
+    IsArchived BOOLEAN NOT NULL DEFAULT 0
 );
 
 CREATE TABLE Items (
     ID VARCHAR(64) PRIMARY KEY,
-    Status BOOLEAN NOT NULL, -- Available (True) or Borrowed (False)
+    Status BOOLEAN NOT NULL DEFAULT TRUE, -- Available (True) or Borrowed (False)
     ItemType VARCHAR(75),
     ItemName VARCHAR(355),
     Ages VARCHAR(50),
     Location VARCHAR(155),
     TestID VARCHAR(64), 
-    IsArchived BOOLEAN NOT NULL,
+    IsArchived BOOLEAN NOT NULL DEFAULT FALSE,
     Stock INT,
     FOREIGN KEY (TestID) REFERENCES Tests(ID)
 );

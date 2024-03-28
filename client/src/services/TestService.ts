@@ -20,8 +20,8 @@ export interface Item {
   ItemName: string;
   ItemType: string;
   Location: string;
-  NumberOfParts: string;
-  Status: Number;
+  // NumberOfParts: string;
+  Status: Boolean;
   Stock: Number;
   TestID: string;
 }
