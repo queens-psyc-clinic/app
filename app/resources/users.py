@@ -1,5 +1,6 @@
 import json
 from flask_restful import Resource, abort, marshal_with, reqparse, request
+from common.pbkdf2 import hash_password
 
 from resources.user import user_fields
 from common.db import execute_sql_query, select_table, check_exists
@@ -18,8 +19,10 @@ class Users(Resource):
     @marshal_with(user_fields)
     def put(self, id):
         """
-        Update woth data at filters
+        Update users, matching filters, with data
         ---
+        tags:
+          - Users
         requestBody:
           content:
             application/json:
@@ -48,7 +51,7 @@ class Users(Resource):
             required: true
         responses:
           201:
-            description: A list of user items
+            description: A list of users
             schema:
               id: User
           403:
@@ -58,9 +61,19 @@ class Users(Resource):
             abort(403, message='Unknown user')
 
         # get data from BODY
-        data = request.get_json()
+        data = request.get_json(force=True)
         update = data['update']
         filters = data['filters']
+
+        # CHANGE PWORD
+        if 'Password' in update:
+            if not check_exists(id, 'Users', admin=True):
+                if id == filters['ID']:
+                    pass
+                else:
+                    abort(401, message='Access Denied')
+            update = {'Hash': hash_password(update['Password'])}
+            filters = {'ID': filters['ID']}
 
         _update(update, filters)
         return _select(update), 201
@@ -68,8 +81,10 @@ class Users(Resource):
     @marshal_with(user_fields)
     def post(self, id):
         """
-        Get (optional) columns from users satisfying filters
+        Get (optional) columns from users matching filters
         ---
+        tags:
+          - Users
         requestBody:
           content:
             application/json:
@@ -117,6 +132,8 @@ class Users(Resource):
         """
         Get all users
         ---
+        tags:
+          - Users
         parameters:
           - in: path
             name: id

@@ -133,12 +133,14 @@ class Test(Resource):
       404:
         description: Test does not exist
     """
-    test = _select_one({"ID": acronym})
-    if test:
-      return test, 200
-    
-    abort(404, message="Test not found")
-
+    try:
+      test = _select_one({"ID": acronym})
+      if test:
+        return test, 200
+      
+      abort(404, message="Test not found")
+    except Exception :
+      abort(400, message="Duplicate Test")
   
   @marshal_with(test_fields)
   def put(self, acronym):
