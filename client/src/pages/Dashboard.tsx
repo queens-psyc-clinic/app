@@ -76,7 +76,7 @@ const Dashboard = (props: { userRole: Role }) => {
              <AdminCards userRole="admin" />
            </section>
            <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
-             <Modal modalTitle="Add Item" buttonLabel="Add" />
+             <Modal modalTitle="Add Item" secButtonLabel="Cancel" buttonLabel="Add" />
              <button
                onClick={deleteSelectedRows}
                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"

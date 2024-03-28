@@ -40,7 +40,6 @@ item_data = item_data[[
     'ItemType', 
     'ItemName', 
     'Ages',
-    'NumberOfParts',
     'Location',
     'TestID',
     'IsArchived',

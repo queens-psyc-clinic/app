@@ -22,6 +22,8 @@ export function getCurrentPageFromUrl(relativeUrl: string): Pages {
       return Pages.signin;
     case "account-type":
       return Pages.accounttype;
+    case "requests":
+      return Pages.requests;
   }
   return Pages.dashboard;
 }

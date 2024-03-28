@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import Dropdown from "./DropDown";
 import RangeSlider from "./RangeSlider";
-import { IoMdAdd } from "react-icons/io";
 import { Measure, LevelOfUse } from "../models/libraryItem";
 import { MdControlPoint } from "react-icons/md";
 import FormItem from "./FormItem";
@@ -11,27 +10,22 @@ interface ModalProps {
   modalTitle: string;
   buttonLabel: string;
   secButtonLabel?: string;
+  isOpen: boolean;
+  closeModal: () => void;
 }
 
 const measureOptions = Object.values(Measure).map((value) => value as string);
 const levelOptions = Object.values(LevelOfUse).map((value) => value as string);
 
-export default function Modal({
+export default function EditModal({
   modalTitle,
   buttonLabel,
   secButtonLabel = " ",
+  isOpen,
+  closeModal,
 }: ModalProps) {
-  const [isOpen, setIsOpen] = React.useState(false);
   const [itemCount, setItemCount] = useState(1);
   const [itemVisibility, setItemVisibility] = useState<boolean[]>([]);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
 
   useEffect(() => {
     const initialVisibility = Array(itemCount).fill(true);
@@ -52,16 +46,7 @@ export default function Modal({
   };
 
   return (
-    <div>
-      <button
-        onClick={openModal}
-        className="text-white bg-black px-3 py-2 rounded-lg flex items-center"
-      >
-        <i className="mr-4">
-          <IoMdAdd size={20} />
-        </i>
-        <p>Add</p>
-      </button>
+    <>
       {isOpen && (
         <div className="fixed z-40 inset-0 flex items-center justify-center bg-black bg-opacity-10 p-10">
           <div className="bg-white rounded-lg p-8 min-w-20 max-h-full min-w-fit overflow-y-auto">
@@ -177,6 +162,6 @@ export default function Modal({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
