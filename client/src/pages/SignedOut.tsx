@@ -42,11 +42,11 @@ const SignedOut = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-              <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
+              <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
                 <i className="mr-4">
                   <MdAssignmentTurnedIn size={20} />
                 </i>
-                <p>Returned</p>
+                <p>Mark As Returned</p>
               </button>
             </section>
           </section>
