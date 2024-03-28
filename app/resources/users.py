@@ -66,7 +66,10 @@ class Users(Resource):
         # CHANGE PWORD
         if 'Password' in update:
             if not check_exists(id, 'Users', admin=True):
-                abort(401, message='Access Denied')
+                if id == filters['ID']:
+                    pass
+                else:
+                    abort(401, message='Access Denied')
             update = {'Hash': hash_password(update['Password'])}
             filters = {'ID': filters['ID']}
 
