@@ -14,6 +14,7 @@ import SignIn from "./pages/SignIn";
 import AccountType from "./pages/AccountType";
 import StudentPage from "./pages/StudentPage";
 import SignedOut from "./pages/SignedOut";
+import Requests from "./pages/Requests";
 
 interface AppProps {
   page: Pages;
@@ -39,6 +40,7 @@ function App({ page, userRole }: AppProps) {
           {page === Pages.lowStock && <LowStock userRole={userRole} />}
           {page === Pages.settings && <Settings userRole={userRole} />}
           {page === Pages.student && <StudentPage userRole={userRole} />}
+          {page === Pages.requests && <Requests userRole={userRole} />}
           {userRole === "client" && (
             <>
               <section className="flex flex-row absolute top-10 right-10">

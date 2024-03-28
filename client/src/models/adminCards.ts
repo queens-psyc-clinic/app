@@ -24,6 +24,7 @@ export interface BorrowedBy {
 }
   
 export interface AdminCardData {
+    route: any;
     id: string;
     Name: string;
     Count: string;
@@ -37,21 +38,24 @@ const cardSampleData: AdminCardData[] = [
         Name: "Signed Out Items",
         Count: "24",
         Icon: signOutSvg,
-        Link: "/signed-out-items"
+        Link: "/signed-out",
+        route: "/signed-out"
     },
     {
         id: "2",
         Name: "Overdue Items",
         Count: "3",
         Icon: overdueSvg,
-        Link: "/overdue-items"
+        Link: "/overdue",
+        route: "/overdue",
     },
     {
         id: "3",
         Name: "Low Stock Items",
         Count: "14",
         Icon: lowStockSvg,
-        Link: "/low-stock-items"
+        Link: "/low-stock",
+        route: "/low-stock"
     },
 ];
 
