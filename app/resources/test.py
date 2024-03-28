@@ -7,7 +7,8 @@ test_fields = {
   'MeasureOf': fields.String,
   'LevelOfUser': fields.String,
   'EditionNumber' : fields.String,
-  'OrderingCompany' : fields.String
+  'OrderingCompany' : fields.String,
+  'isArchived': fields.Boolean
 }
 
 test_parser = reqparse.RequestParser()
@@ -40,6 +41,12 @@ test_parser.add_argument(
   location='args',
   required=False,
   help='The ordering company of the test'
+)
+test_parser.add_argument(
+  'isArchived', dest='isArchived',
+  location='args',
+  required=False,
+  help='The archived status of the test'
 )
 
 class Test(Resource):
@@ -77,6 +84,10 @@ class Test(Resource):
         name: OrderingCompany
         type: string
         required: false
+      - in: query
+        name: isArchived
+        type: string
+        required: true 
     responses:
       200:
         description: A single test item
@@ -101,9 +112,12 @@ class Test(Resource):
             OrderingCompany:
               type: string
               description: The ordering company of the test
+            isArchived:
+              type: boolean
+              description: The archived status of the test
       """
     args = test_parser.parse_args()
-    new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'])
+    new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'], args['isArchived'])
     _insert(new_test)
     return _select_one({"ID": new_test["ID"]}), 201
     
@@ -161,6 +175,10 @@ class Test(Resource):
         required: false
       - in: query
         name: OrderingCompany
+        type: string
+        required: false
+      - in: query
+        name: isArchived
         type: string
         required: false
     responses:
@@ -236,7 +254,7 @@ def _update_test(update_data, test_id):
   return execute_sql_query("UPDATE", "Tests", data=[update_data], conditions=test_id)
 
 
-def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", levelOfUser: str = "", editionNumber: str = "", orderingCompany: str = ""):
+def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", levelOfUser: str = "", editionNumber: str = "", orderingCompany: str = "", isArchived: bool = False):
   """
   Creates a test with default values and passes it to _make_test to 
 
@@ -247,6 +265,7 @@ def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", 
   - levelOfUser (str): The level of the user necessary for the test
   - editionNumber (str): The edition number of the test
   - orderingCompany (str): The ordering company of the test
+  - isArchived (bool): The archived status of the test
 
   Returns:
   - dict: A dictionary containing specified values after _make_test
@@ -254,7 +273,7 @@ def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", 
   return _make_test(acronym, name, measureOf, levelOfUser, editionNumber, orderingCompany)
 
 
-def _make_test(acronym: str, name: str, measureOf: str, levelOfUser: str, editionNumber: str, orderingCompany: str):
+def _make_test(acronym: str, name: str, measureOf: str, levelOfUser: str, editionNumber: str, orderingCompany: str, isArchived: bool):
   """
   Creates a test with the given values to be inserted for the INSERT operation
 
@@ -265,11 +284,12 @@ def _make_test(acronym: str, name: str, measureOf: str, levelOfUser: str, editio
   - levelOfUser (str): The level of the user necessary for the test
   - editionNumber (str): The edition number of the test
   - orderingCompany (str): The ordering company of the test
+  - isArchived (bool): The archived status of the test
   
   Returns:
   - dict: A dictionary containing specified values
   """
-  return {'ID': acronym, 'Name': name, 'MeasureOf': measureOf, 'LevelOfUser': levelOfUser, 'EditionNumber': editionNumber, 'OrderingCompany': orderingCompany}
+  return {'ID': acronym, 'Name': name, 'MeasureOf': measureOf, 'LevelOfUser': levelOfUser, 'EditionNumber': editionNumber, 'OrderingCompany': orderingCompany, 'isArchived': isArchived}
 
 
 def _insert(d): return execute_sql_query(
