@@ -15,7 +15,7 @@ import expandedRowsData from "../models/tableExpandRows";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
-import ChooseEditModal from "./ChooseEditModal";
+import EditModal from "./EditModal";
 
 const Table = (props: {
   tableType: string;
@@ -79,13 +79,13 @@ const Table = (props: {
   };
 
   const isRowExpanded = (id: string) => expandedRows.includes(id);
-  const [isChooseEditModalOpen, setIsChooseEditModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
   const handleEditClick = (row: any) => {
     setSelectedRow(row);
-    setIsChooseEditModalOpen(true);
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -171,13 +171,13 @@ const Table = (props: {
                       </i>
                     </td>
                   )}
-                  {isChooseEditModalOpen && (
-                    <ChooseEditModal
-                      modalTitle="Edit"
+                  {isEditModalOpen && (
+                    <EditModal
+                      modalTitle="Edit Test"
                       buttonLabel="Save Changes"
                       secButtonLabel="Cancel"
-                      isOpen={isChooseEditModalOpen}
-                      closeModal={() => setIsChooseEditModalOpen(false)}
+                      isOpen={isEditModalOpen}
+                      closeModal={() => setIsEditModalOpen(false)}
                     />
                   )}
                   {columns.map((col, ind) => {
