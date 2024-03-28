@@ -7,6 +7,7 @@ import signOutColor from "../assets/icons/sign-out-color.svg";
 import lowStock from "../assets/icons/low-stock.svg";
 import lowStockColor from "../assets/icons/low-stock-color.svg";
 import archive from "../assets/icons/archive.svg";
+import requests from "../assets/icons/requests.svg";
 import { Pages } from "./Pages";
 
 export const clientMenuOptions = [
@@ -31,6 +32,13 @@ export const clientMenuOptions = [
     url: "/client/overdue",
     title: "Overdue",
   },
+  {
+    page: Pages.archive,
+    defaultIcon: archive,
+    selectedIcon: archive,
+    url: "/client/archive",
+    title: "Archive",
+  },
 ];
 
 export const adminMenuOptions = [
@@ -54,6 +62,13 @@ export const adminMenuOptions = [
     selectedIcon: overdueColor,
     url: "/admin/overdue",
     title: "Overdue",
+  },
+  {
+    page: Pages.requests,
+    defaultIcon: requests,
+    selectedIcon: requests,
+    url: "/admin/requests",
+    title: "Requests",
   },
   {
     page: Pages.lowStock,
