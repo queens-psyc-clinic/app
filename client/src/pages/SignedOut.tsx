@@ -13,9 +13,12 @@ import {
 } from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
 import Card from "../components/Card";
-import uuid from "react-uuid";
+import CardsModal from "../components/CardsModal";
 import LoadingSpinner from "../components/LoadingSpinner";
-//  TODO: Add loading while client data is fetched
+import { MdAssignmentTurnedIn } from "react-icons/md";
+import uuid from "react-uuid";
+import { PropaneSharp } from "@mui/icons-material";
+
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,6 +69,7 @@ const SignedOut = (props: { userRole: Role }) => {
           );
         }
         setIsLoading(false);
+        console.log("done");
       });
     }
   }, []);
@@ -82,6 +86,7 @@ const SignedOut = (props: { userRole: Role }) => {
     setSelectedCard(data);
     setIsModalOpen(true);
   };
+  console.log(props);
 
   return (
     <div
@@ -96,9 +101,17 @@ const SignedOut = (props: { userRole: Role }) => {
           <h1 className={`text-3xl mb-4 `}>Signed Out Items </h1>
           {props.userRole === "admin" && (
             <>
-              <section className="mt-6 space-y-4 mb-16">
+              <section className="mt-6 space-y-4 pb-5">
                 <SearchBar />
                 <Filter />
+                <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
+                  <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
+                    <i className="mr-4">
+                      <MdAssignmentTurnedIn size={20} />
+                    </i>
+                    <p>Mark As Returned</p>
+                  </button>
+                </section>
               </section>
               <SignedOutTable
                 tableType="signedOut"

@@ -6,5 +6,9 @@ export enum Pages {
   archive = "archive",
   settings = "settings",
   notifications = "notifications",
+  signin = "sign in",
+  signup = "sign up",
+  accounttype = "account type",
   student = "student",
+  requests = "requests",
 }

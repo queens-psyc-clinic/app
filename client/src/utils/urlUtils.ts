@@ -16,6 +16,14 @@ export function getCurrentPageFromUrl(relativeUrl: string): Pages {
       return Pages.dashboard;
     case "admin":
       return Pages.dashboard;
+    case "sign-up":
+      return Pages.signup;
+    case "sign-in":
+      return Pages.signin;
+    case "account-type":
+      return Pages.accounttype;
+    case "requests":
+      return Pages.requests;
   }
   return Pages.dashboard;
 }
