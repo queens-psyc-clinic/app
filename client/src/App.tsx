@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Notification from "./components/Notification";
 import { Role } from "./models/User";
@@ -15,6 +15,7 @@ import AccountType from "./pages/AccountType";
 import StudentPage from "./pages/StudentPage";
 import SignedOut from "./pages/SignedOut";
 import Requests from "./pages/Requests";
+import { getAllArchivedTests, getLowStockItems } from "./services/TestService";
 
 interface AppProps {
   page: Pages;
@@ -22,6 +23,10 @@ interface AppProps {
 }
 
 function App({ page, userRole }: AppProps) {
+  // Call service function that checks if user is client or admin, placeholder for now
+  useEffect(() => {
+    getAllArchivedTests().then((res) => console.log(res));
+  }, []);
   const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
 
   const handleSignIn = () => {
@@ -44,9 +49,18 @@ function App({ page, userRole }: AppProps) {
           {userRole === "client" && (
             <>
               <section className="flex flex-row absolute top-10 right-10">
-              <Cart userRole={userRole} />
-              <div className="w-6"></div>
-              <Notification userRole={userRole} />
+                <Cart userRole={userRole} />
+                <div className="w-6"></div>
+                <Notification userRole={userRole} />
+              </section>
+            </>
+          )}
+          {userRole === "admin" && (
+            <>
+              <section className="flex flex-row absolute top-10 right-10">
+                {/* <Cart userRole={userRole} />
+                <div className="w-6"></div> */}
+                <Notification userRole={userRole} />
               </section>
             </>
           )}
@@ -54,7 +68,9 @@ function App({ page, userRole }: AppProps) {
       )}
       {!isSignedIn && (
         <>
-          {page === Pages.accounttype && <AccountType onSignIn={handleSignIn} />}
+          {page === Pages.accounttype && (
+            <AccountType onSignIn={handleSignIn} />
+          )}
           {page === Pages.signin && <SignIn onSignIn={handleSignIn} />}
           {page === Pages.signup && <SignUp onSignIn={handleSignIn} />}
         </>
@@ -69,4 +85,3 @@ App.defaultProps = {
 };
 
 export default App;
-

@@ -6,20 +6,23 @@ USE psychClinic;
 
 CREATE TABLE Users (
     ID VARCHAR(64) PRIMARY KEY,
-    UserName VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     IsAdmin BOOLEAN NOT NULL,
+    IsSubscribed BOOLEAN DEFAULT TRUE,
+    ProfilePicture BLOB DEFAULT NULL,
     Hash VARCHAR(255),
     UNIQUE(Email)
 );
 
 -- Add dummy data for users
-INSERT INTO Users (ID, UserName, Email, IsAdmin) VALUES
-(1, 'JohnDoe', 'john.doe@example.com', true),
-(2, 'JaneSmith', 'jane.smith@example.com', false),
-(3, 'AdminUser', 'admin@example.com', true),
-(4, 'AliceJohnson', 'alice.johnson@example.com', false),
-(5, 'BobMiller', 'bob.miller@example.com', false);
+INSERT INTO Users (ID, FirstName, LastName, Email, IsAdmin) VALUES
+(1,  'John', 'Doe', 'john.doe@example.com', true),
+(2,  'Jane', 'Smith',  'jane.smith@example.com', false),
+(3,   'Admin', 'User', 'admin@example.com', true),
+(4,   'Alice', 'Johnson', 'alice.johnson@example.com', false),
+(5,   'Bob', 'Miller', 'bob.miller@example.com', false);
 
 CREATE TABLE Tests (
     ID VARCHAR(64) PRIMARY KEY,
@@ -28,18 +31,18 @@ CREATE TABLE Tests (
     LevelOfUser VARCHAR(10),
     EditionNumber VARCHAR(100),
     OrderingCompany VARCHAR(155),
-    IsArchived BOOLEAN NOT NULL
+    IsArchived BOOLEAN NOT NULL DEFAULT 0
 );
 
 CREATE TABLE Items (
     ID VARCHAR(64) PRIMARY KEY,
-    Status BOOLEAN NOT NULL, -- Available (True) or Borrowed (False)
+    Status BOOLEAN NOT NULL DEFAULT TRUE, -- Available (True) or Borrowed (False)
     ItemType VARCHAR(75),
     ItemName VARCHAR(355),
     Ages VARCHAR(50),
     Location VARCHAR(155),
     TestID VARCHAR(64), 
-    IsArchived BOOLEAN NOT NULL,
+    IsArchived BOOLEAN NOT NULL DEFAULT FALSE,
     Stock INT,
     FOREIGN KEY (TestID) REFERENCES Tests(ID)
 );

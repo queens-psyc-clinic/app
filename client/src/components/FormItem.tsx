@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import Dropdown from "./DropDown";
 import { itemTypeOptions } from "../models/libraryItem";
 import { MdOutlineRemoveCircleOutline } from "react-icons/md";
+import { Item } from "../models/BEModels";
+import uuid from "react-uuid";
 
 interface FormItemProps {
   onRemove: () => void;
+  testId: string;
+  onChange?: (item: Partial<Item>) => void;
 }
 
-const FormItem: React.FC<FormItemProps> = ({ onRemove }: FormItemProps) => {
+const FormItem: React.FC<FormItemProps> = ({
+  onRemove,
+  testId,
+  onChange = (item: Partial<Item>) => console.log(item),
+}: FormItemProps) => {
+  const [itemData, setItemData] = useState<Partial<Item>>({ ID: uuid() });
+  useEffect(() => {
+    onChange(itemData);
+  }, [itemData]);
   return (
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button
@@ -24,6 +36,9 @@ const FormItem: React.FC<FormItemProps> = ({ onRemove }: FormItemProps) => {
             placeholder="Adult Form"
             label="Item Name"
             important={true}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setItemData({ ...itemData, ItemName: e.target.value })
+            }
           />
         </div>
         <div className="flex">
@@ -33,6 +48,9 @@ const FormItem: React.FC<FormItemProps> = ({ onRemove }: FormItemProps) => {
               label="Item"
               options={itemTypeOptions}
               important={true}
+              onChange={(option: string, label: string) =>
+                setItemData({ ...itemData, ItemType: option })
+              }
             />
           </div>
           <div className="pr-4 pt-4">
@@ -41,6 +59,9 @@ const FormItem: React.FC<FormItemProps> = ({ onRemove }: FormItemProps) => {
               label="Quantity"
               type="Number"
               important={true}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setItemData({ ...itemData, Stock: parseInt(e.target.value) })
+              }
             />
           </div>
         </div>
@@ -50,6 +71,9 @@ const FormItem: React.FC<FormItemProps> = ({ onRemove }: FormItemProps) => {
             label="Location"
             type="Text"
             important={true}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setItemData({ ...itemData, Location: e.target.value })
+            }
           />
         </div>
       </div>
@@ -58,4 +82,3 @@ const FormItem: React.FC<FormItemProps> = ({ onRemove }: FormItemProps) => {
 };
 
 export default FormItem;
-

@@ -3,7 +3,6 @@ export interface User {
   lastName: string;
   email: string;
   notifications: boolean;
-  profileImageUrl: string;
   role: Role;
 }
 

@@ -15,16 +15,15 @@ import ColumnComponent from "./ColumnComponent";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
-import { mapColumnTitleToDataIndex } from "../utils/data";
 import { testUser } from "../utils/mockData";
 import { Item, getItemsForTest } from "../services/TestService";
 import { Test } from "../models/BEModels";
 
-const Table = (props: {
+const LowStockTable = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
-  data: Omit<Test, "OrderingCompany">[];
+  data: Item[];
   currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
@@ -36,7 +35,7 @@ const Table = (props: {
   >([]);
 
   let columns: Column[];
-
+  console.log(props.data);
   switch (props.tableType) {
     case "default":
       columns = defaultColumns;
@@ -59,7 +58,7 @@ const Table = (props: {
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
-  const pilledColumns: string[] = ["Measure", "Item"];
+  const pilledColumns: string[] = ["Measure", "Item", "Ordering Company"];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -75,6 +74,22 @@ const Table = (props: {
         return prev.filter((rowId) => rowId !== id);
       }
     });
+  };
+  const mapColumnTitleToDataIndex = (colTitle: string) => {
+    switch (colTitle) {
+      case "Quantity":
+        return "Stock";
+      case "Name":
+        return "Name";
+      case "Item Name":
+        return "ItemName";
+      case "Ordering Company":
+        return "OrderingCompany";
+      case "Edition":
+        return "EditionNumber";
+      default:
+        return colTitle;
+    }
   };
 
   const toggleRowExpansion = (selectedRow: Test) => {
@@ -120,7 +135,7 @@ const Table = (props: {
                     className="cursor-pointer ml-2"
                   ></input>
                 </td>
-                <td className="px-4 py-4 min-w-min" key={uuid()}>
+                <td className="px-4 py-4 min-w-min bg-red-200" key={uuid()}>
                   <span></span>
                 </td>
               </>
@@ -133,12 +148,12 @@ const Table = (props: {
             {columns.map((col, ind) => {
               return (
                 <td
-                  key={ind}
+                  key={uuid()}
                   className={`px-4 py-4 ${
                     col.size === "large" ? "min-w-80" : null
                   }
-                  ${col.size === "medium" ? "min-w-60" : null}
-                  ${col.size === "small" ? "min-w-28" : null}`}
+                    ${col.size === "medium" ? "min-w-60" : null}
+                    ${col.size === "small" ? "min-w-28" : null}`}
                 >
                   <p
                     className={`${
@@ -159,26 +174,25 @@ const Table = (props: {
             if (row.ID) {
               const isExpanded = isRowExpanded(row.ID.toString());
               return (
-                <React.Fragment key={row.ID.toString()}>
+                <React.Fragment key={uuid()}>
                   <tr
                     className={`rounded-full cursor-pointer relative ${
                       rowInd % 2 !== 0 ? "bg-gray-100" : null
                     }`}
                     onClick={() => toggleRowExpansion(row as unknown as Test)}
                   >
-                    <td className="px-4 py-2" key={uuid()}>
-                      <input
-                        type="checkbox"
-                        checked={props.selectedRows.includes(row.ID as string)}
-                        onChange={() => handleCheckbox(row.ID as string)}
-                        className="cursor-pointer mx-2"
-                      />
-                    </td>
-                    <td className="px-4 py-2" key={uuid()}>
-                      <FaAngleDown
-                        className={isRowExpanded(row.ID) ? "rotate-180" : ""}
-                      />
-                    </td>
+                    {props.isCheckable && (
+                      <td className="px-4 py-2" key={uuid()}>
+                        <input
+                          type="checkbox"
+                          checked={props.selectedRows.includes(
+                            row.ID as string
+                          )}
+                          onChange={() => handleCheckbox(row.ID as string)}
+                          className="cursor-pointer mx-2"
+                        />
+                      </td>
+                    )}
                     {props.isEditable && (
                       <td className="px-4 py-2" key={uuid()}>
                         <i className="text-black cursor-pointer">
@@ -188,19 +202,12 @@ const Table = (props: {
                     )}
                     {columns.map((col, ind) => {
                       if (
-                        row[
-                          mapColumnTitleToDataIndex(col.title) as keyof Omit<
-                            Test,
-                            "OrderingCompany"
-                          >
-                        ]
+                        row[mapColumnTitleToDataIndex(col.title) as keyof Item]
                       ) {
                         if (!pilledColumns.includes(col.title)) {
                           const cell =
                             row[
-                              mapColumnTitleToDataIndex(
-                                col.title
-                              ) as keyof Omit<Test, "OrderingCompany">
+                              mapColumnTitleToDataIndex(col.title) as keyof Item
                             ].toString();
                           return (
                             <td key={ind} className="px-4 py-2">
@@ -229,7 +236,7 @@ const Table = (props: {
                                   row[
                                     mapColumnTitleToDataIndex(
                                       col.title
-                                    ) as keyof Omit<Test, "OrderingCompany">
+                                    ) as keyof Item
                                   ],
                                 type: col.title.toLowerCase(),
                               },
@@ -249,7 +256,7 @@ const Table = (props: {
                                 link: row[
                                   mapColumnTitleToDataIndex(
                                     col.title
-                                  ) as keyof Omit<Test, "OrderingCompany">
+                                  ) as keyof Item
                                 ],
                               }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };
@@ -266,7 +273,7 @@ const Table = (props: {
                         }
                       } else {
                         return (
-                          <td key={ind} className="px-4 py-2">
+                          <td key={uuid()} className="px-4 py-2">
                             <p
                               className={`text-wrap h-min ${
                                 centerIndices.includes(ind)
@@ -290,7 +297,7 @@ const Table = (props: {
                             {getRowExpansionArray(row.ID).map((item, index) => (
                               <div
                                 className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
-                                key={index}
+                                key={uuid()}
                               >
                                 <div>
                                   <p
@@ -320,10 +327,10 @@ const Table = (props: {
   );
 };
 
-Table.defaultProps = {
-  tableType: "default",
-  isCheckable: true,
-  isEditable: true,
+LowStockTable.defaultProps = {
+  tableType: "lowStock",
+  isCheckable: false,
+  isEditable: false,
 };
 
-export default Table;
+export default LowStockTable;

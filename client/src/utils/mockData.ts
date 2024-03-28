@@ -257,13 +257,12 @@ export const defaultMockData: Record<string, string | Object>[] = [
   },
 ];
 
-const testUser: User = {
+export const testUser: User = {
   firstName: "John",
   lastName: "Doe",
   email: "18dasta@queensu.ca",
   notifications: true,
   role: "client",
-  profileImageUrl: "",
 };
 
 export const signedOutMockData: Record<string, string | Object>[] = [

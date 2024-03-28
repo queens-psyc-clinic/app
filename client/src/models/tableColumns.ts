@@ -19,7 +19,7 @@ export enum columnCustomComponents {
 
 export const defaultColumns: Column[] = [
   { title: "Acronym", size: "small", center: true },
-  { title: "Name", size: "large", center: false },
+  { title: "Name", size: "medium", center: false },
   // { title: "Item Name", size: "small", center: false },
   {
     title: "Measure",
@@ -34,7 +34,7 @@ export const defaultColumns: Column[] = [
   //   center: true,
   //   customComponent: columnCustomComponents.pill,
   // },
-  { title: "Ages", size: "small", center: true },
+  // { title: "Ages", size: "small", center: true },
   { title: "Level", size: "xs", center: true },
 ];
 export const signedOutColums: Column[] = [
@@ -128,7 +128,7 @@ export const lowStockColumns: Column[] = [
   //   center: true,
   //   customComponent: columnCustomComponents.pill,
   // },
-  // { title: "Ages", size: "small", center: true },
+  // { title: "Ages", size: "small", center: true },  // TODO UNCOMMENT THIS WHEN AGES IS ADDED TO DB
   // { title: "Acronym", size: "small", center: true },
   // { title: "Level", size: "xs", center: true },
   { title: "Edition", size: "xs", center: true },

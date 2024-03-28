@@ -127,7 +127,11 @@ export default function EditModal({
             <h2 className="text-lg font-bold mt-8">Items in Test</h2>
             {itemVisibility.map((visible, index) =>
               visible ? (
-                <FormItem key={index} onRemove={() => handleRemove(index)} />
+                <FormItem
+                  testId="ABAS-2"
+                  key={index}
+                  onRemove={() => handleRemove(index)}
+                />
               ) : null
             )}
             <div className="text-sm flex items-center justify-center text-gray-200">

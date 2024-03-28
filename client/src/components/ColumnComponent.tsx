@@ -21,7 +21,7 @@ const ColumnComponent = (props: {
       return (
         <a
           href={linkData.link}
-          className="text-blue-200 font-semibold underline underline-offset-4"
+          className="text-blue-200 underline underline-offset-4"
         >
           {linkData.link}
         </a>
