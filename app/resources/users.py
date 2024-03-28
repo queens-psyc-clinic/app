@@ -21,6 +21,8 @@ class Users(Resource):
         """
         Update users, matching filters, with data
         ---
+        tags:
+          - Users
         requestBody:
           content:
             application/json:
@@ -81,6 +83,8 @@ class Users(Resource):
         """
         Get (optional) columns from users matching filters
         ---
+        tags:
+          - Users
         requestBody:
           content:
             application/json:
@@ -128,6 +132,8 @@ class Users(Resource):
         """
         Get all users
         ---
+        tags:
+          - Users
         parameters:
           - in: path
             name: id
