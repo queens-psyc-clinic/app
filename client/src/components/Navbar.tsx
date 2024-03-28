@@ -18,7 +18,7 @@ const Navbar = (props: { userType: Role }) => {
       <img src={profilePic} alt="profile" className="mt-4"></img>
       <div
         className={`flex flex-col w-full justify-between items-center self-center justify-self-center mb-auto ${
-          props.userType === "admin" ? "h-1/2 mt-[15vh]" : "h-1/3 mt-[20vh]"
+          props.userType === "admin" ? "h-1/2 mt-[8vh]" : "h-1/3 mt-[18vh]"
         }`}
       >
         {options.map((option) => {

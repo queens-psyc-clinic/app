@@ -88,7 +88,7 @@ const Card: React.FC<CardProps> = ({ data, openModal }: CardProps) => {
           Stock === "0" ? "text-gray-200" : ""
         }`}
       >
-        {itemName}
+        {data.Acronym}
       </h2>
       <div
         className={`flex flex-row pt-4 text-xs ${
@@ -96,17 +96,13 @@ const Card: React.FC<CardProps> = ({ data, openModal }: CardProps) => {
         }`}
       >
         <div>
-          <p
-            className={`mr-4 rounded-full py-1 px-6 ${
-              Stock === "0" ? "text-gray-900 bg-gray-100" : ""
-            } ${itemColorClass}`}
-          >
-            {Item.data.title}
+          <p className="mr-4 ring-gray-900 rounded-full ring-1 py-1 px-5 ring-inset">
+            {Ages}
           </p>
         </div>
         <div>
           <p className="mr-4 ring-gray-900 rounded-full ring-1 py-1 px-5 ring-inset">
-            {Ages}
+            {data.Level}
           </p>
         </div>
       </div>
