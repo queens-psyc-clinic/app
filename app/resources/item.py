@@ -8,7 +8,6 @@ item_fields = {
     'ItemType': fields.String,
     'ItemName': fields.String,
     'Ages': fields.String,
-    'NumberOfParts': fields.String,
     'Location': fields.String,
     'TestID': fields.String,
     'IsArchived': fields.Integer,

@@ -7,7 +7,8 @@ test_fields = {
   'MeasureOf': fields.String,
   'LevelOfUser': fields.String,
   'EditionNumber' : fields.String,
-  'OrderingCompany' : fields.String
+  'OrderingCompany' : fields.String,
+  'isArchived': fields.Boolean
 }
 
 class Tests(Resource):

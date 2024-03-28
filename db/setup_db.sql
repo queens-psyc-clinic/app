@@ -27,7 +27,8 @@ CREATE TABLE Tests (
     MeasureOf VARCHAR(255),
     LevelOfUser VARCHAR(10),
     EditionNumber VARCHAR(100),
-    OrderingCompany VARCHAR(155)
+    OrderingCompany VARCHAR(155),
+    IsArchived BOOLEAN NOT NULL
 );
 
 CREATE TABLE Items (
@@ -36,7 +37,6 @@ CREATE TABLE Items (
     ItemType VARCHAR(75),
     ItemName VARCHAR(355),
     Ages VARCHAR(50),
-    NumberOfParts VARCHAR(100),
     Location VARCHAR(155),
     TestID VARCHAR(64), 
     IsArchived BOOLEAN NOT NULL,

@@ -48,6 +48,10 @@ const router = createBrowserRouter([
     element: <App page={Pages.archive} userRole="admin" />,
   },
   {
+    path: "/client/archive",
+    element: <App page={Pages.archive} userRole="client" />,
+  },
+  {
     path: "/admin/settings",
     element: <App page={Pages.settings} userRole="admin" />,
   },
@@ -66,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/student",
     element: <App page={Pages.student} userRole="admin" />,
+  },
+  {
+    path: "/admin/requests",
+    element: <App page={Pages.requests} userRole="admin" />,
   },
   // ADD NEW PATHS HERE
 ]);
