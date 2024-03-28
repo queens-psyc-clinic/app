@@ -969,6 +969,46 @@ export async function getItemOrderingCompany(itemId: string) {
   }
 }
 
+export async function getItemEditionNumber(itemId: string) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/item/${itemId}`
+    );
+
+    const item: Item = response.data;
+    if (item) {
+      const test: Test = await getTestById(item.TestID);
+      if (test) {
+        return test.EditionNumber;
+      }
+      return "";
+    }
+    return "";
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
 export async function getLowStockItems() {
   try {
     const response0: AxiosResponse = await axios.post(
