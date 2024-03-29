@@ -8,7 +8,12 @@ import { MdControlPoint } from "react-icons/md";
 import FormItem from "./FormItem";
 import { Item, Test } from "../models/BEModels";
 import _ from "lodash";
-import { createNewItem, createNewTest } from "../services/TestService";
+import {
+  RequiredItem,
+  RequiredTest,
+  createNewItem,
+  createNewTest,
+} from "../services/TestService";
 
 interface ModalProps {
   modalTitle: string;
@@ -30,34 +35,18 @@ export default function Modal({
   const [itemCount, setItemCount] = useState(1);
   const [itemVisibility, setItemVisibility] = useState<boolean[]>([]);
 
-  const [testData, setTestData] = useState<Partial<Test>>({});
+  const [testData, setTestData] = useState<RequiredTest>({ ID: "", Name: "" });
   const [ages, setAges] = useState<string>("");
-  const [items, setItems] = useState<Partial<Item>[]>([]);
+  const [items, setItems] = useState<RequiredItem[]>([]);
   const [missingFields, setMissingFields] = useState<string[]>([]);
 
   const isTestEntryValid = () => {
-    if (testData.ID == undefined) {
+    if (testData.ID == "") {
       setMissingFields([...missingFields, "Acronym"]);
       return false;
     }
-    if (testData.Name == undefined) {
+    if (testData.Name == "") {
       setMissingFields([...missingFields, "Test Name"]);
-      return false;
-    }
-    if (testData.MeasureOf == undefined) {
-      setMissingFields([...missingFields, "Measure"]);
-      return false;
-    }
-    if (testData.LevelOfUser == undefined) {
-      setMissingFields([...missingFields, "Level"]);
-      return false;
-    }
-    if (testData.EditionNumber == undefined) {
-      setMissingFields([...missingFields, "Edition"]);
-      return false;
-    }
-    if (testData.OrderingCompany == undefined) {
-      setMissingFields([...missingFields, "Ordering Company"]);
       return false;
     }
     return true;
@@ -68,16 +57,8 @@ export default function Modal({
       if (item.ID == undefined) {
         return false;
       }
-      if (item.ItemType == undefined) {
-        setMissingFields([...missingFields, "Item Type"]);
-        return false;
-      }
       if (item.ItemName == undefined) {
         setMissingFields([...missingFields, "Item Name"]);
-        return false;
-      }
-      if (item.Location == undefined) {
-        setMissingFields([...missingFields, "Item Location"]);
         return false;
       }
       if (item.Stock == undefined) {
@@ -103,18 +84,13 @@ export default function Modal({
   };
 
   const handleApply = () => {
+    console.log(testData);
     if (isEntryValid()) {
-      createNewTest(
-        testData.ID as string,
-        testData.Name as string,
-        testData.MeasureOf as string,
-        testData.LevelOfUser as string,
-        testData.EditionNumber as string,
-        testData.OrderingCompany as string
-      )
+      console.log("valid");
+      createNewTest(testData)
         .then((res) => {
           for (const item of items) {
-            createNewItem(item as Item).then((res) => {
+            createNewItem(item).then((res) => {
               console.log(res);
             });
           }
@@ -164,6 +140,8 @@ export default function Modal({
 
     const completedItem = {
       ...item,
+      ID: item.ID!,
+      Stock: item.Stock!,
       TestID: testData.ID,
       Ages: ages,
       Status: true,
@@ -171,7 +149,7 @@ export default function Modal({
     const ind = items.findIndex((elem) => elem.ID === item.ID);
     if (ind >= 0) {
       setItems((prev) => {
-        const newArr: Partial<Item>[] = prev.map((elem) => {
+        const newArr = prev.map((elem) => {
           if (elem.ID === item.ID) {
             return completedItem;
           } else {
@@ -220,7 +198,7 @@ export default function Modal({
                     placeholder="Select a measure"
                     label="Measure"
                     options={measureOptions}
-                    important={true}
+                    important={false}
                     onChange={(option: string, label: string) =>
                       setTestData({ ...testData, MeasureOf: option })
                     }
@@ -244,7 +222,7 @@ export default function Modal({
                     placeholder="Level of Use"
                     label="Level of Use"
                     options={levelOptions}
-                    important={true}
+                    important={false}
                     onChange={(option: string, label: string) =>
                       setTestData({ ...testData, LevelOfUser: option })
                     }
@@ -254,7 +232,7 @@ export default function Modal({
                   <InputField
                     placeholder="2"
                     label="Edition"
-                    important={true}
+                    important={false}
                     type="Number"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setTestData({
@@ -286,7 +264,7 @@ export default function Modal({
                 <InputField
                   placeholder="www.orderingcompany.ca"
                   label="Ordering Company"
-                  important={true}
+                  important={false}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setTestData({
                       ...testData,

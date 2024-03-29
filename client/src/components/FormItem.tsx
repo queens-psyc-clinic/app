@@ -55,7 +55,7 @@ const FormItem: React.FC<FormItemProps> = ({
               label="Item"
               defaultOption={item ? item.ItemType : undefined}
               options={itemTypeOptions}
-              important={true}
+              important={false}
               onChange={(option: string, label: string) =>
                 setItemData({ ...itemData, ItemType: option })
               }
@@ -80,7 +80,7 @@ const FormItem: React.FC<FormItemProps> = ({
             value={itemData.Location ? itemData.Location : ""}
             label="Location"
             type="Text"
-            important={true}
+            important={false}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setItemData({ ...itemData, Location: e.target.value })
             }

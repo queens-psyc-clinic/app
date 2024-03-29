@@ -20,7 +20,6 @@ export interface Item {
   ItemName: string;
   ItemType: string;
   Location: string;
-  // NumberOfParts: string;
   Status: Boolean;
   Stock: Number;
   TestID: string;
@@ -57,19 +56,32 @@ export interface SignedOutItem {
   EndDate: string;
 }
 
-export async function createNewTest(
-  acronym: string,
-  testName: string,
-  measure: string,
-  level: string,
-  edition: string,
-  orderingCompany: string
-) {
+export type RequiredTest = Partial<Test> & { ID: string; Name: string }; // only required fields of test, rest is optional
+export type RequiredItem = Partial<Item> & {
+  ID: string;
+  TestID: string;
+  Stock: Number;
+};
+
+export async function createNewTest(test: RequiredTest) {
   // Add new Test
   // WAITING ON: ages and status to be added to Tests db
+  var endpoint = `/test/${test.ID}?Name=${test.Name}`;
+  if (test.LevelOfUser) {
+    endpoint += `&LevelOfUser=${test.LevelOfUser}`;
+  }
+  if (test.EditionNumber) {
+    endpoint += `&EditionNumber=${test.EditionNumber}`;
+  }
+  if (test.MeasureOf) {
+    endpoint += `&MeasureOf=${test.MeasureOf}`;
+  }
+  if (test.OrderingCompany) {
+    endpoint += `&OrderingCompany=${test.MeasureOf}`;
+  }
   try {
     const response: AxiosResponse = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/test/${acronym}?LevelOfUser=${level}&EditionNumber=${edition}&Name=${testName}&MeasureOf=${measure}&OrderingCompany=${orderingCompany}`
+      `${process.env.REACT_APP_BASE_URL}${endpoint}`
     );
     return response.data;
   } catch (error) {
@@ -136,7 +148,7 @@ export async function getItemsForTest(testAcronym: string) {
   }
 }
 
-export async function createNewItem(newItem: Item) {
+export async function createNewItem(newItem: RequiredItem) {
   // Add new item
 
   try {
