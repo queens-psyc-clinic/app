@@ -17,6 +17,7 @@ import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
 import {
+  archiveTest,
   deleteEntireTest,
   deleteItem,
   deleteTest,
@@ -78,6 +79,12 @@ const Dashboard = (props: { userRole: Role }) => {
     }
     window.location.reload();
   };
+
+  // async function archiveTests() {
+  //   for (const testId of selectedRows) {
+  //     await archiveTest(testId);
+  //   }
+  // }
 
   if (props.userRole === "admin") {
     return (

@@ -15,7 +15,11 @@ import AccountType from "./pages/AccountType";
 import StudentPage from "./pages/StudentPage";
 import SignedOut from "./pages/SignedOut";
 import Requests from "./pages/Requests";
-import { getAllArchivedTests, getLowStockItems } from "./services/TestService";
+import {
+  archiveTest,
+  getAllArchivedTests,
+  getLowStockItems,
+} from "./services/TestService";
 
 interface AppProps {
   page: Pages;
@@ -25,7 +29,7 @@ interface AppProps {
 function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
-    getAllArchivedTests().then((res) => console.log(res));
+    archiveTest("ADOS-2").then((res) => console.log(res));
   }, []);
   const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
 

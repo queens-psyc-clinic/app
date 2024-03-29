@@ -9,7 +9,11 @@ import { Item, Test } from "../models/BEModels";
 import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
-import { getAllArchivedTests, isTestAvailable } from "../services/TestService";
+import {
+  getAllArchivedTests,
+  isTestAvailable,
+  unArchiveTest,
+} from "../services/TestService";
 import uuid from "react-uuid";
 
 const Archive = (props: { userRole: Role }) => {
@@ -40,6 +44,19 @@ const Archive = (props: { userRole: Role }) => {
     setSelectedItems(items);
   };
 
+  async function unArchiveTests() {
+    const errors = [];
+    for (const itemId of selectedRows) {
+      await unArchiveTest(itemId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue archiving these tests.");
+    } else {
+      alert("Items Archived Successfully");
+      window.location.reload();
+    }
+  }
+
   useEffect(() => {
     getAllArchivedTests().then((res) => setData(res));
   }, []);
@@ -58,7 +75,12 @@ const Archive = (props: { userRole: Role }) => {
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
-                <img src={archive} className="mr-4" alt="archive icon" />
+                <img
+                  src={archive}
+                  className="mr-4"
+                  alt="archive icon"
+                  onClick={() => unArchiveTests()}
+                />
                 <p>Unarchive</p>
               </button>
             </section>

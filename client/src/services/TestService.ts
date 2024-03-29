@@ -815,12 +815,94 @@ export async function markTestAsReserved(
 
 export async function unArchiveTest(testId: string) {
   // Unarchive a test
-  // WAITING ON isArchived to be added to tests
+  try {
+    const response: AxiosResponse = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/tests`,
+      {
+        filters: {
+          ID: testId,
+        },
+        update: {
+          IsArchived: false,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function archiveTest(testId: string) {
   // Archive a test
-  // WAITING ON isArchived to be added to tests
+  try {
+    const response: AxiosResponse = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/tests`,
+      {
+        filters: {
+          ID: testId,
+        },
+        update: {
+          IsArchived: true,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function isTestAvailable(testId: string, quantity: Number) {
