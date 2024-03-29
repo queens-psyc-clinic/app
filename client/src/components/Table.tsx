@@ -199,15 +199,6 @@ const Table = (props: {
                         </i>
                       </td>
                     )}
-                    {isEditModalOpen && (
-                      <EditModal
-                        modalTitle="Edit Test"
-                        buttonLabel="Save Changes"
-                        secButtonLabel="Cancel"
-                        isOpen={isEditModalOpen}
-                        closeModal={() => setIsEditModalOpen(false)}
-                      />
-                    )}
                     {columns.map((col, ind) => {
                       if (
                         row[
@@ -338,6 +329,15 @@ const Table = (props: {
           })}
         </tbody>
       </table>
+      {isEditModalOpen && (
+        <EditModal
+          modalTitle="Edit Test"
+          buttonLabel="Save Changes"
+          secButtonLabel="Cancel"
+          isOpen={isEditModalOpen}
+          closeModal={() => setIsEditModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
