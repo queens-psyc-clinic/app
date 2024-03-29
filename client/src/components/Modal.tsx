@@ -98,6 +98,7 @@ export default function Modal({
   };
 
   const closeModal = () => {
+    setItems([]);
     setIsOpen(false);
   };
 
