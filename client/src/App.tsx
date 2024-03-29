@@ -16,6 +16,7 @@ import StudentPage from "./pages/StudentPage";
 import SignedOut from "./pages/SignedOut";
 import Requests from "./pages/Requests";
 import { getAllArchivedTests, getLowStockItems } from "./services/TestService";
+import Accounts from "./pages/Accounts";
 
 interface AppProps {
   page: Pages;
@@ -46,6 +47,7 @@ function App({ page, userRole }: AppProps) {
           {page === Pages.settings && <Settings userRole={userRole} />}
           {page === Pages.student && <StudentPage userRole={userRole} />}
           {page === Pages.requests && <Requests userRole={userRole} />}
+          {page === Pages.accounts && <Accounts userRole={userRole} />}
           {userRole === "client" && (
             <>
               <section className="flex flex-row absolute top-10 right-10">

@@ -5,6 +5,7 @@ import {
   overdueColumns,
   lowStockColumns,
   columnCustomComponents,
+  accountColumns,
 } from "../models/tableColumns";
 import { getPillColor } from "../models/libraryItem";
 
@@ -49,6 +50,9 @@ const Table = (props: {
       break;
     case "lowStock":
       columns = lowStockColumns;
+      break;
+    case "accounts":
+      columns = accountColumns;
       break;
     default:
       columns = defaultColumns;

@@ -84,4 +84,11 @@ export const adminMenuOptions = [
     url: "/admin/archive",
     title: "Archive",
   },
+  {
+    page: Pages.accounts,
+    defaultIcon: archive,
+    selectedIcon: archive,
+    url: "/admin/accounts",
+    title: "Account Requests",
+  },
 ];

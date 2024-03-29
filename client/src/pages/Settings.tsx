@@ -5,9 +5,14 @@ import { Role } from "../models/User";
 import Switch from "@mui/material/Switch";
 import { IoArrowBackSharp } from "react-icons/io5";
 import "./Settings.css";
-import DropFile from "../components/DropFile";
+import AccountsTable from "../components/AccountsTable";
+import { useState } from "react";
+import { SignedOutItem } from "../models/BEModels";
 
 const Settings = (props: { userRole: Role }) => {
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
+
   // Add state management when we connect backend
   return (
     <div className="p-8 w-full">
@@ -17,9 +22,8 @@ const Settings = (props: { userRole: Role }) => {
         </i>
       </Link>
       <div className=" w-full h-full pt-10 pl-16">
-        <section className="flex mb-10 w-[75%]">
-          <img className="w-20 mr-16" src={profilePic} alt="profile" />
-          <DropFile />
+        <section className="flex mb-8 w-[75%]">
+          <img className="w-15 mr-16" src={profilePic} alt="profile" />
         </section>
         <section className="w-max space-y-8">
           <section className="flex  w-full h-full space-x-8 mt-4">
