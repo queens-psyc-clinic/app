@@ -7,6 +7,14 @@ import { MdControlPoint } from "react-icons/md";
 import FormItem from "./FormItem";
 import { Item, Test } from "../models/BEModels";
 import _ from "lodash";
+import uuid from "react-uuid";
+import {
+  RequiredItem,
+  createNewItem,
+  deleteItem,
+  editItem,
+  getItemsForTest,
+} from "../services/TestService";
 
 interface ModalProps {
   modalTitle: string;
@@ -30,40 +38,38 @@ export default function EditModal({
   items,
   closeModal,
 }: ModalProps) {
+  var originalItems = [];
   const [itemCount, setItemCount] = useState(items.length);
   const [itemVisibility, setItemVisibility] = useState<boolean[]>([]);
-  const [itemsToRemove, setItemsToRemove] = useState<Partial<Item>[]>([]);
-  const [itemsToAdd, setItemsToAdd] = useState<Partial<Item>[]>([]);
+  const [itemsToRemove, setItemsToRemove] = useState<
+    (Partial<Item> & { ID: string })[]
+  >([]);
   const [testData, setTestData] = useState<Partial<Test>>(test);
-  const [updatedItems, setUpdatedItems] = useState<Partial<Item>[]>([]);
+  const [updatedItems, setUpdatedItems] = useState<
+    (Partial<Item> & { ID: string })[]
+  >([]);
   const [ages, setAges] = useState("");
-  const [itemsToRender, setItemsToRender] = useState(items);
 
   useEffect(() => {
-    const initialVisibility = Array(itemCount).fill(true);
-    setItemVisibility(initialVisibility);
-    console.log("ITEMS: ", items);
+    getItemsForTest(test.ID!).then((res) => {
+      console.log("ITEMS RECEIVED: ", res);
+      setUpdatedItems(res);
+      originalItems = res;
+    });
   }, []);
-
-  useEffect(() => {
-    setItemsToRender(_.union(itemsToRender, itemsToAdd));
-  }, [itemsToAdd]);
 
   const handleAddItem = () => {
     setItemCount((prevCount) => prevCount + 1);
     setItemVisibility((prevVisibility) => [...prevVisibility, true]);
-    setItemsToAdd([...itemsToAdd, {}]);
+    setUpdatedItems((prev) => [...prev, { ID: uuid() }]);
   };
 
-  const handleRemove = (index: number, item: Partial<Item>) => {
-    setItemVisibility((prevVisibility) => {
-      const updatedVisibility = [...prevVisibility];
-      updatedVisibility[index] = false;
-      return updatedVisibility;
-    });
+  const handleRemove = (
+    index: number,
+    item: Partial<Item> & { ID: string }
+  ) => {
     setItemsToRemove([...itemsToRemove, item]);
     setUpdatedItems((prev) => prev.filter((elem) => elem.ID != item.ID));
-    setItemsToRender((prev) => prev.filter((elem) => elem.ID != item.ID));
   };
 
   const formatAgeRange = (range: number[]) => {
@@ -73,8 +79,8 @@ export default function EditModal({
   const setAgeRange = (range: number[]) => {
     setAges(formatAgeRange(range));
   };
-
-  const saveItem = (item: Partial<Item>) => {
+  console.log(updatedItems);
+  const saveItem = (item: Partial<Item> & { ID: string }) => {
     // setItems()
     console.log("saving item");
     const completedItem = {
@@ -84,10 +90,10 @@ export default function EditModal({
       Status: true,
     };
     const ind = updatedItems.findIndex((elem) => elem.ID === item.ID);
-    const isNewItemInd = items.findIndex((elem) => elem.ID === item.ID);
-    if (isNewItemInd >= 0) {
-      setItemsToAdd((prev) => {
-        const newArr: Partial<Item>[] = prev.map((elem) => {
+
+    if (ind >= 0) {
+      setUpdatedItems((prev) => {
+        const newArr = prev.map((elem) => {
           if (elem.ID === item.ID) {
             return completedItem;
           } else {
@@ -97,30 +103,40 @@ export default function EditModal({
         return newArr;
       });
     } else {
-      if (ind >= 0) {
-        setUpdatedItems((prev) => {
-          const newArr: Partial<Item>[] = prev.map((elem) => {
-            if (elem.ID === item.ID) {
-              return completedItem;
-            } else {
-              return elem;
-            }
-          });
-          return newArr;
-        });
-      } else {
-        setUpdatedItems([...updatedItems, completedItem]);
-      }
+      setUpdatedItems([...updatedItems, completedItem]);
     }
   };
 
-  const handleApply = () => {
-    console.log("Applying: ");
-    console.log("test: ", testData);
-    console.log("edit these items: ", updatedItems);
-    console.log("add these items: ", itemsToAdd);
-    console.log("remove these items: ", itemsToRemove);
-  };
+  async function handleApply() {
+    var toEdit = [];
+    var toDelete = [];
+    var toAdd = [];
+    for (const item of updatedItems) {
+      const originalInd = items.findIndex((elem) => elem.ID === item.ID);
+      if (originalInd >= 0) {
+        // item in original
+        if (!_.isEqual(item, items[originalInd])) {
+          toEdit.push(item);
+          await editItem(item.ID, item).catch((e) => console.log(e));
+        }
+      } else {
+        toAdd.push(item);
+        await createNewItem(item as RequiredItem).catch((e) => console.log(e));
+      }
+    }
+
+    for (const item of itemsToRemove) {
+      const originalInd = items.findIndex((elem) => elem.ID === item.ID);
+      if (originalInd >= 0) {
+        toDelete.push(item);
+        await deleteItem(item.ID).catch((e) => console.log(e));
+      }
+    }
+    console.log("APPLYING");
+    console.log("TO EDIT: ", toEdit);
+    console.log("TO DELETE: ", toDelete);
+    console.log("TO ADD: ", toAdd);
+  }
 
   const handleClose = () => {
     setTestData({});
@@ -246,17 +262,15 @@ export default function EditModal({
             </div>
 
             <h2 className="text-lg font-bold mt-8">Items in Test</h2>
-            {itemsToRender.map((item, index) =>
-              itemVisibility[index] ? (
-                <FormItem
-                  testId={testData.ID ? testData.ID : ""}
-                  key={index}
-                  item={item}
-                  onRemove={() => handleRemove(index, item)}
-                  onChange={saveItem}
-                />
-              ) : null
-            )}
+            {updatedItems.map((item, index) => (
+              <FormItem
+                testId={testData.ID ? testData.ID : ""}
+                key={index}
+                item={item}
+                onRemove={() => handleRemove(index, item)}
+                onChange={saveItem}
+              />
+            ))}
             <div className="text-sm flex items-center justify-center text-gray-200">
               <button
                 className="py-5 flex flex-col items-center justify-center"

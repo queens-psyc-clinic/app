@@ -3,7 +3,7 @@ This service handles all operations with Library tests and items
 */
 
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { Test } from "../models/BEModels";
+import { Test, Item } from "../models/BEModels";
 import { Role } from "../models/User";
 import { BackendUser, getUserSettingsData } from "./UserService";
 // Define the interface for the data returned by the API
@@ -11,18 +11,6 @@ interface testQuery {
   measure?: string;
   item?: string;
   age?: string;
-}
-
-export interface Item {
-  Ages: string;
-  ID: string;
-  IsArchived: Number; //
-  ItemName: string;
-  ItemType: string;
-  Location: string;
-  Status: Boolean;
-  Stock: Number;
-  TestID: string;
 }
 
 export interface Loan {
@@ -651,22 +639,9 @@ export async function editTest(edits: {
   }
 }
 
-export async function editItem(
-  itemId: string,
-  edits: {
-    Ages?: string;
-    IsArchived?: string;
-    ItemName?: string;
-    ItemType?: string;
-    Location?: string;
-    NumberOfParts?: string;
-    Status?: string;
-    Stock?: Number;
-    TestID?: string;
-  }
-) {
+export async function editItem(itemId: string, edits: Partial<Item>) {
   // Update a item's attributes
-  let updates: itemEdits = {};
+  let updates: Partial<Item> = {};
   if (edits.Ages) {
     updates["Ages"] = edits.Ages;
   }
@@ -681,9 +656,6 @@ export async function editItem(
   }
   if (edits.Location) {
     updates["Location"] = edits.Location;
-  }
-  if (edits.NumberOfParts) {
-    updates["NumberOfParts"] = edits.NumberOfParts;
   }
   if (edits.Status) {
     updates["Status"] = edits.Status;

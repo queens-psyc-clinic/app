@@ -16,8 +16,8 @@ import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { testUser } from "../utils/mockData";
-import { Item, getItemsForTest } from "../services/TestService";
-import { Test } from "../models/BEModels";
+import { getItemsForTest } from "../services/TestService";
+import { Test, Item } from "../models/BEModels";
 
 const LowStockTable = (props: {
   tableType: string;

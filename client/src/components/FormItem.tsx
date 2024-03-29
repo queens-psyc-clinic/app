@@ -9,24 +9,32 @@ import uuid from "react-uuid";
 interface FormItemProps {
   onRemove: (id: string) => void;
   testId: string;
-  item?: Partial<Item>;
-  onChange?: (item: Partial<Item>) => void;
+  item?: Partial<Item> & { ID: string };
+  onChange?: (item: Partial<Item> & { ID: string }) => void;
 }
 
 const FormItem: React.FC<FormItemProps> = ({
   onRemove,
   testId,
   item,
-  onChange = (item: Partial<Item>) => {},
+  onChange = (item: Partial<Item> & { ID: string }) => {},
 }: FormItemProps) => {
-  const [itemData, setItemData] = useState<Partial<Item>>(
+  const [itemData, setItemData] = useState<Partial<Item> & { ID: string }>(
     item ? item : { ID: uuid() }
   );
   useEffect(() => {
+    console.log("item changed!");
     if (itemData != item) {
       onChange(itemData);
     }
   }, [itemData]);
+
+  useEffect(() => {
+    console.log("item removed!!");
+    if (item) {
+      setItemData(item);
+    }
+  }, [onRemove]);
   return (
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button

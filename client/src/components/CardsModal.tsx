@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CardData } from "../models/cardSampleData";
 import expandedRowsData from "../models/tableExpandRows";
-import { Test } from "../models/BEModels";
-import { Item, getItemsForTest } from "../services/TestService";
+import { Test, Item } from "../models/BEModels";
+import { getItemsForTest } from "../services/TestService";
 import { getPillColor } from "../models/libraryItem";
 
 interface CardsModalProps {

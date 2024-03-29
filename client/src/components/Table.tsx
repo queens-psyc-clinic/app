@@ -17,8 +17,8 @@ import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { mapColumnTitleToDataIndex } from "../utils/data";
 import { testUser } from "../utils/mockData";
-import { Item, getItemsForTest } from "../services/TestService";
-import { Test } from "../models/BEModels";
+import { getItemsForTest } from "../services/TestService";
+import { Test, Item } from "../models/BEModels";
 import EditModal from "./EditModal";
 
 const Table = (props: {
