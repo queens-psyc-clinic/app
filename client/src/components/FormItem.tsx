@@ -9,12 +9,14 @@ import uuid from "react-uuid";
 interface FormItemProps {
   onRemove: (id: string) => void;
   testId: string;
+  item?: Item;
   onChange?: (item: Partial<Item>) => void;
 }
 
 const FormItem: React.FC<FormItemProps> = ({
   onRemove,
   testId,
+  item,
   onChange = (item: Partial<Item>) => {},
 }: FormItemProps) => {
   const [itemData, setItemData] = useState<Partial<Item>>({ ID: uuid() });
@@ -33,7 +35,8 @@ const FormItem: React.FC<FormItemProps> = ({
       <div className="pt-6">
         <div className="pr-4">
           <InputField
-            placeholder="Adult Form"
+            placeholder={item ? item.ItemName : "Adult Form"}
+            value={item ? item.ItemName : ""}
             label="Item Name"
             important={true}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -46,6 +49,7 @@ const FormItem: React.FC<FormItemProps> = ({
             <Dropdown
               placeholder="Item Type"
               label="Item"
+              defaultOption={item ? item.ItemType : undefined}
               options={itemTypeOptions}
               important={true}
               onChange={(option: string, label: string) =>
@@ -55,7 +59,8 @@ const FormItem: React.FC<FormItemProps> = ({
           </div>
           <div className="pr-4 pt-4">
             <InputField
-              placeholder="10"
+              placeholder={item ? item.Stock.toString() : "10"}
+              value={item ? item.Stock.toString() : ""}
               label="Quantity"
               type="Number"
               important={true}
@@ -67,7 +72,8 @@ const FormItem: React.FC<FormItemProps> = ({
         </div>
         <div className="pt-4 pb-6">
           <InputField
-            placeholder="Location item is stored"
+            placeholder={item ? item.Location : "Location that item is stored."}
+            value={item ? item.Location : ""}
             label="Location"
             type="Text"
             important={true}

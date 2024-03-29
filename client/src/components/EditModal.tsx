@@ -142,11 +142,12 @@ export default function EditModal({
             </div>
 
             <h2 className="text-lg font-bold mt-8">Items in Test</h2>
-            {itemVisibility.map((visible, index) =>
-              visible ? (
+            {items.map((item, index) =>
+              itemVisibility[index] ? (
                 <FormItem
                   testId="ABAS-2"
                   key={index}
+                  item={item as Item}
                   onRemove={() => handleRemove(index)}
                 />
               ) : null
