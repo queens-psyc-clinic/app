@@ -98,13 +98,11 @@ export default function Modal({
   };
 
   const closeModal = () => {
+    setItems([]);
     setIsOpen(false);
   };
 
   const handleApply = () => {
-    console.log(testData);
-    console.log(items);
-
     if (isEntryValid()) {
       createNewTest(
         testData.ID as string,
@@ -144,7 +142,8 @@ export default function Modal({
     setItemVisibility((prevVisibility) => [...prevVisibility, true]);
   };
 
-  const handleRemove = (index: number) => {
+  const handleRemove = (index: number, id: string) => {
+    setItems((prev) => prev.filter((item) => item.ID !== id));
     setItemVisibility((prevVisibility) => {
       const updatedVisibility = [...prevVisibility];
       updatedVisibility[index] = false;
@@ -245,7 +244,7 @@ export default function Modal({
                     placeholder="Level of Use"
                     label="Level of Use"
                     options={levelOptions}
-                    important={false}
+                    important={true}
                     onChange={(option: string, label: string) =>
                       setTestData({ ...testData, LevelOfUser: option })
                     }
@@ -304,7 +303,7 @@ export default function Modal({
                 <FormItem
                   key={index}
                   testId={testData.ID ? testData.ID : ""}
-                  onRemove={() => handleRemove(index)}
+                  onRemove={(id: string) => handleRemove(index, id)}
                   onChange={saveItem}
                 />
               ) : null

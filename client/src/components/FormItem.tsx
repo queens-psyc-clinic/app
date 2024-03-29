@@ -7,7 +7,7 @@ import { Item } from "../models/BEModels";
 import uuid from "react-uuid";
 
 interface FormItemProps {
-  onRemove: () => void;
+  onRemove: (id: string) => void;
   testId: string;
   onChange?: (item: Partial<Item>) => void;
 }
@@ -15,7 +15,7 @@ interface FormItemProps {
 const FormItem: React.FC<FormItemProps> = ({
   onRemove,
   testId,
-  onChange = (item: Partial<Item>) => console.log(item),
+  onChange = (item: Partial<Item>) => {},
 }: FormItemProps) => {
   const [itemData, setItemData] = useState<Partial<Item>>({ ID: uuid() });
   useEffect(() => {
@@ -25,7 +25,7 @@ const FormItem: React.FC<FormItemProps> = ({
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button
         className="text-red-200 absolute top-5 right-5 flex items-center"
-        onClick={onRemove}
+        onClick={() => onRemove(itemData.ID!)}
       >
         <MdOutlineRemoveCircleOutline size={24} className="mr-2" />
         <span>Remove</span>
@@ -44,7 +44,7 @@ const FormItem: React.FC<FormItemProps> = ({
         <div className="flex">
           <div className="pr-4 pt-4">
             <Dropdown
-              placeholder="Form"
+              placeholder="Item Type"
               label="Item"
               options={itemTypeOptions}
               important={true}
