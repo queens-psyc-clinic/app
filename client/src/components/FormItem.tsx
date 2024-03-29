@@ -19,10 +19,13 @@ const FormItem: React.FC<FormItemProps> = ({
   item,
   onChange = (item: Partial<Item>) => {},
 }: FormItemProps) => {
-  const [itemData, setItemData] = useState<Partial<Item>>({ ID: uuid() });
+  const [itemData, setItemData] = useState<Partial<Item>>(
+    item ? item : { ID: uuid() }
+  );
   useEffect(() => {
     onChange(itemData);
   }, [itemData]);
+  console.log(itemData);
   return (
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button
@@ -35,8 +38,8 @@ const FormItem: React.FC<FormItemProps> = ({
       <div className="pt-6">
         <div className="pr-4">
           <InputField
-            placeholder={item ? item.ItemName : "Adult Form"}
-            value={item ? item.ItemName : ""}
+            placeholder={itemData.ItemName ? itemData.ItemName : ""}
+            value={itemData.ItemName ? itemData.ItemName : ""}
             label="Item Name"
             important={true}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -60,7 +63,7 @@ const FormItem: React.FC<FormItemProps> = ({
           <div className="pr-4 pt-4">
             <InputField
               placeholder={item ? item.Stock.toString() : "10"}
-              value={item ? item.Stock.toString() : ""}
+              value={itemData.Stock ? itemData.Stock.toString() : ""}
               label="Quantity"
               type="Number"
               important={true}
@@ -73,7 +76,7 @@ const FormItem: React.FC<FormItemProps> = ({
         <div className="pt-4 pb-6">
           <InputField
             placeholder={item ? item.Location : "Location that item is stored."}
-            value={item ? item.Location : ""}
+            value={itemData.Location ? itemData.Location : ""}
             label="Location"
             type="Text"
             important={true}
