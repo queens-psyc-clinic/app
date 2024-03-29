@@ -9,7 +9,7 @@ import uuid from "react-uuid";
 interface FormItemProps {
   onRemove: (id: string) => void;
   testId: string;
-  item?: Item;
+  item?: Partial<Item>;
   onChange?: (item: Partial<Item>) => void;
 }
 
@@ -23,9 +23,10 @@ const FormItem: React.FC<FormItemProps> = ({
     item ? item : { ID: uuid() }
   );
   useEffect(() => {
-    onChange(itemData);
+    if (itemData != item) {
+      onChange(itemData);
+    }
   }, [itemData]);
-  console.log(itemData);
   return (
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button
@@ -62,7 +63,7 @@ const FormItem: React.FC<FormItemProps> = ({
           </div>
           <div className="pr-4 pt-4">
             <InputField
-              placeholder={item ? item.Stock.toString() : "10"}
+              placeholder={item ? item.Stock?.toString() : "10"}
               value={itemData.Stock ? itemData.Stock.toString() : ""}
               label="Quantity"
               type="Number"

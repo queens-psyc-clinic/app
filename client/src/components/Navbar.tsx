@@ -5,6 +5,7 @@ import { useState } from "react";
 import { getCurrentPageFromUrl } from "../utils/urlUtils";
 import { Role } from "../models/User";
 import { Link } from "react-router-dom";
+import uuid from "react-uuid";
 
 const Navbar = (props: { userType: Role }) => {
   const [selected, setSelected] = useState(
@@ -23,7 +24,7 @@ const Navbar = (props: { userType: Role }) => {
       >
         {options.map((option) => {
           return (
-            <Link to={option.url} className="w-full">
+            <Link to={option.url} className="w-full" key={uuid()}>
               <span
                 className={`w-[93%] flex items-center flex-col justify-center p-4 pr-1 rounded-full cursor-pointer transition-all	 ${
                   selected === option.page ? "bg-white px-1" : null

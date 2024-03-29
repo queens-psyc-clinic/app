@@ -6,6 +6,7 @@ import { Measure, LevelOfUse } from "../models/libraryItem";
 import { MdControlPoint } from "react-icons/md";
 import FormItem from "./FormItem";
 import { Item, Test } from "../models/BEModels";
+import _ from "lodash";
 
 interface ModalProps {
   modalTitle: string;
@@ -31,10 +32,12 @@ export default function EditModal({
 }: ModalProps) {
   const [itemCount, setItemCount] = useState(items.length);
   const [itemVisibility, setItemVisibility] = useState<boolean[]>([]);
-  const [itemsToRemove, setItemsToRemove] = useState([]);
+  const [itemsToRemove, setItemsToRemove] = useState<Partial<Item>[]>([]);
+  const [itemsToAdd, setItemsToAdd] = useState<Partial<Item>[]>([]);
   const [testData, setTestData] = useState<Partial<Test>>(test);
   const [updatedItems, setUpdatedItems] = useState<Partial<Item>[]>([]);
   const [ages, setAges] = useState("");
+  const [itemsToRender, setItemsToRender] = useState(items);
 
   useEffect(() => {
     const initialVisibility = Array(itemCount).fill(true);
@@ -42,18 +45,25 @@ export default function EditModal({
     console.log("ITEMS: ", items);
   }, []);
 
-  console.log("updated itesm: ", updatedItems);
+  useEffect(() => {
+    setItemsToRender(_.union(itemsToRender, itemsToAdd));
+  }, [itemsToAdd]);
+
   const handleAddItem = () => {
     setItemCount((prevCount) => prevCount + 1);
     setItemVisibility((prevVisibility) => [...prevVisibility, true]);
+    setItemsToAdd([...itemsToAdd, {}]);
   };
 
-  const handleRemove = (index: number) => {
+  const handleRemove = (index: number, item: Partial<Item>) => {
     setItemVisibility((prevVisibility) => {
       const updatedVisibility = [...prevVisibility];
       updatedVisibility[index] = false;
       return updatedVisibility;
     });
+    setItemsToRemove([...itemsToRemove, item]);
+    setUpdatedItems((prev) => prev.filter((elem) => elem.ID != item.ID));
+    setItemsToRender((prev) => prev.filter((elem) => elem.ID != item.ID));
   };
 
   const formatAgeRange = (range: number[]) => {
@@ -66,16 +76,17 @@ export default function EditModal({
 
   const saveItem = (item: Partial<Item>) => {
     // setItems()
-
+    console.log("saving item");
     const completedItem = {
       ...item,
       TestID: testData.ID,
       Ages: ages,
       Status: true,
     };
-    const ind = items.findIndex((elem) => elem.ID === item.ID);
-    if (ind >= 0) {
-      setUpdatedItems((prev) => {
+    const ind = updatedItems.findIndex((elem) => elem.ID === item.ID);
+    const isNewItemInd = items.findIndex((elem) => elem.ID === item.ID);
+    if (isNewItemInd >= 0) {
+      setItemsToAdd((prev) => {
         const newArr: Partial<Item>[] = prev.map((elem) => {
           if (elem.ID === item.ID) {
             return completedItem;
@@ -86,13 +97,35 @@ export default function EditModal({
         return newArr;
       });
     } else {
-      setUpdatedItems([...updatedItems, completedItem]);
+      if (ind >= 0) {
+        setUpdatedItems((prev) => {
+          const newArr: Partial<Item>[] = prev.map((elem) => {
+            if (elem.ID === item.ID) {
+              return completedItem;
+            } else {
+              return elem;
+            }
+          });
+          return newArr;
+        });
+      } else {
+        setUpdatedItems([...updatedItems, completedItem]);
+      }
     }
+  };
+
+  const handleApply = () => {
+    console.log("Applying: ");
+    console.log("test: ", testData);
+    console.log("edit these items: ", updatedItems);
+    console.log("add these items: ", itemsToAdd);
+    console.log("remove these items: ", itemsToRemove);
   };
 
   const handleClose = () => {
     setTestData({});
     setUpdatedItems([]);
+    setItemsToRemove([]);
     setAges("");
     closeModal();
   };
@@ -213,13 +246,13 @@ export default function EditModal({
             </div>
 
             <h2 className="text-lg font-bold mt-8">Items in Test</h2>
-            {items.map((item, index) =>
+            {itemsToRender.map((item, index) =>
               itemVisibility[index] ? (
                 <FormItem
                   testId={testData.ID ? testData.ID : ""}
                   key={index}
-                  item={item as Item}
-                  onRemove={() => handleRemove(index)}
+                  item={item}
+                  onRemove={() => handleRemove(index, item)}
                   onChange={saveItem}
                 />
               ) : null
@@ -247,7 +280,7 @@ export default function EditModal({
                 </button>
               )}
               <button
-                onClick={closeModal}
+                onClick={handleApply}
                 className="text-white hover:bg-blue-100 bg-blue-200 px-6 py-2 rounded-lg text-sm font-semibold"
               >
                 {buttonLabel}
