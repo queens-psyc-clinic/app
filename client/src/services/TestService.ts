@@ -587,29 +587,29 @@ export async function getAllOverdueTestsByUser(userId: string) {
 }
 
 export async function editTest(edits: {
-  acronym: string;
-  name?: string;
-  measure?: string;
-  level?: string;
-  edition?: string;
-  orderingCompany?: string;
+  ID: string;
+  Name?: string;
+  MeasureOf?: string;
+  LevelOfUser?: string;
+  EditionNumber?: string;
+  OrderingCompany?: string;
 }) {
   // Update a test's attributes
-  let endpoint = `/test/${edits.acronym}?`;
-  if (edits.name) {
-    endpoint += `&Name=${edits.name}`;
+  let endpoint = `/test/${edits.ID}?`;
+  if (edits.Name) {
+    endpoint += `&Name=${edits.Name}`;
   }
-  if (edits.measure) {
-    endpoint += `&MeasureOf=${edits.measure}`;
+  if (edits.MeasureOf) {
+    endpoint += `&MeasureOf=${edits.MeasureOf}`;
   }
-  if (edits.level) {
-    endpoint += `&LevelOfUser=${edits.level}`;
+  if (edits.LevelOfUser) {
+    endpoint += `&LevelOfUser=${edits.LevelOfUser}`;
   }
-  if (edits.edition) {
-    endpoint += `&EditionNumber=${edits.edition}`;
+  if (edits.EditionNumber) {
+    endpoint += `&EditionNumber=${edits.EditionNumber}`;
   }
-  if (edits.orderingCompany) {
-    endpoint += `&OrderingCompany=${edits.orderingCompany}`;
+  if (edits.OrderingCompany) {
+    endpoint += `&OrderingCompany=${edits.OrderingCompany}`;
   }
 
   try {

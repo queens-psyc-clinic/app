@@ -61,7 +61,7 @@ const FormItem: React.FC<FormItemProps> = ({
             <Dropdown
               placeholder="Item Type"
               label="Item"
-              defaultOption={item ? item.ItemType : undefined}
+              defaultOption={itemData.ItemType ? itemData.ItemType : undefined}
               options={itemTypeOptions}
               important={false}
               onChange={(option: string, label: string) =>

@@ -25,7 +25,11 @@ const Dropdown: React.FC<DropdownProps> = ({
     defaultOption ? defaultOption : ""
   );
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  useEffect(() => {
+    if (defaultOption) {
+      setSelectedOption(defaultOption);
+    }
+  }, [defaultOption]);
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };

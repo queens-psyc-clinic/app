@@ -15,6 +15,7 @@ import {
   deleteItem,
   deleteLoan,
   editItem,
+  editTest,
   getItemsForTest,
   getLoansForItem,
 } from "../services/TestService";
@@ -24,7 +25,7 @@ interface ModalProps {
   buttonLabel: string;
   secButtonLabel?: string;
   isOpen: boolean;
-  test: Partial<Test>;
+  test: Partial<Test> & { ID: string };
   items: Partial<Item>[];
   closeModal: () => void;
 }
@@ -47,7 +48,9 @@ export default function EditModal({
   const [itemsToRemove, setItemsToRemove] = useState<
     (Partial<Item> & { ID: string })[]
   >([]);
-  const [testData, setTestData] = useState<Partial<Test>>(test);
+  const [testData, setTestData] = useState<Partial<Test> & { ID: string }>(
+    test
+  );
   const [updatedItems, setUpdatedItems] = useState<
     (Partial<Item> & { ID: string })[]
   >([]);
@@ -111,40 +114,54 @@ export default function EditModal({
   };
 
   async function handleApply() {
-    var toEdit = [];
-    var toDelete = [];
-    var toAdd = [];
-    for (const item of updatedItems) {
-      const originalInd = items.findIndex((elem) => elem.ID === item.ID);
-      if (originalInd >= 0) {
-        // item in original
-        if (!_.isEqual(item, items[originalInd])) {
-          toEdit.push(item);
-          await editItem(item.ID, item).catch((e) => console.log(e));
+    var errors = [];
+    if (testData.Name == "") {
+      alert("Ensure all required fields are filled out.");
+      return;
+    } else {
+      for (const item of updatedItems) {
+        if (!item.Stock) {
+          alert("Ensure all required fields are filled out");
+          return;
+        } else {
+          const originalInd = items.findIndex((elem) => elem.ID === item.ID);
+          if (originalInd >= 0) {
+            // item in original
+            if (!_.isEqual(item, items[originalInd])) {
+              await editItem(item.ID, item).catch((e) => errors.push(e));
+            }
+          } else {
+            await createNewItem(item as RequiredItem).catch((e) =>
+              errors.push(e)
+            );
+          }
         }
-      } else {
-        toAdd.push(item);
-        await createNewItem(item as RequiredItem).catch((e) => console.log(e));
       }
-    }
 
-    for (const item of itemsToRemove) {
-      const originalInd = items.findIndex((elem) => elem.ID === item.ID);
-      if (originalInd >= 0) {
-        toDelete.push(item);
-        const loans: Loan[] = await getLoansForItem(item.ID);
-        for (const loan of loans) {
-          await deleteLoan(loan.ID);
+      for (const item of itemsToRemove) {
+        const originalInd = items.findIndex((elem) => elem.ID === item.ID);
+        if (originalInd >= 0) {
+          const loans: Loan[] = await getLoansForItem(item.ID);
+          for (const loan of loans) {
+            await deleteLoan(loan.ID);
+          }
+          await deleteItem(item.ID).catch((e) => errors.push(e));
         }
-        await deleteItem(item.ID).catch((e) => console.log(e));
+      }
+
+      await editTest(testData).catch((e) => errors.push(e));
+      if (errors.length > 0) {
+        alert("There was an error editing this test.");
+      } else {
+        alert("Item edited successfuly!");
+        closeModal();
+        window.location.reload();
       }
     }
-    closeModal();
-    window.location.reload();
   }
 
   const handleClose = () => {
-    setTestData({});
+    setTestData({ ID: "", Name: "" });
     setUpdatedItems([]);
     setItemsToRemove([]);
     setAges("");
@@ -181,7 +198,7 @@ export default function EditModal({
                     label="Measure"
                     defaultOption={test.MeasureOf ? test.MeasureOf : undefined}
                     options={measureOptions}
-                    important={true}
+                    important={false}
                     onChange={(option: string, label: string) =>
                       setTestData({ ...testData, MeasureOf: option })
                     }
@@ -210,7 +227,7 @@ export default function EditModal({
                       test.LevelOfUser ? test.LevelOfUser : undefined
                     }
                     options={levelOptions}
-                    important={true}
+                    important={false}
                     onChange={(option: string, label: string) =>
                       setTestData({ ...testData, LevelOfUser: option })
                     }
@@ -221,7 +238,7 @@ export default function EditModal({
                     placeholder={test.EditionNumber ? test.EditionNumber : ""}
                     value={test.EditionNumber ? testData.EditionNumber : ""}
                     label="Edition"
-                    important={true}
+                    important={false}
                     type="Number"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setTestData({
@@ -236,7 +253,11 @@ export default function EditModal({
                     placeholder={test.ID ? test.ID : ""}
                     value={test.ID ? testData.ID : ""}
                     label="Acronym"
-                    important={true}
+                    important={false}
+                    styles={
+                      "bg-white pl-2 shadow-none border-[0.5px] border-gray-200 cursor-default"
+                    }
+                    canEdit={false}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setTestData({ ...testData, ID: e.target.value })
                     }
@@ -255,7 +276,7 @@ export default function EditModal({
                   placeholder={test.OrderingCompany ? test.OrderingCompany : ""}
                   value={test.OrderingCompany ? testData.OrderingCompany : ""}
                   label="Ordering Company"
-                  important={true}
+                  important={false}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setTestData({
                       ...testData,
