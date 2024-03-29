@@ -103,9 +103,6 @@ export default function Modal({
   };
 
   const handleApply = () => {
-    console.log(testData);
-    console.log(items);
-
     if (isEntryValid()) {
       createNewTest(
         testData.ID as string,
@@ -134,8 +131,7 @@ export default function Modal({
       alert("Please fill out all fields.");
     }
   };
-  console.log(itemVisibility);
-  console.log(items);
+
   useEffect(() => {
     const initialVisibility = Array(itemCount).fill(true);
     setItemVisibility(initialVisibility);
