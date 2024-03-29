@@ -36,6 +36,8 @@ const Table = (props: {
     { rowId: string; items: Item[] }[]
   >([]);
 
+  const [expandedRowsItems, setExpandedRowsItems] = useState<Item[]>([]);
+
   let columns: Column[];
 
   switch (props.tableType) {
@@ -94,6 +96,7 @@ const Table = (props: {
           ...prev,
           { rowId: selectedRow.ID, items: res },
         ]);
+        setExpandedRowsItems(res);
       });
     }
   };
@@ -114,6 +117,7 @@ const Table = (props: {
 
   const handleEditClick = (row: any) => {
     setSelectedRow(row);
+    toggleRowExpansion(row);
     setIsEditModalOpen(true);
   };
 
@@ -334,6 +338,8 @@ const Table = (props: {
           modalTitle="Edit Test"
           buttonLabel="Save Changes"
           secButtonLabel="Cancel"
+          test={selectedRow}
+          items={expandedRowsItems}
           isOpen={isEditModalOpen}
           closeModal={() => setIsEditModalOpen(false)}
         />

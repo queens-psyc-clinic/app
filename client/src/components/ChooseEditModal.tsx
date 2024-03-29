@@ -90,6 +90,8 @@ export default function ChooseEditModal({
       )}
       {isEditModalOpen && (
         <EditModalComponent
+          test={{}}
+          items={[]}
           modalTitle="Edit"
           buttonLabel="Save"
           secButtonLabel="Cancel"

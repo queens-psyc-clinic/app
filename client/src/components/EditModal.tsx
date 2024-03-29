@@ -5,12 +5,15 @@ import RangeSlider from "./RangeSlider";
 import { Measure, LevelOfUse } from "../models/libraryItem";
 import { MdControlPoint } from "react-icons/md";
 import FormItem from "./FormItem";
+import { Item, Test } from "../models/BEModels";
 
 interface ModalProps {
   modalTitle: string;
   buttonLabel: string;
   secButtonLabel?: string;
   isOpen: boolean;
+  test: Partial<Test>;
+  items: Partial<Item>[];
   closeModal: () => void;
 }
 
@@ -22,14 +25,16 @@ export default function EditModal({
   buttonLabel,
   secButtonLabel = " ",
   isOpen,
+  test,
+  items,
   closeModal,
 }: ModalProps) {
-  const [itemCount, setItemCount] = useState(1);
+  const [itemCount, setItemCount] = useState(items.length);
   const [itemVisibility, setItemVisibility] = useState<boolean[]>([]);
-
   useEffect(() => {
     const initialVisibility = Array(itemCount).fill(true);
     setItemVisibility(initialVisibility);
+    console.log("ITEMS: ", items);
   }, []);
 
   const handleAddItem = () => {
@@ -57,7 +62,8 @@ export default function EditModal({
             <div className="p-5 pt-0 border-1 border border-gray-100 rounded-lg shadow-md">
               <div className="py-4">
                 <InputField
-                  placeholder="Adaptive Behaviour Assessment System"
+                  placeholder={test.Name ? test.Name : ""}
+                  value={test.Name ? test.Name : ""}
                   label="Test Name"
                   important={true}
                 />
@@ -65,20 +71,23 @@ export default function EditModal({
               <div className="flex">
                 <div className="pr-4">
                   <Dropdown
-                    placeholder="Select a measure"
+                    placeholder={
+                      test.MeasureOf ? test.MeasureOf : "Select a Measure"
+                    }
                     label="Measure"
+                    defaultOption={test.MeasureOf ? test.MeasureOf : undefined}
                     options={measureOptions}
                     important={true}
                   />
                 </div>
-                <div>
+                {/* <div>
                   <InputField
-                    placeholder="10"
+                    placeholder={test.EditionNumber? test.MeasureOf: "Select a Measure"}
                     label="Quantity"
                     important={true}
                     type="Number"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="py-4">
                 <RangeSlider label="Ages" />
@@ -86,15 +95,21 @@ export default function EditModal({
               <div className="flex flex-row pb-4">
                 <div className="pr-4">
                   <Dropdown
-                    placeholder="C"
+                    placeholder={
+                      test.LevelOfUser ? test.LevelOfUser : "Select a Level"
+                    }
                     label="Level of Use"
+                    defaultOption={
+                      test.LevelOfUser ? test.LevelOfUser : undefined
+                    }
                     options={levelOptions}
-                    important={false}
+                    important={true}
                   />
                 </div>
                 <div className="pr-4">
                   <InputField
-                    placeholder="2"
+                    placeholder={test.EditionNumber ? test.EditionNumber : ""}
+                    value={test.EditionNumber ? test.EditionNumber : ""}
                     label="Edition"
                     important={true}
                     type="Number"
@@ -102,22 +117,24 @@ export default function EditModal({
                 </div>
                 <div>
                   <InputField
-                    placeholder="ABAS-2"
+                    placeholder={test.ID ? test.ID : ""}
+                    value={test.ID ? test.ID : ""}
                     label="Acronym"
                     important={true}
                   />
                 </div>
               </div>
-              <div className="pr-4">
+              {/* <div className="pr-4">
                 <InputField
                   placeholder="Location test is stored"
                   label="Location"
                   important={true}
                 />
-              </div>
+              </div> */}
               <div className="pr-4 pt-4">
                 <InputField
-                  placeholder="www.orderingcompany.ca"
+                  placeholder={test.OrderingCompany ? test.OrderingCompany : ""}
+                  value={test.OrderingCompany ? test.OrderingCompany : ""}
                   label="Ordering Company"
                   important={true}
                 />
