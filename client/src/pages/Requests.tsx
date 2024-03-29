@@ -10,11 +10,15 @@ import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
 import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
 import { Test } from "../models/BEModels";
+import { ItemTypeOptions, Measure } from "../models/libraryItem";
 
 const Requests = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [data, setData] = useState<Omit<Test, "OrderingCompany">[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const borrowedByOptions: string[] = cardSampleData.map(
+    (item) => item["Borrowed By"].data
+  );
 
   useEffect(() => {
     // WAITING ON reservations table!
@@ -39,7 +43,14 @@ const Requests = (props: { userRole: Role }) => {
         <>
           <section className="mt-6 space-y-4 pb-5">
             <SearchBar />
-            <Filter />
+            <Filter
+              placeholders={["Measure", "Item", "Borrowed By"]}
+              options={[
+                Object.values(Measure),
+                ItemTypeOptions,
+                borrowedByOptions,
+              ]}
+            />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center">
                 <i className="mr-4">

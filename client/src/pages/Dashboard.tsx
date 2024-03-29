@@ -28,6 +28,12 @@ import {
 } from "../services/TestService";
 import { Test, Item } from "../models/BEModels";
 import LoadingSpinner from "../components/LoadingSpinner";
+import {
+  Measure,
+  ItemTypeOptions,
+  MaximumAge,
+  MinimumAge,
+} from "../models/libraryItem";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -85,7 +91,15 @@ const Dashboard = (props: { userRole: Role }) => {
         <div className="flex flex-col overflow-x-hidden p-6 py-10 w-full h-full">
           <section className="mt-6 space-y-6 mb-6">
             <SearchBar />
-            <Filter />
+            <Filter
+              placeholders={["Measure", "Item", "Min Age", "Max Age"]}
+              options={[
+                Object.values(Measure),
+                ItemTypeOptions,
+                MinimumAge,
+                MaximumAge,
+              ]}
+            />
           </section>
           {!isLoading ? (
             <>
@@ -132,7 +146,15 @@ const Dashboard = (props: { userRole: Role }) => {
 
         <section className="mt-6 space-y-6 mb-6">
           <SearchBar />
-          <Filter />
+          <Filter
+              placeholders={["Measure", "Item", "Min Age", "Max Age"]}
+              options={[
+                Object.values(Measure),
+                ItemTypeOptions,
+                MinimumAge,
+                MaximumAge,
+              ]}
+            />
         </section>
 
         {/* CLIENT DASHBOARD */}

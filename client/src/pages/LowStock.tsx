@@ -14,12 +14,16 @@ import {
 import LowStockTable from "../components/LowStockTable";
 import LoadingSpinner from "../components/LoadingSpinner";
 import _ from "lodash";
+import { ItemTypeOptions, Measure } from "../models/libraryItem";
+import cardSampleData from "../models/cardSampleData";
 
 const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [data, setData] = useState<
     (Item & { OrderingCompany: string; Name: string; EditionNumber: string })[]
   >([]);
+
+  const quantityOptions: string[] = cardSampleData.map((item) => item["Stock"]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // WAITING ON trailing spaces fix on backend
@@ -74,7 +78,10 @@ const LowStock = (props: { userRole: Role }) => {
         <>
           <section className="mt-6 space-y-2 mb-6">
             <SearchBar />
-            <Filter />
+            <Filter
+                  placeholders={["Measure", "Item", "Quantity"]}
+                  options={[Object.values(Measure), ItemTypeOptions, quantityOptions]}
+                />
           </section>
           {/* <Table
             tableType="lowStock"

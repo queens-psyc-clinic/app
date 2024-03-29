@@ -11,6 +11,7 @@ import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
 import { getAllArchivedTests, isTestAvailable } from "../services/TestService";
 import uuid from "react-uuid";
+import { ItemTypeOptions, MaximumAge, Measure, MinimumAge } from "../models/libraryItem";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -55,7 +56,15 @@ const Archive = (props: { userRole: Role }) => {
         <>
           <section className="mt-6 space-y-2 mb-6">
             <SearchBar />
-            <Filter />
+            <Filter
+              placeholders={["Measure", "Item", "Min Age", "Max Age"]}
+              options={[
+                Object.values(Measure),
+                ItemTypeOptions,
+                MinimumAge,
+                MaximumAge,
+              ]}
+            />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
                 <img src={archive} className="mr-4" alt="archive icon" />
