@@ -9,11 +9,14 @@ import { Item, Test } from "../models/BEModels";
 import _ from "lodash";
 import uuid from "react-uuid";
 import {
+  Loan,
   RequiredItem,
   createNewItem,
   deleteItem,
+  deleteLoan,
   editItem,
   getItemsForTest,
+  getLoansForItem,
 } from "../services/TestService";
 
 interface ModalProps {
@@ -129,13 +132,15 @@ export default function EditModal({
       const originalInd = items.findIndex((elem) => elem.ID === item.ID);
       if (originalInd >= 0) {
         toDelete.push(item);
+        const loans: Loan[] = await getLoansForItem(item.ID);
+        for (const loan of loans) {
+          await deleteLoan(loan.ID);
+        }
         await deleteItem(item.ID).catch((e) => console.log(e));
       }
     }
-    console.log("APPLYING");
-    console.log("TO EDIT: ", toEdit);
-    console.log("TO DELETE: ", toDelete);
-    console.log("TO ADD: ", toAdd);
+    closeModal();
+    window.location.reload();
   }
 
   const handleClose = () => {
