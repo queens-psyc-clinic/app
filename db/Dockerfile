@@ -1,7 +1,16 @@
 FROM container-registry.oracle.com/mysql/community-server:latest
 
-COPY db_setup/setup_db.sql /docker-entrypoint-initdb.d/
-COPY db_setup/my.cnf /etc/my.cnf
+COPY setup/setup_db.sql /docker-entrypoint-initdb.d/
+COPY setup/my.cnf /etc/my.cnf
 
-COPY csv_data/test_data.csv /var/lib/mysql-files/
-COPY csv_data/item_data.csv /var/lib/mysql-files/
+COPY data/init_data.csv /var/lib/mysql-files/
+COPY data/csv_format.py /var/lib/mysql-files/
+
+COPY data/requirements.txt /
+
+RUN pip3 install -r /requirements.txt
+
+WORKDIR /var/lib/mysql-files/
+
+RUN python3 csv_format.py
+

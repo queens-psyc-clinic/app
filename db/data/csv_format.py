@@ -1,6 +1,6 @@
 import pandas as pd
 
-original_data = pd.read_csv('original_data.csv')
+init_data = pd.read_csv('init_data.csv')
 
 rename_scheme = {
     'Acronym': 'ID',
@@ -8,16 +8,16 @@ rename_scheme = {
     'Measure of:': 'MeasureOf',
     'Ordering Company': 'OrderingCompany',
     'Edition Number': 'EditionNumber',
-    'Number of Items': 'NumberOfParts',
+    'Number of Items': 'Stock', # Note these will be turned from str to ints
     'Item Name': 'ItemName',
     'Item': 'ItemType'
 }
-original_data = original_data.rename(columns=rename_scheme).replace(r'\n', ' ', regex=True).replace(r'^\s+|\s+$', '', regex=True).replace(r'  ', ' ', regex=True)
+init_data = init_data.rename(columns=rename_scheme).replace(r'\n', ' ', regex=True).replace(r'^\s+|\s+$', '', regex=True).replace(r'  ', ' ', regex=True)
 
 
+test_data = init_data['IsArchived'] = 0
 
-test_data = original_data['IsArchived'] = 0
-test_data = original_data[[
+test_data = init_data[[
     'ID', 
     'Name', 
     'MeasureOf', 
@@ -26,15 +26,19 @@ test_data = original_data[[
     'OrderingCompany',
     'IsArchived'
 ]].drop_duplicates(subset=['ID'], keep='first')
+
+test_data['Name'] = test_data['Name'].fillna('Not Specified')
+test_data['LevelOfUser'] = test_data['LevelOfUser'].fillna('N/A')
+
 test_data.to_csv('test_data.csv', index=False)
 
 
 
-item_data = original_data.rename(columns={'ID' : 'TestID'})
+item_data = init_data.rename(columns={'ID' : 'TestID'})
 item_data['ID'] = item_data.apply(lambda row: f"{row['TestID']}-{row.name}", axis=1)
 item_data['Status'] = 1
 item_data['IsArchived'] = 0
-item_data['Stock'] = 1
+item_data['Stock'] = item_data['Stock'].replace(r'[^0-9]', '', regex=True).fillna(0)
 item_data = item_data[[
     'ID', 
     'Status',
@@ -46,4 +50,4 @@ item_data = item_data[[
     'IsArchived',
     'Stock'
 ]]
-item_data.to_csv('item_data.csv', index=False)
+item_data.fillna('Not Specified').to_csv('item_data.csv', index=False)
