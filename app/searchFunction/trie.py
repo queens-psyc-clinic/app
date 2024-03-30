@@ -1,8 +1,9 @@
 from common.db import execute_sql_query, select_table
 
 class TrieNode:
-    def __init__(self, text = ''):
+    def __init__(self, text = '', text_type = ''):
         self.text = text
+        self.text_type = text_type
         self.children = dict()
         self.is_word = False
 
@@ -12,18 +13,19 @@ class PrefixTree:
         self.root = TrieNode()
 
 
-    def insert(self, word):
+    def insert(self, word, text_type):
         """
         Inserts a word into the prefix tree.
 
         Parameters:
-        - word: The word to insert
+        - word (str): The word to insert
+        - text_type (str): The type of the word (e.g. 'Name', 'ID')
         """
         current = self.root
         for i, char in enumerate(word):
             if char not in current.children:
                 prefix = word[0:i+1]
-                current.children[char] = TrieNode(prefix)
+                current.children[char] = TrieNode(prefix, text_type)
             current = current.children[char]
         current.is_word = True 
 
@@ -55,7 +57,7 @@ class PrefixTree:
         - prefix (str): The prefix to search for
 
         Returns:
-        - words (List[str]): A list of all the words that match the prefix (empty if none exist
+        - words (List[Dict[str, str]]): A list of all the words that match the prefix (empty if none exist
         """
         words = list()
         current = self.root
@@ -76,10 +78,10 @@ class PrefixTree:
 
         Parameters:
         - node (TrieNode): The node to start from
-        - words (List[str]): The list of words to add to
+        - words (Dict[str, str]): The list of words to add to
         """
         if node.is_word:
-            words.append(node.text)
+            words.append({'value' : node.text, 'type' : node.text_type})
         for letter in node.children:
             self.__child_words_for(node.children[letter], words)
 
