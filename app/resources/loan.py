@@ -6,7 +6,8 @@ loan_fields = {
     'StartDate': fields.DateTime,
     'EndDate': fields.DateTime,
     'UserID': fields.String,
-    'ItemID': fields.String
+    'ItemID': fields.String,
+    'IsConfirmed' : fields.Boolean
 }
 
 class Loan(Resource):
@@ -41,6 +42,8 @@ class Loan(Resource):
                   type: string
                 ItemID:
                   type: string
+                IsConfirmed:
+                  type: boolean
           400:
             description: ID does not exist
           500:
