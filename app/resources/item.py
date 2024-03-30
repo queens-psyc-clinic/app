@@ -22,7 +22,7 @@ class Item(Resource):
         Retrieve item with id
         ---
         tags:
-          - Items
+          - Item
         parameters:
           - in: path
             name: id
@@ -51,7 +51,7 @@ class Item(Resource):
         Delete item with id
         ---
         tags:
-          - Items
+          - Item
         parameters:
           - in: path
             name: id

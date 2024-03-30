@@ -17,7 +17,7 @@ class Loan(Resource):
         Retrieve Loan with id
         ---
         tags:
-          - Loans
+          - Loan
         parameters:
           - in: path
             name: id
@@ -59,7 +59,7 @@ class Loan(Resource):
         Delete item with id
         ---
         tags:
-          - Loans
+          - Loan
         parameters:
           - in: path
             name: id
