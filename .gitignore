@@ -1,6 +1,14 @@
 # ignore backupfile
 db/backup.sql
 
+test_data.csv
+item_data.csv
+
+.vscode
+.DS_Store
+
+package-lock.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
