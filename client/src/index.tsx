@@ -5,6 +5,7 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Pages } from "./models/Pages";
+import AccountType from "./pages/AccountType";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/account-type",
-    element: <App page={Pages.accounttype} />,
+    element: <AccountType onSignIn={() => console.log("hi")} />,
   },
   {
     path: "/admin/student",
