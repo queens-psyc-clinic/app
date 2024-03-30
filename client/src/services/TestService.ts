@@ -342,7 +342,6 @@ export async function getTestsByQuery(query: testQuery) {
 export async function getAllSignedOutItems() {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
-  // WAITING ON loan controller
   try {
     const response: AxiosResponse = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/loans`

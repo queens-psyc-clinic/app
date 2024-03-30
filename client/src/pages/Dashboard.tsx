@@ -20,9 +20,12 @@ import {
   deleteEntireTest,
   deleteItem,
   deleteTest,
+  getAllOverdueItems,
+  getAllSignedOutItems,
   getAllTests,
   getItemById,
   getItemsForTest,
+  getLowStockItems,
   getTestById,
   isTestAvailable,
 } from "../services/TestService";
@@ -40,6 +43,11 @@ const Dashboard = (props: { userRole: Role }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [data, setData] = useState<Test[]>([]);
+  const [adminCardInfo, setAdminCardInfo] = useState<{
+    signedOut: number;
+    lowStock: number;
+    overdue: number;
+  }>({ signedOut: 0, lowStock: 0, overdue: 0 });
 
   /* FETCHING REAL DATA */
   useEffect(() => {
@@ -49,10 +57,22 @@ const Dashboard = (props: { userRole: Role }) => {
     });
   }, []);
 
+  useEffect(() => {
+    getAllSignedOutItems().then((res) =>
+      setAdminCardInfo({ ...adminCardInfo, signedOut: res.length })
+    );
+    getAllOverdueItems().then((res) =>
+      setAdminCardInfo({ ...adminCardInfo, overdue: res.length })
+    );
+    getLowStockItems().then((res) =>
+      setAdminCardInfo({ ...adminCardInfo, lowStock: res.length })
+    );
+  }, []);
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
+  console.log(adminCardInfo);
   const handleCardClick = (
     data: Omit<Test, "OrderingCompany">,
     items: Item[]
@@ -93,7 +113,7 @@ const Dashboard = (props: { userRole: Role }) => {
                 <section className="flex">
                   {/* Quantity should be pulled from backend in the useEffect, these are
            mock values  */}
-                  <AdminCards userRole="admin" />
+                  <AdminCards userRole="admin" cardCounts={adminCardInfo} />
                 </section>
                 <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
                   <Modal modalTitle="Add Item" buttonLabel="Add" />
