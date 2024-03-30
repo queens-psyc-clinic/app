@@ -10,7 +10,7 @@ test_fields = {
   'LevelOfUser': fields.String,
   'EditionNumber' : fields.String,
   'OrderingCompany' : fields.String,
-  'isArchived': fields.Boolean
+  'IsArchived': fields.Boolean
 }
 
 class Tests(Resource):

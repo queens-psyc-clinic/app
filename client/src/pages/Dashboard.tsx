@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../components/Table";
-import {
-  defaultMockData,
-  // signedOutMockData,
-  // overdueMockData,
-  // lowStockMockData,
-} from "../utils/mockData";
+import { MdArchive } from "react-icons/md";
+
 import { MdDelete } from "react-icons/md";
 
 import { Role } from "../models/User";
@@ -16,10 +12,12 @@ import Card from "../components/Card";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
 import {
+  archiveTest,
   deleteEntireTest,
   deleteItem,
   deleteTest,
   getAllTests,
+  getAllUnArchivedTests,
   getItemById,
   getItemsForTest,
   getTestById,
@@ -44,7 +42,7 @@ const Dashboard = (props: { userRole: Role }) => {
 
   /* FETCHING REAL DATA */
   useEffect(() => {
-    getAllTests().then((res) => {
+    getAllUnArchivedTests().then((res) => {
       setData(res);
       setIsLoading(false);
     });
@@ -77,7 +75,7 @@ const Dashboard = (props: { userRole: Role }) => {
 
     for (const testId of selectedRows) {
       try {
-        deleteEntireTest(testId);
+        await deleteEntireTest(testId);
       } catch (e) {
         console.log(e);
       }
@@ -85,6 +83,18 @@ const Dashboard = (props: { userRole: Role }) => {
     window.location.reload();
   };
 
+  async function archiveTests() {
+    const errors = [];
+    for (const itemId of selectedRows) {
+      await archiveTest(itemId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue archiving these tests.");
+    } else {
+      alert("Items Archived Successfully");
+      window.location.reload();
+    }
+  }
   if (props.userRole === "admin") {
     return (
       <>
@@ -102,6 +112,15 @@ const Dashboard = (props: { userRole: Role }) => {
                   <AdminCards userRole="admin" />
                 </section>
                 <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
+                  <button
+                    onClick={archiveTests}
+                    className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                  >
+                    <i className="mr-4">
+                      <MdArchive size={20} />
+                    </i>
+                    <p>Archive</p>
+                  </button>
                   <Modal modalTitle="Add Item" buttonLabel="Add" />
                   <button
                     // onClick={deleteSelectedRows}
@@ -115,7 +134,7 @@ const Dashboard = (props: { userRole: Role }) => {
                   </button>
                 </section>
               </section>
-              <div onClick={deleteSelectedRows}>
+              <div>
                 <ConfirmModal
                   header="Are you sure?"
                   description="This action cannot be reversed."
@@ -123,6 +142,7 @@ const Dashboard = (props: { userRole: Role }) => {
                   button="Delete"
                   isOpen={showConfirmModal}
                   closeModal={() => setShowConfirmModal(false)}
+                  onOk={async () => deleteSelectedRows()}
                 />
               </div>
               <Table

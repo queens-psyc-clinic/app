@@ -2,15 +2,21 @@ import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
-import archive from "../assets/icons/archive.svg";
 import Table from "../components/Table";
-import { defaultMockData } from "../utils/mockData";
 import { Item, Test } from "../models/BEModels";
-import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
-import { getAllArchivedTests, isTestAvailable } from "../services/TestService";
+import { MdDelete } from "react-icons/md";
+
+import {
+  deleteEntireTest,
+  getAllArchivedTests,
+  isTestAvailable,
+  unArchiveTest,
+} from "../services/TestService";
 import uuid from "react-uuid";
+import { RiInboxUnarchiveFill } from "react-icons/ri";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -22,6 +28,7 @@ const Archive = (props: { userRole: Role }) => {
   > | null>(null);
   const [data, setData] = useState<Omit<Test, "OrderingCompany">[]>([]);
   const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -38,6 +45,35 @@ const Archive = (props: { userRole: Role }) => {
       }
     });
     setSelectedItems(items);
+  };
+
+  async function unArchiveTests() {
+    const errors = [];
+    for (const itemId of selectedRows) {
+      await unArchiveTest(itemId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue archiving these tests.");
+    } else {
+      alert("Items Unarchived Successfully");
+      window.location.reload();
+    }
+  }
+
+  const deleteSelectedRows = async () => {
+    // TODO: SHOULD POP MODAL FIRST
+    for (const testId of selectedRows) {
+      try {
+        await deleteEntireTest(testId);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    window.location.reload();
+  };
+
+  const handleDeleteButtonClick = () => {
+    setShowConfirmModal(true);
   };
 
   useEffect(() => {
@@ -57,12 +93,37 @@ const Archive = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-              <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
-                <img src={archive} className="mr-4" alt="archive icon" />
+              <button
+                className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
+                onClick={() => unArchiveTests()}
+              >
+                <i className="mr-4">
+                  <RiInboxUnarchiveFill size={20} />
+                </i>
                 <p>Unarchive</p>
+              </button>
+              <button
+                onClick={handleDeleteButtonClick}
+                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+              >
+                <i className="mr-4">
+                  <MdDelete size={20} />
+                </i>
+                <p>Delete</p>
               </button>
             </section>
           </section>
+          <div>
+            <ConfirmModal
+              header="Are you sure?"
+              description="This action cannot be reversed."
+              secondButton="Cancel"
+              button="Delete"
+              isOpen={showConfirmModal}
+              closeModal={() => setShowConfirmModal(false)}
+              onOk={async () => deleteSelectedRows()}
+            />
+          </div>
           <Table
             tableType="default"
             currentPage={currentPage}
