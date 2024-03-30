@@ -31,7 +31,7 @@ CREATE TABLE Tests (
     LevelOfUser VARCHAR(10),
     EditionNumber VARCHAR(100),
     OrderingCompany VARCHAR(155),
-    IsArchived BOOLEAN NOT NULL DEFAULT 0
+    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE Items (

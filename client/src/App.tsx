@@ -17,6 +17,7 @@ import SignedOut from "./pages/SignedOut";
 import Requests from "./pages/Requests";
 import {
   archiveTest,
+  createNewTest,
   getAllArchivedTests,
   getLowStockItems,
 } from "./services/TestService";
@@ -30,6 +31,11 @@ function App({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
   useEffect(() => {
     // archiveTest("ADOS-2").then((res) => console.log(res));
+    // createNewTest({
+    //   Name: "Incomplete test",
+    //   ID: "8832837232",
+    //   MeasureOf: "Bloobsdasd",
+    // }).then((res) => console.log(res));
   }, []);
   const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
 

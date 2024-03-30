@@ -3,8 +3,8 @@ This service handles shopping cart
 */
 
 import axios, { AxiosResponse } from "axios";
-import { Item, getItemById } from "./TestService";
-
+import { getItemById } from "./TestService";
+import { Item } from "../models/BEModels";
 // NO NEED FOR BACKEND ENDPOINTS FOR ANY OF THESE :)
 // Shopping carts stored in Local Storage in the browser
 const localStorageCart = "cart";

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CardData } from "../models/cardSampleData";
 import { ItemType } from "../models/libraryItem";
-import { Test } from "../models/BEModels";
-import { Item, isTestAvailable } from "../services/TestService";
+import { Test, Item } from "../models/BEModels";
+import { isTestAvailable } from "../services/TestService";
 
 interface CardProps {
   data: Omit<Test, "OrderingCompany"> & {

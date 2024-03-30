@@ -3,7 +3,7 @@ This service handles all operations with Library tests and items
 */
 
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { Test } from "../models/BEModels";
+import { Test, Item } from "../models/BEModels";
 import { Role } from "../models/User";
 import { BackendUser, getUserSettingsData } from "./UserService";
 // Define the interface for the data returned by the API
@@ -11,19 +11,6 @@ interface testQuery {
   measure?: string;
   item?: string;
   age?: string;
-}
-
-export interface Item {
-  Ages: string;
-  ID: string;
-  IsArchived: Number; //
-  ItemName: string;
-  ItemType: string;
-  Location: string;
-  // NumberOfParts: string;
-  Status: Boolean;
-  Stock: Number;
-  TestID: string;
 }
 
 export interface Loan {
@@ -57,19 +44,32 @@ export interface SignedOutItem {
   EndDate: string;
 }
 
-export async function createNewTest(
-  acronym: string,
-  testName: string,
-  measure: string,
-  level: string,
-  edition: string,
-  orderingCompany: string
-) {
+export type RequiredTest = Partial<Test> & { ID: string; Name: string }; // only required fields of test, rest is optional
+export type RequiredItem = Partial<Item> & {
+  ID: string;
+  TestID: string;
+  Stock: Number;
+};
+
+export async function createNewTest(test: RequiredTest) {
   // Add new Test
   // WAITING ON: ages and status to be added to Tests db
+  var endpoint = `/test/${test.ID}?Name=${test.Name}`;
+  if (test.LevelOfUser) {
+    endpoint += `&LevelOfUser=${test.LevelOfUser}`;
+  }
+  if (test.EditionNumber) {
+    endpoint += `&EditionNumber=${test.EditionNumber}`;
+  }
+  if (test.MeasureOf) {
+    endpoint += `&MeasureOf=${test.MeasureOf}`;
+  }
+  if (test.OrderingCompany) {
+    endpoint += `&OrderingCompany=${test.MeasureOf}`;
+  }
   try {
     const response: AxiosResponse = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/test/${acronym}?LevelOfUser=${level}&EditionNumber=${edition}&Name=${testName}&MeasureOf=${measure}&OrderingCompany=${orderingCompany}`
+      `${process.env.REACT_APP_BASE_URL}${endpoint}`
     );
     return response.data;
   } catch (error) {
@@ -136,7 +136,7 @@ export async function getItemsForTest(testAcronym: string) {
   }
 }
 
-export async function createNewItem(newItem: Item) {
+export async function createNewItem(newItem: RequiredItem) {
   // Add new item
 
   try {
@@ -627,29 +627,29 @@ export async function getAllOverdueTestsByUser(userId: string) {
 }
 
 export async function editTest(edits: {
-  acronym: string;
-  name?: string;
-  measure?: string;
-  level?: string;
-  edition?: string;
-  orderingCompany?: string;
+  ID: string;
+  Name?: string;
+  MeasureOf?: string;
+  LevelOfUser?: string;
+  EditionNumber?: string;
+  OrderingCompany?: string;
 }) {
   // Update a test's attributes
-  let endpoint = `/test/${edits.acronym}?`;
-  if (edits.name) {
-    endpoint += `&Name=${edits.name}`;
+  let endpoint = `/test/${edits.ID}?`;
+  if (edits.Name) {
+    endpoint += `&Name=${edits.Name}`;
   }
-  if (edits.measure) {
-    endpoint += `&MeasureOf=${edits.measure}`;
+  if (edits.MeasureOf) {
+    endpoint += `&MeasureOf=${edits.MeasureOf}`;
   }
-  if (edits.level) {
-    endpoint += `&LevelOfUser=${edits.level}`;
+  if (edits.LevelOfUser) {
+    endpoint += `&LevelOfUser=${edits.LevelOfUser}`;
   }
-  if (edits.edition) {
-    endpoint += `&EditionNumber=${edits.edition}`;
+  if (edits.EditionNumber) {
+    endpoint += `&EditionNumber=${edits.EditionNumber}`;
   }
-  if (edits.orderingCompany) {
-    endpoint += `&OrderingCompany=${edits.orderingCompany}`;
+  if (edits.OrderingCompany) {
+    endpoint += `&OrderingCompany=${edits.OrderingCompany}`;
   }
 
   try {
@@ -679,22 +679,9 @@ export async function editTest(edits: {
   }
 }
 
-export async function editItem(
-  itemId: string,
-  edits: {
-    Ages?: string;
-    IsArchived?: string;
-    ItemName?: string;
-    ItemType?: string;
-    Location?: string;
-    NumberOfParts?: string;
-    Status?: string;
-    Stock?: Number;
-    TestID?: string;
-  }
-) {
+export async function editItem(itemId: string, edits: Partial<Item>) {
   // Update a item's attributes
-  let updates: itemEdits = {};
+  let updates: Partial<Item> = {};
   if (edits.Ages) {
     updates["Ages"] = edits.Ages;
   }
@@ -709,9 +696,6 @@ export async function editItem(
   }
   if (edits.Location) {
     updates["Location"] = edits.Location;
-  }
-  if (edits.NumberOfParts) {
-    updates["NumberOfParts"] = edits.NumberOfParts;
   }
   if (edits.Status) {
     updates["Status"] = edits.Status;
