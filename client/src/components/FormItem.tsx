@@ -9,18 +9,32 @@ import uuid from "react-uuid";
 interface FormItemProps {
   onRemove: (id: string) => void;
   testId: string;
-  onChange?: (item: Partial<Item>) => void;
+  item?: Partial<Item> & { ID: string };
+  onChange?: (item: Partial<Item> & { ID: string }) => void;
 }
 
 const FormItem: React.FC<FormItemProps> = ({
   onRemove,
   testId,
-  onChange = (item: Partial<Item>) => {},
+  item,
+  onChange = (item: Partial<Item> & { ID: string }) => {},
 }: FormItemProps) => {
-  const [itemData, setItemData] = useState<Partial<Item>>({ ID: uuid() });
+  const [itemData, setItemData] = useState<Partial<Item> & { ID: string }>(
+    item ? item : { ID: uuid() }
+  );
   useEffect(() => {
-    onChange(itemData);
+    console.log("item changed!");
+    if (itemData != item) {
+      onChange(itemData);
+    }
   }, [itemData]);
+
+  useEffect(() => {
+    console.log("item removed!!");
+    if (item) {
+      setItemData(item);
+    }
+  }, [onRemove]);
   return (
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button
@@ -33,7 +47,8 @@ const FormItem: React.FC<FormItemProps> = ({
       <div className="pt-6">
         <div className="pr-4">
           <InputField
-            placeholder="Adult Form"
+            placeholder={itemData.ItemName ? itemData.ItemName : ""}
+            value={itemData.ItemName ? itemData.ItemName : ""}
             label="Item Name"
             important={true}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -46,8 +61,9 @@ const FormItem: React.FC<FormItemProps> = ({
             <Dropdown
               placeholder="Item Type"
               label="Item"
+              defaultOption={itemData.ItemType ? itemData.ItemType : undefined}
               options={itemTypeOptions}
-              important={true}
+              important={false}
               onChange={(option: string, label: string) =>
                 setItemData({ ...itemData, ItemType: option })
               }
@@ -55,7 +71,8 @@ const FormItem: React.FC<FormItemProps> = ({
           </div>
           <div className="pr-4 pt-4">
             <InputField
-              placeholder="10"
+              placeholder={item ? item.Stock?.toString() : "10"}
+              value={itemData.Stock ? itemData.Stock.toString() : ""}
               label="Quantity"
               type="Number"
               important={true}
@@ -67,10 +84,11 @@ const FormItem: React.FC<FormItemProps> = ({
         </div>
         <div className="pt-4 pb-6">
           <InputField
-            placeholder="Location item is stored"
+            placeholder={item ? item.Location : "Location that item is stored."}
+            value={itemData.Location ? itemData.Location : ""}
             label="Location"
             type="Text"
-            important={true}
+            important={false}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setItemData({ ...itemData, Location: e.target.value })
             }

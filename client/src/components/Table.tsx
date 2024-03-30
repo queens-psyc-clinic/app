@@ -17,8 +17,8 @@ import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { mapColumnTitleToDataIndex } from "../utils/data";
 import { testUser } from "../utils/mockData";
-import { Item, getItemsForTest } from "../services/TestService";
-import { Test } from "../models/BEModels";
+import { getItemsForTest } from "../services/TestService";
+import { Test, Item } from "../models/BEModels";
 import EditModal from "./EditModal";
 
 const Table = (props: {
@@ -35,6 +35,8 @@ const Table = (props: {
   const [expandedRows, setExpandedRows] = useState<
     { rowId: string; items: Item[] }[]
   >([]);
+
+  const [expandedRowsItems, setExpandedRowsItems] = useState<Item[]>([]);
 
   let columns: Column[];
 
@@ -94,6 +96,7 @@ const Table = (props: {
           ...prev,
           { rowId: selectedRow.ID, items: res },
         ]);
+        setExpandedRowsItems(res);
       });
     }
   };
@@ -114,6 +117,7 @@ const Table = (props: {
 
   const handleEditClick = (row: any) => {
     setSelectedRow(row);
+    toggleRowExpansion(row);
     setIsEditModalOpen(true);
   };
 
@@ -334,6 +338,8 @@ const Table = (props: {
           modalTitle="Edit Test"
           buttonLabel="Save Changes"
           secButtonLabel="Cancel"
+          test={selectedRow}
+          items={expandedRowsItems}
           isOpen={isEditModalOpen}
           closeModal={() => setIsEditModalOpen(false)}
         />

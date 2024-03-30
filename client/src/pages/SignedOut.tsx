@@ -3,9 +3,8 @@ import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import _ from "lodash";
-import { Test, SignedOutItem } from "../models/BEModels";
+import { Test, SignedOutItem, Item } from "../models/BEModels";
 import {
-  Item,
   getAllSignedOutItems,
   getAllSignedOutItemsByUser,
   getItemById,

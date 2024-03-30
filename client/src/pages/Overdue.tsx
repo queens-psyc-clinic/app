@@ -6,9 +6,8 @@ import { BiSolidBell } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import _ from "lodash";
 
-import { OverdueItem, Test } from "../models/BEModels";
+import { OverdueItem, Test, Item } from "../models/BEModels";
 import {
-  Item,
   getAllOverdueItems,
   getAllOverdueTestsByUser,
   getItemById,

@@ -6,7 +6,7 @@ export interface Test {
   LevelOfUser: string;
   MeasureOf: string;
   Name: string;
-  OrderingCompany: String;
+  OrderingCompany: string;
 }
 
 export interface Item {
