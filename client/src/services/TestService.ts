@@ -333,6 +333,46 @@ export async function getAllTests() {
   }
 }
 
+export async function getAllUnArchivedTests() {
+  // Get all the tests in the database
+
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/tests`,
+      {
+        filters: {
+          IsArchived: false,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
 export async function getTestsByQuery(query: testQuery) {
   // If userId, then get all of that user's overdue out tests
   // otherwise get all overdue  tests (admin)

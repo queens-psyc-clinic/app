@@ -52,7 +52,7 @@ const Archive = (props: { userRole: Role }) => {
     if (errors.length > 0) {
       alert("There was an issue archiving these tests.");
     } else {
-      alert("Items Archived Successfully");
+      alert("Items Unarchived Successfully");
       window.location.reload();
     }
   }
