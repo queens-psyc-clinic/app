@@ -22,9 +22,7 @@ const LowStock = (props: { userRole: Role }) => {
   >([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // WAITING ON trailing spaces fix on backend
   useEffect(() => {
-    // WAITING ON stock column to be adjusted in db
     setIsLoading(true);
     getLowStockItems().then(async (res) => {
       for (const lowStockItem of res) {

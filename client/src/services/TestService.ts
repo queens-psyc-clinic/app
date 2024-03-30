@@ -53,7 +53,6 @@ export type RequiredItem = Partial<Item> & {
 
 export async function createNewTest(test: RequiredTest) {
   // Add new Test
-  // WAITING ON: ages and status to be added to Tests db
   var endpoint = `/test/${test.ID}?Name=${test.Name}`;
   if (test.LevelOfUser) {
     endpoint += `&LevelOfUser=${test.LevelOfUser}`;
@@ -342,7 +341,6 @@ export async function getTestsByQuery(query: testQuery) {
 export async function getAllSignedOutItems() {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
-  // WAITING ON loan controller
   try {
     const response: AxiosResponse = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/loans`

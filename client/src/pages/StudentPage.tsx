@@ -12,7 +12,6 @@ const StudentPage = (props: { userRole: Role }) => {
   const [overdueData, setoverdueData] = useState<Test[]>([]);
 
   useEffect(() => {
-    // WAITING ON loan controller
     setSignedOutData([]);
     setoverdueData([]);
   }, []);

@@ -4,7 +4,12 @@ import expandedRowsData from "../models/tableExpandRows";
 import { Test, Item } from "../models/BEModels";
 import { getItemsForTest } from "../services/TestService";
 import { getPillColor } from "../models/libraryItem";
-import { addItemToCart, initializeCart } from "../services/ShoppingCartService";
+import {
+  addItemToCart,
+  clearCart,
+  getCart,
+  initializeCart,
+} from "../services/ShoppingCartService";
 import { FaMinus, FaPlus } from "react-icons/fa"; // Import React Icons
 import { CartItem } from "./Cart";
 
@@ -122,21 +127,26 @@ const CardsModal: React.FC<CardsModalProps> = ({
   };
 
   function addToCart() {
-    if (selectedItems.length == 0) {
+    const itemsToAddToCart: CartItem[] = testItems.filter((testItem) => {
+      return testItem.quantity > 0;
+    });
+    console.log(itemsToAddToCart);
+    if (itemsToAddToCart.length == 0) {
       alert("Select items to add to cart.");
     } else {
-      for (const item of selectedItems) {
-        addItemToCart(item);
+      for (const item of itemsToAddToCart) {
+        addItemToCart(item as CartItem);
       }
     }
     setTestItems([]);
+    setSelectedItems([]);
     closeModal();
   }
 
   return (
     <div>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10 z-50">
           <div className="bg-white rounded-lg p-8 max-h-full min-w-fit overflow-y-auto">
             {cardData && (
               <div>
@@ -201,7 +211,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                         id={testItem.item.ItemType}
                         name={testItem.item.ItemType}
                         value={testItem.item.ItemType}
-                        onClick={() => handleCheckboxChange(testItem.item.ID)}
+                        onChange={() => handleCheckboxChange(testItem.item.ID)}
                       />
                       <label className="pl-4">
                         <span
@@ -250,6 +260,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                 <button
                   onClick={() => {
                     setTestItems([]);
+                    setSelectedItems([]);
                     closeModal();
                   }}
                   className="hover:bg-gray-100 hover:text-gray-900 px-6 py-2 border-2 border-gray-900 rounded-lg text-sm font-semibold mr-4"

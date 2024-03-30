@@ -17,7 +17,7 @@ const Requests = (props: { userRole: Role }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // WAITING ON reservations table!
+    // WAITING ON reservations table or isConfirmed column in loans!
     setData([]);
   }, []);
 

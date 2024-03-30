@@ -6,6 +6,7 @@ import PillCell from "./PillCell";
 import ReserveModal from "./ReserveModal";
 import { getCart } from "../services/ShoppingCartService";
 import { Item } from "../models/BEModels";
+import uuid from "react-uuid";
 
 // const mockCart: CartItem[] = [
 //   {
@@ -48,14 +49,15 @@ const Cart = (props: { userRole: Role }) => {
 
     document.addEventListener("mousedown", handleClickOutside);
 
-    const cart: CartItem[] = getCart();
-    setCartItems(cart);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  // IMPLEMENT LOCAL STORAGE WHEN WE CONNECT BACKEND
+
+  useEffect(() => {
+    const cart: CartItem[] = getCart();
+    setCartItems(cart);
+  }, [isOpen]);
 
   const checkout = () => {
     // logic to check items are available and mark items as unavailable for pickup
@@ -80,17 +82,19 @@ const Cart = (props: { userRole: Role }) => {
           </i>
         </div>
         {isOpen && (
-          <div className="absolute top-20 right-20 bg-white w-[30vw] border-2 border-black rounded z-30">
+          <div className="absolute top-20 right-20 h-[65vh] overflow-scroll bg-white w-[30vw] border-2 border-black rounded z-30">
             <section className="w-full bg-[#393939] text-white font-bold p-4">
               Cart
             </section>
-            {cartItems.map((item) => {
+            {cartItems.map((cartItem) => {
               return (
-                <section className="bg-white" key={Date.now()}>
+                <section className="bg-white" key={uuid()}>
                   <section className="flex p-4 justify-between items-start">
                     <div className="ml-4">
                       <p className="text-sm font-semibold w-3/4">Test Name</p>
-                      <p className="text-sm font-light">Item Name</p>
+                      <p className="text-sm font-light">
+                        {cartItem.item.ItemName}
+                      </p>
                     </div>
                     <i className="cursor-pointer">
                       <MdDelete size={20} />
@@ -100,15 +104,17 @@ const Cart = (props: { userRole: Role }) => {
                     <PillCell
                       data={{
                         type: "item",
-                        title: item.item.ItemType || "",
+                        title: cartItem.item.ItemType || "",
                       }}
                     />
-                    {/* <PillCell
-                      data={{
-                        type: "age",
-                        title: `${item.minAge}-${item.maxAge}`,
-                      }}
-                    /> */}
+                    {cartItem.item.Ages && (
+                      <PillCell
+                        data={{
+                          type: "age",
+                          title: cartItem.item.Ages,
+                        }}
+                      />
+                    )}
                   </section>
 
                   <hr className="w-1/2 border-gray-100 mx-auto"></hr>

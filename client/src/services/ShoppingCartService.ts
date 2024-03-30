@@ -5,13 +5,10 @@ This service handles shopping cart
 import axios, { AxiosResponse } from "axios";
 import { getItemById } from "./TestService";
 import { Item } from "../models/BEModels";
+import { CartItem } from "../components/Cart";
 // NO NEED FOR BACKEND ENDPOINTS FOR ANY OF THESE :)
 // Shopping carts stored in Local Storage in the browser
 const localStorageCart = "cart";
-interface CartItem {
-  quantity: number;
-  item: Item;
-}
 
 function _isCartInitialized() {
   if (localStorage.getItem(localStorageCart) == null) {
@@ -34,21 +31,31 @@ export function getCart(): CartItem[] {
   }
 }
 
-export async function addItemToCart(itemId: string) {
+export async function addItemToCart(cartItem: CartItem) {
   // Add a test to the user's cart in local storage
+  // const cart = getCart();
+  // const item = await getItemById(itemId);
+  // if (item) {
+  //   if (isItemInCart(itemId)) {
+  //     console.log(getQuantityofItem(itemId));
+  //     increaseQuantityofTest(itemId, (getQuantityofItem(itemId) as number) + 1);
+  //   } else {
+  //     cart.push({
+  //       quantity: 1,
+  //       item: item,
+  //     });
+  //     localStorage.setItem(localStorageCart, JSON.stringify(cart));
+  //   }
+  // }
   const cart = getCart();
-  const item = await getItemById(itemId);
-  if (item) {
-    if (isItemInCart(itemId)) {
-      console.log(getQuantityofItem(itemId));
-      increaseQuantityofTest(itemId, (getQuantityofItem(itemId) as number) + 1);
-    } else {
-      cart.push({
-        quantity: 1,
-        item: item,
-      });
-      localStorage.setItem(localStorageCart, JSON.stringify(cart));
-    }
+  if (isItemInCart(cartItem.item.ID)) {
+    increaseQuantityofTest(
+      cartItem.item.ID,
+      (getQuantityofItem(cartItem.item.ID) as number) + 1
+    );
+  } else {
+    cart.push(cartItem);
+    localStorage.setItem(localStorageCart, JSON.stringify(cart));
   }
 }
 
@@ -98,7 +105,7 @@ export async function checkIfCartIsValid() {
   // Checks if all items in the cart (in the specified quantities) are available
   const cart: CartItem[] = getCart();
   for (const cartItem of cart) {
-    if (cartItem.item.Stock < cartItem.quantity) {
+    if (cartItem.item.Stock! < cartItem.quantity) {
       return false;
     }
   }
@@ -107,6 +114,6 @@ export async function checkIfCartIsValid() {
 
 export async function checkout(userId: string) {
   // Mark all items (in the specified quantities) as reserved (for 2 hours) by the userId
-  // WAITING ON reservation table and notification CRONs
+  // WAITING ON isConfirmed COlumn and notification CRONs
   clearCart();
 }
