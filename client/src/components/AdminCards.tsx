@@ -2,21 +2,57 @@ import React from "react";
 import { Link } from "react-router-dom";
 import cardSampleData, { AdminCardData } from "../models/adminCards";
 import { Role } from "../models/User";
+import lowStockSvg from "../assets/icons/low-stock-color.svg";
+import overdueSvg from "../assets/icons/overdue-color.svg";
+import signOutSvg from "../assets/icons/sign-out-color.svg";
 
 interface AdminCardsProps {
   userRole: Role;
+  cardCounts: {
+    signedOut: number;
+    lowStock: number;
+    overdue: number;
+  };
 }
 
 const AdminCards: React.FC<AdminCardsProps> = ({
   userRole,
+  cardCounts,
 }: AdminCardsProps) => {
   if (userRole !== "admin") {
     return null;
   }
 
+  const cards = [
+    {
+      id: "1",
+      Name: "Signed Out Items",
+      Count: cardCounts.signedOut.toString(),
+      Icon: signOutSvg,
+      Link: "/signed-out",
+      route: "/signed-out",
+    },
+    {
+      id: "2",
+      Name: "Overdue Items",
+      Count: cardCounts.overdue.toString(),
+      Icon: overdueSvg,
+      Link: "/overdue",
+      route: "/overdue",
+    },
+    {
+      id: "3",
+      Name: "Low Stock Items",
+      Count: cardCounts.lowStock.toString(),
+      Icon: lowStockSvg,
+      Link: "/low-stock",
+      route: "/low-stock",
+    },
+  ];
+
   return (
     <div className="flex flex-wrap space-x-10">
-      {cardSampleData.map((cardData: AdminCardData) => (
+      {cards.map((cardData: AdminCardData) => (
         <Link
           key={cardData.id}
           to={`/admin${cardData.route}`}
