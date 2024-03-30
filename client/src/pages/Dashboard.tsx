@@ -117,10 +117,10 @@ const Dashboard = (props: { userRole: Role }) => {
               </section>
               <div onClick={deleteSelectedRows}>
                 <ConfirmModal
-                  header="Delete Items"
-                  description="Are you sure you would like to delete these items?"
+                  header="Are you sure?"
+                  description="This action cannot be reversed."
                   secondButton="Cancel"
-                  button="Confirm Delete"
+                  button="Delete"
                   isOpen={showConfirmModal}
                   closeModal={() => setShowConfirmModal(false)}
                 />
