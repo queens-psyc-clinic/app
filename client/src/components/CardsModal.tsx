@@ -88,9 +88,12 @@ const CardsModal: React.FC<CardsModalProps> = ({
               </p>
             </div>
             <div>
-              <section className="flex items-center mt-8 mb-4">
-                <h3 className="font-bold">Items in kit:</h3>
-                <div className="ml-auto">
+              <section className="flex-row items-center mt-8 mb-4">
+                <div>
+                  <h3 className="font-bold pb-5">Test Items:</h3>
+                </div>
+
+                <div className="">
                   <button
                     className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm font-semibold"
                     onClick={() => handleSelectAll()}
