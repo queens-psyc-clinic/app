@@ -9,7 +9,6 @@ import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Card from "../components/Card";
-import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
 import {

@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
-import archive from "../assets/icons/archive.svg";
 import Table from "../components/Table";
-import { defaultMockData } from "../utils/mockData";
 import { Item, Test } from "../models/BEModels";
-import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
 import {
@@ -15,6 +12,7 @@ import {
   unArchiveTest,
 } from "../services/TestService";
 import uuid from "react-uuid";
+import { RiInboxUnarchiveFill } from "react-icons/ri";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -74,13 +72,10 @@ const Archive = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-              <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
-                <img
-                  src={archive}
-                  className="mr-4"
-                  alt="archive icon"
-                  onClick={() => unArchiveTests()}
-                />
+              <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center" onClick={() => unArchiveTests()}>
+                <i className="mr-4">
+                      <RiInboxUnarchiveFill size={20}/>
+                    </i>
                 <p>Unarchive</p>
               </button>
             </section>
