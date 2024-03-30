@@ -68,7 +68,6 @@ export default function EditModal({
                     placeholder="Select a measure"
                     label="Measure"
                     options={measureOptions}
-                    important={true}
                   />
                 </div>
                 <div>
@@ -89,14 +88,12 @@ export default function EditModal({
                     placeholder="C"
                     label="Level of Use"
                     options={levelOptions}
-                    important={false}
                   />
                 </div>
                 <div className="pr-4">
                   <InputField
                     placeholder="2"
                     label="Edition"
-                    important={true}
                     type="Number"
                   />
                 </div>
@@ -120,6 +117,12 @@ export default function EditModal({
                   placeholder="www.orderingcompany.ca"
                   label="Ordering Company"
                   important={true}
+                />
+              </div>
+              <div className="pr-4 pt-4">
+                <InputField
+                  placeholder="Any additional notes about the test"
+                  label="Additional Notes"
                 />
               </div>
             </div>

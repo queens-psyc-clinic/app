@@ -130,7 +130,7 @@ const Archive = (props: { userRole: Role }) => {
           </div>
           <CardsModal
             modalTitle={selectedCard?.Name || ""}
-            buttonLabel="Add to Cart"
+            buttonLabel="Send Request"
             secButtonLabel="Close"
             isOpen={isModalOpen}
             closeModal={toggleModal}

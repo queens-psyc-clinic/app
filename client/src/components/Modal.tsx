@@ -220,20 +220,19 @@ export default function Modal({
                     placeholder="Select a measure"
                     label="Measure"
                     options={measureOptions}
-                    important={true}
                     onChange={(option: string, label: string) =>
                       setTestData({ ...testData, MeasureOf: option })
                     }
                   />
                 </div>
-                {/* <div>
+                <div>
                   <InputField
                     placeholder="10"
                     label="Quantity"
                     important={true}
                     type="Number"
                   />
-                </div> */}
+                </div>
               </div>
               <div className="py-4">
                 <RangeSlider label="Ages" onChange={setAgeRange} />
@@ -244,7 +243,6 @@ export default function Modal({
                     placeholder="Level of Use"
                     label="Level of Use"
                     options={levelOptions}
-                    important={true}
                     onChange={(option: string, label: string) =>
                       setTestData({ ...testData, LevelOfUser: option })
                     }
@@ -254,7 +252,6 @@ export default function Modal({
                   <InputField
                     placeholder="2"
                     label="Edition"
-                    important={true}
                     type="Number"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setTestData({
@@ -275,13 +272,13 @@ export default function Modal({
                   />
                 </div>
               </div>
-              {/* <div className="pr-4">
+              <div className="pr-4">
                 <InputField
                   placeholder="Location test is stored"
                   label="Location"
                   important={true}
                 />
-              </div> */}
+              </div>
               <div className="pr-4 pt-4">
                 <InputField
                   placeholder="www.orderingcompany.ca"
@@ -293,6 +290,12 @@ export default function Modal({
                       OrderingCompany: e.target.value,
                     })
                   }
+                />
+              </div>
+              <div className="pr-4 pt-4">
+                <InputField
+                  placeholder="Any additional notes about the test"
+                  label="Additional Notes"
                 />
               </div>
             </div>
