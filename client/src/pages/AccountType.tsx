@@ -43,7 +43,7 @@ const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
                     ></img>
                   </div>
                   <div className="pl-8 flex items-center">
-                    <p>Student</p>
+                    <p>User</p>
                   </div>
                 </div>
                 <div

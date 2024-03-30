@@ -57,7 +57,11 @@ class User(Resource):
             type: string
             required: true
           - in: query
-            name: UserName
+            name: FirstName
+            type: string
+            required: true
+          - in: query
+            name: LastName
             type: string
             required: true
         responses:
@@ -68,17 +72,14 @@ class User(Resource):
               properties:
                 ID: 
                   type: string
-                  description: user id
-                UserName:
+                FirstName:
                   type: string
-                  description: The name of the user
+                LastName:
+                  type: string
                 Email:
                   type: string
-                  description: The email of the user
-
                 IsAdmin:
                   type: boolean
-                  description: Permissions
         """
          
         if request.method == "OPTIONS": # CORS preflight

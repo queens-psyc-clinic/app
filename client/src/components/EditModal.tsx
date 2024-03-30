@@ -285,6 +285,12 @@ export default function EditModal({
                   }
                 />
               </div>
+              <div className="pr-4 pt-4">
+                <InputField
+                  placeholder="Any additional notes about the test"
+                  label="Additional Notes"
+                />
+              </div>
             </div>
 
             <h2 className="text-lg font-bold mt-8">Items in Test</h2>

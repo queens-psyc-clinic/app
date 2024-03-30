@@ -1,5 +1,6 @@
 from typing import Dict, Tuple, List, Union, Optional
 from typing import Any, Dict, List, Mapping, Optional, Tuple
+from os import getenv
 import pymysql
 import pymysql.cursors
 
@@ -10,20 +11,20 @@ MaybeEntries = Optional[Entries]
 
 # configuration for connection to the database
 _db_config: Mapping = {
-    'host': 'db',
-    'user': 'dev',
-    'password': '498capstone',
-    'db': 'psychClinic'
+    'host': getenv('DB_HOST'),
+    'user': getenv('DB_USER'),
+    'password': getenv('DB_PASSWORD'),
+    'db': getenv('DB_NAME')
 }
 
 
 def check_exists(id: int, table: str, admin=False) -> bool:
     try:
         if admin:
-            res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id} AND IsAdmin=1)")[0]
+            res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id} AND IsAdmin=1)")
         else:
-            res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id})")[0]
-        return res != None
+            res = execute_query(f"(SELECT 1 FROM {table} WHERE id={id})")
+        return res[0] != None
     except:
         return False
 
