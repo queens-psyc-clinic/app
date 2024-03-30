@@ -13,7 +13,6 @@ import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Card from "../components/Card";
-import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
 import {
@@ -28,6 +27,7 @@ import {
 } from "../services/TestService";
 import { Test, Item } from "../models/BEModels";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -40,6 +40,7 @@ const Dashboard = (props: { userRole: Role }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [data, setData] = useState<Test[]>([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   /* FETCHING REAL DATA */
   useEffect(() => {
@@ -66,8 +67,13 @@ const Dashboard = (props: { userRole: Role }) => {
     setSelectedItems(items);
   };
 
+  const handleDeleteButtonClick = () => {
+    setShowConfirmModal(true);
+  };
+
   const deleteSelectedRows = async () => {
     // TODO: SHOULD POP MODAL FIRST
+    // ensure when you press cancel it doesn't delete :)
 
     for (const testId of selectedRows) {
       try {
@@ -98,7 +104,8 @@ const Dashboard = (props: { userRole: Role }) => {
                 <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
                   <Modal modalTitle="Add Item" buttonLabel="Add" />
                   <button
-                    onClick={deleteSelectedRows}
+                    // onClick={deleteSelectedRows}
+                    onClick={handleDeleteButtonClick}
                     className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
                   >
                     <i className="mr-4">
@@ -108,7 +115,16 @@ const Dashboard = (props: { userRole: Role }) => {
                   </button>
                 </section>
               </section>
-
+              <div onClick={deleteSelectedRows}>
+                <ConfirmModal
+                  header="Are you sure?"
+                  description="This action cannot be reversed."
+                  secondButton="Cancel"
+                  button="Delete"
+                  isOpen={showConfirmModal}
+                  closeModal={() => setShowConfirmModal(false)}
+                />
+              </div>
               <Table
                 tableType="default"
                 currentPage={currentPage}
