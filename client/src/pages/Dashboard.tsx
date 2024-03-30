@@ -73,6 +73,7 @@ const Dashboard = (props: { userRole: Role }) => {
 
   const deleteSelectedRows = async () => {
     // TODO: SHOULD POP MODAL FIRST
+    // ensure when you press cancel it doesn't delete :)
 
     for (const testId of selectedRows) {
       try {
@@ -116,6 +117,10 @@ const Dashboard = (props: { userRole: Role }) => {
               </section>
               <div onClick={deleteSelectedRows}>
                 <ConfirmModal
+                  header="Delete Items"
+                  description="Are you sure you would like to delete these items?"
+                  secondButton="Cancel"
+                  button="Confirm Delete"
                   isOpen={showConfirmModal}
                   closeModal={() => setShowConfirmModal(false)}
                 />
