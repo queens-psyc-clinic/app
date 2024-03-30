@@ -1,23 +1,21 @@
-from flask import Flask, abort
-from flask_restful import Api, request
+from flask import Flask
+from flask_restful import Api
 from flasgger import Swagger
 from flask_cors import CORS
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from dotenv import load_dotenv
 from os import getenv
 
-import common.db
+from common.mail import send_email
 
 from resources.user import User
 from resources.users import Users
-from resources.item import Item
+from resources.item import Item, CreateItem
 from resources.items import Items
-from resources.createItem import CreateItem
 from resources.test import Test
 from resources.tests import Tests
-from resources.loan import Loan
+from resources.loan import Loan, CreateLoan
 from resources.loans import Loans
-from resources.createLoan import CreateLoan
 from resources.search import Search
 
 load_dotenv()
@@ -27,8 +25,8 @@ CORS(app, origins=['http://localhost:3000'], allow_headers=["Content-Type"])
 api = Api(app)
 swagger = Swagger(app)
 
-mail= Mail(app)
-app.config['MAIL_SERVER']= getenv('MAIL_SERVER')
+mail = Mail(app)
+app.config['MAIL_SERVER'] = getenv('MAIL_SERVER')
 app.config['MAIL_PORT'] = getenv('MAIL_PORT')
 app.config['MAIL_USERNAME'] = getenv('MAIL')
 app.config['MAIL_PASSWORD'] = getenv('MAIL_PASSWORD')
@@ -36,10 +34,11 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
+
 @app.route('/email/<id>/<subject>/<email>', methods=['POST'])
-def email_notifs(id, subject, email):
+def mail_notification(id, subject, email):
     """
-    end email notification
+    Send email notification
     ---
     tags:
       - Email
@@ -58,14 +57,8 @@ def email_notifs(id, subject, email):
       200:
         description: Email sent
     """
-    if not common.db.check_exists(id, 'Users', admin=True):
-        abort(401)
-    
-    message = request.get_data(as_text=True)
-    msg = Message(subject, sender = 'psyc.clinic.app@gmail.com', recipients = [email])
-    msg.body = message
-    mail.send(msg)
-    return "Sent", 200
+    return send_email(mail, id, subject, email)
+
 
 api.add_resource(User, '/user/<string:email>/<string:password>')
 api.add_resource(Users, '/users/<id>')
