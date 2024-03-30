@@ -5,6 +5,7 @@ interface DropdownProps {
   placeholder?: string;
   label?: string;
   important?: boolean;
+  defaultOption?: string;
   type?: string;
   options: string[];
   onChange?: Function;
@@ -15,13 +16,20 @@ const Dropdown: React.FC<DropdownProps> = ({
   label = "",
   important = false,
   type = "text",
+  defaultOption,
   onChange = (option: any, label: any) => console.log(option, label),
   options,
 }: DropdownProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(
+    defaultOption ? defaultOption : ""
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  useEffect(() => {
+    if (defaultOption) {
+      setSelectedOption(defaultOption);
+    }
+  }, [defaultOption]);
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };

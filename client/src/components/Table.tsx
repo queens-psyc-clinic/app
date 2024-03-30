@@ -17,8 +17,9 @@ import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { mapColumnTitleToDataIndex } from "../utils/data";
 import { testUser } from "../utils/mockData";
-import { Item, getItemsForTest } from "../services/TestService";
-import { Test } from "../models/BEModels";
+import { getItemsForTest } from "../services/TestService";
+import { Test, Item } from "../models/BEModels";
+import EditModal from "./EditModal";
 
 const Table = (props: {
   tableType: string;
@@ -34,6 +35,8 @@ const Table = (props: {
   const [expandedRows, setExpandedRows] = useState<
     { rowId: string; items: Item[] }[]
   >([]);
+
+  const [expandedRowsItems, setExpandedRowsItems] = useState<Item[]>([]);
 
   let columns: Column[];
 
@@ -93,6 +96,7 @@ const Table = (props: {
           ...prev,
           { rowId: selectedRow.ID, items: res },
         ]);
+        setExpandedRowsItems(res);
       });
     }
   };
@@ -105,6 +109,16 @@ const Table = (props: {
     const row = expandedRows.find((row) => row.rowId === rowId);
     if (row?.items) return row.items;
     else return [];
+  };
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+
+  const handleEditClick = (row: any) => {
+    setSelectedRow(row);
+    toggleRowExpansion(row);
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -181,7 +195,10 @@ const Table = (props: {
                     </td>
                     {props.isEditable && (
                       <td className="px-4 py-2" key={uuid()}>
-                        <i className="text-black cursor-pointer">
+                        <i
+                          className="text-black cursor-pointer"
+                          onClick={() => handleEditClick(row)}
+                        >
                           <FiEdit size={15} />
                         </i>
                       </td>
@@ -316,6 +333,17 @@ const Table = (props: {
           })}
         </tbody>
       </table>
+      {isEditModalOpen && (
+        <EditModal
+          modalTitle="Edit Test"
+          buttonLabel="Save Changes"
+          secButtonLabel="Cancel"
+          test={selectedRow}
+          items={expandedRowsItems}
+          isOpen={isEditModalOpen}
+          closeModal={() => setIsEditModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
