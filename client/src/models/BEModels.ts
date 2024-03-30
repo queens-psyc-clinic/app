@@ -12,7 +12,7 @@ export interface Test {
 export interface Item {
   Ages: string;
   ID: string;
-  IsArchived: Number; //
+  IsArchived: Number;
   ItemName: string;
   ItemType: string;
   Location: string;
