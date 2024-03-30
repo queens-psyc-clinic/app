@@ -6,7 +6,10 @@ import Table from "../components/Table";
 import { Item, Test } from "../models/BEModels";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
+import { MdDelete } from "react-icons/md";
+
 import {
+  deleteEntireTest,
   getAllArchivedTests,
   isTestAvailable,
   unArchiveTest,
@@ -55,6 +58,18 @@ const Archive = (props: { userRole: Role }) => {
     }
   }
 
+  const deleteSelectedRows = async () => {
+    // TODO: SHOULD POP MODAL FIRST
+    for (const testId of selectedRows) {
+      try {
+        deleteEntireTest(testId);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    window.location.reload();
+  };
+
   useEffect(() => {
     getAllArchivedTests().then((res) => setData(res));
   }, []);
@@ -72,11 +87,23 @@ const Archive = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-              <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center" onClick={() => unArchiveTests()}>
+              <button
+                className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
+                onClick={() => unArchiveTests()}
+              >
                 <i className="mr-4">
-                      <RiInboxUnarchiveFill size={20}/>
-                    </i>
+                  <RiInboxUnarchiveFill size={20} />
+                </i>
                 <p>Unarchive</p>
+              </button>
+              <button
+                onClick={deleteSelectedRows}
+                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+              >
+                <i className="mr-4">
+                  <MdDelete size={20} />
+                </i>
+                <p>Delete</p>
               </button>
             </section>
           </section>
