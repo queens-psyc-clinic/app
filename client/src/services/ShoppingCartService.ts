@@ -31,6 +31,10 @@ export function getCart(): CartItem[] {
   }
 }
 
+export function setCart(cart: CartItem[]) {
+  localStorage.setItem(localStorageCart, JSON.stringify(cart));
+}
+
 export async function addItemToCart(cartItem: CartItem) {
   // Add a test to the user's cart in local storage
   // const cart = getCart();
@@ -49,17 +53,26 @@ export async function addItemToCart(cartItem: CartItem) {
   // }
   const cart = getCart();
   if (isItemInCart(cartItem.item.ID)) {
-    increaseQuantityofTest(
-      cartItem.item.ID,
-      (getQuantityofItem(cartItem.item.ID) as number) + 1
-    );
+    const newQuantity =
+      (getQuantityofItem(cartItem.item.ID) as number) + cartItem.quantity;
+    if (newQuantity > cartItem.item.Stock!) {
+      changeQuantityofTest(cartItem.item.ID, cartItem.item.Stock!);
+    } else {
+      changeQuantityofTest(cartItem.item.ID, newQuantity);
+    }
   } else {
     cart.push(cartItem);
     localStorage.setItem(localStorageCart, JSON.stringify(cart));
   }
 }
 
-export async function increaseQuantityofTest(
+export function deleteItemFromCart(itemId: string) {
+  const cart = getCart();
+  const newCart = cart.filter((cartItem) => cartItem.item.ID != itemId);
+  localStorage.setItem(localStorageCart, JSON.stringify(newCart));
+}
+
+export async function changeQuantityofTest(
   itemId: string,
   newQuantity: Number
 ) {
@@ -104,12 +117,20 @@ export function getQuantityofItem(itemId: string) {
 export async function checkIfCartIsValid() {
   // Checks if all items in the cart (in the specified quantities) are available
   const cart: CartItem[] = getCart();
+  const unAvailableItems: CartItem[] = [];
+  const availableItems: CartItem[] = [];
   for (const cartItem of cart) {
-    if (cartItem.item.Stock! < cartItem.quantity) {
-      return false;
+    const item = await getItemById(cartItem.item.ID);
+    if (item.Stock < cartItem.quantity) {
+      unAvailableItems.push(cartItem);
+    } else {
+      availableItems.push(cartItem);
     }
   }
-  return true;
+  return {
+    unAvailable: unAvailableItems,
+    available: availableItems,
+  };
 }
 
 export async function checkout(userId: string) {

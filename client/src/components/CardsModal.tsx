@@ -7,6 +7,7 @@ import { getPillColor } from "../models/libraryItem";
 import {
   addItemToCart,
   clearCart,
+  deleteItemFromCart,
   getCart,
   initializeCart,
 } from "../services/ShoppingCartService";
@@ -127,9 +128,17 @@ const CardsModal: React.FC<CardsModalProps> = ({
   };
 
   function addToCart() {
-    const itemsToAddToCart: CartItem[] = testItems.filter((testItem) => {
-      return testItem.quantity > 0;
-    });
+    const itemsToAddToCart: CartItem[] = testItems
+      .filter((testItem) => {
+        return testItem.quantity > 0;
+      })
+      .map((cartItem) => {
+        return {
+          ...cartItem,
+          MeasureOf: cardData?.MeasureOf,
+          TestName: cardData?.Name,
+        };
+      });
     console.log(itemsToAddToCart);
     if (itemsToAddToCart.length == 0) {
       alert("Select items to add to cart.");

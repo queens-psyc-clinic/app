@@ -1,15 +1,45 @@
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
+import { CartItem } from "./Cart";
+import uuid from "react-uuid";
+import {
+  checkIfCartIsValid,
+  getCart,
+  setCart,
+} from "../services/ShoppingCartService";
 
 const ReserveModal = ({
   isSuccessful,
   isOpen = true,
   closeModal,
+  cartValidity,
 }: {
   isSuccessful: boolean;
   isOpen: boolean;
   closeModal: Function;
+  cartValidity?: { available: CartItem[]; unAvailable: CartItem[] };
 }) => {
+  async function getAvailableItems() {
+    // logic to check items are available and mark items as unavailable for pickup
+    const cart = getCart();
+    const updatedCart = cart.filter((cartItem) => {
+      return !isItemUnavailable(cartItem.item.ID);
+    });
+    setCart(updatedCart);
+    closeModal();
+  }
+
+  function isItemUnavailable(itemId: string) {
+    if (cartValidity) {
+      const ind = cartValidity.unAvailable.findIndex(
+        (elem) => elem.item.ID === itemId
+      );
+      return ind >= 0;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <div
       className={`${
@@ -37,11 +67,23 @@ const ReserveModal = ({
             <section className="flex space-x-24">
               <section>
                 <h3 className="font-medium">Available:</h3>
-                -list available items here
+                {cartValidity?.available.map((cartItem) => {
+                  return (
+                    <li key={uuid()}>
+                      {cartItem.item.ItemName} ({cartItem.item.ItemType})
+                    </li>
+                  );
+                })}
               </section>
               <section>
                 <h3 className="font-medium">Unavailable:</h3>
-                -list unavailable items here
+                {cartValidity?.unAvailable.map((cartItem) => {
+                  return (
+                    <li key={uuid()}>
+                      {cartItem.item.ItemName} ({cartItem.item.ItemType})
+                    </li>
+                  );
+                })}
               </section>
             </section>
           </div>
@@ -58,7 +100,7 @@ const ReserveModal = ({
         ) : (
           <section className="flex space-x-4">
             <button
-              onClick={() => closeModal()}
+              onClick={() => getAvailableItems()}
               className="mt-4 flex justify-center w-1/2 text-sm font-semibold cursor-pointer text-black border border-black  p-4 rounded-lg flex"
             >
               Reserve Available Items
