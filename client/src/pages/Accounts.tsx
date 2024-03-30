@@ -3,8 +3,13 @@ import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import AccountsTable from "../components/AccountsTable";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { MdCheckCircle } from "react-icons/md";
-import { getAllSignedOutItems, getAllSignedOutItemsByUser, getItemById, getItemMeasure } from "../services/TestService";
+import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
+import {
+  getAllSignedOutItems,
+  getAllSignedOutItemsByUser,
+  getItemById,
+  getItemMeasure,
+} from "../services/TestService";
 import _ from "lodash";
 import { Test, SignedOutItem } from "../models/BEModels";
 import uuid from "react-uuid";
@@ -13,10 +18,15 @@ import Card from "../components/Card";
 const Accounts = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<Omit<Test, "OrderingCompany"> | null>(null);
+  const [selectedCard, setSelectedCard] = useState<Omit<
+    Test,
+    "OrderingCompany"
+  > | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
-  const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>([]);
+  const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
+    []
+  );
 
   /* FETCHING REAL DATA */
   useEffect(() => {
@@ -89,11 +99,17 @@ const Accounts = (props: { userRole: Role }) => {
               <section className="mt-6 space-y-4 pb-5">
                 <SearchBar />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-                  <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
+                  <button className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center">
                     <i className="mr-4">
                       <MdCheckCircle size={20} />
                     </i>
-                    <p>Approve Account</p>
+                    <p>Approve</p>
+                  </button>
+                  <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
+                    <i className="mr-4">
+                      <MdRemoveCircle size={20} />
+                    </i>
+                    <p>Decline</p>
                   </button>
                 </section>
               </section>
