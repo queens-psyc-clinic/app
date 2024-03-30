@@ -5,6 +5,7 @@ const ConfirmModal = ({
   description,
   button,
   secondButton,
+  onOk,
 }: {
   isOpen: boolean;
   closeModal: Function;
@@ -12,7 +13,12 @@ const ConfirmModal = ({
   description: String;
   button: String;
   secondButton: string;
+  onOk: () => void;
 }) => {
+  async function handleOk() {
+    await onOk();
+    closeModal();
+  }
   return (
     <div
       className={`${
@@ -30,7 +36,7 @@ const ConfirmModal = ({
             {secondButton}
           </button>
           <button
-            onClick={() => closeModal()}
+            onClick={() => handleOk()}
             className="text-white hover:bg-red-800 bg-red-900 px-6 py-2 rounded-lg text-sm font-semibold"
           >
             {button}

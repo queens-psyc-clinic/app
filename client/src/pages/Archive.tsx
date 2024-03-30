@@ -16,6 +16,7 @@ import {
 } from "../services/TestService";
 import uuid from "react-uuid";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -27,6 +28,7 @@ const Archive = (props: { userRole: Role }) => {
   > | null>(null);
   const [data, setData] = useState<Omit<Test, "OrderingCompany">[]>([]);
   const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -62,12 +64,16 @@ const Archive = (props: { userRole: Role }) => {
     // TODO: SHOULD POP MODAL FIRST
     for (const testId of selectedRows) {
       try {
-        deleteEntireTest(testId);
+        await deleteEntireTest(testId);
       } catch (e) {
         console.log(e);
       }
     }
     window.location.reload();
+  };
+
+  const handleDeleteButtonClick = () => {
+    setShowConfirmModal(true);
   };
 
   useEffect(() => {
@@ -97,7 +103,7 @@ const Archive = (props: { userRole: Role }) => {
                 <p>Unarchive</p>
               </button>
               <button
-                onClick={deleteSelectedRows}
+                onClick={handleDeleteButtonClick}
                 className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
               >
                 <i className="mr-4">
@@ -107,6 +113,17 @@ const Archive = (props: { userRole: Role }) => {
               </button>
             </section>
           </section>
+          <div>
+            <ConfirmModal
+              header="Are you sure?"
+              description="This action cannot be reversed."
+              secondButton="Cancel"
+              button="Delete"
+              isOpen={showConfirmModal}
+              closeModal={() => setShowConfirmModal(false)}
+              onOk={async () => deleteSelectedRows()}
+            />
+          </div>
           <Table
             tableType="default"
             currentPage={currentPage}

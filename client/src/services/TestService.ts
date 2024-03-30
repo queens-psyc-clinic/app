@@ -1290,6 +1290,7 @@ export async function deleteLoan(loanId: string) {
 
 export async function deleteEntireTest(testId: string) {
   try {
+    console.log("deleting", testId);
     const testItems: Item[] = await getItemsForTest(testId);
     for (const item of testItems) {
       const loans: Loan[] = await getLoansForItem(item.ID);

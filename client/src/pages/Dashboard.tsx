@@ -75,7 +75,7 @@ const Dashboard = (props: { userRole: Role }) => {
 
     for (const testId of selectedRows) {
       try {
-        deleteEntireTest(testId);
+        await deleteEntireTest(testId);
       } catch (e) {
         console.log(e);
       }
@@ -134,7 +134,7 @@ const Dashboard = (props: { userRole: Role }) => {
                   </button>
                 </section>
               </section>
-              <div onClick={deleteSelectedRows}>
+              <div>
                 <ConfirmModal
                   header="Are you sure?"
                   description="This action cannot be reversed."
@@ -142,6 +142,7 @@ const Dashboard = (props: { userRole: Role }) => {
                   button="Delete"
                   isOpen={showConfirmModal}
                   closeModal={() => setShowConfirmModal(false)}
+                  onOk={async () => deleteSelectedRows()}
                 />
               </div>
               <Table
