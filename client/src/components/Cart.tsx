@@ -1,32 +1,38 @@
 import { useEffect, useRef, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Role } from "../models/User";
-import { CartItem } from "../models/libraryItem";
 import { MdDelete } from "react-icons/md";
 import PillCell from "./PillCell";
 import ReserveModal from "./ReserveModal";
+import { getCart } from "../services/ShoppingCartService";
+import { Item } from "../models/BEModels";
 
-const mockCart: CartItem[] = [
-  {
-    id: "1",
-    Name: "Adaptive Behaviour Assessment System",
-    "Item Name": "Adult Form",
-    Item: "Form",
-    minAge: 16,
-    maxAge: 89,
-  },
-  {
-    id: "2",
-    Name: "Coping Responses Inventory",
-    "Item Name": "Professional Manual",
-    Item: "Manual",
-    minAge: 16,
-    maxAge: 89,
-  },
-];
+// const mockCart: CartItem[] = [
+//   {
+//     id: "1",
+//     Name: "Adaptive Behaviour Assessment System",
+//     "Item Name": "Adult Form",
+//     Item: "Form",
+//     minAge: 16,
+//     maxAge: 89,
+//   },
+//   {
+//     id: "2",
+//     Name: "Coping Responses Inventory",
+//     "Item Name": "Professional Manual",
+//     Item: "Manual",
+//     minAge: 16,
+//     maxAge: 89,
+//   },
+// ];
+
+export interface CartItem {
+  quantity: number;
+  item: Partial<Item> & { ID: string };
+}
 const Cart = (props: { userRole: Role }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>(mockCart);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCheckout, setIsCheckout] = useState(false);
   const cartRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +48,8 @@ const Cart = (props: { userRole: Role }) => {
 
     document.addEventListener("mousedown", handleClickOutside);
 
-    // ADD LOGIC TO GET CART ITEMS FROM LOCAL STORAGE
+    const cart: CartItem[] = getCart();
+    setCartItems(cart);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -82,8 +89,8 @@ const Cart = (props: { userRole: Role }) => {
                 <section className="bg-white" key={Date.now()}>
                   <section className="flex p-4 justify-between items-start">
                     <div className="ml-4">
-                      <p className="text-sm font-semibold w-3/4">{item.Name}</p>
-                      <p className="text-sm font-light">{item["Item Name"]}</p>
+                      <p className="text-sm font-semibold w-3/4">Test Name</p>
+                      <p className="text-sm font-light">Item Name</p>
                     </div>
                     <i className="cursor-pointer">
                       <MdDelete size={20} />
@@ -93,15 +100,15 @@ const Cart = (props: { userRole: Role }) => {
                     <PillCell
                       data={{
                         type: "item",
-                        title: item.Item,
+                        title: item.item.ItemType || "",
                       }}
                     />
-                    <PillCell
+                    {/* <PillCell
                       data={{
                         type: "age",
                         title: `${item.minAge}-${item.maxAge}`,
                       }}
-                    />
+                    /> */}
                   </section>
 
                   <hr className="w-1/2 border-gray-100 mx-auto"></hr>

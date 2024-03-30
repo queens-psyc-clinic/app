@@ -9,7 +9,7 @@ import { Item, getItemById } from "./TestService";
 // Shopping carts stored in Local Storage in the browser
 const localStorageCart = "cart";
 interface CartItem {
-  quantity: Number;
+  quantity: number;
   item: Item;
 }
 
@@ -37,7 +37,6 @@ export function getCart(): CartItem[] {
 export async function addItemToCart(itemId: string) {
   // Add a test to the user's cart in local storage
   const cart = getCart();
-  console.log("pre: ", cart);
   const item = await getItemById(itemId);
   if (item) {
     if (isItemInCart(itemId)) {
@@ -50,7 +49,6 @@ export async function addItemToCart(itemId: string) {
       });
       localStorage.setItem(localStorageCart, JSON.stringify(cart));
     }
-    console.log("post: ", cart);
   }
 }
 

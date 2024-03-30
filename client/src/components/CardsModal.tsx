@@ -4,6 +4,7 @@ import expandedRowsData from "../models/tableExpandRows";
 import { Test } from "../models/BEModels";
 import { Item, getItemsForTest } from "../services/TestService";
 import { getPillColor } from "../models/libraryItem";
+import { addItemToCart, initializeCart } from "../services/ShoppingCartService";
 
 interface CardsModalProps {
   modalTitle: string;
@@ -26,7 +27,9 @@ const CardsModal: React.FC<CardsModalProps> = ({
   items,
 }: CardsModalProps) => {
   const [testItems, setTestItems] = useState<Item[]>(items);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   useEffect(() => {
+    initializeCart();
     if (cardData) {
       getItemsForTest(cardData.ID)
         .then((res) => setTestItems(res))
@@ -35,13 +38,31 @@ const CardsModal: React.FC<CardsModalProps> = ({
   }, []);
 
   const handleSelectAll = () => {
-    const checkboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]'
-    );
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = true;
+    // setSelectedItems(items)
+    setSelectedItems(items.map((elem) => elem.ID));
+  };
+
+  const handleCheckbox = (id: string) => {
+    setSelectedItems((prev) => {
+      const selectedIndex = prev.indexOf(id);
+      if (selectedIndex === -1) {
+        return [...prev, id];
+      } else {
+        return prev.filter((rowId) => rowId !== id);
+      }
     });
   };
+
+  function addToCart() {
+    if (selectedItems.length == 0) {
+      alert("Select items to add to cart.");
+    } else {
+      for (const item of selectedItems) {
+        addItemToCart(item);
+      }
+    }
+    closeModal();
+  }
 
   return (
     <div>
@@ -113,6 +134,8 @@ const CardsModal: React.FC<CardsModalProps> = ({
                       id={item.ItemType}
                       name={item.ItemType}
                       value={item.ItemType}
+                      checked={selectedItems.includes(item.ID)}
+                      onChange={() => handleCheckbox(item.ID)}
                     />
                     <label className="pl-2" htmlFor={item.ItemType}>
                       <span
@@ -122,7 +145,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                       >
                         {item.ItemType}
                       </span>
-                      {item.ItemName}{" "}
+                      {item.ItemName} {item.ID}
                     </label>
                   </div>
                 </div>
@@ -139,7 +162,7 @@ const CardsModal: React.FC<CardsModalProps> = ({
                 </button>
               )}
               <button
-                onClick={closeModal}
+                onClick={addToCart}
                 className="text-white hover:bg-gray-800 bg-gray-900 px-6 py-2 rounded-lg text-sm font-semibold"
               >
                 {buttonLabel}

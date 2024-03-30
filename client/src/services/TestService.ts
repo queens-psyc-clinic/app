@@ -16,13 +16,13 @@ interface testQuery {
 export interface Item {
   Ages: string;
   ID: string;
-  IsArchived: Number; //
+  IsArchived: number; //
   ItemName: string;
   ItemType: string;
   Location: string;
   // NumberOfParts: string;
   Status: Boolean;
-  Stock: Number;
+  Stock: number;
   TestID: string;
 }
 
