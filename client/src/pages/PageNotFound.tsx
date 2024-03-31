@@ -9,7 +9,8 @@ function PageNotFound() {
         404 - Page Not Found
       </h1>
       <p className="text-lg text-gray-700 mb-8">
-        The page you are looking for either does not exist.
+        The page you are looking for either does not exist
+        <br></br> or you do not have the permissions to access it.
       </p>
       <FaExclamationCircle className="text-red-600 text-6xl mb-8" />
       <Link to="/" className="text-blue-200 underline">

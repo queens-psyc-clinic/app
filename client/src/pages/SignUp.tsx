@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import clinicLogo from "../assets/clinic-logo.svg";
 import InputField from "../components/InputField";
 import { useParams } from "react-router-dom";
+import { Role } from "../models/User";
 
 interface SignUpProps {
   onSignUp: (info: {
@@ -9,6 +10,7 @@ interface SignUpProps {
     lastName: string;
     email: string;
     password: string;
+    isAdmin: boolean;
   }) => void;
 }
 
@@ -18,10 +20,12 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
     firstName: string;
     lastName: string;
     email: string;
+    isAdmin: boolean;
   }>({
     firstName: "",
     lastName: "",
     email: "",
+    isAdmin: type === "admin" ? true : false,
   });
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");

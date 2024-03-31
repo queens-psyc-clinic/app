@@ -15,19 +15,27 @@ const router = createBrowserRouter([
     element: <Redirect />,
   },
   {
-    path: "/:type",
+    path: "/sign-up/:type",
+    element: <App page={Pages.signup} />,
+  },
+  {
+    path: "/sign-in",
+    element: <App page={Pages.signin} />,
+  },
+  {
+    path: "/",
     element: <PrivateRoutes page={Pages.dashboard} />,
   },
   {
-    path: "/:type/signed-out",
+    path: "/signed-out",
     element: <PrivateRoutes page={Pages.signedOut} />,
   },
   {
-    path: "/:type/overdue",
+    path: "/overdue",
     element: <PrivateRoutes page={Pages.overdue} />,
   },
   {
-    path: "/:type/settings",
+    path: "/settings",
     element: <PrivateRoutes page={Pages.settings} />,
   },
   // {
@@ -43,11 +51,11 @@ const router = createBrowserRouter([
   //   element: <PrivateRoutes page={Pages.overdue} userRole="admin" />,
   // },
   {
-    path: "/:type/low-stock",
+    path: "/low-stock",
     element: <PrivateRoutes page={Pages.lowStock} />,
   },
   {
-    path: "/:type/archive",
+    path: "/archive",
     element: <PrivateRoutes page={Pages.archive} />,
   },
   // {
@@ -59,24 +67,16 @@ const router = createBrowserRouter([
   //   element: <PrivateRoutes page={Pages.settings} userRole="admin" />,
   // },
   {
-    path: "/sign-up/:type",
-    element: <App page={Pages.signup} />,
-  },
-  {
-    path: "/sign-in",
-    element: <App page={Pages.signin} />,
-  },
-  {
     path: "/account-type",
     element: <AccountType onSignIn={() => console.log("hi")} />,
   },
   {
-    path: "/:type/student",
+    path: "/student",
     element: <PrivateRoutes page={Pages.student} />,
   },
   {
-    path: "/:type/requests",
-    element: <App page={Pages.requests} />,
+    path: "/requests",
+    element: <PrivateRoutes page={Pages.requests} />,
   },
   // ADD NEW PATHS HERE
 ]);

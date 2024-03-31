@@ -72,7 +72,7 @@ const SignedOut = (props: { userRole: Role }) => {
         console.log("done");
       });
     }
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     console.log("CLIENT DATA: ", clientData);

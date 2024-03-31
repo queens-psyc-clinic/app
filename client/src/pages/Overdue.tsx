@@ -62,7 +62,7 @@ const Overdue = (props: { userRole: Role }) => {
         setIsLoading(false);
       });
     }
-  }, []);
+  }, [props]);
 
   const deleteSelected = async () => {
     try {

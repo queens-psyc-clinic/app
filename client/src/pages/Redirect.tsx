@@ -12,7 +12,7 @@ const Redirect = () => {
     getUserSettingsData(user).then((res) =>
       setRole(res.IsAdmin ? "admin" : "client")
     );
-    return <PrivateRoutes page={Pages.dashboard} userRole={role} />;
+    return <PrivateRoutes page={Pages.dashboard} />;
   } else {
     window.location.href = "/sign-in";
     return <App page={Pages.signin} />;

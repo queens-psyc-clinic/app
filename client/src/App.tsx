@@ -30,6 +30,7 @@ import {
   initializeUserSession,
   isUserSignedIn,
   logOut,
+  setUserAsAdmin,
 } from "./services/UserService";
 
 interface AppProps {
@@ -39,10 +40,8 @@ interface AppProps {
 
 function App({ page }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-  useEffect(() => {}, []);
-  const [isSignedIn, setIsSignedIn] = useState(false); // Toggle to show sign-in/out vs other pages!!
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(); // Toggle to show sign-in/out vs other pages!!
   const [role, setRole] = useState<Role>();
-
   useEffect(() => {
     if (isUserSignedIn()) {
       setIsSignedIn(true);
@@ -63,12 +62,7 @@ function App({ page }: AppProps) {
     });
     if (user) {
       initializeUserSession(user.ID);
-      setIsSignedIn(true);
-      if (user.IsAdmin) {
-        setRole("admin");
-      } else {
-        setRole("client");
-      }
+      window.location.href = "/";
     }
   }
 
@@ -77,8 +71,9 @@ function App({ page }: AppProps) {
     lastName: string;
     email: string;
     password: string;
+    isAdmin: boolean;
   }) {
-    await createNewAccount(
+    const user = await createNewAccount(
       info.firstName,
       info.lastName,
       info.email,
@@ -93,13 +88,13 @@ function App({ page }: AppProps) {
         alert("There was an error creating your account");
       }
     });
-
+    await setUserAsAdmin(user.ID);
     alert("Account created successfully!");
     window.location.href = "/sign-in";
   }
 
   if (isSignedIn) {
-    return <PrivateRoutes page={Pages.dashboard} userRole={role} />;
+    return <PrivateRoutes page={Pages.dashboard} />;
   } else {
     return (
       <div className="flex h-screen w-screen p-2 items-center">

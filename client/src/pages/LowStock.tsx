@@ -14,6 +14,7 @@ import {
 import LowStockTable from "../components/LowStockTable";
 import LoadingSpinner from "../components/LoadingSpinner";
 import _ from "lodash";
+import PageNotFound from "./PageNotFound";
 
 const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -60,7 +61,7 @@ const LowStock = (props: { userRole: Role }) => {
   }, []);
 
   if (props.userRole === "client") {
-    return <></>;
+    return <PageNotFound />;
   }
   return (
     <div
