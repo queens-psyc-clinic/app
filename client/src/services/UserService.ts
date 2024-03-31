@@ -39,7 +39,7 @@ export async function createNewAccount(
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/user/${email}/${password}?FirstName=${firstName}&LastName=${lastName}`
     );
-    return response;
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -79,7 +79,7 @@ export async function authenticateAccount(email: string, password: string) {
     const response: AxiosResponse = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/user/${email}/${password}`
     );
-    return response;
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -164,4 +164,21 @@ export async function changeUserPassword(
    * @throws {}
    * @note Not implemented yet
    */
+}
+
+export function initializeUserSession(userId: string) {
+  localStorage.setItem("session", userId);
+}
+
+export function isUserSignedIn() {
+  const user = localStorage.getItem("session");
+  return user;
+}
+
+export function getSessionId() {
+  return localStorage.getItem("session");
+}
+
+export function logOut() {
+  localStorage.removeItem("session");
 }

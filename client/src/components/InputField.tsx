@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface InputFieldProps {
   placeholder?: string;
@@ -22,27 +22,31 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     console.log(e.target.value),
 }: InputFieldProps) => {
-  const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement;
-    const inputValue = target.value;
+  // const [currValue, setCurrValue] = useState(value);
+  // useEffect(() => {
+  //   setCurrValue(value);
+  // }, [value]);
+  // const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //   const target = event.target as HTMLInputElement;
+  //   const inputValue = target.value;
 
-    if (type === "Number") {
-      const pattern = /^[0-9\b]+$/;
-      if (!pattern.test(event.key)) {
-        event.preventDefault();
-      }
-    } else if (type === "text") {
-      const pattern = /^[0-9a-zA-Z-]+$/;
-      if (!pattern.test(event.key)) {
-        event.preventDefault();
-      }
-    } else if (type === "email") {
-      const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Not working!!
-      if (!pattern.test(inputValue) && inputValue !== "") {
-        event.preventDefault();
-      }
-    }
-  };
+  //   if (type === "Number") {
+  //     const pattern = /^[0-9\b]+$/;
+  //     if (!pattern.test(event.key)) {
+  //       event.preventDefault();
+  //     }
+  //   } else if (type === "text") {
+  //     const pattern = /^[0-9a-zA-Z-]+$/;
+  //     if (!pattern.test(event.key)) {
+  //       event.preventDefault();
+  //     }
+  //   } else if (type === "email") {
+  //     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Not working!!
+  //     if (!pattern.test(inputValue) && inputValue !== "") {
+  //       event.preventDefault();
+  //     }
+  //   }
+  // };
   return (
     <div>
       <label
@@ -56,10 +60,10 @@ const InputField: React.FC<InputFieldProps> = ({
         name="inputText"
         id="inputText"
         className={`block w-full mt-2 pl-3 rounded-md bg-gray-100 border-0 py-2 text-gray-900 placeholder:text-gray-300 focus:ring-3 focus:ring-inset focus:ring-gray-200 sm:text-sm sm:leading-6 shadow-sm ${styles}`}
-        placeholder={placeholder}
-        onKeyPress={handleInput}
+        placeholder={placeholder || ""}
+        // onKeyPress={handleInput}
         readOnly={!canEdit}
-        value={value ? value : undefined}
+        // value={value}
         onChange={onChange}
       />
     </div>
