@@ -94,7 +94,7 @@ const Archive = (props: { userRole: Role }) => {
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button
-                className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
+                className="text-white w-max bg-gray-900 px-3 py-2 rounded-lg flex items-center"
                 onClick={() => unArchiveTests()}
               >
                 <i className="mr-4">
@@ -104,7 +104,7 @@ const Archive = (props: { userRole: Role }) => {
               </button>
               <button
                 onClick={handleDeleteButtonClick}
-                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                className="text-white bg-red-800 px-3 py-2 rounded-lg flex items-center"
               >
                 <i className="mr-4">
                   <MdDelete size={20} />
