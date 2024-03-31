@@ -20,6 +20,7 @@ export interface Loan {
   StartDate: string;
   UserID: string;
   Acronym: string;
+  Quantity?: number;
 }
 
 export interface itemEdits {
@@ -902,6 +903,7 @@ export async function markItemAsReserved(
         ItemID: item.ID,
         StartDate: start,
         UserID: recipientUserId,
+        Quantity: quantity,
       },
       {
         headers: {
@@ -972,6 +974,7 @@ export async function getAllReservedItems() {
         },
         StartDate: new Date(reservedItem.StartDate),
         EndDate: new Date(reservedItem.EndDate),
+        Quantity: reservedItem.Quantity,
       });
     }
     return result;

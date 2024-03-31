@@ -5,6 +5,7 @@ import {
   overdueColumns,
   lowStockColumns,
   columnCustomComponents,
+  reservationsColumns,
 } from "../models/tableColumns";
 import { getPillColor } from "../models/libraryItem";
 
@@ -33,24 +34,18 @@ const Table = (props: {
   const [expandedRows, setExpandedRows] = useState<
     { rowId: string; items: Item[] }[]
   >([]);
-
   let columns: Column[];
 
   switch (props.tableType) {
-    case "default":
-      columns = defaultColumns;
-      break;
     case "signedOut":
       columns = signedOutColums;
       break;
-    case "overdue":
-      columns = overdueColumns;
-      break;
-    case "lowStock":
-      columns = lowStockColumns;
+
+    case "reservations":
+      columns = reservationsColumns;
       break;
     default:
-      columns = defaultColumns;
+      columns = signedOutColums;
       break;
   }
 
@@ -68,12 +63,15 @@ const Table = (props: {
         return "StartDate";
       case "Measure":
         return "MeasureOf";
+      case "Quantity":
+        return "Quantity";
       default:
         return colTitle;
     }
   };
 
   const data = props.data;
+  console.log(data);
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
@@ -260,13 +258,6 @@ const Table = (props: {
                           }
 
                           if (col.title.includes("Checked Out")) {
-                            console.log(
-                              row[
-                                mapColumnTitleToDataIndex(
-                                  col.title
-                                ) as keyof SignedOutItem
-                              ]
-                            );
                             const date: Date = new Date(
                               row[
                                 mapColumnTitleToDataIndex(
@@ -274,7 +265,6 @@ const Table = (props: {
                                 ) as keyof SignedOutItem
                               ] as string
                             );
-                            console.log(date);
                             return (
                               <td className="px-4 py-2" key={uuid()}>
                                 <p>{date.toDateString()}</p>

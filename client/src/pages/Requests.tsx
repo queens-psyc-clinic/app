@@ -16,11 +16,16 @@ import SignedOutTable from "../components/SignedOutTable";
 
 const Requests = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [data, setData] = useState<SignedOutItem[]>([]);
+  const [data, setData] = useState<(SignedOutItem & { Quantity: number })[]>(
+    []
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    getAllReservedItems().then((res) => setData(res as SignedOutItem[]));
+    getAllReservedItems().then((res) => {
+      console.log(res);
+      setData(res as (SignedOutItem & { Quantity: number })[]);
+    });
   }, []);
 
   const markAsPickedUp = () => {
@@ -60,7 +65,7 @@ const Requests = (props: { userRole: Role }) => {
             </section>
           </section>
           <SignedOutTable
-            tableType="signedOut"
+            tableType="reservations"
             setSelectedRows={setSelectedRows}
             selectedRows={selectedRows}
             data={data}
