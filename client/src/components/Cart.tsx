@@ -15,7 +15,7 @@ import {
 import { Item } from "../models/BEModels";
 import uuid from "react-uuid";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { getItemById } from "../services/TestService";
+import { getItemById, markItemAsReserved } from "../services/TestService";
 
 // const mockCart: CartItem[] = [
 //   {
@@ -78,6 +78,9 @@ const Cart = (props: { userRole: Role }) => {
       // WAITING ON isConfirmed column in loans
       // Create a reservation loan
       // decrement stock of all items by quantities
+      for (const item of cartItems) {
+        // markItemAsReserved(item, getSess())
+      }
       setIsCheckout(true);
       setIsCheckoutSuccessful(true);
       clearCart();

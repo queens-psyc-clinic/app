@@ -826,13 +826,73 @@ export async function markItemAsAvailable(loanId: string) {
   }
 }
 
-export async function markTestAsReserved(
-  testId: string,
-  recipientUserId: string
-) {
+function getDateTwoWeeksFromNow() {
+  const today = new Date();
+  const twoWeeksFromNow = new Date(today);
+  twoWeeksFromNow.setDate(today.getDate() + 14);
+  return `${twoWeeksFromNow.getFullYear()}-${String(
+    twoWeeksFromNow.getMonth() + 1
+  ).padStart(2, "0")}-${String(twoWeeksFromNow.getDate()).padStart(2, "0")}`;
+}
+
+function getTodayDate() {
+  const today = new Date();
+  return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}-${String(today.getDate()).padStart(2, "0")}`;
+}
+
+export async function markItemAsReserved(item: Item, recipientUserId: string) {
   // Mark items as reserved for pickup
   // temporarily lower stock of all items by 1
   // WAITING on Reservations table or isConfirmed column in loans
+  // Create a reservation loan
+  // decrement stock of all items by quantities
+  const start = getTodayDate();
+  const end = getDateTwoWeeksFromNow();
+  console.log(start, end);
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/createLoan`,
+      {
+        EndDate: end,
+        ID: "string",
+        IsConfirmed: false,
+        ItemID: item.ID,
+        StartDate: start,
+        UserID: recipientUserId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    await editItem(item.ID, { Stock: item.Stock - 1 });
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function unArchiveTest(testId: string) {
