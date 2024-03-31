@@ -20,7 +20,7 @@ const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
           <img
             src={clinicLogo}
             alt="Queen's Psychology Clinic logo"
-            className="w-32"
+            className="w-48"
           ></img>
         </div>
       </div>
@@ -60,7 +60,7 @@ const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
               <span>Already have an account?</span>
               <span
                 className="pl-2 underline text-blue-200 cursor-pointer"
-                onClick={onSignIn}
+                onClick={handleSignin}
               >
                 Sign In
               </span>

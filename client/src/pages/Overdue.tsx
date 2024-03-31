@@ -130,7 +130,7 @@ const Overdue = (props: { userRole: Role }) => {
             <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
               {clientData.map((data) => (
                 <div key={data.ID} className="relative">
-                  <Card data={data} type="item" />
+                  <Card data={data} type="item" OverduePage={true} />
                   <FaExclamationTriangle
                     className="absolute top-0 right-0 -mt-2 mr-8 text-yellow-100 transform rotate-[15deg]"
                     size={35}

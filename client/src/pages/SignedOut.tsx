@@ -18,6 +18,7 @@ import { MdAssignmentTurnedIn } from "react-icons/md";
 import uuid from "react-uuid";
 import { PropaneSharp } from "@mui/icons-material";
 import { getSessionId } from "../services/UserService";
+import ReportIssueModal from "../components/ReportIssueModal";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -82,6 +83,10 @@ const SignedOut = (props: { userRole: Role }) => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleReportIssueClick = () => {
+    setIsModalOpen(true);
+  };
+
   const handleCardClick = (data: Omit<Test, "OrderingCompany">) => {
     setSelectedCard(data);
     setIsModalOpen(true);
@@ -128,6 +133,29 @@ const SignedOut = (props: { userRole: Role }) => {
                   return <Card key={uuid()} data={item} type="item" />;
                 })}
               </div>
+              <div className="text-sm fixed bottom-10 right-10 bg-white p-6 rounded-lg shadow-md max-w-64 text-center">
+                <p className="text-wrap py-1">
+                  Issue with an item? Something missing or damaged?
+                </p>
+                <button
+                  className="cursor-pointer text-blue-200 underline"
+                  onClick={handleReportIssueClick}
+                >
+                  Report Issue Here
+                </button>
+              </div>
+              {isModalOpen && (
+                <ReportIssueModal
+                  isOpen={isModalOpen}
+                  closeModal={() => setIsModalOpen(false)}
+                  header="Report an Issue"
+                  description="If you noticed something wrong with an item you signed out, please let us know here:"
+                  button="Send"
+                  secondButton="Cancel"
+                  onOk={() => {}}
+                  onClose={() => setIsModalOpen(false)}
+                />
+              )}
             </>
           )}
         </>

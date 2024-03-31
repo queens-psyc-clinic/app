@@ -51,7 +51,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
         <img
           src={clinicLogo}
           alt="Queen's Psychology Clinic logo"
-          className="w-32"
+          className="w-48"
         ></img>
       </div>
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -90,7 +90,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
                 </div>
                 <div className="">
                   <InputField
-                    label="Queen's Email"
+                    label="Email"
                     type="text"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setSignUpInfo({
