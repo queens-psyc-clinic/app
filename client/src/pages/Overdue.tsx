@@ -18,16 +18,19 @@ import {
 import OverdueTable from "../components/OverdueTable";
 import Card from "../components/Card";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { getSessionId } from "../services/UserService";
 
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [adminData, setAdminData] = useState<OverdueItem[]>([]);
+  const [session, setSession] = useState<string>("");
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
   );
 
   useEffect(() => {
+    setSession(getSessionId() || "");
     if (props.userRole === "admin") {
       getAllOverdueItems().then((res) => {
         setAdminData(res as OverdueItem[]);
@@ -35,7 +38,7 @@ const Overdue = (props: { userRole: Role }) => {
       });
     } else if (props.userRole === "client") {
       // WAITING ON me to set up routing for now I am just using client id 1, but this should use the signed in client's id
-      getAllOverdueTestsByUser("1").then(async (res) => {
+      getAllOverdueTestsByUser(getSessionId() || "").then(async (res) => {
         for (const overdueItem of res) {
           const itemMeasure = await getItemMeasure(overdueItem.Acronym);
           const item = await getItemById(overdueItem.Acronym);
@@ -134,7 +137,6 @@ const Overdue = (props: { userRole: Role }) => {
                 />
               ))}
             </div>
-            
           </>
         )}
       </div>
