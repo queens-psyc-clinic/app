@@ -6,7 +6,8 @@ loan_fields = {
     'StartDate': fields.DateTime,
     'EndDate': fields.DateTime,
     'UserID': fields.String,
-    'ItemID': fields.String
+    'ItemID': fields.String,
+    'IsConfirmed' : fields.Boolean
 }
 
 class Loan(Resource):
@@ -17,7 +18,7 @@ class Loan(Resource):
         Retrieve Loan with id
         ---
         tags:
-          - Loans
+          - Loan
         parameters:
           - in: path
             name: id
@@ -41,6 +42,8 @@ class Loan(Resource):
                   type: string
                 ItemID:
                   type: string
+                IsConfirmed:
+                  type: boolean
           400:
             description: ID does not exist
           500:
@@ -59,7 +62,7 @@ class Loan(Resource):
         Delete item with id
         ---
         tags:
-          - Loans
+          - Loan
         parameters:
           - in: path
             name: id
