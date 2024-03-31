@@ -16,6 +16,7 @@ import { Item } from "../models/BEModels";
 import uuid from "react-uuid";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { getItemById, markItemAsReserved } from "../services/TestService";
+import { getSessionId } from "../services/UserService";
 
 // const mockCart: CartItem[] = [
 //   {
@@ -79,7 +80,11 @@ const Cart = (props: { userRole: Role }) => {
       // Create a reservation loan
       // decrement stock of all items by quantities
       for (const item of cartItems) {
-        // markItemAsReserved(item, getSess())
+        await markItemAsReserved(
+          item.item as Item,
+          item.quantity,
+          getSessionId() || ""
+        ).catch((e) => console.log(e));
       }
       setIsCheckout(true);
       setIsCheckoutSuccessful(true);

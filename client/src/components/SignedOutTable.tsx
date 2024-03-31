@@ -248,7 +248,7 @@ const Table = (props: {
                               },
                             };
                           }
-                          if (col.title.includes("By")) {
+                          if (col.title.includes("Borrowed By")) {
                             customData = {
                               type: columnCustomComponents.user,
                               data: row[
@@ -260,11 +260,21 @@ const Table = (props: {
                           }
 
                           if (col.title.includes("Checked Out")) {
-                            const date: Date = row[
-                              mapColumnTitleToDataIndex(
-                                col.title
-                              ) as keyof SignedOutItem
-                            ] as Date;
+                            console.log(
+                              row[
+                                mapColumnTitleToDataIndex(
+                                  col.title
+                                ) as keyof SignedOutItem
+                              ]
+                            );
+                            const date: Date = new Date(
+                              row[
+                                mapColumnTitleToDataIndex(
+                                  col.title
+                                ) as keyof SignedOutItem
+                              ] as string
+                            );
+                            console.log(date);
                             return (
                               <td className="px-4 py-2" key={uuid()}>
                                 <p>{date.toDateString()}</p>

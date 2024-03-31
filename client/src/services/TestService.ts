@@ -772,14 +772,53 @@ export async function markOverdueItemAsGone(loanId: string) {
   }
 }
 
-export async function markItemAsSignedOut(
-  testId: string,
-  recipientUserId: string
-) {
+export async function markItemAsSignedOut(loanId: string) {
   // When a reserved test is picked up by the client that reserved it, all items in test should have their quantities decremented by one
   // Create new loan w test id and user id
   // decrement quantity of item
-  // WAITING ON reservation table or isConfirmed column on loans
+  try {
+    const response: AxiosResponse = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      {
+        filters: {
+          ID: loanId,
+        },
+        updated: {
+          IsConfirmed: true,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    const loan: Loan[] = response.data;
+    if (loan[0]) {
+      const item: Item = await getItemById(loan[0].ItemID);
+      await markOverdueItemAsGone(loan[0].ID);
+      await editItem(item.ID, { Stock: item.Stock.valueOf() + 1 });
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export async function markItemAsAvailable(loanId: string) {
@@ -843,10 +882,11 @@ function getTodayDate() {
   )}-${String(today.getDate()).padStart(2, "0")}`;
 }
 
-export async function markItemAsReserved(item: Item, recipientUserId: string) {
-  // Mark items as reserved for pickup
-  // temporarily lower stock of all items by 1
-  // WAITING on Reservations table or isConfirmed column in loans
+export async function markItemAsReserved(
+  item: Item,
+  quantity: number,
+  recipientUserId: string
+) {
   // Create a reservation loan
   // decrement stock of all items by quantities
   const start = getTodayDate();
@@ -870,9 +910,71 @@ export async function markItemAsReserved(item: Item, recipientUserId: string) {
       }
     );
 
-    await editItem(item.ID, { Stock: item.Stock - 1 });
+    await editItem(item.ID, { Stock: item.Stock - quantity });
 
     return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getAllReservedItems() {
+  // If userId, then get all of that user's signed out tests
+  // otherwise get all signed out tests (admin)
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      {
+        IsConfirmed: false,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    const reservedItems: Loan[] = response.data;
+    let result = [];
+    for (const reservedItem of reservedItems) {
+      const item: Item = await getItemById(reservedItem.ItemID);
+      const test: Test = await getTestById(item.TestID);
+      const user: BackendUser = await getUserSettingsData(reservedItem.UserID);
+      result.push({
+        ID: reservedItem.ID,
+        Name: test.Name,
+        ItemName: item.ItemName,
+        MeasureOf: test.MeasureOf,
+        Acronym: item.ID,
+        UserID: {
+          firstName: user.FirstName,
+          lastName: user.LastName,
+          email: user.Email,
+          notifications: true, // WAITING ON adding notifications or isSubscribed to User table
+          role: user.IsAdmin ? "admin" : "client",
+        },
+        StartDate: new Date(reservedItem.StartDate),
+        EndDate: new Date(reservedItem.EndDate),
+      });
+    }
+    return result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error

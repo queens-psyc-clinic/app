@@ -9,17 +9,18 @@ import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
 import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
-import { Test } from "../models/BEModels";
+import { SignedOutItem, Test } from "../models/BEModels";
 import PageNotFound from "./PageNotFound";
+import { getAllReservedItems } from "../services/TestService";
+import SignedOutTable from "../components/SignedOutTable";
 
 const Requests = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [data, setData] = useState<Omit<Test, "OrderingCompany">[]>([]);
+  const [data, setData] = useState<SignedOutItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // WAITING ON reservations table or isConfirmed column in loans!
-    setData([]);
+    getAllReservedItems().then((res) => setData(res as SignedOutItem[]));
   }, []);
 
   const markAsPickedUp = () => {
@@ -58,7 +59,7 @@ const Requests = (props: { userRole: Role }) => {
               </button>
             </section>
           </section>
-          <Table
+          <SignedOutTable
             tableType="signedOut"
             setSelectedRows={setSelectedRows}
             selectedRows={selectedRows}

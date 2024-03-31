@@ -92,7 +92,7 @@ const ReserveModal = ({
           <section>
             <button
               onClick={() => closeModal()}
-              className="mt-4 w-full flex justify-center font-semibold cursor-pointer text-white bg-black px-6 py-4 rounded-lg flex"
+              className="mt-4 w-full justify-center font-semibold cursor-pointer text-white bg-black px-6 py-4 rounded-lg flex"
             >
               Ok
             </button>
@@ -101,13 +101,13 @@ const ReserveModal = ({
           <section className="flex space-x-4">
             <button
               onClick={() => getAvailableItems()}
-              className="mt-4 flex justify-center w-1/2 text-sm font-semibold cursor-pointer text-black border border-black  p-4 rounded-lg flex"
+              className="mt-4 justify-center w-1/2 text-sm font-semibold cursor-pointer text-black border border-black  p-4 rounded-lg flex"
             >
               Reserve Available Items
             </button>
             <button
               onClick={() => closeModal()}
-              className="mt-4 flex justify-center items-center w-1/2 text-sm font-semibold cursor-pointer text-white bg-black p-4 rounded-lg flex"
+              className="mt-4 justify-center items-center w-1/2 text-sm font-semibold cursor-pointer text-white bg-black p-4 rounded-lg flex"
             >
               Cancel
             </button>
