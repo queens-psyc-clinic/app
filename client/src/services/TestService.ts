@@ -409,6 +409,7 @@ export async function getAllSignedOutItems() {
         },
         StartDate: new Date(loan.StartDate),
         EndDate: new Date(loan.EndDate),
+        Quantity: loan.Quantity!,
       });
     }
     return result;

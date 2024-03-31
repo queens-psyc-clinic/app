@@ -30,6 +30,7 @@ export interface SignedOutItem {
   UserID: User;
   StartDate: Date;
   EndDate: Date;
+  Quantity: number;
 }
 
 export interface OverdueItem {
