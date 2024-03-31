@@ -14,6 +14,7 @@ import {
 import LowStockTable from "../components/LowStockTable";
 import LoadingSpinner from "../components/LoadingSpinner";
 import _ from "lodash";
+import PageNotFound from "./PageNotFound";
 
 const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -22,9 +23,8 @@ const LowStock = (props: { userRole: Role }) => {
   >([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // WAITING ON trailing spaces fix on backend
   useEffect(() => {
-    // WAITING ON stock column to be adjusted in db
+    // WAITING ON get low stock endpoint
     setIsLoading(true);
     getLowStockItems().then(async (res) => {
       for (const lowStockItem of res) {
@@ -61,7 +61,7 @@ const LowStock = (props: { userRole: Role }) => {
   }, []);
 
   if (props.userRole === "client") {
-    return <></>;
+    return <PageNotFound />;
   }
   return (
     <div

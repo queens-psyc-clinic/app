@@ -92,7 +92,7 @@ class User(Resource):
                 if "duplicate entry" in str(e).lower():
                     abort(409)
 
-            return _corsify_actual_response(make_response(_select_one({"ID": new_user["ID"]}))), 201
+            return _select_one({"ID": new_user["ID"]}), 201
 
     @marshal_with(user_fields)
     def get(self, email, password):
@@ -125,7 +125,7 @@ class User(Resource):
         try:
             id_hash = _select_cols_one({"Email": email}, ["ID", "Hash"])
             if verify_password(id_hash["Hash"], password):
-                return _corsify_actual_response(make_response(_select_one({'ID': id_hash['ID']}))), 200
+                return _select_one({'ID': id_hash['ID']}), 200
             abort(401)
         except KeyError as e:
             abort(404, message="Email does not exist.")

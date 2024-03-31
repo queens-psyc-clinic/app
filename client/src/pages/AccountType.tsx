@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clinicLogo from "../assets/clinic-logo.svg";
 import profilePic from "../assets/profile.svg";
 import lockPic from "../assets/lock.svg";
@@ -8,8 +8,9 @@ interface AccountTypeProps {
 }
 
 const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
+  const [accountType, setAccountType] = useState<string>();
   const handleSignin = () => {
-    window.location.href = '/sign-in';
+    window.location.href = "/sign-in";
   };
 
   return (
@@ -33,14 +34,10 @@ const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
               <div className="flex flex-row">
                 <div
                   className="flex flex-row mt-10 p-5 border border-gray-900 rounded-full mr-10 cursor-pointer"
-                  onClick={handleSignin}
+                  onClick={() => (window.location.href = "/sign-up/user")}
                 >
                   <div className="">
-                    <img
-                      src={profilePic}
-                      alt="brain held by hand"
-                      className="w-8"
-                    ></img>
+                    <img src={profilePic} alt="profile" className="w-8"></img>
                   </div>
                   <div className="pl-8 flex items-center">
                     <p>User</p>
@@ -48,14 +45,10 @@ const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
                 </div>
                 <div
                   className="flex flex-row mt-10 p-5 border border-gray-900 rounded-full cursor-pointer"
-                  onClick={handleSignin}
+                  onClick={() => (window.location.href = "/sign-up/admin")}
                 >
                   <div className="">
-                    <img
-                      src={lockPic}
-                      alt="brain held by hand"
-                      className="w-8"
-                    ></img>
+                    <img src={lockPic} alt="lock" className="w-8"></img>
                   </div>
                   <div className="pl-8 flex items-center">
                     <p>Admin</p>

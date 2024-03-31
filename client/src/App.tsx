@@ -21,72 +21,95 @@ import {
   getAllArchivedTests,
   getLowStockItems,
 } from "./services/TestService";
+import PrivateRoutes from "./PrivateRoutes";
+import {
+  authenticateAccount,
+  createNewAccount,
+  getSessionId,
+  getUserSettingsData,
+  initializeUserSession,
+  isUserSignedIn,
+  logOut,
+  setUserAsAdmin,
+} from "./services/UserService";
 
 interface AppProps {
   page: Pages;
   userRole: Role;
 }
 
-function App({ page, userRole }: AppProps) {
+function App({ page }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(); // Toggle to show sign-in/out vs other pages!!
+  const [role, setRole] = useState<Role>();
   useEffect(() => {
-    // archiveTest("ADOS-2").then((res) => console.log(res));
-    // createNewTest({
-    //   Name: "Incomplete test",
-    //   ID: "8832837232",
-    //   MeasureOf: "Bloobsdasd",
-    // }).then((res) => console.log(res));
+    if (isUserSignedIn()) {
+      setIsSignedIn(true);
+      const user = getSessionId();
+      console.log(user);
+      if (user) {
+        getUserSettingsData(user).then((res) =>
+          setRole(res.IsAdmin ? "admin" : "client")
+        );
+      }
+    }
   }, []);
-  const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
 
-  const handleSignIn = () => {
-    setIsSignedIn(true);
-  };
+  async function handleSignIn(email: string, password: string) {
+    const user = await authenticateAccount(email, password).catch((e) => {
+      alert("Email or password is incorrect");
+      window.location.reload();
+    });
+    if (user) {
+      initializeUserSession(user.ID);
+      window.location.href = "/";
+    }
+  }
 
-  return (
-    <div className="flex h-screen w-screen p-2 items-center">
-      {isSignedIn && (
-        <>
-          <Navbar userType={userRole} />
-          {page === Pages.dashboard && <Dashboard userRole={userRole} />}
-          {page === Pages.overdue && <Overdue userRole={userRole} />}
-          {page === Pages.signedOut && <SignedOut userRole={userRole} />}
-          {page === Pages.archive && <Archive userRole={userRole} />}
-          {page === Pages.lowStock && <LowStock userRole={userRole} />}
-          {page === Pages.settings && <Settings userRole={userRole} />}
-          {page === Pages.student && <StudentPage userRole={userRole} />}
-          {page === Pages.requests && <Requests userRole={userRole} />}
-          {userRole === "client" && (
-            <>
-              <section className="flex flex-row absolute top-10 right-10">
-                <Cart userRole={userRole} />
-                <div className="w-6"></div>
-                <Notification userRole={userRole} />
-              </section>
-            </>
-          )}
-          {userRole === "admin" && (
-            <>
-              <section className="flex flex-row absolute top-10 right-10">
-                {/* <Cart userRole={userRole} />
-                <div className="w-6"></div> */}
-                <Notification userRole={userRole} />
-              </section>
-            </>
-          )}
-        </>
-      )}
-      {!isSignedIn && (
+  async function handleSignUp(info: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
+  }) {
+    const user = await createNewAccount(
+      info.firstName,
+      info.lastName,
+      info.email,
+      info.password
+    ).catch((e) => {
+      console.log(e.message);
+      if (e.message == "Email already exists") {
+        alert(
+          "This email is already associated with an account. Try signing in."
+        );
+      } else {
+        alert("There was an error creating your account");
+      }
+    });
+    if (info.isAdmin) {
+      await setUserAsAdmin(user.ID);
+    }
+    alert("Account created successfully!");
+    window.location.href = "/sign-in";
+  }
+
+  if (isSignedIn) {
+    return <PrivateRoutes page={Pages.dashboard} />;
+  } else {
+    return (
+      <div className="flex h-screen w-screen p-2 items-center">
         <>
           {page === Pages.accounttype && (
-            <AccountType onSignIn={handleSignIn} />
+            <AccountType onSignIn={() => console.log("hi")} />
           )}
           {page === Pages.signin && <SignIn onSignIn={handleSignIn} />}
-          {page === Pages.signup && <SignUp onSignIn={handleSignIn} />}
+          {page === Pages.signup && <SignUp onSignUp={handleSignUp} />}
         </>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 App.defaultProps = {
