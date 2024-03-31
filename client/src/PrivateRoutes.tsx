@@ -15,41 +15,81 @@ import AccountType from "./pages/AccountType";
 import StudentPage from "./pages/StudentPage";
 import SignedOut from "./pages/SignedOut";
 import Requests from "./pages/Requests";
-import { isUserSignedIn, logOut } from "./services/UserService";
+import {
+  getSessionId,
+  getUserSettingsData,
+  isUserSignedIn,
+  logOut,
+} from "./services/UserService";
+import { useParams } from "react-router-dom";
+import PageNotFound from "./pages/PageNotFound";
 
 interface AppProps {
   page: Pages;
-  userRole: Role;
+  userRole?: Role;
 }
 
 function PrivateRoutes({ page, userRole }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
+  const { type } = useParams();
+  const [isPermitted, setIsPermitted] = useState(false);
+
+  console.log(type);
   useEffect(() => {
-    console.log(isUserSignedIn());
     if (!isUserSignedIn()) {
       setIsSignedIn(false);
-      console.log("girl");
       window.location.href = "/sign-in";
+    } else {
+      getUserSettingsData(getSessionId() || "").then((res) => {
+        if (type == "admin") {
+          if (res.IsAdmin) {
+            setIsPermitted(true);
+          } else {
+            setIsPermitted(false);
+          }
+        } else {
+          if (res.IsAdmin) {
+            setIsPermitted(false);
+          } else {
+            setIsPermitted(true);
+          }
+        }
+      });
     }
   }, []);
   const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
-  const handleSignIn = () => {
-    setIsSignedIn(true);
-  };
+
   console.log(page, userRole);
   return (
     <div className="flex h-screen w-screen p-2 items-center">
-      {isSignedIn && (
+      {!isPermitted && <PageNotFound />}
+      {isSignedIn && isPermitted && (
         <>
           <Navbar userType={userRole} />
-          {page === Pages.dashboard && <Dashboard userRole={userRole} />}
-          {page === Pages.overdue && <Overdue userRole={userRole} />}
-          {page === Pages.signedOut && <SignedOut userRole={userRole} />}
-          {page === Pages.archive && <Archive userRole={userRole} />}
-          {page === Pages.lowStock && <LowStock userRole={userRole} />}
-          {page === Pages.settings && <Settings userRole={userRole} />}
-          {page === Pages.student && <StudentPage userRole={userRole} />}
-          {page === Pages.requests && <Requests userRole={userRole} />}
+          {page === Pages.dashboard && (
+            <Dashboard userRole={userRole || (type as Role)} />
+          )}
+          {page === Pages.overdue && (
+            <Overdue userRole={userRole || (type as Role)} />
+          )}
+          {page === Pages.signedOut && (
+            <SignedOut userRole={userRole || (type as Role)} />
+          )}
+          {page === Pages.archive && (
+            <Archive userRole={userRole || (type as Role)} />
+          )}
+          {page === Pages.lowStock && (
+            <LowStock userRole={userRole || (type as Role)} />
+          )}
+          {page === Pages.settings && (
+            <Settings userRole={userRole || (type as Role)} />
+          )}
+          {page === Pages.student && (
+            <StudentPage userRole={userRole || (type as Role)} />
+          )}
+          {page === Pages.requests && (
+            <Requests userRole={userRole || (type as Role)} />
+          )}
           {userRole === "client" && (
             <>
               <section className="flex flex-row absolute top-10 right-10">
@@ -70,7 +110,6 @@ function PrivateRoutes({ page, userRole }: AppProps) {
           )}
         </>
       )}
-      {!isSignedIn && <></>}
     </div>
   );
 }

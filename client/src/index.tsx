@@ -15,49 +15,49 @@ const router = createBrowserRouter([
     element: <Redirect />,
   },
   {
-    path: "/client",
-    element: <PrivateRoutes page={Pages.dashboard} userRole="client" />,
+    path: "/:type",
+    element: <PrivateRoutes page={Pages.dashboard} />,
   },
   {
-    path: "/client/signed-out",
-    element: <PrivateRoutes page={Pages.signedOut} userRole="client" />,
+    path: "/:type/signed-out",
+    element: <PrivateRoutes page={Pages.signedOut} />,
   },
   {
-    path: "/client/overdue",
-    element: <PrivateRoutes page={Pages.overdue} userRole="client" />,
+    path: "/:type/overdue",
+    element: <PrivateRoutes page={Pages.overdue} />,
   },
   {
-    path: "/client/settings",
-    element: <PrivateRoutes page={Pages.settings} userRole="client" />,
+    path: "/:type/settings",
+    element: <PrivateRoutes page={Pages.settings} />,
+  },
+  // {
+  //   path: "/admin",
+  //   element: <PrivateRoutes page={Pages.dashboard} userRole="admin" />,
+  // },
+  // {
+  //   path: "/admin/signed-out",
+  //   element: <PrivateRoutes page={Pages.signedOut} userRole="admin" />,
+  // },
+  // {
+  //   path: "/admin/overdue",
+  //   element: <PrivateRoutes page={Pages.overdue} userRole="admin" />,
+  // },
+  {
+    path: "/:type/low-stock",
+    element: <PrivateRoutes page={Pages.lowStock} />,
   },
   {
-    path: "/admin",
-    element: <PrivateRoutes page={Pages.dashboard} userRole="admin" />,
+    path: "/:type/archive",
+    element: <PrivateRoutes page={Pages.archive} />,
   },
-  {
-    path: "/admin/signed-out",
-    element: <PrivateRoutes page={Pages.signedOut} userRole="admin" />,
-  },
-  {
-    path: "/admin/overdue",
-    element: <PrivateRoutes page={Pages.overdue} userRole="admin" />,
-  },
-  {
-    path: "/admin/low-stock",
-    element: <PrivateRoutes page={Pages.lowStock} userRole="admin" />,
-  },
-  {
-    path: "/admin/archive",
-    element: <PrivateRoutes page={Pages.archive} userRole="admin" />,
-  },
-  {
-    path: "/client/archive",
-    element: <PrivateRoutes page={Pages.archive} userRole="client" />,
-  },
-  {
-    path: "/admin/settings",
-    element: <PrivateRoutes page={Pages.settings} userRole="admin" />,
-  },
+  // {
+  //   path: "/client/archive",
+  //   element: <PrivateRoutes page={Pages.archive} userRole="client" />,
+  // },
+  // {
+  //   path: "/admin/settings",
+  //   element: <PrivateRoutes page={Pages.settings} userRole="admin" />,
+  // },
   {
     path: "/sign-up/:type",
     element: <App page={Pages.signup} />,
@@ -71,12 +71,12 @@ const router = createBrowserRouter([
     element: <AccountType onSignIn={() => console.log("hi")} />,
   },
   {
-    path: "/admin/student",
-    element: <PrivateRoutes page={Pages.student} userRole="admin" />,
+    path: "/:type/student",
+    element: <PrivateRoutes page={Pages.student} />,
   },
   {
-    path: "/admin/requests",
-    element: <App page={Pages.requests} userRole="admin" />,
+    path: "/:type/requests",
+    element: <App page={Pages.requests} />,
   },
   // ADD NEW PATHS HERE
 ]);
