@@ -7,11 +7,12 @@ import reportWebVitals from "./reportWebVitals";
 import { Pages } from "./models/Pages";
 import AccountType from "./pages/AccountType";
 import PrivateRoutes from "./PrivateRoutes";
+import Redirect from "./pages/Redirect";
 
 const router = createBrowserRouter([
   {
     path: "/", // CHANGE THIS TO DIRECT TO SIGN IN PAGE
-    element: <App page={Pages.signin} />,
+    element: <Redirect />,
   },
   {
     path: "/client",
