@@ -71,7 +71,6 @@ const Table = (props: {
   };
 
   const data = props.data;
-  console.log(data);
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];

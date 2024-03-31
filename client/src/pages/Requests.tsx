@@ -11,7 +11,11 @@ import CardsModal from "../components/CardsModal";
 import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
 import { SignedOutItem, Test } from "../models/BEModels";
 import PageNotFound from "./PageNotFound";
-import { getAllReservedItems } from "../services/TestService";
+import {
+  getAllReservedItems,
+  markItemAsSignedOut,
+  unReserveItem,
+} from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
 
 const Requests = (props: { userRole: Role }) => {
@@ -23,18 +27,38 @@ const Requests = (props: { userRole: Role }) => {
 
   useEffect(() => {
     getAllReservedItems().then((res) => {
-      console.log(res);
       setData(res as (SignedOutItem & { Quantity: number })[]);
     });
   }, []);
 
-  const markAsPickedUp = () => {
-    // Turn reservation item into a loan, and delete from reservations table
-  };
+  async function markAsPickedUp() {
+    // Turn reservation item into a loan
+    // markItemAsSignedOut()
+    const errors: any[] = [];
+    for (const loanId of selectedRows) {
+      await markItemAsSignedOut(loanId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue signing out these items.");
+    } else {
+      alert("Items signed out successfully!");
+      window.location.reload();
+    }
+  }
 
-  const unReserveItem = () => {
+  async function markAsUnreserved() {
     // Remove items from reservations, which should increment the item quantities
-  };
+    const errors: any[] = [];
+    for (const loanId of selectedRows) {
+      await unReserveItem(loanId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue removing these reservations.");
+    } else {
+      alert("Reservations removed successfully!");
+      window.location.reload();
+    }
+  }
 
   if (props.userRole == "admin") {
     return (
@@ -50,13 +74,19 @@ const Requests = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-              <button className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center">
+              <button
+                className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center"
+                onClick={markAsPickedUp}
+              >
                 <i className="mr-4">
                   <MdCheckCircle size={20} />
                 </i>
                 <p>Mark as Picked Up</p>
               </button>
-              <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
+              <button
+                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                onClick={markAsUnreserved}
+              >
                 <i className="mr-4">
                   <MdRemoveCircle size={20} />
                 </i>
@@ -74,7 +104,7 @@ const Requests = (props: { userRole: Role }) => {
       </div>
     );
   } else {
-    return <PageNotFound />;
+    return <></>;
   }
 };
 

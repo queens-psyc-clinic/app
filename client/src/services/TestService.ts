@@ -798,7 +798,7 @@ export async function markItemAsSignedOut(loanId: string) {
     if (loan[0]) {
       const item: Item = await getItemById(loan[0].ItemID);
       await markOverdueItemAsGone(loan[0].ID);
-      await editItem(item.ID, { Stock: item.Stock.valueOf() + 1 });
+      // await editItem(item.ID, { Stock: item.Stock.valueOf() + 1 });
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -822,6 +822,12 @@ export async function markItemAsSignedOut(loanId: string) {
   }
 }
 
+export async function unReserveItem(loanId: string) {
+  // delete item
+  // increment
+  markItemAsAvailable(loanId);
+}
+
 export async function markItemAsAvailable(loanId: string) {
   // When clients return a test, admin should be able to mark the test as returned and now available
   // Delete loan from loans table
@@ -842,7 +848,9 @@ export async function markItemAsAvailable(loanId: string) {
     if (loan[0]) {
       const item: Item = await getItemById(loan[0].ItemID);
       await markOverdueItemAsGone(loan[0].ID);
-      await editItem(item.ID, { Stock: item.Stock.valueOf() + 1 });
+      await editItem(item.ID, {
+        Stock: item.Stock.valueOf() + loan[0].Quantity!,
+      });
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
