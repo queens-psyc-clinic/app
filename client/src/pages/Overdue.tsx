@@ -19,6 +19,7 @@ import OverdueTable from "../components/OverdueTable";
 import Card from "../components/Card";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { getSessionId } from "../services/UserService";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -128,12 +129,13 @@ const Overdue = (props: { userRole: Role }) => {
           <>
             <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
               {clientData.map((data) => (
-                <Card
-                  key={data.ID}
-                  data={data}
-                  type="item"
-                  // openModal={() => handleCardClick(data)}
-                />
+                <div key={data.ID} className="relative">
+                  <Card data={data} type="item" />
+                  <FaExclamationTriangle
+                    className="absolute top-0 right-0 -mt-2 mr-8 text-yellow-100 transform rotate-[15deg]"
+                    size={35}
+                  />
+                </div>
               ))}
             </div>
           </>
