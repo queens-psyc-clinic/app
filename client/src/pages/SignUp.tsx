@@ -103,6 +103,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
                 <div className="py-8">
                   <InputField
                     label="Password"
+                    type="password"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setPassword1(e.target.value)
                     }
@@ -111,6 +112,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
                 <div className="pb-8">
                   <InputField
                     label="Confirm Password"
+                    type="password"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setPassword2(e.target.value)
                     }
@@ -127,7 +129,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
               </div>
             </div>
             <div className="ml-8 pt-8">
-              <span>Don't already have an account?</span>
+              <span>Already have an account?</span>
               <span
                 className="pl-2 underline text-blue-200 cursor-pointer"
                 onClick={handleSignIn}
