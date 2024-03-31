@@ -3,6 +3,7 @@ This service handles authentication, and getting/ editing user information
 */
 
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { UserSettings } from "../models/BEModels";
 
 export type BackendUser = {
   ID: string;
@@ -123,6 +124,58 @@ export async function getUserSettingsData(id: string) {
     const users = response.data;
     const user = users.filter((user: BackendUser) => user.ID === id);
     return user[0];
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+
+        if (axiosError.response.status === 400) {
+          throw new InvalidEntry("Incorrect Password.");
+        }
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function updateUserSettings(updatedSettings: UserSettings) {
+  /**
+   * Update's users settings data
+   */
+
+  try {
+    const response: AxiosResponse = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/users/${updatedSettings.ID}`,
+      {
+        filters: {
+          ID: updatedSettings.ID,
+        },
+        update: {
+          ...updatedSettings,
+          IsAdmin: undefined,
+          ID: undefined,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error

@@ -30,7 +30,6 @@ const Overdue = (props: { userRole: Role }) => {
   );
 
   useEffect(() => {
-    setSession(getSessionId() || "");
     if (props.userRole === "admin") {
       getAllOverdueItems().then((res) => {
         setAdminData(res as OverdueItem[]);

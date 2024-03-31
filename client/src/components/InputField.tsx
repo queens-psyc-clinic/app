@@ -19,13 +19,12 @@ const InputField: React.FC<InputFieldProps> = ({
   styles = "",
   canEdit = true,
   value = "",
-  onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    console.log(e.target.value),
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {},
 }: InputFieldProps) => {
-  // const [currValue, setCurrValue] = useState(value);
-  // useEffect(() => {
-  //   setCurrValue(value);
-  // }, [value]);
+  const [currValue, setCurrValue] = useState(value);
+  useEffect(() => {
+    setCurrValue(value);
+  }, [value]);
   // const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
   //   const target = event.target as HTMLInputElement;
   //   const inputValue = target.value;
@@ -47,6 +46,10 @@ const InputField: React.FC<InputFieldProps> = ({
   //     }
   //   }
   // };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrValue(e.target.value);
+    onChange(e);
+  };
   return (
     <div>
       <label
@@ -63,8 +66,8 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder || ""}
         // onKeyPress={handleInput}
         readOnly={!canEdit}
-        // value={value}
-        onChange={onChange}
+        value={currValue}
+        onChange={handleChange}
       />
     </div>
   );

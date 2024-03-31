@@ -43,3 +43,12 @@ export interface OverdueItem {
   EndDate: Date;
   LastNotified: Date;
 }
+
+export interface UserSettings {
+  Email: string;
+  FirstName: string;
+  ID: string;
+  IsAdmin: boolean;
+  LastName: string;
+  IsSubscribed: boolean;
+}
