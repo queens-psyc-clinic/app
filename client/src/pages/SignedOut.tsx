@@ -17,6 +17,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { MdAssignmentTurnedIn } from "react-icons/md";
 import uuid from "react-uuid";
 import { PropaneSharp } from "@mui/icons-material";
+import { getSessionId } from "../services/UserService";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -41,7 +42,7 @@ const SignedOut = (props: { userRole: Role }) => {
       });
     } else if (props.userRole === "client") {
       setIsLoading(true);
-      getAllSignedOutItemsByUser("1").then(async (res) => {
+      getAllSignedOutItemsByUser(getSessionId() || "").then(async (res) => {
         // WAITING ON me to set up routing for now I am just using client id 1, but this should use the signed in client's id
 
         for (const signedOutItem of res) {
@@ -71,7 +72,7 @@ const SignedOut = (props: { userRole: Role }) => {
         console.log("done");
       });
     }
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     console.log("CLIENT DATA: ", clientData);

@@ -10,6 +10,7 @@ import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
 import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
 import { Test } from "../models/BEModels";
+import PageNotFound from "./PageNotFound";
 
 const Requests = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -28,14 +29,16 @@ const Requests = (props: { userRole: Role }) => {
   const unReserveItem = () => {
     // Remove items from reservations, which should increment the item quantities
   };
-  return (
-    <div
-      className={`relative flex flex-col ${
-        props.userRole === "admin" ? "justify-end" : "py-16"
-      }  overflow-x-hidden p-6 py-10 w-full h-full`}
-    >
-      <h1 className={`text-3xl mb-4`}>Requested Items </h1>
-      {props.userRole === "admin" && (
+
+  if (props.userRole == "admin") {
+    return (
+      <div
+        className={`relative flex flex-col ${
+          props.userRole === "admin" ? "justify-end" : "py-16"
+        }  overflow-x-hidden p-6 py-10 w-full h-full`}
+      >
+        <h1 className={`text-3xl mb-4`}>Requested Items </h1>
+
         <>
           <section className="mt-6 space-y-4 pb-5">
             <SearchBar />
@@ -62,9 +65,11 @@ const Requests = (props: { userRole: Role }) => {
             data={data}
           />
         </>
-      )}
-    </div>
-  );
+      </div>
+    );
+  } else {
+    return <PageNotFound />;
+  }
 };
 
 export default Requests;

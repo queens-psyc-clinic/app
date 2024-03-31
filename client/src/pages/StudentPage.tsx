@@ -5,6 +5,7 @@ import { defaultMockData, signedOutMockData } from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Test } from "../models/BEModels";
+import PageNotFound from "./PageNotFound";
 
 const StudentPage = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -17,7 +18,7 @@ const StudentPage = (props: { userRole: Role }) => {
   }, []);
 
   if (props.userRole !== "admin") {
-    return <></>;
+    return <PageNotFound />;
   }
 
   return (
