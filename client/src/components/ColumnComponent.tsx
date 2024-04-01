@@ -27,7 +27,7 @@ const ColumnComponent = (props: {
         </a>
       );
     case columnCustomComponents.user:
-      var userData = props.data as User;
+      var userData = props.data as User & { id: string };
       return <UserCell data={userData} />;
     default:
       return <p>N/A</p>;

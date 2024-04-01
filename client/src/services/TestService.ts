@@ -393,7 +393,6 @@ export async function getAllSignedOutItems() {
       const item: Item = await getItemById(loan.ItemID);
       const test: Test = await getTestById(item.TestID);
       const user: BackendUser = await getUserSettingsData(loan.UserID);
-      console.log(new Date(loan.StartDate).toDateString());
       result.push({
         ID: loan.ID,
         Name: test.Name,
@@ -403,6 +402,7 @@ export async function getAllSignedOutItems() {
         UserID: {
           firstName: user.FirstName,
           lastName: user.LastName,
+          id: user.ID,
           email: user.Email,
           notifications: true, // WAITING ON adding notifications or isSubscribed to User table
           role: user.IsAdmin ? "admin" : "client",
@@ -471,6 +471,7 @@ export async function getAllSignedOutItemsByUser(userId: string) {
         },
         StartDate: new Date(loan.StartDate),
         EndDate: new Date(loan.EndDate),
+        Quantity: loan.Quantity,
       });
     }
     return result;
@@ -901,7 +902,6 @@ export async function markItemAsReserved(
   // decrement stock of all items by quantities
   const start = getTodayDate();
   const end = getDateTwoWeeksFromNow();
-  console.log(start, end);
   try {
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/createLoan`,
@@ -1446,7 +1446,6 @@ export async function deleteLoan(loanId: string) {
 
 export async function deleteEntireTest(testId: string) {
   try {
-    console.log("deleting", testId);
     const testItems: Item[] = await getItemsForTest(testId);
     for (const item of testItems) {
       const loans: Loan[] = await getLoansForItem(item.ID);

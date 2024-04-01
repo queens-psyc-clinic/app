@@ -3,7 +3,7 @@ import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import _ from "lodash";
-import { Test, SignedOutItem, Item } from "../models/BEModels";
+import { Test, Item, SignedOutItem } from "../models/BEModels";
 import {
   getAllSignedOutItems,
   getAllSignedOutItemsByUser,
@@ -29,7 +29,9 @@ const SignedOut = (props: { userRole: Role }) => {
     "OrderingCompany"
   > | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
+  const [adminData, setAdminData] = useState<
+    (SignedOutItem & { Quantity: number })[]
+  >([]);
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
   );
@@ -45,8 +47,6 @@ const SignedOut = (props: { userRole: Role }) => {
     } else if (props.userRole === "client") {
       setIsLoading(true);
       getAllSignedOutItemsByUser(getSessionId() || "").then(async (res) => {
-        // WAITING ON me to set up routing for now I am just using client id 1, but this should use the signed in client's id
-
         for (const signedOutItem of res) {
           const itemMeasure = await getItemMeasure(signedOutItem.Acronym);
 
@@ -64,7 +64,7 @@ const SignedOut = (props: { userRole: Role }) => {
                   LoanID: signedOutItem.ID,
                   StartDate: signedOutItem.StartDate,
                   EndDate: signedOutItem.EndDate,
-                  Quantity: signedOutItem,
+                  // Quantity: signedOutItem.Quantity,
                 },
               ],
               "LoanID"
@@ -72,14 +72,9 @@ const SignedOut = (props: { userRole: Role }) => {
           );
         }
         setIsLoading(false);
-        console.log("done");
       });
     }
   }, [props]);
-
-  useEffect(() => {
-    console.log("CLIENT DATA: ", clientData);
-  }, [clientData]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);

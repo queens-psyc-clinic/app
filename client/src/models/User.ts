@@ -4,6 +4,7 @@ export interface User {
   email: string;
   notifications: boolean;
   role: Role;
+  ID?: string;
 }
 
 export type Role = "client" | "admin";
