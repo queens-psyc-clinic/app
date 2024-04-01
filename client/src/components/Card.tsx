@@ -14,12 +14,13 @@ interface CardProps {
   };
   openModal?: (data: Omit<Test, "OrderingCompany">, items: Item[]) => void;
   type: "item" | "test";
+  OverduePage?: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ data, openModal, type }: CardProps) => {
+const Card: React.FC<CardProps> = ({ data, openModal, type, OverduePage }: CardProps) => {
   const [isAvailable, setIsAvailable] = useState(true);
   const [payLoad, setPayload] = useState<Item[]>([]);
-  const { MeasureOf, Name, ID } = data;
+  const { MeasureOf, Name, ID, StartDate, EndDate} = data;
   useEffect(() => {
     if (type === "test") {
       isTestAvailable(ID, 1).then((res) => {
@@ -60,6 +61,13 @@ const Card: React.FC<CardProps> = ({ data, openModal, type }: CardProps) => {
     }
   };
 
+  const formattedStartDate = StartDate ? new Date(StartDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
+  const formattedEndDate = EndDate ? new Date(EndDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
+
+  const today = new Date();
+  const daysOverdue = EndDate && EndDate < today ? Math.floor((today.getTime() - EndDate.getTime()) / (1000 * 60 * 60 * 24)) : 0;
+
+
   if (type === "item") {
     return (
       <div
@@ -88,10 +96,16 @@ const Card: React.FC<CardProps> = ({ data, openModal, type }: CardProps) => {
           {data.ItemName}
         </h1>
         <p className="mb-4 text-xs text-gray-800">
-          {data.StartDate?.toLocaleDateString()} -{" "}
-          {data.EndDate?.toLocaleDateString()}
-        </p>
+          {/* {data.StartDate?.toLocaleDateString()} -{" "}
+          {data.EndDate?.toLocaleDateString()} */}
+          {formattedStartDate} - {formattedEndDate}
 
+        </p>
+        {OverduePage && daysOverdue > 0 && (
+          <p className="mb-4 text-xs font-bold text-orange-200">
+            Overdue by {daysOverdue} {daysOverdue === 1 ? 'day' : 'days'}
+          </p>
+        )}
         <p
           className={`mr-4 rounded-full py-1 px-6 w-min ${
             data.ItemType ? getItemColorClass(data.ItemType) : ""

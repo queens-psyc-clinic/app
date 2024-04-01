@@ -126,7 +126,7 @@ const Dashboard = (props: { userRole: Role }) => {
                   <button
                     // onClick={deleteSelectedRows}
                     onClick={handleDeleteButtonClick}
-                    className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                    className="text-white bg-red-800 px-3 py-2 rounded-lg flex items-center"
                   >
                     <i className="mr-4">
                       <MdDelete size={20} />
