@@ -4,6 +4,8 @@ db/backup.sql
 test_data.csv
 item_data.csv
 
+node_modules
+
 .vscode
 .DS_Store
 
