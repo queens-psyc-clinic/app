@@ -16,17 +16,15 @@ import ColumnComponent from "./ColumnComponent";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
-import { mapColumnTitleToDataIndex } from "../utils/data";
 import { testUser } from "../utils/mockData";
 import { getItemsForTest } from "../services/TestService";
-import { Test, Item } from "../models/BEModels";
-import EditModal from "./EditModal";
+import { SignedOutItem, Test, Item } from "../models/BEModels";
 
 const Table = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
-  data: Omit<Test, "OrderingCompany">[];
+  data: SignedOutItem[];
   currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
@@ -36,8 +34,6 @@ const Table = (props: {
   const [expandedRows, setExpandedRows] = useState<
     { rowId: string; items: Item[] }[]
   >([]);
-
-  const [expandedRowsItems, setExpandedRowsItems] = useState<Item[]>([]);
 
   let columns: Column[];
 
@@ -62,11 +58,35 @@ const Table = (props: {
       break;
   }
 
+  const mapColumnTitleToDataIndex = (colTitle: string) => {
+    switch (colTitle) {
+      case "Acronym":
+        return "Acronym";
+      case "Name":
+        return "Name";
+      case "Item Name":
+        return "ItemName";
+      case "Borrowed By":
+        return "UserID";
+      case "Checked Out":
+        return "StartDate";
+      case "Measure":
+        return "MeasureOf";
+      default:
+        return colTitle;
+    }
+  };
+
   const data = props.data;
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
-  const pilledColumns: string[] = ["Measure", "Item"];
+  const pilledColumns: string[] = [
+    "Measure",
+    "Item",
+    "Borrowed By",
+    "Checked Out",
+  ];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -85,11 +105,6 @@ const Table = (props: {
   };
 
   const toggleRowExpansion = (selectedRow: Test) => {
-    // setExpandedRows((prevExpandedRows) =>
-    //   prevExpandedRows.includes(id)
-    //     ? prevExpandedRows.filter((rowId) => rowId !== id)
-    //     : [...prevExpandedRows, id]
-    // );
     if (expandedRows.some((elem) => elem.rowId === selectedRow.ID)) {
       setExpandedRows(
         expandedRows.filter((elem) => elem.rowId !== selectedRow.ID)
@@ -100,7 +115,6 @@ const Table = (props: {
           ...prev,
           { rowId: selectedRow.ID, items: res },
         ]);
-        setExpandedRowsItems(res);
       });
     }
   };
@@ -113,16 +127,6 @@ const Table = (props: {
     const row = expandedRows.find((row) => row.rowId === rowId);
     if (row?.items) return row.items;
     else return [];
-  };
-
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-  const [selectedRow, setSelectedRow] = useState<any>(null);
-
-  const handleEditClick = (row: any) => {
-    setSelectedRow(row);
-    toggleRowExpansion(row);
-    setIsEditModalOpen(true);
   };
 
   return (
@@ -138,9 +142,9 @@ const Table = (props: {
                     className="cursor-pointer ml-2"
                   ></input>
                 </td>
-                <td className="px-4 py-4 min-w-min" key={uuid()}>
-                  <span></span>
-                </td>
+                {/* <td className="px-4 py-4 min-w-min" key={uuid()}>
+                    <span></span>
+                  </td> */}
               </>
             )}
             {props.isEditable && (
@@ -155,8 +159,8 @@ const Table = (props: {
                   className={`px-4 py-4 ${
                     col.size === "large" ? "min-w-80" : null
                   }
-                  ${col.size === "medium" ? "min-w-60" : null}
-                  ${col.size === "small" ? "min-w-28" : null}`}
+                      ${col.size === "medium" ? "min-w-60" : null}
+                      ${col.size === "small" ? "min-w-28" : null}`}
                 >
                   <p
                     className={`${
@@ -192,17 +196,10 @@ const Table = (props: {
                         className="cursor-pointer mx-2"
                       />
                     </td>
-                    <td className="px-4 py-2" key={uuid()}>
-                      <FaAngleDown
-                        className={isRowExpanded(row.ID) ? "rotate-180" : ""}
-                      />
-                    </td>
+
                     {props.isEditable && (
                       <td className="px-4 py-2" key={uuid()}>
-                        <i
-                          className="text-black cursor-pointer"
-                          onClick={() => handleEditClick(row)}
-                        >
+                        <i className="text-black cursor-pointer">
                           <FiEdit size={15} />
                         </i>
                       </td>
@@ -210,10 +207,9 @@ const Table = (props: {
                     {columns.map((col, ind) => {
                       if (
                         row[
-                          mapColumnTitleToDataIndex(col.title) as keyof Omit<
-                            Test,
-                            "OrderingCompany"
-                          >
+                          mapColumnTitleToDataIndex(
+                            col.title
+                          ) as keyof SignedOutItem
                         ]
                       ) {
                         if (!pilledColumns.includes(col.title)) {
@@ -221,7 +217,7 @@ const Table = (props: {
                             row[
                               mapColumnTitleToDataIndex(
                                 col.title
-                              ) as keyof Omit<Test, "OrderingCompany">
+                              ) as keyof SignedOutItem
                             ].toString();
                           return (
                             <td key={ind} className="px-4 py-2">
@@ -250,7 +246,7 @@ const Table = (props: {
                                   row[
                                     mapColumnTitleToDataIndex(
                                       col.title
-                                    ) as keyof Omit<Test, "OrderingCompany">
+                                    ) as keyof SignedOutItem
                                   ],
                                 type: col.title.toLowerCase(),
                               },
@@ -259,8 +255,25 @@ const Table = (props: {
                           if (col.title.includes("By")) {
                             customData = {
                               type: columnCustomComponents.user,
-                              data: testUser, // TODO REPLACE THIS WHEN YOU CHECK LOANS
+                              data: row[
+                                mapColumnTitleToDataIndex(
+                                  col.title
+                                ) as keyof SignedOutItem
+                              ], // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };
+                          }
+
+                          if (col.title.includes("Checked Out")) {
+                            const date: Date = row[
+                              mapColumnTitleToDataIndex(
+                                col.title
+                              ) as keyof SignedOutItem
+                            ] as Date;
+                            return (
+                              <td className="px-4 py-2" key={uuid()}>
+                                <p>{date.toDateString()}</p>
+                              </td>
+                            );
                           }
 
                           if (col.title.includes("Ordering Company")) {
@@ -270,7 +283,7 @@ const Table = (props: {
                                 link: row[
                                   mapColumnTitleToDataIndex(
                                     col.title
-                                  ) as keyof Omit<Test, "OrderingCompany">
+                                  ) as keyof SignedOutItem
                                 ],
                               }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };
@@ -337,17 +350,6 @@ const Table = (props: {
           })}
         </tbody>
       </table>
-      {isEditModalOpen && (
-        <EditModal
-          modalTitle="Edit Test"
-          buttonLabel="Save Changes"
-          secButtonLabel="Cancel"
-          test={selectedRow}
-          items={expandedRowsItems}
-          isOpen={isEditModalOpen}
-          closeModal={() => setIsEditModalOpen(false)}
-        />
-      )}
     </div>
   );
 };

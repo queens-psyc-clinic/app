@@ -150,3 +150,9 @@ export const lowStockColumns: Column[] = [
   { title: "Edition", size: "xs", center: true },
 ];
 // this one doesn't need checkboxes on the rows
+
+export const accountColumns: Column[] = [
+  { title: "First Name", size: "small", center: false },
+  { title: "Last Name", size: "small", center: false },
+  { title: "Email", size: "small", center: false },
+];
