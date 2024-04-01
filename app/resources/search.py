@@ -25,7 +25,6 @@ class Search(Resource):
               properties:
                 Page:
                   type: string
-                  descruption: LOAN or DASHBOARD
         responses:
             201:
                 description: Values inserted
