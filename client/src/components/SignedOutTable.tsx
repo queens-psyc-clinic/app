@@ -5,6 +5,7 @@ import {
   overdueColumns,
   lowStockColumns,
   columnCustomComponents,
+  reservationsColumns,
 } from "../models/tableColumns";
 import { getPillColor } from "../models/libraryItem";
 
@@ -16,8 +17,8 @@ import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { testUser } from "../utils/mockData";
-import { Item, getItemsForTest } from "../services/TestService";
-import { SignedOutItem, Test } from "../models/BEModels";
+import { getItemsForTest } from "../services/TestService";
+import { SignedOutItem, Test, Item } from "../models/BEModels";
 
 const Table = (props: {
   tableType: string;
@@ -33,24 +34,18 @@ const Table = (props: {
   const [expandedRows, setExpandedRows] = useState<
     { rowId: string; items: Item[] }[]
   >([]);
-
   let columns: Column[];
 
   switch (props.tableType) {
-    case "default":
-      columns = defaultColumns;
-      break;
     case "signedOut":
       columns = signedOutColums;
       break;
-    case "overdue":
-      columns = overdueColumns;
-      break;
-    case "lowStock":
-      columns = lowStockColumns;
+
+    case "reservations":
+      columns = reservationsColumns;
       break;
     default:
-      columns = defaultColumns;
+      columns = signedOutColums;
       break;
   }
 
@@ -68,6 +63,8 @@ const Table = (props: {
         return "StartDate";
       case "Measure":
         return "MeasureOf";
+      case "Quantity":
+        return "Quantity";
       default:
         return colTitle;
     }
@@ -248,7 +245,7 @@ const Table = (props: {
                               },
                             };
                           }
-                          if (col.title.includes("By")) {
+                          if (col.title.includes("Borrowed By")) {
                             customData = {
                               type: columnCustomComponents.user,
                               data: row[
@@ -260,11 +257,13 @@ const Table = (props: {
                           }
 
                           if (col.title.includes("Checked Out")) {
-                            const date: Date = row[
-                              mapColumnTitleToDataIndex(
-                                col.title
-                              ) as keyof SignedOutItem
-                            ] as Date;
+                            const date: Date = new Date(
+                              row[
+                                mapColumnTitleToDataIndex(
+                                  col.title
+                                ) as keyof SignedOutItem
+                              ] as string
+                            );
                             return (
                               <td className="px-4 py-2" key={uuid()}>
                                 <p>{date.toDateString()}</p>
