@@ -89,7 +89,7 @@ export const adminMenuOptions = [
     page: Pages.accounts,
     defaultIcon: accounts,
     selectedIcon: accounts,
-    url: "/admin/accounts",
+    url: "/accounts",
     title: "Accounts",
   },
 ];

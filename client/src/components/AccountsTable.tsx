@@ -19,12 +19,13 @@ import React from "react";
 import { testUser } from "../utils/mockData";
 import { getItemsForTest } from "../services/TestService";
 import { SignedOutItem, Test, Item } from "../models/BEModels";
+import { AccountUser } from "../pages/Accounts";
 
 const Table = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
-  data: SignedOutItem[];
+  data: AccountUser[];
   currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
@@ -54,24 +55,16 @@ const Table = (props: {
       columns = accountColumns;
       break;
     default:
-      columns = defaultColumns;
+      columns = accountColumns;
       break;
   }
 
   const mapColumnTitleToDataIndex = (colTitle: string) => {
     switch (colTitle) {
-      case "Acronym":
-        return "Acronym";
-      case "Name":
-        return "Name";
-      case "Item Name":
-        return "ItemName";
-      case "Borrowed By":
-        return "UserID";
-      case "Checked Out":
-        return "StartDate";
-      case "Measure":
-        return "MeasureOf";
+      case "First Name":
+        return "FirstName";
+      case "Last Name":
+        return "LastName";
       default:
         return colTitle;
     }
@@ -209,7 +202,7 @@ const Table = (props: {
                         row[
                           mapColumnTitleToDataIndex(
                             col.title
-                          ) as keyof SignedOutItem
+                          ) as keyof AccountUser
                         ]
                       ) {
                         if (!pilledColumns.includes(col.title)) {
@@ -217,7 +210,7 @@ const Table = (props: {
                             row[
                               mapColumnTitleToDataIndex(
                                 col.title
-                              ) as keyof SignedOutItem
+                              ) as keyof AccountUser
                             ].toString();
                           return (
                             <td key={ind} className="px-4 py-2">
@@ -246,7 +239,7 @@ const Table = (props: {
                                   row[
                                     mapColumnTitleToDataIndex(
                                       col.title
-                                    ) as keyof SignedOutItem
+                                    ) as keyof AccountUser
                                   ],
                                 type: col.title.toLowerCase(),
                               },
@@ -258,34 +251,8 @@ const Table = (props: {
                               data: row[
                                 mapColumnTitleToDataIndex(
                                   col.title
-                                ) as keyof SignedOutItem
+                                ) as keyof AccountUser
                               ], // TODO REPLACE THIS WHEN YOU CHECK LOANS
-                            };
-                          }
-
-                          if (col.title.includes("Checked Out")) {
-                            const date: Date = row[
-                              mapColumnTitleToDataIndex(
-                                col.title
-                              ) as keyof SignedOutItem
-                            ] as Date;
-                            return (
-                              <td className="px-4 py-2" key={uuid()}>
-                                <p>{date.toDateString()}</p>
-                              </td>
-                            );
-                          }
-
-                          if (col.title.includes("Ordering Company")) {
-                            customData = {
-                              type: columnCustomComponents.link,
-                              data: {
-                                link: row[
-                                  mapColumnTitleToDataIndex(
-                                    col.title
-                                  ) as keyof SignedOutItem
-                                ],
-                              }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };
                           }
 
