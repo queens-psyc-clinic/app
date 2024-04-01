@@ -15,18 +15,14 @@ export interface searchSuggestion {
 const SearchBar = ({
   onSelectSuggestion,
   onQuerySearch,
+  placeholder,
 }: {
   onSelectSuggestion?: (suggestion: searchSuggestion) => void;
   onQuerySearch?: (query: string) => void;
+  placeholder?: string;
 }) => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<searchSuggestion[]>([]);
-
-  useEffect(() => {
-    initializeSearchTree();
-  }, []);
-
-  useEffect(() => {});
 
   const handleSelectSuggestion = (suggestion: searchSuggestion) => {
     console.log(suggestion);
@@ -60,7 +56,7 @@ const SearchBar = ({
       <div className="flex relative items-center  max-w-fit rounded-full">
         <input
           id="searchbar"
-          placeholder="Search by name or acronym"
+          placeholder={placeholder || "Search by name or acronym"}
           className="border-2 border-[#E9E9E9] outline-none rounded-full pl-10 py-2 text-base w-[50vw] h-12"
           onChange={handleQueryChange}
           onKeyDown={handleKeyPress}
@@ -86,7 +82,11 @@ const SearchBar = ({
                   <p className="max-w-[30vw]">{suggestion.value}</p>
                 </section>
                 <p className="text-gray-200 text-xs border border-gray-200 py-1 px-2 w-max rounded-full ">
-                  {suggestion.kind == "Name" ? "Test Name" : "Acronym"}
+                  {suggestion.kind == "Name"
+                    ? "Test Name"
+                    : suggestion.kind == "ID"
+                    ? "Acronym"
+                    : "User"}
                 </p>
               </div>
             );

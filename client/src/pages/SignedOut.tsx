@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
-import SearchBar from "../components/SearchBar";
+import SearchBar, { searchSuggestion } from "../components/SearchBar";
 import Filter from "../components/Filter";
 import _ from "lodash";
 import { Test, SignedOutItem, Item } from "../models/BEModels";
@@ -9,6 +9,8 @@ import {
   getAllSignedOutItemsByUser,
   getItemById,
   getItemMeasure,
+  getLoanByAcronym,
+  getLoanByName,
 } from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
 import Card from "../components/Card";
@@ -18,6 +20,10 @@ import { MdAssignmentTurnedIn } from "react-icons/md";
 import uuid from "react-uuid";
 import { PropaneSharp } from "@mui/icons-material";
 import { getSessionId } from "../services/UserService";
+import {
+  getSearchSuggestions,
+  initializeSearchTree,
+} from "../services/SearchService";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -34,6 +40,7 @@ const SignedOut = (props: { userRole: Role }) => {
 
   /* FETCHING REAL DATA */
   useEffect(() => {
+    initializeSearchTree("LOAN").then(() => console.log("initialized"));
     if (props.userRole === "admin") {
       setIsLoading(true);
       getAllSignedOutItems().then((res) => {
@@ -74,19 +81,49 @@ const SignedOut = (props: { userRole: Role }) => {
     }
   }, [props]);
 
-  useEffect(() => {
-    console.log("CLIENT DATA: ", clientData);
-  }, [clientData]);
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
+    // console.log(suggestion);
+    // if (suggestion.kind === "Name") {
+    //   getTestByName(suggestion.value).then((res) => {
+    //     console.log(res);
+    //     setData(res);
+    //   });
+    // } else if (suggestion.kind === "ID") {
+    //   getTestById(suggestion.value).then((res) => {
+    //     setData([res]);
+    //   });
+    // }
   };
 
-  const handleCardClick = (data: Omit<Test, "OrderingCompany">) => {
-    setSelectedCard(data);
-    setIsModalOpen(true);
-  };
-  console.log(props);
+  async function handleQueryEnter(query: string) {
+    console.log(query);
+    if (query == "") {
+      setIsLoading(true);
+      getAllSignedOutItems().then((res) => {
+        setAdminData(res as SignedOutItem[]);
+        setIsLoading(false);
+      });
+    }
+    const suggestions = await getSearchSuggestions(query);
+    const possibleResults: SignedOutItem[] = await Promise.all(
+      suggestions.map(async (suggestion: searchSuggestion) => {
+        if (suggestion.kind === "Name") {
+          const tests = await getLoanByName(suggestion.value);
+          console.log(tests);
+          return tests;
+        } else if (suggestion.kind === "ID") {
+          const tests = await getLoanByAcronym(suggestion.value);
+          console.log(tests);
+          return tests;
+        }
+        // else if (suggestion.kind === "FirstLastName"){
+
+        // }
+      })
+    );
+    console.log(possibleResults);
+    setAdminData(_.flatten(possibleResults));
+  }
 
   return (
     <div
@@ -102,7 +139,11 @@ const SignedOut = (props: { userRole: Role }) => {
           {props.userRole === "admin" && (
             <>
               <section className="mt-6 space-y-4 pb-5">
-                <SearchBar />
+                <SearchBar
+                  placeholder="Search by item name or acronym"
+                  onSelectSuggestion={handleSearchSuggestionSelect}
+                  onQuerySearch={handleQueryEnter}
+                />
                 <Filter />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                   <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">

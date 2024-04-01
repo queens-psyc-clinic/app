@@ -28,7 +28,10 @@ import {
 import { Test, Item } from "../models/BEModels";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ConfirmModal from "../components/ConfirmModal";
-import { getSearchSuggestions } from "../services/SearchService";
+import {
+  getSearchSuggestions,
+  initializeSearchTree,
+} from "../services/SearchService";
 
 const Dashboard = (props: { userRole: Role }) => {
   let backup: Test[] = [];
@@ -43,11 +46,10 @@ const Dashboard = (props: { userRole: Role }) => {
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [data, setData] = useState<Test[]>([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [selectedSuggestion, setSelectedSuggestion] =
-    useState<searchSuggestion>();
-  const [query, setQuery] = useState("");
+
   /* FETCHING REAL DATA */
   useEffect(() => {
+    initializeSearchTree("DASHBOARD");
     getAllUnArchivedTests().then((res) => {
       setData(res);
       backup = res;
@@ -89,16 +91,6 @@ const Dashboard = (props: { userRole: Role }) => {
         }
       })
     );
-    // console.log("suggestions: ", suggestions);
-    // for (const suggestion of suggestions) {
-    //   if (suggestion.kind === "Name") {
-    //     getTestByName(suggestion.value).then((res) =>
-    //       possibleResults.push(...res)
-    //     );
-    //   } else if (suggestion.kind === "ID") {
-    //     getTestById(suggestion.value).then((res) => possibleResults.push(res));
-    //   }
-    // }
     setData(_.flatten(possibleResults));
   }
 

@@ -33,7 +33,6 @@ function PrivateRoutes({ page }: AppProps) {
 
   const [isPermitted, setIsPermitted] = useState(true);
   const [role, setRole] = useState<Role>();
-
   useEffect(() => {
     if (!isUserSignedIn()) {
       setIsSignedIn(false);

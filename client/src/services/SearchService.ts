@@ -1,9 +1,17 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 
-export async function initializeSearchTree() {
+export async function initializeSearchTree(page: string) {
   try {
     const response: AxiosResponse = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/search/${undefined}`
+      `${process.env.REACT_APP_BASE_URL}/search/${undefined}`,
+      {
+        Page: page,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
     );
     return response.data;
   } catch (error) {
