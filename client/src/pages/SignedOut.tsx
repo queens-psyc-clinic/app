@@ -11,6 +11,7 @@ import {
   getItemMeasure,
   getLoanByAcronym,
   getLoanByName,
+  markItemAsAvailable,
 } from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
 import Card from "../components/Card";
@@ -24,6 +25,7 @@ import {
   getSearchSuggestions,
   initializeSearchTree,
 } from "../services/SearchService";
+import ReportIssueModal from "../components/ReportIssueModal";
 
 const SignedOut = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -69,6 +71,7 @@ const SignedOut = (props: { userRole: Role }) => {
                   LoanID: signedOutItem.ID,
                   StartDate: signedOutItem.StartDate,
                   EndDate: signedOutItem.EndDate,
+                  Quantity: signedOutItem,
                 },
               ],
               "LoanID"
@@ -124,6 +127,28 @@ const SignedOut = (props: { userRole: Role }) => {
     console.log(possibleResults);
     setAdminData(_.flatten(possibleResults));
   }
+  const handleReportIssueClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCardClick = (data: Omit<Test, "OrderingCompany">) => {
+    setSelectedCard(data);
+    setIsModalOpen(true);
+  };
+  console.log(props);
+
+  async function handleMarkAsReturned() {
+    const errors: any[] = [];
+    for (const loanId of selectedRows) {
+      await markItemAsAvailable(loanId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue marking these items as returned.");
+    } else {
+      alert("Items returned successfully!");
+      window.location.reload();
+    }
+  }
 
   return (
     <div
@@ -146,7 +171,10 @@ const SignedOut = (props: { userRole: Role }) => {
                 />
                 <Filter />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-                  <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
+                  <button
+                    className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
+                    onClick={handleMarkAsReturned}
+                  >
                     <i className="mr-4">
                       <MdAssignmentTurnedIn size={20} />
                     </i>
@@ -155,7 +183,7 @@ const SignedOut = (props: { userRole: Role }) => {
                 </section>
               </section>
               <SignedOutTable
-                tableType="signedOut"
+                tableType="reservations"
                 setSelectedRows={setSelectedRows}
                 selectedRows={selectedRows}
                 data={adminData}
@@ -169,6 +197,29 @@ const SignedOut = (props: { userRole: Role }) => {
                   return <Card key={uuid()} data={item} type="item" />;
                 })}
               </div>
+              <div className="text-sm fixed bottom-10 right-10 bg-white p-6 rounded-lg shadow-md max-w-64 text-center">
+                <p className="text-wrap py-1">
+                  Issue with an item? Something missing or damaged?
+                </p>
+                <button
+                  className="cursor-pointer text-blue-200 underline"
+                  onClick={handleReportIssueClick}
+                >
+                  Report Issue Here
+                </button>
+              </div>
+              {isModalOpen && (
+                <ReportIssueModal
+                  isOpen={isModalOpen}
+                  closeModal={() => setIsModalOpen(false)}
+                  header="Report an Issue"
+                  description="If you noticed something wrong with an item you signed out, please let us know here:"
+                  button="Send"
+                  secondButton="Cancel"
+                  onOk={() => {}}
+                  onClose={() => setIsModalOpen(false)}
+                />
+              )}
             </>
           )}
         </>

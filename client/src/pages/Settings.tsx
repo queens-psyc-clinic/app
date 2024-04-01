@@ -5,6 +5,8 @@ import { Role } from "../models/User";
 import Switch from "@mui/material/Switch";
 import { IoArrowBackSharp } from "react-icons/io5";
 import "./Settings.css";
+import AccountsTable from "../components/AccountsTable";
+import { SignedOutItem } from "../models/BEModels";
 import DropFile from "../components/DropFile";
 import {
   getSessionId,
@@ -16,6 +18,9 @@ import { useEffect, useState } from "react";
 import { UserSettings } from "../models/BEModels";
 
 const Settings = (props: { userRole: Role }) => {
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
+
   // Add state management when we connect backend
   const [userSettings, setUserSettings] = useState<UserSettings>({
     Email: "",

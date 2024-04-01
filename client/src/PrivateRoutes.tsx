@@ -23,6 +23,7 @@ import {
 } from "./services/UserService";
 import { useParams } from "react-router-dom";
 import PageNotFound from "./pages/PageNotFound";
+import Accounts from "./pages/Accounts";
 
 interface AppProps {
   page: Pages;
@@ -59,6 +60,7 @@ function PrivateRoutes({ page }: AppProps) {
           {page === Pages.settings && <Settings userRole={role!} />}
           {page === Pages.student && <StudentPage userRole={role!} />}
           {page === Pages.requests && <Requests userRole={role!} />}
+          {page === Pages.accounts && <Accounts userRole={role!} />}
           {role === "client" && (
             <>
               <section className="flex flex-row absolute top-10 right-10">

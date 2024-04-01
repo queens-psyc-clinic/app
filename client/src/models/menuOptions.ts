@@ -8,6 +8,7 @@ import lowStock from "../assets/icons/low-stock.svg";
 import lowStockColor from "../assets/icons/low-stock-color.svg";
 import archive from "../assets/icons/archive.svg";
 import requests from "../assets/icons/requests.svg";
+import accounts from "../assets/icons/users.svg";
 import { Pages } from "./Pages";
 
 export const clientMenuOptions = [
@@ -83,5 +84,12 @@ export const adminMenuOptions = [
     selectedIcon: archive,
     url: "/archive",
     title: "Archive",
+  },
+  {
+    page: Pages.accounts,
+    defaultIcon: accounts,
+    selectedIcon: accounts,
+    url: "/accounts",
+    title: "Accounts",
   },
 ];

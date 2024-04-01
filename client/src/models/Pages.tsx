@@ -11,4 +11,5 @@ export enum Pages {
   accounttype = "account type",
   student = "student",
   requests = "requests",
+  accounts = "accounts"
 }

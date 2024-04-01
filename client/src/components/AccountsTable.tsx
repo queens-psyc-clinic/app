@@ -5,7 +5,7 @@ import {
   overdueColumns,
   lowStockColumns,
   columnCustomComponents,
-  reservationsColumns,
+  accountColumns,
 } from "../models/tableColumns";
 import { getPillColor } from "../models/libraryItem";
 
@@ -19,12 +19,13 @@ import React from "react";
 import { testUser } from "../utils/mockData";
 import { getItemsForTest } from "../services/TestService";
 import { SignedOutItem, Test, Item } from "../models/BEModels";
+import { AccountUser } from "../pages/Accounts";
 
 const Table = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
-  data: SignedOutItem[];
+  data: AccountUser[];
   currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
@@ -34,37 +35,36 @@ const Table = (props: {
   const [expandedRows, setExpandedRows] = useState<
     { rowId: string; items: Item[] }[]
   >([]);
+
   let columns: Column[];
 
   switch (props.tableType) {
+    case "default":
+      columns = defaultColumns;
+      break;
     case "signedOut":
       columns = signedOutColums;
       break;
-
-    case "reservations":
-      columns = reservationsColumns;
+    case "overdue":
+      columns = overdueColumns;
+      break;
+    case "lowStock":
+      columns = lowStockColumns;
+      break;
+    case "accounts":
+      columns = accountColumns;
       break;
     default:
-      columns = signedOutColums;
+      columns = accountColumns;
       break;
   }
 
   const mapColumnTitleToDataIndex = (colTitle: string) => {
     switch (colTitle) {
-      case "Acronym":
-        return "Acronym";
-      case "Name":
-        return "Name";
-      case "Item Name":
-        return "ItemName";
-      case "Borrowed By":
-        return "UserID";
-      case "Checked Out":
-        return "StartDate";
-      case "Measure":
-        return "MeasureOf";
-      case "Quantity":
-        return "Quantity";
+      case "First Name":
+        return "FirstName";
+      case "Last Name":
+        return "LastName";
       default:
         return colTitle;
     }
@@ -136,8 +136,8 @@ const Table = (props: {
                   ></input>
                 </td>
                 {/* <td className="px-4 py-4 min-w-min" key={uuid()}>
-                  <span></span>
-                </td> */}
+                    <span></span>
+                  </td> */}
               </>
             )}
             {props.isEditable && (
@@ -152,8 +152,8 @@ const Table = (props: {
                   className={`px-4 py-4 ${
                     col.size === "large" ? "min-w-80" : null
                   }
-                    ${col.size === "medium" ? "min-w-60" : null}
-                    ${col.size === "small" ? "min-w-28" : null}`}
+                      ${col.size === "medium" ? "min-w-60" : null}
+                      ${col.size === "small" ? "min-w-28" : null}`}
                 >
                   <p
                     className={`${
@@ -202,7 +202,7 @@ const Table = (props: {
                         row[
                           mapColumnTitleToDataIndex(
                             col.title
-                          ) as keyof SignedOutItem
+                          ) as keyof AccountUser
                         ]
                       ) {
                         if (!pilledColumns.includes(col.title)) {
@@ -210,7 +210,7 @@ const Table = (props: {
                             row[
                               mapColumnTitleToDataIndex(
                                 col.title
-                              ) as keyof SignedOutItem
+                              ) as keyof AccountUser
                             ].toString();
                           return (
                             <td key={ind} className="px-4 py-2">
@@ -239,48 +239,20 @@ const Table = (props: {
                                   row[
                                     mapColumnTitleToDataIndex(
                                       col.title
-                                    ) as keyof SignedOutItem
+                                    ) as keyof AccountUser
                                   ],
                                 type: col.title.toLowerCase(),
                               },
                             };
                           }
-                          if (col.title.includes("Borrowed By")) {
+                          if (col.title.includes("By")) {
                             customData = {
                               type: columnCustomComponents.user,
                               data: row[
                                 mapColumnTitleToDataIndex(
                                   col.title
-                                ) as keyof SignedOutItem
+                                ) as keyof AccountUser
                               ], // TODO REPLACE THIS WHEN YOU CHECK LOANS
-                            };
-                          }
-
-                          if (col.title.includes("Checked Out")) {
-                            const date: Date = new Date(
-                              row[
-                                mapColumnTitleToDataIndex(
-                                  col.title
-                                ) as keyof SignedOutItem
-                              ] as string
-                            );
-                            return (
-                              <td className="px-4 py-2" key={uuid()}>
-                                <p>{date.toDateString()}</p>
-                              </td>
-                            );
-                          }
-
-                          if (col.title.includes("Ordering Company")) {
-                            customData = {
-                              type: columnCustomComponents.link,
-                              data: {
-                                link: row[
-                                  mapColumnTitleToDataIndex(
-                                    col.title
-                                  ) as keyof SignedOutItem
-                                ],
-                              }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };
                           }
 

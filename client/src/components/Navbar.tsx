@@ -1,4 +1,4 @@
-import profilePic from "../assets/profile.svg";
+import clinicLogo from "../assets/logo.png";
 import { MdOutlineSettings } from "react-icons/md";
 import { clientMenuOptions, adminMenuOptions } from "../models/menuOptions";
 import { useState } from "react";
@@ -15,11 +15,11 @@ const Navbar = (props: { userType: Role }) => {
     props.userType === "admin" ? adminMenuOptions : clientMenuOptions;
 
   return (
-    <div className="h-[95%] w-[7rem] rounded-3xl bg-gray-100 py-4 flex flex-col items-center">
-      <img src={profilePic} alt="profile" className="mt-4"></img>
+    <div className="h-[95%] w-[7rem] rounded-3xl bg-gray-100 pb-4 flex flex-col items-center">
+      <img src={clinicLogo} alt="clinic logo" className="mt-4"></img>
       <div
         className={`flex flex-col w-full justify-between items-center self-center justify-self-center mb-auto ${
-          props.userType === "admin" ? "h-1/2 mt-[8vh]" : "h-1/3 mt-[20vh]"
+          props.userType === "admin" ? "h-1/2 mt-[4vh]" : "h-1/3 mt-[20vh]"
         }`}
       >
         {options.map((option) => {

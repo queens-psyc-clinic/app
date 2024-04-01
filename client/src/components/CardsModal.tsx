@@ -4,7 +4,15 @@ import expandedRowsData from "../models/tableExpandRows";
 import { Test, Item } from "../models/BEModels";
 import { getItemsForTest } from "../services/TestService";
 import { getPillColor } from "../models/libraryItem";
+import {
+  addItemToCart,
+  clearCart,
+  deleteItemFromCart,
+  getCart,
+  initializeCart,
+} from "../services/ShoppingCartService";
 import { FaMinus, FaPlus } from "react-icons/fa"; // Import React Icons
+import { CartItem } from "./Cart";
 
 interface CardsModalProps {
   modalTitle: string;
@@ -26,66 +34,128 @@ const CardsModal: React.FC<CardsModalProps> = ({
   cardData,
   items,
 }: CardsModalProps) => {
-  const [testItems, setTestItems] = useState<Item[]>(items);
-  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
+  const [testItems, setTestItems] = useState<CartItem[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   useEffect(() => {
+    initializeCart();
     if (cardData) {
       getItemsForTest(cardData.ID)
         .then((res) => {
-          setTestItems(res);
-          const initialQuantities: { [key: string]: number } = {};
-          res.forEach((item: { ItemType: string | number }) => {
-            initialQuantities[item.ItemType] = 1; // Initialize quantities to 1
-          });
-          setQuantities(initialQuantities);
+          setTestItems(
+            res.map((item: Item) => {
+              return {
+                quantity: 0,
+                item: item,
+              };
+            })
+          );
         })
         .then(() => console.log(items));
     }
-  }, []);
+  }, [isOpen]);
 
   const handleSelectAll = () => {
-    const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = true;
+    setSelectedItems(items.map((item) => item.ID));
+    setTestItems(
+      testItems.map((testItem) => {
+        return {
+          ...testItem,
+          quantity: 1,
+        };
+      })
+    );
+  };
+
+  const increment = (itemId: string) => {
+    setTestItems(
+      testItems.map((testItem) => {
+        if (testItem.item.ID === itemId) {
+          if (testItem.quantity === 0) {
+            handleCheckboxChange(itemId);
+          }
+          return {
+            ...testItem,
+            quantity: testItem.quantity + 1,
+          };
+        } else {
+          return testItem;
+        }
+      })
+    );
+  };
+
+  const decrement = (itemId: string) => {
+    setTestItems(
+      testItems.map((testItem) => {
+        if (testItem.item.ID === itemId) {
+          if (testItem.quantity === 1) {
+            handleCheckboxChange(itemId);
+          }
+          return {
+            ...testItem,
+            quantity: testItem.quantity - 1,
+          };
+        } else {
+          return testItem;
+        }
+      })
+    );
+  };
+
+  const handleCheckboxChange = (itemId: string) => {
+    setSelectedItems((prev) => {
+      const selectedIndex = prev.indexOf(itemId);
+      if (selectedIndex === -1) {
+        return [...prev, itemId];
+      } else {
+        return prev.filter((rowId) => rowId !== itemId);
+      }
     });
-    // NEED TO ADD: if item quantity < 0, set quantity to 1
+    setTestItems(
+      testItems.map((testItem) => {
+        if (testItem.item.ID === itemId) {
+          if (testItem.quantity == 0) {
+            return { ...testItem, quantity: 1 };
+          } else {
+            return { ...testItem, quantity: 0 };
+          }
+        } else {
+          return testItem;
+        }
+      })
+    );
   };
 
-  const handleIncrement = (itemType: string) => {
-    const newQuantity = (quantities[itemType] || 0) + 1;
-    const updatedQuantities = { ...quantities, [itemType]: newQuantity };
-    setQuantities(updatedQuantities);
-  
-    const checkbox = document.getElementById(itemType) as HTMLInputElement;
-    if (checkbox && newQuantity > 0) {
-      checkbox.checked = true;
-    }
-  };
-
-  const handleDecrement = (itemType: string) => {
-    const newQuantity = Math.max((quantities[itemType] || 0) - 1, 0);
-    const updatedQuantities = { ...quantities, [itemType]: newQuantity };
-    setQuantities(updatedQuantities);
-  
-    if (newQuantity === 0) {
-      const checkbox = document.getElementById(itemType) as HTMLInputElement;
-      if (checkbox) {
-        checkbox.checked = false;
+  function addToCart() {
+    const itemsToAddToCart: CartItem[] = testItems
+      .filter((testItem) => {
+        return testItem.quantity > 0;
+      })
+      .map((cartItem) => {
+        return {
+          ...cartItem,
+          MeasureOf: cardData?.MeasureOf,
+          TestName: cardData?.Name,
+        };
+      });
+    console.log(itemsToAddToCart);
+    if (itemsToAddToCart.length == 0) {
+      alert("Select items to add to cart.");
+    } else {
+      for (const item of itemsToAddToCart) {
+        addItemToCart(item as CartItem);
       }
     }
-  };
-
-  const handleCheckboxChange = (itemType: string) => {
-    const checkbox = document.getElementById(itemType) as HTMLInputElement;
-    const updatedQuantities = { ...quantities, [itemType]: checkbox.checked ? 1 : 0 };
-    setQuantities(updatedQuantities);
-  };
+    setTestItems([]);
+    setSelectedItems([]);
+    closeModal();
+  }
 
   return (
     <div>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10 z-50">
           <div className="bg-white rounded-lg p-8 max-h-full min-w-fit overflow-y-auto">
             {cardData && (
               <div>
@@ -132,44 +202,62 @@ const CardsModal: React.FC<CardsModalProps> = ({
                   </button>
                 </div>
               </section>
-              {items.map((item, index) => (
-                <div key={item.ID}>
+              {testItems.map((testItem, index) => (
+                <div key={testItem.item.ID}>
                   <div
                     className={`py-4 pl-2 flex justify-between items-center ${
                       index % 2 === 0 ? "bg-gray-100" : ""
                     }`}
-                    key={item.ItemType}
+                    key={testItem.item.ItemType}
                   >
                     <div className="flex items-center">
                       <input
                         type="checkbox"
-                        id={item.ItemType}
-                        name={item.ItemType}
-                        value={item.ItemType}
-                        onClick={() => handleCheckboxChange(item.ItemType)}
+                        checked={
+                          selectedItems.includes(testItem.item.ID || "") ||
+                          testItem.quantity > 0
+                        }
+                        id={testItem.item.ItemType}
+                        name={testItem.item.ItemType}
+                        value={testItem.item.ItemType}
+                        onChange={() => handleCheckboxChange(testItem.item.ID)}
                       />
                       <label className="pl-4">
                         <span
                           className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${getPillColor(
-                            item.ItemType
+                            testItem.item.ItemType || ""
                           )}-100`}
                         >
-                          {item.ItemType}
+                          {testItem.item.ItemType || ""}
                         </span>
-                        <span>{item.ItemName}</span>
+                        <span>{testItem.item.ItemName}</span>
                       </label>
                     </div>
                     <div className="flex items-center mr-2">
                       <FaMinus
-                        onClick={() => handleDecrement(item.ItemType)}
-                        className="cursor-pointer mr-2"
+                        onClick={() => {
+                          if (testItem.quantity !== 0) {
+                            decrement(testItem.item.ID);
+                          }
+                        }}
+                        className={`mr-2 ${
+                          testItem.quantity === 0
+                            ? "cursor-default text-gray-200"
+                            : "cursor-pointer"
+                        }`}
                       />
-                      <span className="mr-2 ml-2">
-                        {quantities[item.ItemType] || 0}
-                      </span>
+                      <span className="mr-2 ml-2">{testItem.quantity}</span>
                       <FaPlus
-                        onClick={() => handleIncrement(item.ItemType)}
-                        className="cursor-pointer ml-2"
+                        onClick={() => {
+                          if (testItem.quantity !== testItem.item.Stock) {
+                            increment(testItem.item.ID);
+                          }
+                        }}
+                        className={`ml-2 ${
+                          testItem.quantity === testItem.item.Stock
+                            ? "cursor-default text-gray-200"
+                            : "cursor-pointer"
+                        }`}
                       />
                     </div>
                   </div>
@@ -179,14 +267,18 @@ const CardsModal: React.FC<CardsModalProps> = ({
             <div className="flex justify-end pt-10">
               {secButtonLabel.trim() && (
                 <button
-                  onClick={closeModal}
+                  onClick={() => {
+                    setTestItems([]);
+                    setSelectedItems([]);
+                    closeModal();
+                  }}
                   className="hover:bg-gray-100 hover:text-gray-900 px-6 py-2 border-2 border-gray-900 rounded-lg text-sm font-semibold mr-4"
                 >
                   {secButtonLabel}
                 </button>
               )}
               <button
-                onClick={closeModal}
+                onClick={addToCart}
                 className="text-white hover:bg-gray-800 bg-gray-900 px-6 py-2 rounded-lg text-sm font-semibold"
               >
                 {buttonLabel}
