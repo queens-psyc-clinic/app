@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+import Filter, { PossibleFilters } from "../components/Filter";
 
 import Table from "../components/Table";
 import { requestsMockData } from "../utils/mockData";
@@ -21,9 +21,12 @@ import SignedOutTable from "../components/SignedOutTable";
 
 const Requests = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [data, setData] = useState<(SignedOutItem & { Quantity: number })[]>(
-    []
-  );
+  const [data, setData] = useState<
+    (SignedOutItem & { Quantity: number; ItemType: string })[]
+  >([]);
+  const [original, setOriginal] = useState<
+    (SignedOutItem & { Quantity: number; ItemType: string })[]
+  >([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const borrowedByOptions: string[] = cardSampleData.map(
     (item) => item["Borrowed By"].data
@@ -31,7 +34,13 @@ const Requests = (props: { userRole: Role }) => {
 
   useEffect(() => {
     getAllReservedItems().then((res) => {
-      setData(res as (SignedOutItem & { Quantity: number })[]);
+      setData(
+        res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+      );
+      setOriginal(
+        res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+      );
+      console.log();
     });
   }, []);
 
@@ -64,6 +73,23 @@ const Requests = (props: { userRole: Role }) => {
     }
   }
 
+  function applyFilter(filters: PossibleFilters) {
+    console.log(filters);
+    let filteredData = original;
+    if (filters.Measure) {
+      filteredData = filteredData.filter((item) => {
+        return item.MeasureOf == filters.Measure;
+      });
+    }
+    if (filters.Item) {
+      filteredData = filteredData.filter((item) => {
+        return item.ItemType == filters.Item;
+      });
+    }
+
+    setData(filteredData);
+  }
+
   if (props.userRole == "admin") {
     return (
       <div
@@ -78,11 +104,8 @@ const Requests = (props: { userRole: Role }) => {
             <SearchBar />
             <Filter
               placeholders={["Measure", "Item"]}
-              options={[
-                Object.values(Measure),
-                ItemTypeOptions,
-                borrowedByOptions,
-              ]}
+              options={[Object.values(Measure), ItemTypeOptions]}
+              onChange={applyFilter}
             />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button

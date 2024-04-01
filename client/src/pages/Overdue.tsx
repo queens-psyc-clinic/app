@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+import Filter, { PossibleFilters } from "../components/Filter";
 import { BiSolidBell } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import _ from "lodash";
@@ -26,7 +26,12 @@ import { FaExclamationTriangle } from "react-icons/fa";
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [adminData, setAdminData] = useState<OverdueItem[]>([]);
+  const [adminData, setAdminData] = useState<
+    (OverdueItem & { ItemType: string })[]
+  >([]);
+  const [original, setOriginal] = useState<
+    (OverdueItem & { ItemType: string })[]
+  >([]);
   const [session, setSession] = useState<string>("");
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
@@ -38,7 +43,8 @@ const Overdue = (props: { userRole: Role }) => {
   useEffect(() => {
     if (props.userRole === "admin") {
       getAllOverdueItems().then((res) => {
-        setAdminData(res as OverdueItem[]);
+        setAdminData(res as (OverdueItem & { ItemType: string })[]);
+        setOriginal(res as (OverdueItem & { ItemType: string })[]);
         setIsLoading(false);
       });
     } else if (props.userRole === "client") {
@@ -80,6 +86,24 @@ const Overdue = (props: { userRole: Role }) => {
     }
     window.location.reload();
   };
+
+  function applyFilter(filters: PossibleFilters) {
+    console.log(filters);
+    let filteredData = original;
+    if (filters.Measure) {
+      filteredData = filteredData.filter((item) => {
+        return item.MeasureOf == filters.Measure;
+      });
+    }
+    if (filters.Item) {
+      filteredData = filteredData.filter((item) => {
+        return item.ItemType == filters.Item;
+      });
+    }
+
+    setAdminData(filteredData);
+  }
+
   if (isLoading) {
     return (
       <div
@@ -104,11 +128,8 @@ const Overdue = (props: { userRole: Role }) => {
               <SearchBar />
               <Filter
                 placeholders={["Measure", "Item"]}
-                options={[
-                  Object.values(Measure),
-                  ItemTypeOptions,
-                  borrowedByOptions,
-                ]}
+                options={[Object.values(Measure), ItemTypeOptions]}
+                onChange={applyFilter}
               />
               <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                 <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">

@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 import { Role } from "../models/User";
 import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+import Filter, { PossibleFilters } from "../components/Filter";
 import Card from "../components/Card";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
@@ -18,6 +18,7 @@ import {
   deleteTest,
   getAllTests,
   getAllUnArchivedTests,
+  getDashboardTests,
   getItemById,
   getItemsForTest,
   getTestById,
@@ -45,12 +46,18 @@ const Dashboard = (props: { userRole: Role }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [data, setData] = useState<Test[]>([]);
+  const [original, setOriginal] = useState<Test[]>([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   /* FETCHING REAL DATA */
   useEffect(() => {
-    getAllUnArchivedTests().then((res) => {
+    // getAllUnArchivedTests().then((res) => {
+    //   setData(res);
+    //   setIsLoading(false);
+    // });
+    getDashboardTests().then((res) => {
       setData(res);
+      setOriginal(res);
       setIsLoading(false);
     });
   }, []);
@@ -90,6 +97,25 @@ const Dashboard = (props: { userRole: Role }) => {
     window.location.reload();
   };
 
+  function applyFilter(filters: PossibleFilters) {
+    console.log(filters);
+    let filteredData = original;
+    if (filters.Measure) {
+      filteredData = filteredData.filter((test) => {
+        return test.MeasureOf == filters.Measure;
+      });
+    }
+    if (filters.Item) {
+      filteredData = filteredData.filter((test) => {
+        return (
+          test.Items && test.Items.some((item) => item.ItemType == filters.Item)
+        );
+      });
+    }
+
+    setData(filteredData);
+  }
+
   async function archiveTests() {
     const errors = [];
     for (const itemId of selectedRows) {
@@ -109,13 +135,9 @@ const Dashboard = (props: { userRole: Role }) => {
           <section className="mt-6 space-y-6 mb-6">
             <SearchBar />
             <Filter
-              placeholders={["Measure", "Item", "Min Age", "Max Age"]}
-              options={[
-                Object.values(Measure),
-                ItemTypeOptions,
-                MinimumAge,
-                MaximumAge,
-              ]}
+              placeholders={["Measure", "Item"]}
+              options={[Object.values(Measure), ItemTypeOptions]}
+              onChange={applyFilter}
             />
           </section>
           {!isLoading ? (
@@ -184,13 +206,9 @@ const Dashboard = (props: { userRole: Role }) => {
         <section className="mt-6 space-y-6 mb-6">
           <SearchBar />
           <Filter
-            placeholders={["Measure", "Item", "Min Age", "Max Age"]}
-            options={[
-              Object.values(Measure),
-              ItemTypeOptions,
-              MinimumAge,
-              MaximumAge,
-            ]}
+            placeholders={["Measure", "Item"]}
+            options={[Object.values(Measure), ItemTypeOptions]}
+            onChange={applyFilter}
           />
         </section>
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+import Filter, { PossibleFilters } from "../components/Filter";
 import Table from "../components/Table";
 import { Item, Test } from "../models/BEModels";
 import Card from "../components/Card";
@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md";
 import {
   deleteEntireTest,
   getAllArchivedTests,
+  getArchivedTests,
   isTestAvailable,
   unArchiveTest,
 } from "../services/TestService";
@@ -33,6 +34,7 @@ const Archive = (props: { userRole: Role }) => {
     "OrderingCompany"
   > | null>(null);
   const [data, setData] = useState<Omit<Test, "OrderingCompany">[]>([]);
+  const [original, setOriginal] = useState<Omit<Test, "OrderingCompany">[]>([]);
   const [selectedItems, setSelectedItems] = useState<Item[]>([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -82,8 +84,31 @@ const Archive = (props: { userRole: Role }) => {
     setShowConfirmModal(true);
   };
 
+  function applyFilter(filters: PossibleFilters) {
+    console.log(filters);
+    let filteredData = original;
+    if (filters.Measure) {
+      filteredData = filteredData.filter((test) => {
+        return test.MeasureOf == filters.Measure;
+      });
+    }
+    if (filters.Item) {
+      filteredData = filteredData.filter((test) => {
+        return (
+          test.Items && test.Items.some((item) => item.ItemType == filters.Item)
+        );
+      });
+    }
+
+    setData(filteredData);
+  }
+
   useEffect(() => {
-    getAllArchivedTests().then((res) => setData(res));
+    getArchivedTests().then((res) => {
+      setData(res);
+      console.log(res);
+      setOriginal(res);
+    });
   }, []);
 
   return (
@@ -98,13 +123,9 @@ const Archive = (props: { userRole: Role }) => {
           <section className="mt-6 space-y-2 mb-6">
             <SearchBar />
             <Filter
-              placeholders={["Measure", "Item", "Min Age", "Max Age"]}
-              options={[
-                Object.values(Measure),
-                ItemTypeOptions,
-                MinimumAge,
-                MaximumAge,
-              ]}
+              placeholders={["Measure", "Item"]}
+              options={[Object.values(Measure), ItemTypeOptions]}
+              onChange={applyFilter}
             />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button

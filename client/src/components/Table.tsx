@@ -95,13 +95,18 @@ const Table = (props: {
         expandedRows.filter((elem) => elem.rowId !== selectedRow.ID)
       );
     } else {
-      getItemsForTest(selectedRow.ID).then((res: Item[]) => {
-        setExpandedRows((prev) => [
-          ...prev,
-          { rowId: selectedRow.ID, items: res },
-        ]);
-        setExpandedRowsItems(res);
-      });
+      // getItemsForTest(selectedRow.ID).then((res: Item[]) => {
+      //   setExpandedRows((prev) => [
+      //     ...prev,
+      //     { rowId: selectedRow.ID, items: res },
+      //   ]);
+      //   setExpandedRowsItems(res);
+      // });
+
+      setExpandedRows((prev) => [
+        ...prev,
+        { rowId: selectedRow.ID, items: selectedRow.Items! },
+      ]);
     }
   };
 
@@ -222,7 +227,7 @@ const Table = (props: {
                               mapColumnTitleToDataIndex(
                                 col.title
                               ) as keyof Omit<Test, "OrderingCompany">
-                            ].toString();
+                            ]!.toString();
                           return (
                             <td key={ind} className="px-4 py-2">
                               <p

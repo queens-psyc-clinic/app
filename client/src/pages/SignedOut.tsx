@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+import Filter, { PossibleFilters } from "../components/Filter";
 import _ from "lodash";
 import { Test, Item, SignedOutItem } from "../models/BEModels";
 import {
@@ -37,7 +37,10 @@ const SignedOut = (props: { userRole: Role }) => {
   > | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [adminData, setAdminData] = useState<
-    (SignedOutItem & { Quantity: number })[]
+    (SignedOutItem & { Quantity: number; ItemType: string })[]
+  >([]);
+  const [original, setOriginal] = useState<
+    (SignedOutItem & { Quantity: number; ItemType: string })[]
   >([]);
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
@@ -48,7 +51,15 @@ const SignedOut = (props: { userRole: Role }) => {
     if (props.userRole === "admin") {
       setIsLoading(true);
       getAllSignedOutItems().then((res) => {
-        setAdminData(res as SignedOutItem[]);
+        setAdminData(
+          res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+        );
+        setOriginal(
+          res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+        );
+        console.log(
+          res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+        );
         setIsLoading(false);
       });
     } else if (props.userRole === "client") {
@@ -109,9 +120,22 @@ const SignedOut = (props: { userRole: Role }) => {
     }
   }
 
-  const borrowedByOptions: string[] = cardSampleData.map(
-    (item) => item["Borrowed By"].data
-  );
+  function applyFilter(filters: PossibleFilters) {
+    console.log(filters);
+    let filteredData = original;
+    if (filters.Measure) {
+      filteredData = filteredData.filter((item) => {
+        return item.MeasureOf == filters.Measure;
+      });
+    }
+    if (filters.Item) {
+      filteredData = filteredData.filter((item) => {
+        return item.ItemType == filters.Item;
+      });
+    }
+
+    setAdminData(filteredData);
+  }
 
   return (
     <div
@@ -130,11 +154,8 @@ const SignedOut = (props: { userRole: Role }) => {
                 <SearchBar />
                 <Filter
                   placeholders={["Measure", "Item"]}
-                  options={[
-                    Object.values(Measure),
-                    ItemTypeOptions,
-                    borrowedByOptions,
-                  ]}
+                  options={[Object.values(Measure), ItemTypeOptions]}
+                  onChange={applyFilter}
                 />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                   <button

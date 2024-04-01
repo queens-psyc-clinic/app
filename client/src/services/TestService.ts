@@ -397,6 +397,7 @@ export async function getAllSignedOutItems() {
         ID: loan.ID,
         Name: test.Name,
         ItemName: item.ItemName,
+        ItemType: item.ItemType,
         MeasureOf: test.MeasureOf,
         Acronym: item.ID,
         UserID: {
@@ -413,6 +414,42 @@ export async function getAllSignedOutItems() {
       });
     }
     return result;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getDashboardTests() {
+  try {
+    const res = [];
+    const unarchivedTests = await getAllUnArchivedTests();
+
+    for (const test of unarchivedTests) {
+      const items = await getItemsForTest(test.ID);
+      res.push({
+        ...test,
+        Items: items,
+      });
+    }
+
+    return res;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -515,6 +552,42 @@ export async function getAllArchivedTests() {
       }
     );
     return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getArchivedTests() {
+  try {
+    const res = [];
+    const unarchivedTests = await getAllArchivedTests();
+
+    for (const test of unarchivedTests) {
+      const items = await getItemsForTest(test.ID);
+      res.push({
+        ...test,
+        Items: items,
+      });
+    }
+
+    return res;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -972,6 +1045,7 @@ export async function getAllReservedItems() {
         ID: reservedItem.ID,
         Name: test.Name,
         ItemName: item.ItemName,
+        ItemType: item.ItemType,
         MeasureOf: test.MeasureOf,
         Acronym: item.ID,
         UserID: {
