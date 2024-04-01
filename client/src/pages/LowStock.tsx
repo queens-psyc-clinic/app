@@ -16,6 +16,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import _ from "lodash";
 import { ItemTypeOptions, Measure } from "../models/libraryItem";
 import cardSampleData from "../models/cardSampleData";
+import PageNotFound from "./PageNotFound";
 
 const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -26,9 +27,7 @@ const LowStock = (props: { userRole: Role }) => {
   const quantityOptions: string[] = cardSampleData.map((item) => item["Stock"]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // WAITING ON trailing spaces fix on backend
   useEffect(() => {
-    // WAITING ON stock column to be adjusted in db
     setIsLoading(true);
     getLowStockItems().then(async (res) => {
       for (const lowStockItem of res) {
@@ -65,7 +64,7 @@ const LowStock = (props: { userRole: Role }) => {
   }, []);
 
   if (props.userRole === "client") {
-    return <></>;
+    return <PageNotFound />;
   }
   return (
     <div
@@ -79,9 +78,13 @@ const LowStock = (props: { userRole: Role }) => {
           <section className="mt-6 space-y-2 mb-6">
             <SearchBar />
             <Filter
-                  placeholders={["Measure", "Item", "Quantity"]}
-                  options={[Object.values(Measure), ItemTypeOptions, quantityOptions]}
-                />
+              placeholders={["Measure", "Item", "Quantity"]}
+              options={[
+                Object.values(Measure),
+                ItemTypeOptions,
+                quantityOptions,
+              ]}
+            />
           </section>
           {/* <Table
             tableType="lowStock"

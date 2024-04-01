@@ -8,6 +8,7 @@ import lowStock from "../assets/icons/low-stock.svg";
 import lowStockColor from "../assets/icons/low-stock-color.svg";
 import archive from "../assets/icons/archive.svg";
 import requests from "../assets/icons/requests.svg";
+import accounts from "../assets/icons/users.svg";
 import { Pages } from "./Pages";
 
 export const clientMenuOptions = [
@@ -15,28 +16,28 @@ export const clientMenuOptions = [
     page: Pages.dashboard,
     defaultIcon: home,
     selectedIcon: homeColor,
-    url: "/client",
+    url: "/",
     title: "Dashboard",
   },
   {
     page: Pages.signedOut,
     defaultIcon: signOut,
     selectedIcon: signOutColor,
-    url: "/client/signed-out",
+    url: "/signed-out",
     title: "Signed Out",
   },
   {
     page: Pages.overdue,
     defaultIcon: overdue,
     selectedIcon: overdueColor,
-    url: "/client/overdue",
+    url: "/overdue",
     title: "Overdue",
   },
   {
     page: Pages.archive,
     defaultIcon: archive,
     selectedIcon: archive,
-    url: "/client/archive",
+    url: "/archive",
     title: "Archive",
   },
 ];
@@ -46,42 +47,49 @@ export const adminMenuOptions = [
     page: Pages.dashboard,
     defaultIcon: home,
     selectedIcon: homeColor,
-    url: "/admin",
+    url: "/",
     title: "Dashboard",
   },
   {
     page: Pages.signedOut,
     defaultIcon: signOut,
     selectedIcon: signOutColor,
-    url: "/admin/signed-out",
+    url: "/signed-out",
     title: "Signed Out",
   },
   {
     page: Pages.overdue,
     defaultIcon: overdue,
     selectedIcon: overdueColor,
-    url: "/admin/overdue",
+    url: "/overdue",
     title: "Overdue",
   },
   {
     page: Pages.requests,
     defaultIcon: requests,
     selectedIcon: requests,
-    url: "/admin/requests",
+    url: "/requests",
     title: "Requests",
   },
   {
     page: Pages.lowStock,
     defaultIcon: lowStock,
     selectedIcon: lowStockColor,
-    url: "/admin/low-stock",
+    url: "/low-stock",
     title: "Low Stock",
   },
   {
     page: Pages.archive,
     defaultIcon: archive,
     selectedIcon: archive,
-    url: "/admin/archive",
+    url: "/archive",
     title: "Archive",
+  },
+  {
+    page: Pages.accounts,
+    defaultIcon: accounts,
+    selectedIcon: accounts,
+    url: "/admin/accounts",
+    title: "Accounts",
   },
 ];

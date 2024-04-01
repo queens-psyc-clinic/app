@@ -31,7 +31,7 @@ CREATE TABLE Tests (
     LevelOfUser VARCHAR(10),
     EditionNumber VARCHAR(100),
     OrderingCompany VARCHAR(155),
-    IsArchived BOOLEAN NOT NULL DEFAULT 0
+    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE Items (
@@ -53,6 +53,8 @@ CREATE TABLE Loans (
     EndDate DATETIME NOT NULL,
     UserID VARCHAR(64) NOT NULL, 
     ItemID VARCHAR(64) NOT NULL,
+    IsConfirmed BOOLEAN NOT NULL DEFAULT FALSE,
+    Quantity INT NOT NULL DEFAULT 1,
     FOREIGN KEY (UserID) REFERENCES Users(ID),
     FOREIGN KEY (ItemID) REFERENCES Items(ID)
 );

@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../components/Table";
-import {
-  defaultMockData,
-  // signedOutMockData,
-  // overdueMockData,
-  // lowStockMockData,
-} from "../utils/mockData";
+import { MdArchive } from "react-icons/md";
+
 import { MdDelete } from "react-icons/md";
 
 import { Role } from "../models/User";
@@ -13,14 +9,15 @@ import AdminCards from "../components/AdminCards";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Card from "../components/Card";
-import cardSampleData, { CardData } from "../models/cardSampleData";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
 import {
+  archiveTest,
   deleteEntireTest,
   deleteItem,
   deleteTest,
   getAllTests,
+  getAllUnArchivedTests,
   getItemById,
   getItemsForTest,
   getTestById,
@@ -34,6 +31,8 @@ import {
   MaximumAge,
   MinimumAge,
 } from "../models/libraryItem";
+import ConfirmModal from "../components/ConfirmModal";
+import { clearCart } from "../services/ShoppingCartService";
 
 const Dashboard = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -46,10 +45,11 @@ const Dashboard = (props: { userRole: Role }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [data, setData] = useState<Test[]>([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   /* FETCHING REAL DATA */
   useEffect(() => {
-    getAllTests().then((res) => {
+    getAllUnArchivedTests().then((res) => {
       setData(res);
       setIsLoading(false);
     });
@@ -72,12 +72,17 @@ const Dashboard = (props: { userRole: Role }) => {
     setSelectedItems(items);
   };
 
+  const handleDeleteButtonClick = () => {
+    setShowConfirmModal(true);
+  };
+
   const deleteSelectedRows = async () => {
     // TODO: SHOULD POP MODAL FIRST
+    // ensure when you press cancel it doesn't delete :)
 
     for (const testId of selectedRows) {
       try {
-        deleteEntireTest(testId);
+        await deleteEntireTest(testId);
       } catch (e) {
         console.log(e);
       }
@@ -85,6 +90,18 @@ const Dashboard = (props: { userRole: Role }) => {
     window.location.reload();
   };
 
+  async function archiveTests() {
+    const errors = [];
+    for (const itemId of selectedRows) {
+      await archiveTest(itemId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue archiving these tests.");
+    } else {
+      alert("Items Archived Successfully");
+      window.location.reload();
+    }
+  }
   if (props.userRole === "admin") {
     return (
       <>
@@ -110,10 +127,20 @@ const Dashboard = (props: { userRole: Role }) => {
                   <AdminCards userRole="admin" />
                 </section>
                 <section className="absolute bottom-0 right-0 space-x-4 flex w-min items-end justify-end self-end">
+                  <button
+                    onClick={archiveTests}
+                    className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                  >
+                    <i className="mr-4">
+                      <MdArchive size={20} />
+                    </i>
+                    <p>Archive</p>
+                  </button>
                   <Modal modalTitle="Add Item" buttonLabel="Add" />
                   <button
-                    onClick={deleteSelectedRows}
-                    className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                    // onClick={deleteSelectedRows}
+                    onClick={handleDeleteButtonClick}
+                    className="text-white bg-red-800 px-3 py-2 rounded-lg flex items-center"
                   >
                     <i className="mr-4">
                       <MdDelete size={20} />
@@ -122,7 +149,17 @@ const Dashboard = (props: { userRole: Role }) => {
                   </button>
                 </section>
               </section>
-
+              <div>
+                <ConfirmModal
+                  header="Are you sure?"
+                  description="This action cannot be reversed."
+                  secondButton="Cancel"
+                  button="Delete"
+                  isOpen={showConfirmModal}
+                  closeModal={() => setShowConfirmModal(false)}
+                  onOk={async () => deleteSelectedRows()}
+                />
+              </div>
               <Table
                 tableType="default"
                 currentPage={currentPage}
@@ -147,14 +184,14 @@ const Dashboard = (props: { userRole: Role }) => {
         <section className="mt-6 space-y-6 mb-6">
           <SearchBar />
           <Filter
-              placeholders={["Measure", "Item", "Min Age", "Max Age"]}
-              options={[
-                Object.values(Measure),
-                ItemTypeOptions,
-                MinimumAge,
-                MaximumAge,
-              ]}
-            />
+            placeholders={["Measure", "Item", "Min Age", "Max Age"]}
+            options={[
+              Object.values(Measure),
+              ItemTypeOptions,
+              MinimumAge,
+              MaximumAge,
+            ]}
+          />
         </section>
 
         {/* CLIENT DASHBOARD */}

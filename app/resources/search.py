@@ -1,5 +1,5 @@
-from flask_restful import abort, fields, marshal_with, reqparse, Resource, request
-from common.db import execute_sql_query, select_table, check_exists
+from flask_restful import abort, Resource
+from common.db import select_table
 from searchFunction.trie import PrefixTree
 
 trie = PrefixTree()
@@ -25,8 +25,8 @@ class Search(Resource):
         table = select_table('Tests')
         if table is not None:
             for row in table:
-                trie.insert(row['Name'].upper())
-                trie.insert(row['ID'].upper())
+                trie.insert(row['Name'].upper(), 'Name')
+                trie.insert(row['ID'].upper(), 'ID')
             return 201
         return abort(500, message="Internal error inserting values")
     
@@ -49,8 +49,11 @@ class Search(Resource):
         """
         prefix = prefix.upper()
         words = trie.starts_with(prefix)
+        result = []
         if words:
-            return words, 201
+            for word in words:
+                result.append({word['value'] : word['type']})
+            return result, 201
         if words == []:
             return [], 201
         return abort(500, message="Internal error fetching values")

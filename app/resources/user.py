@@ -3,7 +3,7 @@ from flask import jsonify, make_response, request
 from flask_restful import abort, fields, marshal_with, reqparse, Resource
 
 from common.pbkdf2 import hash_password, verify_password
-from common.db import execute_sql_query
+from common.db import check_exists, execute_sql_query
 
 
 def email(email_str: str):
@@ -13,6 +13,7 @@ def email(email_str: str):
         return email_str
     else:
         raise ValueError('{} is not a valid email'.format(email_str))
+
 
 user_fields = {
     'ID': fields.String,
@@ -46,7 +47,7 @@ class User(Resource):
         Create a new user
         ---
         tags:
-          - Authentication
+          - User
         parameters:
           - in: path
             name: email
@@ -57,9 +58,9 @@ class User(Resource):
             type: string
             required: true
           - in: query
-            name: UserName
-            type: string
-            required: true
+            name: FirstName
+          - in: query
+            name: LastName
         responses:
           200:
             description: A single user item
@@ -68,40 +69,38 @@ class User(Resource):
               properties:
                 ID: 
                   type: string
-                  description: user id
-                UserName:
+                FirstName:
                   type: string
-                  description: The name of the user
+                LastName:
+                  type: string
                 Email:
                   type: string
-                  description: The email of the user
-
                 IsAdmin:
                   type: boolean
-                  description: Permissions
         """
-         
-        if request.method == "OPTIONS": # CORS preflight
+
+        if request.method == "OPTIONS":  # CORS preflight
             return _build_cors_preflight_response()
-        else:   
-          args = user_parser.parse_args()
-          new_user = _default_user(args['FirstName'], args['LastName'], email)
-          new_user["Hash"] = hash_password(password)
-          try:
-              _insert(new_user)
-          except Exception as e:
-              if "duplicate entry" in str(e).lower():
-                  return jsonify({'error': 'Duplicate entry'}), 409
-          
-          return _corsify_actual_response(make_response(_select_one({"ID": new_user["ID"]}))), 201
+        else:
+            args = user_parser.parse_args()
+            new_user = _default_user(
+                args['FirstName'], args['LastName'], email)
+            new_user["Hash"] = hash_password(password)
+            try:
+                _insert(new_user)
+            except Exception as e:
+                if "duplicate entry" in str(e).lower():
+                    abort(409)
+
+            return _select_one({"ID": new_user["ID"]}), 201
 
     @marshal_with(user_fields)
     def get(self, email, password):
         """
-        Authenticate user
+        Get user ID (Authenticate user)
         ---
         tags:
-          - Authentication
+          - User
         parameters:
           - in: path
             name: email
@@ -116,21 +115,56 @@ class User(Resource):
             description: A single user item
             schema:
               id: User
-          400:
+          401:
             description: Incorrect credentials
+          404:
+            description: Email not found
         """
-        if request.method == "OPTIONS": # CORS preflight
+        if request.method == "OPTIONS":  # CORS preflight
             return _build_cors_preflight_response()
         try:
             id_hash = _select_cols_one({"Email": email}, ["ID", "Hash"])
-            if verify_password(id_hash["Hash"], password) and (id, hash):
-              return _corsify_actual_response(make_response(_select_one({'ID': id_hash['ID']}))), 200
-            abort(400, message="Incorrect Password")
+            if verify_password(id_hash["Hash"], password):
+                return _select_one({'ID': id_hash['ID']}), 200
+            abort(401)
         except KeyError as e:
-            abort(400, message="Email does not exist.")
+            abort(404, message="Email does not exist.")
+
+    def delete(self, email, password):
+        """
+        Delete user
+        ---
+        tags:
+          - User
+        parameters:
+          - in: path
+            name: email
+          - in: path
+            name: password
+            description: Use ID to authenticate user
+        responses:
+          200:
+            description: Successfully deleted
+          401:
+            description: Incorrect ID
+          403:
+            description: Incorrect permissions
+          404:
+            description: Email not found
+        """
+        id = password
+        if not check_exists(id, 'Users'):
+            abort(401)
+        try:
+            user = _select_one({'Email': email})
+            if not (id == user['ID'] or check_exists(id, 'Users', admin=True)):
+                abort(403)
+        except KeyError:
+            abort(404, message='Email not found')
+        return execute_sql_query('DELETE', 'Users', conditions={'Email': email})==[], 200
 
 
-def _default_user(firstName = "abc", lastName ="def", email: str = "abc@xyz.ca"):
+def _default_user(firstName="abc", lastName="def", email: str = "abc@xyz.ca"):
     return _make_user(hash(email), firstName, lastName,  email, False)
 
 
@@ -146,15 +180,16 @@ def _select_cols(cn, cl): return execute_sql_query(
     "SELECT", "Users", conditions=cn, columns=cl)
 
 
-def _select_cols_one(cn, cl): 
-  res = _select_cols(cn, cl)
-  if res:
-    return _select_cols(cn, cl)[0]
-  else: 
-      raise KeyError
+def _select_cols_one(cn, cl):
+    res = _select_cols(cn, cl)
+    if res:
+        return _select_cols(cn, cl)[0]
+    else:
+        raise KeyError
 
 
 def _select_one(cn): return _select_cols_one(cn, None)
+
 
 def _build_cors_preflight_response():
     response = make_response()
@@ -163,6 +198,8 @@ def _build_cors_preflight_response():
     response.headers.add('Access-Control-Allow-Methods', "*")
     return response
 
+
 def _corsify_actual_response(response):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+

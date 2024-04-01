@@ -5,58 +5,17 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Pages } from "./models/Pages";
+import AccountType from "./pages/AccountType";
+import PrivateRoutes from "./PrivateRoutes";
+import Redirect from "./pages/Redirect";
 
 const router = createBrowserRouter([
   {
     path: "/", // CHANGE THIS TO DIRECT TO SIGN IN PAGE
-    element: <App />,
+    element: <Redirect />,
   },
   {
-    path: "/client",
-    element: <App page={Pages.dashboard} userRole="client" />,
-  },
-  {
-    path: "/client/signed-out",
-    element: <App page={Pages.signedOut} userRole="client" />,
-  },
-  {
-    path: "/client/overdue",
-    element: <App page={Pages.overdue} userRole="client" />,
-  },
-  {
-    path: "/client/settings",
-    element: <App page={Pages.settings} userRole="client" />,
-  },
-  {
-    path: "/admin",
-    element: <App page={Pages.dashboard} userRole="admin" />,
-  },
-  {
-    path: "/admin/signed-out",
-    element: <App page={Pages.signedOut} userRole="admin" />,
-  },
-  {
-    path: "/admin/overdue",
-    element: <App page={Pages.overdue} userRole="admin" />,
-  },
-  {
-    path: "/admin/low-stock",
-    element: <App page={Pages.lowStock} userRole="admin" />,
-  },
-  {
-    path: "/admin/archive",
-    element: <App page={Pages.archive} userRole="admin" />,
-  },
-  {
-    path: "/client/archive",
-    element: <App page={Pages.archive} userRole="client" />,
-  },
-  {
-    path: "/admin/settings",
-    element: <App page={Pages.settings} userRole="admin" />,
-  },
-  {
-    path: "/sign-up",
+    path: "/sign-up/:type",
     element: <App page={Pages.signup} />,
   },
   {
@@ -64,16 +23,64 @@ const router = createBrowserRouter([
     element: <App page={Pages.signin} />,
   },
   {
+    path: "/",
+    element: <PrivateRoutes page={Pages.dashboard} />,
+  },
+  {
+    path: "/signed-out",
+    element: <PrivateRoutes page={Pages.signedOut} />,
+  },
+  {
+    path: "/overdue",
+    element: <PrivateRoutes page={Pages.overdue} />,
+  },
+  {
+    path: "/settings",
+    element: <PrivateRoutes page={Pages.settings} />,
+  },
+  // {
+  //   path: "/admin",
+  //   element: <PrivateRoutes page={Pages.dashboard} userRole="admin" />,
+  // },
+  // {
+  //   path: "/admin/signed-out",
+  //   element: <PrivateRoutes page={Pages.signedOut} userRole="admin" />,
+  // },
+  // {
+  //   path: "/admin/overdue",
+  //   element: <PrivateRoutes page={Pages.overdue} userRole="admin" />,
+  // },
+  {
+    path: "/low-stock",
+    element: <PrivateRoutes page={Pages.lowStock} />,
+  },
+  {
+    path: "/archive",
+    element: <PrivateRoutes page={Pages.archive} />,
+  },
+  // {
+  //   path: "/client/archive",
+  //   element: <PrivateRoutes page={Pages.archive} userRole="client" />,
+  // },
+  // {
+  //   path: "/admin/settings",
+  //   element: <PrivateRoutes page={Pages.settings} userRole="admin" />,
+  // },
+  {
     path: "/account-type",
-    element: <App page={Pages.accounttype} />,
+    element: <AccountType onSignIn={() => console.log("hi")} />,
   },
   {
-    path: "/admin/student",
-    element: <App page={Pages.student} userRole="admin" />,
+    path: "/student",
+    element: <PrivateRoutes page={Pages.student} />,
   },
   {
-    path: "/admin/requests",
-    element: <App page={Pages.requests} userRole="admin" />,
+    path: "/requests",
+    element: <PrivateRoutes page={Pages.requests} />,
+  },
+  {
+    path: "/admin/accounts",
+    element: <App page={Pages.accounts} userRole="admin" />,
   },
   // ADD NEW PATHS HERE
 ]);

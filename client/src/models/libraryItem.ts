@@ -34,14 +34,12 @@ export interface Test {
   items: LibraryItem[];
 }
 
-export type CartItem = {
-  id: string;
-  Name: string;
-  "Item Name": string;
-  Item: ItemType;
-  minAge: number;
-  maxAge: number;
-} & Partial<LibraryItem>;
+// export type CartItem = {
+//   id: string;
+//   Name: string;
+//   "Item Name": string;
+//   Item: ItemType;
+// } & Partial<LibraryItem>;
 
 export const getPillColor = (pillName: string) => {
   switch (pillName) {

@@ -6,9 +6,8 @@ import { BiSolidBell } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import _ from "lodash";
 
-import { OverdueItem, Test } from "../models/BEModels";
+import { OverdueItem, Test, Item } from "../models/BEModels";
 import {
-  Item,
   getAllOverdueItems,
   getAllOverdueTestsByUser,
   getItemById,
@@ -21,11 +20,14 @@ import Card from "../components/Card";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { ItemTypeOptions, Measure } from "../models/libraryItem";
 import cardSampleData from "../models/cardSampleData";
+import { getSessionId } from "../services/UserService";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [adminData, setAdminData] = useState<OverdueItem[]>([]);
+  const [session, setSession] = useState<string>("");
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
   );
@@ -41,7 +43,7 @@ const Overdue = (props: { userRole: Role }) => {
       });
     } else if (props.userRole === "client") {
       // WAITING ON me to set up routing for now I am just using client id 1, but this should use the signed in client's id
-      getAllOverdueTestsByUser("1").then(async (res) => {
+      getAllOverdueTestsByUser(getSessionId() || "").then(async (res) => {
         for (const overdueItem of res) {
           const itemMeasure = await getItemMeasure(overdueItem.Acronym);
           const item = await getItemById(overdueItem.Acronym);
@@ -66,7 +68,7 @@ const Overdue = (props: { userRole: Role }) => {
         setIsLoading(false);
       });
     }
-  }, []);
+  }, [props]);
 
   const deleteSelected = async () => {
     try {
@@ -139,12 +141,13 @@ const Overdue = (props: { userRole: Role }) => {
           <>
             <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
               {clientData.map((data) => (
-                <Card
-                  key={data.ID}
-                  data={data}
-                  type="item"
-                  // openModal={() => handleCardClick(data)}
-                />
+                <div key={data.ID} className="relative">
+                  <Card data={data} type="item" OverduePage={true} />
+                  <FaExclamationTriangle
+                    className="absolute top-0 right-0 -mt-2 mr-[4rem] text-yellow-100 transform rotate-[15deg]"
+                    size={35}
+                  />
+                </div>
               ))}
             </div>
           </>

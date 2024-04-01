@@ -5,6 +5,7 @@ import {
   overdueColumns,
   lowStockColumns,
   columnCustomComponents,
+  accountColumns,
 } from "../models/tableColumns";
 import { getPillColor } from "../models/libraryItem";
 
@@ -17,13 +18,13 @@ import { FaAngleDown } from "react-icons/fa";
 import React from "react";
 import { testUser } from "../utils/mockData";
 import { getItemsForTest } from "../services/TestService";
-import { OverdueItem, Test, Item } from "../models/BEModels";
+import { SignedOutItem, Test, Item } from "../models/BEModels";
 
 const Table = (props: {
   tableType: string;
   setSelectedRows: Function;
   selectedRows: string[];
-  data: OverdueItem[];
+  data: SignedOutItem[];
   currentPage?: string;
   isCheckable?: boolean;
   isEditable?: boolean;
@@ -48,6 +49,9 @@ const Table = (props: {
       break;
     case "lowStock":
       columns = lowStockColumns;
+      break;
+    case "accounts":
+      columns = accountColumns;
       break;
     default:
       columns = defaultColumns;
@@ -205,7 +209,7 @@ const Table = (props: {
                         row[
                           mapColumnTitleToDataIndex(
                             col.title
-                          ) as keyof OverdueItem
+                          ) as keyof SignedOutItem
                         ]
                       ) {
                         if (!pilledColumns.includes(col.title)) {
@@ -213,7 +217,7 @@ const Table = (props: {
                             row[
                               mapColumnTitleToDataIndex(
                                 col.title
-                              ) as keyof OverdueItem
+                              ) as keyof SignedOutItem
                             ].toString();
                           return (
                             <td key={ind} className="px-4 py-2">
@@ -242,7 +246,7 @@ const Table = (props: {
                                   row[
                                     mapColumnTitleToDataIndex(
                                       col.title
-                                    ) as keyof OverdueItem
+                                    ) as keyof SignedOutItem
                                   ],
                                 type: col.title.toLowerCase(),
                               },
@@ -254,7 +258,7 @@ const Table = (props: {
                               data: row[
                                 mapColumnTitleToDataIndex(
                                   col.title
-                                ) as keyof OverdueItem
+                                ) as keyof SignedOutItem
                               ], // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };
                           }
@@ -263,7 +267,7 @@ const Table = (props: {
                             const date: Date = row[
                               mapColumnTitleToDataIndex(
                                 col.title
-                              ) as keyof OverdueItem
+                              ) as keyof SignedOutItem
                             ] as Date;
                             return (
                               <td className="px-4 py-2" key={uuid()}>
@@ -279,7 +283,7 @@ const Table = (props: {
                                 link: row[
                                   mapColumnTitleToDataIndex(
                                     col.title
-                                  ) as keyof OverdueItem
+                                  ) as keyof SignedOutItem
                                 ],
                               }, // TODO REPLACE THIS WHEN YOU CHECK LOANS
                             };

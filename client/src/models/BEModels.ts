@@ -6,18 +6,18 @@ export interface Test {
   LevelOfUser: string;
   MeasureOf: string;
   Name: string;
-  OrderingCompany: String;
+  OrderingCompany: string;
 }
 
 export interface Item {
   Ages: string;
   ID: string;
-  IsArchived: Number; //
+  IsArchived: Number;
   ItemName: string;
   ItemType: string;
   Location: string;
   Status: Boolean;
-  Stock: Number;
+  Stock: number;
   TestID: string;
 }
 
@@ -30,6 +30,7 @@ export interface SignedOutItem {
   UserID: User;
   StartDate: Date;
   EndDate: Date;
+  Quantity: number;
 }
 
 export interface OverdueItem {
@@ -42,4 +43,13 @@ export interface OverdueItem {
   StartDate: Date;
   EndDate: Date;
   LastNotified: Date;
+}
+
+export interface UserSettings {
+  Email: string;
+  FirstName: string;
+  ID: string;
+  IsAdmin: boolean;
+  LastName: string;
+  IsSubscribed: boolean;
 }
