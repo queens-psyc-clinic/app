@@ -142,17 +142,6 @@ const Card: React.FC<CardProps> = ({ data, openModal, type, OverduePage }: CardP
         >
           {Name}
         </h1>
-        {/* <div
-          className={`flex flex-row pt-4 text-xs ${
-            Stock === "0" ? "opacity-50" : ""
-          }`}
-        >
-          <div> WAITING on whether tests will have ages
-            <p className="mr-4 ring-gray-900 rounded-full ring-1 py-1 px-5 ring-inset">
-              {Ages}
-            </p>
-          </div>
-        </div> */}
       </div>
     );
   }

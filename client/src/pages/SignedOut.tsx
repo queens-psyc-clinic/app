@@ -9,6 +9,7 @@ import {
   getAllSignedOutItemsByUser,
   getItemById,
   getItemMeasure,
+  markItemAsAvailable,
 } from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
 import Card from "../components/Card";
@@ -63,6 +64,7 @@ const SignedOut = (props: { userRole: Role }) => {
                   LoanID: signedOutItem.ID,
                   StartDate: signedOutItem.StartDate,
                   EndDate: signedOutItem.EndDate,
+                  Quantity: signedOutItem,
                 },
               ],
               "LoanID"
@@ -92,6 +94,18 @@ const SignedOut = (props: { userRole: Role }) => {
     setIsModalOpen(true);
   };
   console.log(props);
+  async function handleMarkAsReturned() {
+    const errors: any[] = [];
+    for (const loanId of selectedRows) {
+      await markItemAsAvailable(loanId).catch((e) => errors.push(e));
+    }
+    if (errors.length > 0) {
+      alert("There was an issue marking these items as returned.");
+    } else {
+      alert("Items returned successfully!");
+      window.location.reload();
+    }
+  }
 
   return (
     <div
@@ -110,7 +124,10 @@ const SignedOut = (props: { userRole: Role }) => {
                 <SearchBar />
                 <Filter />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-                  <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">
+                  <button
+                    className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
+                    onClick={handleMarkAsReturned}
+                  >
                     <i className="mr-4">
                       <MdAssignmentTurnedIn size={20} />
                     </i>
@@ -119,7 +136,7 @@ const SignedOut = (props: { userRole: Role }) => {
                 </section>
               </section>
               <SignedOutTable
-                tableType="signedOut"
+                tableType="reservations"
                 setSelectedRows={setSelectedRows}
                 selectedRows={selectedRows}
                 data={adminData}

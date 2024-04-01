@@ -13,7 +13,6 @@ const StudentPage = (props: { userRole: Role }) => {
   const [overdueData, setoverdueData] = useState<Test[]>([]);
 
   useEffect(() => {
-    // WAITING ON me to connect to backend
     setSignedOutData([]);
     setoverdueData([]);
   }, []);

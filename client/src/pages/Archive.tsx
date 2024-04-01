@@ -135,6 +135,11 @@ const Archive = (props: { userRole: Role }) => {
       )}
       {props.userRole === "client" && (
         <>
+          <p className="max-w-[70%]">
+            These legacy archived items at the psychology clinic are older materials
+            available for sign-out upon request, offering users access to
+            historical psychological resources.
+          </p>
           <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
             {data.map((data) => (
               <Card
