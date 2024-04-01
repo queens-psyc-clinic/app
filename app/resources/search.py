@@ -49,15 +49,23 @@ class Search(Resource):
                     full_name = user_names[0] + ' ' + user_names[1]
                     trie.insert(full_name.upper(), 'FirstLastName')
                 return 201
-
-        if page_type == 'DASHBOARD':
-            #  builds the tree based on tests table
-            table = select_table('Tests')
+        elif page_type == 'DASHBOARD':
+            #  builds the tree based on tests table (Not arcvhived)
+            table = _select_cols({'IsArchived': '0'}, None, 'Tests')
             if table is not None:
                 for row in table:
                     trie.insert(row['Name'].upper(), 'Name')
                     trie.insert(row['ID'].upper(), 'ID')
                 return 201
+        elif page_type == 'ARCHIVED':
+            #  builds the tree based on tests table (Arcvhived)
+            table = _select_cols({'IsArchived': '1'}, None, 'Tests')
+            if table is not None:
+                for row in table:
+                    trie.insert(row['Name'].upper(), 'Name')
+                    trie.insert(row['ID'].upper(), 'ID')
+                return 201
+
         return abort(500, message="Internal error inserting values")
     
     def get(self, prefix):
