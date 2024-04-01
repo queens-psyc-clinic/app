@@ -20,10 +20,15 @@ services:
     volumes:
       - ./app:/app
 
+  client:
+    build: ./client
+    networks:
+      - mynetwork
+
   proxy:
     build: ./proxy
     depends_on:
-      - app
+      - client
     networks:
       - mynetwork
     ports:
