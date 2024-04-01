@@ -52,7 +52,8 @@ class Search(Resource):
         result = []
         if words:
             for word in words:
-                result.append({word['value'] : word['type']})
+                result.append({"value": word['value'] , "kind": word['type']})
+                
             return result, 201
         if words == []:
             return [], 201

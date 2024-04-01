@@ -6,11 +6,12 @@ import { MdDelete } from "react-icons/md";
 
 import { Role } from "../models/User";
 import AdminCards from "../components/AdminCards";
-import SearchBar from "../components/SearchBar";
+import SearchBar, { searchSuggestion } from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Card from "../components/Card";
 import Modal from "../components/Modal";
 import CardsModal from "../components/CardsModal";
+import _ from "lodash";
 import {
   archiveTest,
   deleteEntireTest,
@@ -21,13 +22,16 @@ import {
   getItemById,
   getItemsForTest,
   getTestById,
+  getTestByName,
   isTestAvailable,
 } from "../services/TestService";
 import { Test, Item } from "../models/BEModels";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ConfirmModal from "../components/ConfirmModal";
+import { getSearchSuggestions } from "../services/SearchService";
 
 const Dashboard = (props: { userRole: Role }) => {
+  let backup: Test[] = [];
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<Omit<
@@ -39,14 +43,64 @@ const Dashboard = (props: { userRole: Role }) => {
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [data, setData] = useState<Test[]>([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
+  const [selectedSuggestion, setSelectedSuggestion] =
+    useState<searchSuggestion>();
+  const [query, setQuery] = useState("");
   /* FETCHING REAL DATA */
   useEffect(() => {
     getAllUnArchivedTests().then((res) => {
       setData(res);
+      backup = res;
       setIsLoading(false);
     });
   }, []);
+
+  const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
+    console.log(suggestion);
+    if (suggestion.kind === "Name") {
+      getTestByName(suggestion.value).then((res) => {
+        console.log(res);
+        setData(res);
+      });
+    } else if (suggestion.kind === "ID") {
+      getTestById(suggestion.value).then((res) => {
+        setData([res]);
+      });
+    }
+  };
+
+  async function handleQueryEnter(query: string) {
+    if (query == "") {
+      setIsLoading(true);
+      getAllUnArchivedTests().then((res) => {
+        setData(res);
+        setIsLoading(false);
+      });
+    }
+    const suggestions = await getSearchSuggestions(query);
+    const possibleResults: Test[] = await Promise.all(
+      suggestions.map(async (suggestion: searchSuggestion) => {
+        if (suggestion.kind === "Name") {
+          const tests = await getTestByName(suggestion.value);
+          return tests;
+        } else if (suggestion.kind === "ID") {
+          const tests = await getTestById(suggestion.value);
+          return tests;
+        }
+      })
+    );
+    // console.log("suggestions: ", suggestions);
+    // for (const suggestion of suggestions) {
+    //   if (suggestion.kind === "Name") {
+    //     getTestByName(suggestion.value).then((res) =>
+    //       possibleResults.push(...res)
+    //     );
+    //   } else if (suggestion.kind === "ID") {
+    //     getTestById(suggestion.value).then((res) => possibleResults.push(res));
+    //   }
+    // }
+    setData(_.flatten(possibleResults));
+  }
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -100,7 +154,10 @@ const Dashboard = (props: { userRole: Role }) => {
       <>
         <div className="flex flex-col overflow-x-hidden p-6 py-10 w-full h-full">
           <section className="mt-6 space-y-6 mb-6">
-            <SearchBar />
+            <SearchBar
+              onSelectSuggestion={handleSearchSuggestionSelect}
+              onQuerySearch={handleQueryEnter}
+            />
             <Filter />
           </section>
           {!isLoading ? (
@@ -167,7 +224,10 @@ const Dashboard = (props: { userRole: Role }) => {
         </h1>
 
         <section className="mt-6 space-y-6 mb-6">
-          <SearchBar />
+          <SearchBar
+            onSelectSuggestion={handleSearchSuggestionSelect}
+            onQuerySearch={handleQueryEnter}
+          />
           <Filter />
         </section>
 
