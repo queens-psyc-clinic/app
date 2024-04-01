@@ -1,6 +1,7 @@
 from flask_restful import abort, Resource, request
 from common.db import select_table, execute_sql_query, execute_query
 from searchFunction.trie import PrefixTree
+from datetime import datetime
 
 trie = PrefixTree()
 
@@ -65,6 +66,49 @@ class Search(Resource):
                     trie.insert(row['Name'].upper(), 'Name')
                     trie.insert(row['ID'].upper(), 'ID')
                 return 201
+        elif page_type == 'SIGNEDOUT':
+            #  builds the tree based on loans table (isConfirmed set to true)
+            table = _select_cols({'IsConfirmed': '1'}, None, 'Loans')
+            if table is not None:
+                for row in table:
+                    trie.insert(row['ItemID'].upper(), 'ID')
+                    item_name = get_item_name(row['ItemID'])
+                    trie.insert(item_name.upper(), 'ItemID')
+                    user_names = get_first_last_name(row['UserID'])
+                    full_name = user_names[0] + ' ' + user_names[1]
+                    trie.insert(full_name.upper(), 'FirstLastName')
+                return 201
+        elif page_type == 'OVERDUE':
+            #  builds the tree based on loans table (isConfirmed set to true)
+            #  date is also checked to see if its overdue
+            table = _select_cols({'IsConfirmed': '1'}, None, 'Loans')
+            if table is not None:
+                for row in table:
+                    current_date = str(datetime.today().date())
+                    loan_date = str(row['EndDate']).split(' ')[0]
+                    date1 = datetime.strptime(current_date, "%Y-%m-%d").date()
+                    date2 = datetime.strptime(loan_date, "%Y-%m-%d").date()
+                    if date1 > date2:
+                        trie.insert(row['ItemID'].upper(), 'ID')
+                        item_name = get_item_name(row['ItemID'])
+                        trie.insert(item_name.upper(), 'ItemID')
+                        user_names = get_first_last_name(row['UserID'])
+                        full_name = user_names[0] + ' ' + user_names[1]
+                        trie.insert(full_name.upper(), 'FirstLastName')
+                return 201
+        elif page_type == 'REQUESTS':
+            #  builds the tree based on loans table (isConfirmed set to true)
+            table = _select_cols({'IsConfirmed': '0'}, None, 'Loans')
+            if table is not None:
+                for row in table:
+                    trie.insert(row['ItemID'].upper(), 'ID')
+                    item_name = get_item_name(row['ItemID'])
+                    trie.insert(item_name.upper(), 'ItemID')
+                    user_names = get_first_last_name(row['UserID'])
+                    full_name = user_names[0] + ' ' + user_names[1]
+                    trie.insert(full_name.upper(), 'FirstLastName')
+                return 201
+
 
         return abort(500, message="Internal error inserting values")
     
