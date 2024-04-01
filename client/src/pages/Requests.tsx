@@ -44,7 +44,7 @@ const Requests = (props: { userRole: Role }) => {
           <section className="mt-6 space-y-4 pb-5">
             <SearchBar />
             <Filter
-              placeholders={["Measure", "Item", "Borrowed By"]}
+              placeholders={["Measure", "Item"]}
               options={[
                 Object.values(Measure),
                 ItemTypeOptions,

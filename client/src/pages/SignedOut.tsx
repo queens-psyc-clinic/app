@@ -18,7 +18,12 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { MdAssignmentTurnedIn } from "react-icons/md";
 import uuid from "react-uuid";
 import { PropaneSharp } from "@mui/icons-material";
-import { Measure, ItemTypeOptions, MaximumAge, MinimumAge } from "../models/libraryItem";
+import {
+  Measure,
+  ItemTypeOptions,
+  MaximumAge,
+  MinimumAge,
+} from "../models/libraryItem";
 import cardSampleData, { BorrowedBy } from "../models/cardSampleData";
 
 const SignedOut = (props: { userRole: Role }) => {
@@ -90,7 +95,9 @@ const SignedOut = (props: { userRole: Role }) => {
   };
   console.log(props);
 
-  const borrowedByOptions: string[] = cardSampleData.map((item) => item["Borrowed By"].data);
+  const borrowedByOptions: string[] = cardSampleData.map(
+    (item) => item["Borrowed By"].data
+  );
 
   return (
     <div
@@ -108,8 +115,12 @@ const SignedOut = (props: { userRole: Role }) => {
               <section className="mt-6 space-y-4 pb-5">
                 <SearchBar />
                 <Filter
-                  placeholders={["Measure", "Item", "Borrowed By"]}
-                  options={[Object.values(Measure), ItemTypeOptions, borrowedByOptions]}
+                  placeholders={["Measure", "Item"]}
+                  options={[
+                    Object.values(Measure),
+                    ItemTypeOptions,
+                    borrowedByOptions,
+                  ]}
                 />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                   <button className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center">

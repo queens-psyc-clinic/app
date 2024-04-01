@@ -29,7 +29,9 @@ const Overdue = (props: { userRole: Role }) => {
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
   );
-  const borrowedByOptions: string[] = cardSampleData.map((item) => item["Borrowed By"].data);
+  const borrowedByOptions: string[] = cardSampleData.map(
+    (item) => item["Borrowed By"].data
+  );
 
   useEffect(() => {
     if (props.userRole === "admin") {
@@ -99,9 +101,13 @@ const Overdue = (props: { userRole: Role }) => {
             <section className="mt-6 space-y-2 mb-6">
               <SearchBar />
               <Filter
-                  placeholders={["Measure", "Item", "Borrowed By"]}
-                  options={[Object.values(Measure), ItemTypeOptions, borrowedByOptions]}
-                />
+                placeholders={["Measure", "Item"]}
+                options={[
+                  Object.values(Measure),
+                  ItemTypeOptions,
+                  borrowedByOptions,
+                ]}
+              />
               <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                 <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
                   <i className="mr-4">
