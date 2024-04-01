@@ -97,7 +97,7 @@ const Accounts = (props: { userRole: Role }) => {
           {props.userRole === "admin" && (
             <>
               <section className="mt-6 space-y-4 pb-5">
-                <SearchBar />
+                <SearchBar placeholder="Search by user's name" />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                   <button className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center">
                     <i className="mr-4">
