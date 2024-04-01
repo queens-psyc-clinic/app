@@ -96,7 +96,7 @@ class Search(Resource):
                         trie.insert(full_name.upper(), 'FirstLastName')
                 return 201
         elif page_type == 'REQUESTS':
-            #  builds the tree based on loans table (isConfirmed set to true)
+            #  builds the tree based on loans table (isConfirmed set to false)
             table = _select_cols({'IsConfirmed': '0'}, None, 'Loans')
             if table is not None:
                 for row in table:
