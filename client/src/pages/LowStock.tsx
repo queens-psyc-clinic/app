@@ -24,7 +24,6 @@ const LowStock = (props: { userRole: Role }) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
-    // WAITING ON get low stock endpoint
     setIsLoading(true);
     getLowStockItems().then(async (res) => {
       for (const lowStockItem of res) {

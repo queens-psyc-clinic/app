@@ -17,7 +17,7 @@ export interface Item {
   ItemType: string;
   Location: string;
   Status: Boolean;
-  Stock: Number;
+  Stock: number;
   TestID: string;
 }
 
@@ -30,6 +30,7 @@ export interface SignedOutItem {
   UserID: User;
   StartDate: Date;
   EndDate: Date;
+  Quantity: number;
 }
 
 export interface OverdueItem {

@@ -7,7 +7,8 @@ loan_fields = {
     'EndDate': fields.DateTime,
     'UserID': fields.String,
     'ItemID': fields.String,
-    'IsConfirmed' : fields.Boolean
+    'IsConfirmed' : fields.Boolean,
+    'Quantity': fields.Integer
 }
 
 class Loan(Resource):
