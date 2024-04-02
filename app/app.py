@@ -19,6 +19,9 @@ from resources.loan import Loan
 from resources.loans import Loans
 from resources.createLoan import CreateLoan
 from resources.search import Search
+from resources.notification import Notification
+from resources.createNotification import CreateNotification
+from resources.notifications import Notifications
 
 load_dotenv()
 
@@ -78,6 +81,9 @@ api.add_resource(CreateItem, '/createItem')
 api.add_resource(Test, '/test/<string:acronym>')
 api.add_resource(Tests, '/tests')
 api.add_resource(Search, '/search/<string:prefix>')
+api.add_resource(Notification, '/notification/<id>')
+api.add_resource(CreateNotification, '/createNotification')
+api.add_resource(Notifications, '/notifications')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
