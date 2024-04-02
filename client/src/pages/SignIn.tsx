@@ -101,7 +101,7 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn }) => {
           description="No worries! We'll email you a new temporary password. You can then change your password in settings."
           button="Send me a new password"
           secondButton="Cancel"
-          onOk={changeUserPassword}
+          onOk={async (email: string) => await changeUserPassword(email)}
           onClose={() => setIsModalOpen(false)}
         />
       )}
