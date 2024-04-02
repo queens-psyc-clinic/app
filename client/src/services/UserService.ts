@@ -4,6 +4,7 @@ This service handles authentication, and getting/ editing user information
 
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { UserSettings } from "../models/BEModels";
+import uuid from "react-uuid";
 
 export type BackendUser = {
   ID: string;
@@ -252,12 +253,7 @@ export async function setUserAsAdmin(userId: string) {
   }
 }
 
-export async function changeUserPassword(
-  id: string,
-  oldPassword: string,
-  newPassword: string
-) {
-  // WAITING ON change password
+export async function changeUserPassword(email: string) {
   /**
    * Changes the user's password
    * @param id
@@ -265,8 +261,162 @@ export async function changeUserPassword(
    * @param newPassword
    * @returns
    * @throws {}
-   * @note Not implemented yet
    */
+  try {
+    // Create temporary new user
+    const tempEmail = `${uuid()}@temp.com`;
+    const tempPassword = "password";
+    const tempFirstName = "temp";
+    const tempLastName = "temp";
+    const tempUserResponse: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/user/${tempEmail}/${tempPassword}?FirstName=${tempFirstName}&LastName=${tempLastName}`
+    );
+    const tempUser = tempUserResponse.data;
+
+    await setUserAsAdmin(tempUser.ID);
+
+    // Check if given email exists, using tempUser's id
+    const doesEmailExist: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/users/${tempUser.ID}`,
+      {
+        Email: email,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    // If user email does not exist
+    if (doesEmailExist.data.length == 0) {
+      return false;
+    }
+
+    const user = doesEmailExist.data[0];
+
+    // Generate a unique password
+    const newUniquePassword = uuid();
+
+    // Change user's password to the new unique password
+    await axios
+      .put(
+        `${process.env.REACT_APP_BASE_URL}/users/${tempUser.ID}`,
+        {
+          filters: {
+            ID: user.ID,
+          },
+          update: {
+            Password: newUniquePassword,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json", // this shows the expected content type
+          },
+        }
+      )
+      .catch((e) =>
+        console.log("error changing the user password to the temp password")
+      );
+
+    // Email this password to the user
+    const subject = "Reset Account Password";
+    const message = `<p>Here is a temporary password you can use to sign in and change your own password:<br></br>
+    <mark> ${newUniquePassword}</mark></p>`;
+
+    const htmlMessage = `<html>
+    <head>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          color: #333333;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          border: 1px solid #dddddd;
+          border-radius: 5px;
+        }
+        h1 {
+          color: #007bff;
+        }
+        .message {
+          margin-top: 20px;
+        }
+        .button {
+          display: inline-block;
+          background-color: #007bff;
+          color: #ffffff;
+          text-decoration: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Password Reset</h1>
+        <div class="message">
+          <p>Hello,</p>
+          <p>We have received a request to reset your account password. Below is your temporary password:</p>
+          <p><strong>Temporary Password:</strong>${newUniquePassword}</p>
+          <p>Please log in using this temporary password and change your password immediately for security reasons.</p>
+          <a href="http://localhost:300/sign-in" class="button">Log In Now</a>
+        </div>
+      </div>
+    </body>
+</html>
+    `;
+
+    const htmlContent = `<html><head><style>body {font-family: Arial, sans-serif;font-size: 14px;color: #333333;}.container {max-width: 600px;margin: 0 auto;padding: 20px;border: 1px solid #dddddd;border-radius: 5px;}h1 {color: #007bff;}.message {margin-top: 20px;} button {display: inline-block;background-color: #007bff;color: #ffffff;text-decoration: none;padding: 10px 20px;border-radius: 5px; outline: none; border: none;}</style></head><body><div class="container"><h1>Password Reset</h1><div class="message"><p>Hello,</p><p>We have received a request to reset your account password. Below is your temporary password:</p><p><strong>Temporary Password: </strong>${newUniquePassword}</p><p>Please log in using this temporary password and change your password immediately for security reasons.</p><button class="button">Log In Now</button></div></div></body></html>`;
+
+    await axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/email/${tempUser.ID}/${subject}/${user.Email}`,
+        htmlContent,
+        {
+          headers: {
+            "Content-Type": "application/json", // this shows the expected content type
+          },
+        }
+      )
+      .catch((e) => console.log("error emailing the temp password to user"));
+
+    // Delete temp user
+    await axios
+      .delete(
+        `${process.env.REACT_APP_BASE_URL}/user/${tempEmail}/${tempUser.ID}`
+      )
+      .catch((e) => console.log("error deleting temp user"));
+
+    return true;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+
+        if (axiosError.response.status === 400) {
+          throw new InvalidEntry("Incorrect Password.");
+        }
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
 }
 
 export function initializeUserSession(userId: string) {

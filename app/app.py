@@ -63,7 +63,7 @@ def email_notifs(id, subject, email):
     
     message = request.get_data(as_text=True)
     msg = Message(subject, sender = 'psyc.clinic.app@gmail.com', recipients = [email])
-    msg.body = message
+    msg.html=message[1:-1] # gets rid of surrounding quotes
     mail.send(msg)
     return "Sent", 200
 
