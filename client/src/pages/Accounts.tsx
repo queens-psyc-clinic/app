@@ -7,6 +7,7 @@ import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
 import {
   getAllSignedOutItems,
   getAllSignedOutItemsByUser,
+  getAllUsers,
   getItemById,
   getItemMeasure,
 } from "../services/TestService";
@@ -35,9 +36,16 @@ const Accounts = (props: { userRole: Role }) => {
   /* FETCHING REAL DATA */
   useEffect(() => {
     // Waiting on new column for users like IsApproved and for new serch endpoints
+    getAllUsers().then((res) => setData(res));
   }, []);
 
-  console.log(props);
+  console.log(data);
+
+  const removeFromTable = () => {
+    // setData(data.filter((elem) => elem.ID != id))
+
+    setData(data.filter((x) => !selectedRows.some((y) => y == x.ID)));
+  };
 
   return (
     <div
@@ -55,13 +63,19 @@ const Accounts = (props: { userRole: Role }) => {
               <section className="mt-6 space-y-4 pb-5">
                 <SearchBar placeholder="Search by user's name" />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-                  <button className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center">
+                  <button
+                    className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center"
+                    onClick={removeFromTable}
+                  >
                     <i className="mr-4">
                       <MdCheckCircle size={20} />
                     </i>
                     <p>Approve</p>
                   </button>
-                  <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
+                  <button
+                    className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                    onClick={removeFromTable}
+                  >
                     <i className="mr-4">
                       <MdRemoveCircle size={20} />
                     </i>
@@ -74,6 +88,7 @@ const Accounts = (props: { userRole: Role }) => {
                   tableType="accounts"
                   setSelectedRows={setSelectedRows}
                   selectedRows={selectedRows}
+                  isEditable={false}
                   data={data}
                 />
               </div>

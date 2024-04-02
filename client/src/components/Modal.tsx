@@ -85,6 +85,7 @@ export default function Modal({
 
   const handleApply = () => {
     console.log(testData);
+    console.log(items);
     if (isEntryValid()) {
       console.log("valid");
       createNewTest(testData)

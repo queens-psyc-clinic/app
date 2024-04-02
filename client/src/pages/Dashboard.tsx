@@ -171,7 +171,7 @@ const Dashboard = (props: { userRole: Role }) => {
                     </i>
                     <p>Archive</p>
                   </button>
-                  <Modal modalTitle="Add Item" buttonLabel="Add" />
+                  <Modal modalTitle="Add Test" buttonLabel="Add" />
                   <button
                     // onClick={deleteSelectedRows}
                     onClick={handleDeleteButtonClick}

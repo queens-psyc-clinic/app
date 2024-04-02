@@ -23,14 +23,12 @@ const FormItem: React.FC<FormItemProps> = ({
     item ? item : { ID: uuid() }
   );
   useEffect(() => {
-    console.log("item changed!");
     if (itemData != item) {
       onChange(itemData);
     }
   }, [itemData]);
 
   useEffect(() => {
-    console.log("item removed!!");
     if (item) {
       setItemData(item);
     }
