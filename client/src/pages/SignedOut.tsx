@@ -168,7 +168,7 @@ const SignedOut = (props: { userRole: Role }) => {
                   Issue with an item? Something missing or damaged?
                 </p>
                 <button
-                  className="cursor-pointer text-blue-200 underline"
+                  className="cursor-pointer text-blue-200 underline hover:text-blue-100"
                   onClick={handleReportIssueClick}
                 >
                   Report Issue Here
