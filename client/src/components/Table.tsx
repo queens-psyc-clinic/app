@@ -340,6 +340,8 @@ const Table = (props: {
                                     </p>
                                   </div>
                                 )}
+                                {/* template for item notes */}
+                                <p className="pl-10 italic">Notes: This is an additional note for this item.</p>
                               </div>
                             ))}
                           </div>
