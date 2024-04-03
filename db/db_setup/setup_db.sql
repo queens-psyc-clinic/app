@@ -43,6 +43,7 @@ CREATE TABLE Items (
     Location VARCHAR(155),
     TestID VARCHAR(64), 
     IsArchived BOOLEAN NOT NULL DEFAULT FALSE,
+    Notes TINYTEXT,
     Stock INT,
     FOREIGN KEY (TestID) REFERENCES Tests(ID)
 );
