@@ -163,7 +163,7 @@ const SignedOut = (props: { userRole: Role }) => {
                   return <Card key={uuid()} data={item} type="item" />;
                 })}
               </div>
-              <div className="text-sm fixed bottom-10 right-10 bg-white p-6 rounded-lg shadow-md max-w-64 text-center">
+              <div className="text-sm fixed bottom-10 right-10 bg-gray-100 p-6 rounded-lg shadow-md max-w-64 text-center">
                 <p className="text-wrap py-1">
                   Issue with an item? Something missing or damaged?
                 </p>

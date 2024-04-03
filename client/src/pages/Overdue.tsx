@@ -124,7 +124,7 @@ const Overdue = (props: { userRole: Role }) => {
                   <i className="mr-4">
                     <MdDelete size={20} />
                   </i>
-                  <p>Mark As Gone</p>
+                  <p>Mark As Returned</p>
                 </button>
               </section>
             </section>

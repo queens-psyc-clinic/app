@@ -59,7 +59,7 @@ const ReserveModal = ({
         </h1>
         <p className="mt-2 text-sm text-wrap">
           {isSuccessful
-            ? "You have 2 hours to pick them up!"
+            ? "You have 48 hours to pick them up!"
             : "Some items were reserved as you were shopping."}
         </p>
         {!isSuccessful && (
