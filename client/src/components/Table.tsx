@@ -333,10 +333,6 @@ const Table = (props: {
                                 <div className="pl-5">
                                   <p>{item.ItemName}</p>
                                 </div>
-                                {/* Rough idea of what additional notes is going to look like for items */}
-                                <div className="pl-10 italic text-wrap">
-                                  <p>Notes: This is an additional note for the specific item.</p>
-                                </div>
                                 {item.Ages && (
                                   <div className="pl-5">
                                     <p className="mr-4 rounded-full px-5 py-1 text-gray-900 border border-gray-900">
@@ -344,6 +340,10 @@ const Table = (props: {
                                     </p>
                                   </div>
                                 )}
+                                {/* Rough idea of what additional notes is going to look like for items */}
+                                <div className="pl-10 italic text-wrap">
+                                  <p>Notes: This is an additional note for the specific item.</p>
+                                </div>
                               </div>
                             ))}
                           </div>
