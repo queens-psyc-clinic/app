@@ -23,6 +23,7 @@ import OverdueTable from "../components/OverdueTable";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const StudentPage = (props: { userRole: Role }) => {
+  const [isStudentReal, setIsStudentReal] = useState(true);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [signedOutData, setSignedOutData] = useState<SignedOutItem[]>([]);
   const [overdueData, setoverdueData] = useState<OverdueItem[]>([]);
@@ -39,7 +40,9 @@ const StudentPage = (props: { userRole: Role }) => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      getUserSettingsData(id || "").then((res) => setUserData(res));
+      getUserSettingsData(id || "")
+        .then((res) => setUserData(res))
+        .catch((e) => setIsStudentReal(false));
       const signedOut = await getAllSignedOutItemsByUser(id || "");
       console.log(signedOut);
       for (const signedOutItem of signedOut) {
@@ -97,7 +100,7 @@ const StudentPage = (props: { userRole: Role }) => {
 
   console.log(signedOutData);
 
-  if (props.userRole === "admin") {
+  if (props.userRole === "admin" && isStudentReal) {
     return (
       <div className="flex flex-col overflow-x-hidden px-16 py-10 w-full h-full">
         <Link to="/">
