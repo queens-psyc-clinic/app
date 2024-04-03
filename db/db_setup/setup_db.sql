@@ -59,6 +59,16 @@ CREATE TABLE Loans (
     FOREIGN KEY (ItemID) REFERENCES Items(ID)
 );
 
+CREATE TABLE Notifications (
+    ID VARCHAR(64) PRIMARY KEY,
+    UserID VARCHAR(64) NOT NULL,
+    Message VARCHAR(600),
+    NotificationDate DATETIME,
+    ItemID VARCHAR(64) NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES Users(ID),
+    FOREIGN KEY (ItemID) REFERENCES Items(ID)
+);
+
 -- Load data into the Tests table from the CSV file
 LOAD DATA INFILE '/var/lib/mysql-files/test_data.csv'
 INTO TABLE Tests
