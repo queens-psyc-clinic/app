@@ -3,6 +3,7 @@ import brainPic from "../assets/brain.png";
 import clinicLogo from "../assets/clinic-logo.svg";
 import InputField from "../components/InputField";
 import PasswordModal from "../components/PasswordModal";
+import { changeUserPassword } from "../services/UserService";
 
 interface SignInProps {
   onSignIn: (email: string, password: string) => void;
@@ -82,7 +83,10 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn }) => {
               </span>
             </div>
             <div className="ml-8 mt-2">
-              <span className="underline text-blue-200 cursor-pointer" onClick={handlePasswordModal}>
+              <span
+                className="underline text-blue-200 cursor-pointer"
+                onClick={handlePasswordModal}
+              >
                 Forgot Password?
               </span>
             </div>
@@ -90,17 +94,17 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn }) => {
         </div>
       </div>
       {isModalOpen && (
-                <PasswordModal
-                  isOpen={isModalOpen}
-                  closeModal={() => setIsModalOpen(false)}
-                  header="Forgot your password?"
-                  description="No worries! We'll email you a new temporary password. You can then change your password in settings."
-                  button="Send me a new password"
-                  secondButton="Cancel"
-                  onOk={() => {}}
-                  onClose={() => setIsModalOpen(false)}
-                />
-              )}
+        <PasswordModal
+          isOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)}
+          header="Forgot your password?"
+          description="No worries! We'll email you a new temporary password. You can then change your password in settings."
+          button="Send me a new password"
+          secondButton="Cancel"
+          onOk={async (email: string) => await changeUserPassword(email)}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
