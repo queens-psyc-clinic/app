@@ -127,13 +127,13 @@ const SignedOut = (props: { userRole: Role }) => {
           {props.userRole === "admin" && (
             <>
               <section className="mt-6 space-y-4 pb-5">
-                <SearchBar />
+                <SearchBar placeholder="Search by borrower name or item name or acronym"/>
                 <Filter
-                  placeholders={["Measure", "Item"]}
+                  placeholders={["Borrowed By", "Measure", "Item"]}
                   options={[
+                    borrowedByOptions,
                     Object.values(Measure),
                     ItemTypeOptions,
-                    borrowedByOptions,
                   ]}
                 />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">

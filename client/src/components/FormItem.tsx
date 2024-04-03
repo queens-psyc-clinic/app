@@ -5,12 +5,13 @@ import { itemTypeOptions } from "../models/libraryItem";
 import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 import { Item } from "../models/BEModels";
 import uuid from "react-uuid";
+import RangeSlider from "./RangeSlider";
 
 interface FormItemProps {
   onRemove: (id: string) => void;
   testId: string;
   item?: Partial<Item> & { ID: string };
-  onChange?: (item: Partial<Item> & { ID: string }) => void;
+  onChange?: (item: Partial<Item> & { ID: string }, ages: string) => void;
 }
 
 const FormItem: React.FC<FormItemProps> = ({
@@ -25,7 +26,7 @@ const FormItem: React.FC<FormItemProps> = ({
   useEffect(() => {
     console.log("item changed!");
     if (itemData != item) {
-      onChange(itemData);
+      onChange(itemData, ages);
     }
   }, [itemData]);
 
@@ -35,6 +36,16 @@ const FormItem: React.FC<FormItemProps> = ({
       setItemData(item);
     }
   }, [onRemove]);
+
+  const [ages, setAges] = useState("");
+
+  const formatAgeRange = (range: number[]) => {
+    return `${range[0].toString()} to ${range[1].toString()}`;
+  };
+
+  const setAgeRange = (range: number[]) => {
+    setAges(formatAgeRange(range));
+  };
   return (
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button
@@ -81,6 +92,9 @@ const FormItem: React.FC<FormItemProps> = ({
               }
             />
           </div>
+        </div>
+        <div className="py-4">
+          <RangeSlider important={false} label="Ages" onChange={setAgeRange} />
         </div>
         <div className="pt-4 pb-6">
           <InputField

@@ -14,7 +14,7 @@ import {
 import LowStockTable from "../components/LowStockTable";
 import LoadingSpinner from "../components/LoadingSpinner";
 import _ from "lodash";
-import { ItemTypeOptions, Measure } from "../models/libraryItem";
+import { ItemTypeOptions, OrderingCompany } from "../models/libraryItem";
 import cardSampleData from "../models/cardSampleData";
 import PageNotFound from "./PageNotFound";
 
@@ -78,9 +78,9 @@ const LowStock = (props: { userRole: Role }) => {
           <section className="mt-6 space-y-2 mb-6">
             <SearchBar />
             <Filter
-              placeholders={["Measure", "Item", "Quantity"]}
+              placeholders={["Ordering Company", "Item", "Quantity"]}
               options={[
-                Object.values(Measure),
+                OrderingCompany,
                 ItemTypeOptions,
                 quantityOptions,
               ]}

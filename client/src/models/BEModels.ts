@@ -19,6 +19,7 @@ export interface Item {
   Status: Boolean;
   Stock: number;
   TestID: string;
+  AdditionalNotes: string;
 }
 
 export interface SignedOutItem {

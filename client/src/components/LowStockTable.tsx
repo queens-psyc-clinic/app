@@ -58,7 +58,7 @@ const LowStockTable = (props: {
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
-  const pilledColumns: string[] = ["Measure", "Item", "Ordering Company"];
+  const pilledColumns: string[] = ["Measure", "Item", "Ordering Company", "Ages"];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -81,12 +81,16 @@ const LowStockTable = (props: {
         return "Stock";
       case "Name":
         return "Name";
+      case "Item":
+        return "ItemType";
       case "Item Name":
         return "ItemName";
       case "Ordering Company":
         return "OrderingCompany";
       case "Edition":
         return "EditionNumber";
+      case "Ages":
+        return "Ages";
       default:
         return colTitle;
     }
@@ -172,7 +176,6 @@ const LowStockTable = (props: {
         <tbody>
           {data.map((row, rowInd: number) => {
             if (row.ID) {
-              const isExpanded = isRowExpanded(row.ID.toString());
               return (
                 <React.Fragment key={uuid()}>
                   <tr
@@ -228,7 +231,7 @@ const LowStockTable = (props: {
                             data: {},
                           };
 
-                          if (col.title === "Measure" || col.title === "Item") {
+                          if (col.title === "Measure" || col.title === "Item" || col.title === "Ages") {
                             customData = {
                               type: columnCustomComponents.pill,
                               data: {
@@ -288,35 +291,6 @@ const LowStockTable = (props: {
                       }
                     })}
                   </tr>
-                  {isExpanded &&
-                    (props.currentPage === "dashboard" ||
-                      props.currentPage === "archive") && (
-                      <tr>
-                        <td colSpan={columns.length + 3}>
-                          <div className="ml-32 mb-4">
-                            {getRowExpansionArray(row.ID).map((item, index) => (
-                              <div
-                                className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
-                                key={uuid()}
-                              >
-                                <div>
-                                  <p
-                                    className={`mr-4 rounded-full px-5 py-1 text-gray-900 bg-${getPillColor(
-                                      item.ItemType
-                                    )}-100`}
-                                  >
-                                    {item.ItemType}
-                                  </p>
-                                </div>
-                                <div className="pl-10">
-                                  <p>{item.ItemName}</p>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    )}
                 </React.Fragment>
               );
             }

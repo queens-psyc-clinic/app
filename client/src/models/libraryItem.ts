@@ -99,6 +99,16 @@ export const itemTypeOptions: string[] = [
   "Textbook",
 ];
 
+export const OrderingCompany: string[] = [
+  "Ordering Company",
+  "Ordering Company",
+  "Publisher",
+  "ASEBA",
+  "MHS",
+  "WPS",
+  "PsychCorp",
+];
+
 export enum Measure {
   AcademicAchievement = "Academic Achievement",
   AdaptiveFunctioning = "Adaptive Functioning",
