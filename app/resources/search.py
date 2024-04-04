@@ -73,9 +73,9 @@ class Search(Resource):
             table = _select_cols({'IsConfirmed': '1'}, None, 'Loans')
             if table is not None:
                 for row in table:
-                    trie.insert(row['ItemID'].upper(), 'ID')
+                    trie.insert(row['ItemID'].upper(), 'ItemID')
                     item_name = get_item_name(row['ItemID'])
-                    trie.insert(item_name.upper(), 'ItemID')
+                    trie.insert(item_name.upper(), 'ItemName')
                     user_names = get_first_last_name(row['UserID'])
                     full_name = user_names[0] + ' ' + user_names[1]
                     trie.insert(full_name.upper(), 'FirstLastName')
