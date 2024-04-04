@@ -213,10 +213,10 @@ export default function Modal({
                   />
                 </div>
               </div>
-              <div className="py-4">
+              {/* <div className="py-4">
                 <RangeSlider label="Ages" onChange={setAgeRange} />
-              </div>
-              <div className="flex flex-row pb-4">
+              </div> */}
+              <div className="flex flex-row py-4">
                 <div className="pr-4">
                   <Dropdown
                     placeholder="Level of Use"
