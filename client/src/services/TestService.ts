@@ -869,13 +869,19 @@ export async function editItem(itemId: string, edits: Partial<Item>) {
   if (edits.Status) {
     updates["Status"] = edits.Status;
   }
-  if (edits.Stock) {
+  if (edits.hasOwnProperty("Stock")) {
     updates["Stock"] = edits.Stock;
   }
   if (edits.TestID) {
     updates["TestID"] = edits.TestID;
   }
 
+  console.log({
+    filters: {
+      ID: itemId,
+    },
+    updated: updates,
+  });
   try {
     const response: AxiosResponse = await axios.put(
       `${process.env.REACT_APP_BASE_URL}/items`,
@@ -1070,6 +1076,7 @@ export async function markItemAsReserved(
   // decrement stock of all items by quantities
   const start = getTodayDate();
   const end = getDateTwoWeeksFromNow();
+
   try {
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/createLoan`,
@@ -1088,7 +1095,6 @@ export async function markItemAsReserved(
         },
       }
     );
-
     await editItem(item.ID, { Stock: item.Stock - quantity });
 
     return response.data;
@@ -1131,6 +1137,7 @@ export async function getAllReservedItems() {
     );
 
     const reservedItems: Loan[] = response.data;
+    console.log(reservedItems);
     let result = [];
     for (const reservedItem of reservedItems) {
       const item: Item = await getItemById(reservedItem.ItemID);

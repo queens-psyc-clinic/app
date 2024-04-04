@@ -31,6 +31,7 @@ const Requests = (props: { userRole: Role }) => {
 
   useEffect(() => {
     getAllReservedItems().then((res) => {
+      console.log(res);
       setData(res as (SignedOutItem & { Quantity: number })[]);
     });
   }, []);
@@ -75,7 +76,7 @@ const Requests = (props: { userRole: Role }) => {
 
         <>
           <section className="mt-6 space-y-4 pb-5">
-            <SearchBar placeholder="Search by borrower name or item name or acronym"/>
+            <SearchBar placeholder="Search by borrower name or item name or acronym" />
             <Filter
               placeholders={["Measure", "Item"]}
               options={[
