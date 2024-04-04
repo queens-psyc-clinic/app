@@ -130,10 +130,10 @@ const SignedOut = (props: { userRole: Role }) => {
     const possibleResults: (SignedOutItem & { Quantity: number })[] =
       await Promise.all(
         suggestions.map(async (suggestion: searchSuggestion) => {
-          if (suggestion.kind === "ItemID") {
+          if (suggestion.kind === "ItemName") {
             const items = await getLoanByName(suggestion.value);
             return items;
-          } else if (suggestion.kind === "ID") {
+          } else if (suggestion.kind === "ItemID") {
             const items = await getLoansForItemFormatted(suggestion.value);
             return items;
           } else if (suggestion.kind === "FirstLastName") {
