@@ -17,6 +17,7 @@ import _ from "lodash";
 import { ItemTypeOptions, OrderingCompany } from "../models/libraryItem";
 import cardSampleData from "../models/cardSampleData";
 import PageNotFound from "./PageNotFound";
+import { initializeSearchTree } from "../services/SearchService";
 
 const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -33,6 +34,7 @@ const LowStock = (props: { userRole: Role }) => {
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
+    initializeSearchTree("DASHBOARD"); // WAITING ON LOW STOCK SEARCH TREE
     setIsLoading(true);
     getLowStockItems().then(async (res) => {
       for (const lowStockItem of res) {

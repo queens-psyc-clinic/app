@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
-import SearchBar from "../components/SearchBar";
 import Filter, { PossibleFilters } from "../components/Filter";
+import SearchBar, { searchSuggestion } from "../components/SearchBar";
 
 import Table from "../components/Table";
 import { requestsMockData } from "../utils/mockData";
@@ -14,10 +14,21 @@ import { SignedOutItem, Test } from "../models/BEModels";
 import PageNotFound from "./PageNotFound";
 import {
   getAllReservedItems,
+  getItemById,
+  getLoanByName,
+  getLoanByUserName,
+  getLoansForItem,
+  getLoansForItemFormatted,
   markItemAsSignedOut,
   unReserveItem,
 } from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
+import LoadingSpinner from "../components/LoadingSpinner";
+import {
+  getSearchSuggestions,
+  initializeSearchTree,
+} from "../services/SearchService";
+import _ from "lodash";
 
 const Requests = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -28,11 +39,14 @@ const Requests = (props: { userRole: Role }) => {
     (SignedOutItem & { Quantity: number; ItemType: string })[]
   >([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const borrowedByOptions: string[] = cardSampleData.map(
     (item) => item["Borrowed By"].data
   );
 
   useEffect(() => {
+    initializeSearchTree("REQUESTS");
+    setIsLoading(true);
     getAllReservedItems().then((res) => {
       setData(
         res as (SignedOutItem & { Quantity: number; ItemType: string })[]
@@ -41,6 +55,7 @@ const Requests = (props: { userRole: Role }) => {
         res as (SignedOutItem & { Quantity: number; ItemType: string })[]
       );
       console.log();
+      setIsLoading(false);
     });
   }, []);
 
@@ -90,6 +105,67 @@ const Requests = (props: { userRole: Role }) => {
     setData(filteredData);
   }
 
+  const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
+    setIsLoading(true);
+    if (suggestion.kind === "ItemID") {
+      // Item Name
+      // get loan by item name and set data to it
+      getLoanByName(suggestion.value).then((res) => {
+        setData(
+          res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+        );
+        setIsLoading(false);
+      });
+    } else if (suggestion.kind === "ID") {
+      // get loan by item ID and set data to it
+      getLoansForItemFormatted(suggestion.value).then((res) => {
+        setData(
+          res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+        );
+        setIsLoading(false);
+      });
+    } else if (suggestion.kind == "FirstLastName") {
+      // get loan by user and set data to it
+      getLoanByUserName(suggestion.value).then((res) => {
+        setData(
+          res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+        );
+        setIsLoading(false);
+      });
+    }
+  };
+
+  async function handleQueryEnter(query: string) {
+    if (query == "") {
+      setIsLoading(true);
+      getAllReservedItems().then((res) => {
+        setData(
+          res as (SignedOutItem & { Quantity: number; ItemType: string })[]
+        );
+        setIsLoading(false);
+      });
+    }
+    const suggestions = await getSearchSuggestions(query);
+    const possibleResults: (SignedOutItem & {
+      Quantity: number;
+      ItemType: string;
+    })[] = await Promise.all(
+      suggestions.map(async (suggestion: searchSuggestion) => {
+        if (suggestion.kind === "ItemID") {
+          const items = await getLoanByName(suggestion.value);
+          return items;
+        } else if (suggestion.kind === "ID") {
+          const items = await getLoansForItemFormatted(suggestion.value);
+          return items;
+        } else if (suggestion.kind === "FirstLastName") {
+          const items = await getLoanByUserName(suggestion.value);
+          return items;
+        }
+      })
+    );
+    setData(_.flatten(possibleResults));
+  }
+
   if (props.userRole == "admin") {
     return (
       <div
@@ -101,7 +177,11 @@ const Requests = (props: { userRole: Role }) => {
 
         <>
           <section className="mt-6 space-y-4 pb-5">
-            <SearchBar placeholder="Search by borrower name or item name or acronym" />
+            <SearchBar
+              placeholder="Search by borrower name or item name or acronym"
+              onSelectSuggestion={handleSearchSuggestionSelect}
+              onQuerySearch={handleQueryEnter}
+            />
             <Filter
               placeholders={["Measure", "Item"]}
               options={[Object.values(Measure), ItemTypeOptions]}
@@ -128,12 +208,16 @@ const Requests = (props: { userRole: Role }) => {
               </button>
             </section>
           </section>
-          <SignedOutTable
-            tableType="reservations"
-            setSelectedRows={setSelectedRows}
-            selectedRows={selectedRows}
-            data={data}
-          />
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <SignedOutTable
+              tableType="reservations"
+              setSelectedRows={setSelectedRows}
+              selectedRows={selectedRows}
+              data={data}
+            />
+          )}
         </>
       </div>
     );

@@ -103,6 +103,12 @@ class PrefixTree:
         for letter in current.children:
             count += self.size(current.children[letter])
         return count
+    
+    def clear(self):
+        """
+        Clears the trie and makes it empty.
+        """
+        self.root = TrieNode()
 
 
 

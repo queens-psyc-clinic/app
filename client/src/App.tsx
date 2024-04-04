@@ -13,7 +13,6 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import AccountType from "./pages/AccountType";
 import StudentPage from "./pages/StudentPage";
-import SignedOut from "./pages/SignedOut";
 import Requests from "./pages/Requests";
 import {
   archiveTest,

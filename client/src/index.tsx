@@ -79,8 +79,8 @@ const router = createBrowserRouter([
     element: <PrivateRoutes page={Pages.requests} />,
   },
   {
-    path: "/admin/accounts",
-    element: <App page={Pages.accounts} userRole="admin" />,
+    path: "/accounts",
+    element: <PrivateRoutes page={Pages.accounts} />,
   },
   // ADD NEW PATHS HERE
 ]);
