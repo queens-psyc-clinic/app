@@ -33,6 +33,7 @@ class Search(Resource):
             500:
                 description: Internal error inserting values
         """
+        trie.clear()
 
         page_type = request.json.get('Page').upper()
         #  page type corresponds to what page you're on
