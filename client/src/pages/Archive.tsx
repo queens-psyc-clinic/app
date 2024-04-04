@@ -16,12 +16,7 @@ import {
   unArchiveTest,
 } from "../services/TestService";
 import uuid from "react-uuid";
-import {
-  ItemTypeOptions,
-  MaximumAge,
-  Measure,
-  MinimumAge,
-} from "../models/libraryItem";
+import { ItemTypeOptions, Measure } from "../models/libraryItem";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
 import ConfirmModal from "../components/ConfirmModal";
 
@@ -117,7 +112,7 @@ const Archive = (props: { userRole: Role }) => {
         props.userRole === "admin" ? "justify-end" : "py-16"
       }  overflow-x-hidden p-6 py-10 w-full h-full`}
     >
-      <h1 className={`text-3xl mb-4 `}>Archived Items </h1>
+      <h1 className="text-3xl mb-4 text-blue-900">Archived Items </h1>
       {props.userRole === "admin" && (
         <>
           <section className="mt-6 space-y-2 mb-6">
@@ -171,7 +166,7 @@ const Archive = (props: { userRole: Role }) => {
       {props.userRole === "client" && (
         <>
           <p className="max-w-[70%]">
-            These legacy archived items at the psychology clinic are older
+            These legacy archived items at the Psychology Clinic are older
             materials available for sign-out upon request, offering users access
             to historical psychological resources.
           </p>

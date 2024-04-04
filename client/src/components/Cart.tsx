@@ -242,6 +242,7 @@ const Cart = (props: { userRole: Role }) => {
                 </section>
               );
             })}
+            {cartItems.length != 0 && (
             <section className="w-full p-4 flex justify-center items-center">
               <button
                 onClick={checkout}
@@ -250,6 +251,7 @@ const Cart = (props: { userRole: Role }) => {
                 Reserve
               </button>
             </section>
+            )}
           </div>
         )}
       </div>

@@ -43,6 +43,7 @@ CREATE TABLE Items (
     Location VARCHAR(155),
     TestID VARCHAR(64), 
     IsArchived BOOLEAN NOT NULL DEFAULT FALSE,
+    Notes TINYTEXT,
     Stock INT,
     FOREIGN KEY (TestID) REFERENCES Tests(ID)
 );
@@ -55,6 +56,16 @@ CREATE TABLE Loans (
     ItemID VARCHAR(64) NOT NULL,
     IsConfirmed BOOLEAN NOT NULL DEFAULT FALSE,
     Quantity INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (UserID) REFERENCES Users(ID),
+    FOREIGN KEY (ItemID) REFERENCES Items(ID)
+);
+
+CREATE TABLE Notifications (
+    ID VARCHAR(64) PRIMARY KEY,
+    UserID VARCHAR(64) NOT NULL,
+    Message VARCHAR(600),
+    NotificationDate DATETIME,
+    ItemID VARCHAR(64) NOT NULL,
     FOREIGN KEY (UserID) REFERENCES Users(ID),
     FOREIGN KEY (ItemID) REFERENCES Items(ID)
 );

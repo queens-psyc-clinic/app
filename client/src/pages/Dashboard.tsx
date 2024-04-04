@@ -26,12 +26,7 @@ import {
 } from "../services/TestService";
 import { Test, Item } from "../models/BEModels";
 import LoadingSpinner from "../components/LoadingSpinner";
-import {
-  Measure,
-  ItemTypeOptions,
-  MaximumAge,
-  MinimumAge,
-} from "../models/libraryItem";
+import { Measure, ItemTypeOptions } from "../models/libraryItem";
 import ConfirmModal from "../components/ConfirmModal";
 import { clearCart } from "../services/ShoppingCartService";
 

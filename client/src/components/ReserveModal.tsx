@@ -46,21 +46,34 @@ const ReserveModal = ({
         !isOpen && "hidden"
       } fixed inset-0 z-30 w-screen h-[screen] bg-black bg-opacity-50 flex justify-center items-center`}
     >
-      <div className="bg-white z-60 space-y-6 rounded m-auto w-max p-8">
-        <i className={`${isSuccessful ? "text-green-100" : "text-red-100"}`}>
+      <div className="bg-white z-60 rounded m-auto w-max p-8">
+        <i
+          className={`py-6 ${isSuccessful ? "text-green-100" : "text-red-100"}`}
+        >
           {isSuccessful ? (
             <FaRegCheckCircle size={50} />
           ) : (
             <FaRegCircleXmark size={50} />
           )}
         </i>
-        <h1 className="text-xl font-bold">
+        <h1 className="text-xl font-bold py-6">
           {isSuccessful ? "Items Reserved" : "Some Items Unavailable"}
         </h1>
-        <p className="mt-2 text-sm text-wrap">
+        <p className="mt-2 text-md text-wrap pb-6">
           {isSuccessful
-            ? "You have 2 hours to pick them up!"
+            ? "You have 48 hours to pick them up!"
             : "Some items were reserved as you were shopping."}
+        </p>
+        <p className="text-sm font-bold text-wrap pb-2">
+          {isSuccessful ? "Pick Up Information: " : ""}
+        </p>
+        <p className="cursor-pointer text-sm text-wrap pb-1 text-blue-200 underline hover:text-blue-100">
+          <a href="https://maps.app.goo.gl/KzkDLMqBfrRojHHLA" target="_blank">
+            {isSuccessful ? "184 Barrie St, Kingston, ON K7L 3K1" : ""}
+          </a>
+        </p>
+        <p className="text-sm pb-4 text-wrap">
+          {isSuccessful ? "Hours: " : ""} <br></br> {isSuccessful ? " Monday - Friday from 8:30am - 4:30pm" : ""}
         </p>
         {!isSuccessful && (
           <div>

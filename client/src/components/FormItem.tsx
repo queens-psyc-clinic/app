@@ -5,12 +5,14 @@ import { itemTypeOptions } from "../models/libraryItem";
 import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 import { Item } from "../models/BEModels";
 import uuid from "react-uuid";
+import RangeSlider from "./RangeSlider";
+import { Switch } from "@mui/material";
 
 interface FormItemProps {
   onRemove: (id: string) => void;
   testId: string;
   item?: Partial<Item> & { ID: string };
-  onChange?: (item: Partial<Item> & { ID: string }) => void;
+  onChange?: (item: Partial<Item> & { ID: string }, ages: string) => void;
 }
 
 const FormItem: React.FC<FormItemProps> = ({
@@ -20,12 +22,12 @@ const FormItem: React.FC<FormItemProps> = ({
   onChange = (item: Partial<Item> & { ID: string }) => {},
 }: FormItemProps) => {
   const [itemData, setItemData] = useState<Partial<Item> & { ID: string }>(
-    item ? item : { ID: uuid() }
+    item ? item : { ID: uuid()}
   );
   useEffect(() => {
     console.log("item changed!");
     if (itemData != item) {
-      onChange(itemData);
+      onChange(itemData, ages);
     }
   }, [itemData]);
 
@@ -35,6 +37,16 @@ const FormItem: React.FC<FormItemProps> = ({
       setItemData(item);
     }
   }, [onRemove]);
+
+  const [ages, setAges] = useState("");
+
+  const formatAgeRange = (range: number[]) => {
+    return `${range[0].toString()} to ${range[1].toString()}`;
+  };
+
+  const setAgeRange = (range: number[]) => {
+    setAges(formatAgeRange(range));
+  };
   return (
     <div className="p-5 mt-5 border-1 border border-gray-100 rounded-lg shadow-md relative">
       <button
@@ -82,6 +94,9 @@ const FormItem: React.FC<FormItemProps> = ({
             />
           </div>
         </div>
+        <div className="py-4">
+          <RangeSlider important={false} label="Ages" onChange={setAgeRange} />
+        </div>
         <div className="pt-4 pb-6">
           <InputField
             placeholder={item ? item.Location : "Location that item is stored."}
@@ -94,6 +109,26 @@ const FormItem: React.FC<FormItemProps> = ({
             }
           />
         </div>
+        <div className="pt-4 pb-6 flex items-center">
+            <div className="m-0">
+              {/* NOTE: should show or hide the additional notes on the table depending if on or off */}
+              <Switch />
+            </div>
+            <div className="ml-0 w-full text-wrap">
+              <InputField
+                placeholder={
+                  item ? item.Notes : "Any additional notes about the item"
+                }
+                value={itemData.Notes ? itemData.Notes : ""}
+                label="Additional Notes"
+                type="Text"
+                important={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setItemData({ ...itemData, Notes: e.target.value })
+                }
+              />
+            </div>
+          </div>
       </div>
     </div>
   );
