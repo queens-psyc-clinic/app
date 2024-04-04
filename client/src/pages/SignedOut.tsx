@@ -127,13 +127,13 @@ const SignedOut = (props: { userRole: Role }) => {
           {props.userRole === "admin" && (
             <>
               <section className="mt-6 space-y-4 pb-5">
-                <SearchBar />
+                <SearchBar placeholder="Search by borrower name or item name or acronym"/>
                 <Filter
                   placeholders={["Measure", "Item"]}
                   options={[
+                    borrowedByOptions,
                     Object.values(Measure),
                     ItemTypeOptions,
-                    borrowedByOptions,
                   ]}
                 />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
@@ -163,12 +163,12 @@ const SignedOut = (props: { userRole: Role }) => {
                   return <Card key={uuid()} data={item} type="item" />;
                 })}
               </div>
-              <div className="text-sm fixed bottom-10 right-10 bg-white p-6 rounded-lg shadow-md max-w-64 text-center">
+              <div className="text-sm fixed bottom-10 right-10 bg-gray-100 p-6 rounded-lg shadow-md max-w-64 text-center">
                 <p className="text-wrap py-1">
                   Issue with an item? Something missing or damaged?
                 </p>
                 <button
-                  className="cursor-pointer text-blue-200 underline"
+                  className="cursor-pointer text-blue-200 underline hover:text-blue-100"
                   onClick={handleReportIssueClick}
                 >
                   Report Issue Here

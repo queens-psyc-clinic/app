@@ -28,8 +28,6 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import {
   Measure,
   ItemTypeOptions,
-  MaximumAge,
-  MinimumAge,
 } from "../models/libraryItem";
 import ConfirmModal from "../components/ConfirmModal";
 import { clearCart } from "../services/ShoppingCartService";
@@ -109,12 +107,10 @@ const Dashboard = (props: { userRole: Role }) => {
           <section className="mt-6 space-y-6 mb-6">
             <SearchBar />
             <Filter
-              placeholders={["Measure", "Item", "Min Age", "Max Age"]}
+              placeholders={["Measure", "Item"]}
               options={[
                 Object.values(Measure),
                 ItemTypeOptions,
-                MinimumAge,
-                MaximumAge,
               ]}
             />
           </section>
@@ -184,12 +180,10 @@ const Dashboard = (props: { userRole: Role }) => {
         <section className="mt-6 space-y-6 mb-6">
           <SearchBar />
           <Filter
-            placeholders={["Measure", "Item", "Min Age", "Max Age"]}
+            placeholders={["Measure", "Item"]}
             options={[
               Object.values(Measure),
               ItemTypeOptions,
-              MinimumAge,
-              MaximumAge,
             ]}
           />
         </section>

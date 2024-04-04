@@ -101,13 +101,13 @@ const Overdue = (props: { userRole: Role }) => {
         {props.userRole === "admin" && (
           <>
             <section className="mt-6 space-y-2 mb-6">
-              <SearchBar />
+              <SearchBar placeholder="Search by borrower name or item name or acronym"/>
               <Filter
                 placeholders={["Measure", "Item"]}
                 options={[
+                  borrowedByOptions,
                   Object.values(Measure),
                   ItemTypeOptions,
-                  borrowedByOptions,
                 ]}
               />
               <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
@@ -124,7 +124,7 @@ const Overdue = (props: { userRole: Role }) => {
                   <i className="mr-4">
                     <MdDelete size={20} />
                   </i>
-                  <p>Mark As Gone</p>
+                  <p>Mark As Returned</p>
                 </button>
               </section>
             </section>
