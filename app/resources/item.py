@@ -11,6 +11,7 @@ item_fields = {
     'Location': fields.String,
     'TestID': fields.String,
     'IsArchived': fields.Integer,
+    'Notes': fields.String,
     'Stock': fields.Integer
 }
 
@@ -34,7 +35,29 @@ class Item(Resource):
             schema:
               type: array
               items:
-                $ref: '#/definitions/Item'
+                schema:
+                  id: Item
+                  properties:
+                    ID: 
+                      type: string
+                    Status:
+                      type: string
+                    ItemType:
+                      type: string
+                    ItemName:
+                      type: string
+                    Ages:
+                      type: string
+                    Location:
+                      type: string
+                    TestID:
+                      type: string
+                    IsArchived:
+                      type: string
+                    Notes:
+                      type: string
+                    Stock:
+                      type: string
           500:
             description: Error fetching items
         """
@@ -59,15 +82,11 @@ class Item(Resource):
             required: true
         responses:
           200:
-            description: Item with given id
-            schema:
-              type: array
-              items:
-                $ref: '#/definitions/Item'
+            description: Deleted successfully
           400:
             description: ID does not exist
           500:
-            description: Error fetching items
+            description: Error deleting items
         """
         if not _select_with_id(id):
           abort(400, message="ID does not exist")

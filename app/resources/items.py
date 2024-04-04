@@ -30,7 +30,8 @@ class Items(Resource):
             schema:
               type: array
               items:
-                $ref: '#/definitions/Item'
+                schema:
+                  id: Item
           500:
             description: Error fetching items
         """
@@ -65,9 +66,12 @@ class Items(Resource):
             uniqueItems: true
         responses:
           201:
-            description: A list of items
+            description: The filtered items
             schema:
-              id: Item
+              type: array
+              items:
+                schema:
+                  id: Item
           403:
             description: bad request
         example:
@@ -111,7 +115,8 @@ class Items(Resource):
             schema:
               type: array
               items:
-                $ref: '#/definitions/Item'
+                schema:
+                  id: Item
           500:
             description: Error fetching items
         """
