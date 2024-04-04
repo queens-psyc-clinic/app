@@ -15,6 +15,6 @@ def update_csv_inplace(file_path):
         writer.writerows(rows)
 
 # Example usage
-input_file = 'item_data.csv'
+input_file = './csv_data/item_data.csv'
 update_csv_inplace(input_file)
 print("CSV file updated successfully.")

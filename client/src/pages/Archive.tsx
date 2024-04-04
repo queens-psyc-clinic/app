@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
-import SearchBar from "../components/SearchBar";
+import SearchBar, { searchSuggestion } from "../components/SearchBar";
 import Filter from "../components/Filter";
 import Table from "../components/Table";
 import { Item, Test } from "../models/BEModels";
@@ -11,16 +11,21 @@ import { MdDelete } from "react-icons/md";
 import {
   deleteEntireTest,
   getAllArchivedTests,
+  getTestById,
+  getTestByName,
   isTestAvailable,
   unArchiveTest,
 } from "../services/TestService";
 import uuid from "react-uuid";
-import {
-  ItemTypeOptions,
-  Measure,
-} from "../models/libraryItem";
+import { ItemTypeOptions, Measure } from "../models/libraryItem";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
 import ConfirmModal from "../components/ConfirmModal";
+import {
+  getSearchSuggestions,
+  initializeSearchTree,
+} from "../services/SearchService";
+import _ from "lodash";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Archive = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -33,6 +38,7 @@ const Archive = (props: { userRole: Role }) => {
   const [data, setData] = useState<Omit<Test, "OrderingCompany">[]>([]);
   const [selectedItems, setSelectedItems] = useState<Item[]>([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -81,8 +87,46 @@ const Archive = (props: { userRole: Role }) => {
   };
 
   useEffect(() => {
+    initializeSearchTree("ARCHIVED");
     getAllArchivedTests().then((res) => setData(res));
   }, []);
+
+  const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
+    console.log(suggestion);
+    if (suggestion.kind === "Name") {
+      getTestByName(suggestion.value).then((res) => {
+        console.log(res);
+        setData(res);
+      });
+    } else if (suggestion.kind === "ID") {
+      getTestById(suggestion.value).then((res) => {
+        setData([res]);
+      });
+    }
+  };
+
+  async function handleQueryEnter(query: string) {
+    if (query == "") {
+      setIsLoading(true);
+      getAllArchivedTests().then((res) => {
+        setData(res);
+        setIsLoading(false);
+      });
+    }
+    const suggestions = await getSearchSuggestions(query);
+    const possibleResults: Test[] = await Promise.all(
+      suggestions.map(async (suggestion: searchSuggestion) => {
+        if (suggestion.kind === "Name") {
+          const tests = await getTestByName(suggestion.value);
+          return tests;
+        } else if (suggestion.kind === "ID") {
+          const tests = await getTestById(suggestion.value);
+          return tests;
+        }
+      })
+    );
+    setData(_.flatten(possibleResults));
+  }
 
   return (
     <div
@@ -94,13 +138,13 @@ const Archive = (props: { userRole: Role }) => {
       {props.userRole === "admin" && (
         <>
           <section className="mt-6 space-y-2 mb-6">
-            <SearchBar />
+            <SearchBar
+              onSelectSuggestion={handleSearchSuggestionSelect}
+              onQuerySearch={handleQueryEnter}
+            />
             <Filter
               placeholders={["Measure", "Item"]}
-              options={[
-                Object.values(Measure),
-                ItemTypeOptions,
-              ]}
+              options={[Object.values(Measure), ItemTypeOptions]}
             />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button
@@ -134,13 +178,17 @@ const Archive = (props: { userRole: Role }) => {
               onOk={async () => deleteSelectedRows()}
             />
           </div>
-          <Table
-            tableType="default"
-            currentPage={currentPage}
-            setSelectedRows={setSelectedRows}
-            selectedRows={selectedRows}
-            data={data}
-          />
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <Table
+              tableType="default"
+              currentPage={currentPage}
+              setSelectedRows={setSelectedRows}
+              selectedRows={selectedRows}
+              data={data}
+            />
+          )}
         </>
       )}
       {props.userRole === "client" && (
