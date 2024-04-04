@@ -11,6 +11,8 @@ import {
   getItemMeasure,
   getLoanByAcronym,
   getLoanByName,
+  getLoanByUserName,
+  getLoansForItemFormatted,
   markItemAsAvailable,
 } from "../services/TestService";
 import SignedOutTable from "../components/SignedOutTable";
@@ -51,7 +53,7 @@ const SignedOut = (props: { userRole: Role }) => {
 
   /* FETCHING REAL DATA */
   useEffect(() => {
-    initializeSearchTree("LOAN").then(() => console.log("initialized"));
+    initializeSearchTree("SIGNEDOUT").then(() => console.log("initialized"));
     if (props.userRole === "admin") {
       setIsLoading(true);
       getAllSignedOutItems().then((res) => {
@@ -91,49 +93,55 @@ const SignedOut = (props: { userRole: Role }) => {
   }, [props]);
 
   const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
-    // console.log(suggestion);
-    // if (suggestion.kind === "Name") {
-    //   getTestByName(suggestion.value).then((res) => {
-    //     console.log(res);
-    //     setData(res);
-    //   });
-    // } else if (suggestion.kind === "ID") {
-    //   getTestById(suggestion.value).then((res) => {
-    //     setData([res]);
-    //   });
-    // }
-  };
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsLoading(true);
+    if (suggestion.kind === "ItemName") {
+      // Item Name
+      // get loan by item name and set data to it
+      getLoanByName(suggestion.value, true).then((res) => {
+        console.log(res);
+        setAdminData(res as (SignedOutItem & { Quantity: number })[]);
+        setIsLoading(false);
+      });
+    } else if (suggestion.kind === "ItemID") {
+      // get loan by item ID and set data to it
+      getLoansForItemFormatted(suggestion.value).then((res) => {
+        console.log(res);
+        setAdminData(res as (SignedOutItem & { Quantity: number })[]);
+        setIsLoading(false);
+      });
+    } else if (suggestion.kind == "FirstLastName") {
+      // get loan by user and set data to it
+      getLoanByUserName(suggestion.value, true).then((res) => {
+        setAdminData(res as (SignedOutItem & { Quantity: number })[]);
+        setIsLoading(false);
+      });
+    }
   };
 
   async function handleQueryEnter(query: string) {
-    console.log(query);
     if (query == "") {
       setIsLoading(true);
       getAllSignedOutItems().then((res) => {
-        setAdminData(res as SignedOutItem[]);
+        setAdminData(res as (SignedOutItem & { Quantity: number })[]);
         setIsLoading(false);
       });
     }
     const suggestions = await getSearchSuggestions(query);
-    const possibleResults: SignedOutItem[] = await Promise.all(
-      suggestions.map(async (suggestion: searchSuggestion) => {
-        if (suggestion.kind === "Name") {
-          const tests = await getLoanByName(suggestion.value);
-          console.log(tests);
-          return tests;
-        } else if (suggestion.kind === "ID") {
-          const tests = await getLoanByAcronym(suggestion.value);
-          console.log(tests);
-          return tests;
-        }
-        // else if (suggestion.kind === "FirstLastName"){
-
-        // }
-      })
-    );
-    console.log(possibleResults);
+    const possibleResults: (SignedOutItem & { Quantity: number })[] =
+      await Promise.all(
+        suggestions.map(async (suggestion: searchSuggestion) => {
+          if (suggestion.kind === "ItemID") {
+            const items = await getLoanByName(suggestion.value);
+            return items;
+          } else if (suggestion.kind === "ID") {
+            const items = await getLoansForItemFormatted(suggestion.value);
+            return items;
+          } else if (suggestion.kind === "FirstLastName") {
+            const items = await getLoanByUserName(suggestion.value);
+            return items;
+          }
+        })
+      );
     setAdminData(_.flatten(possibleResults));
   }
   const handleReportIssueClick = () => {
@@ -144,7 +152,6 @@ const SignedOut = (props: { userRole: Role }) => {
     setSelectedCard(data);
     setIsModalOpen(true);
   };
-  console.log(props);
 
   async function handleMarkAsReturned() {
     const errors: any[] = [];
@@ -169,82 +176,86 @@ const SignedOut = (props: { userRole: Role }) => {
         props.userRole === "admin" ? "justify-end" : "py-16"
       } overflow-x-hidden p-6 py-10 w-full h-full`}
     >
-      {isLoading ? (
+      {/* {isLoading ? (
         <LoadingSpinner />
-      ) : (
-        <>
-          <h1 className={`text-3xl mb-4 `}>Signed Out Items </h1>
-          {props.userRole === "admin" && (
-            <>
-              <section className="mt-6 space-y-4 pb-5">
-                <SearchBar
-                  placeholder="Search by item name or acronym"
-                  onSelectSuggestion={handleSearchSuggestionSelect}
-                  onQuerySearch={handleQueryEnter}
-                />
+      ) : ( */}
+      <>
+        <h1 className={`text-3xl mb-4 `}>Signed Out Items </h1>
+        {props.userRole === "admin" && (
+          <>
+            <section className="mt-6 space-y-4 pb-5">
+              <SearchBar
+                placeholder="Search by item name or acronym"
+                onSelectSuggestion={handleSearchSuggestionSelect}
+                onQuerySearch={handleQueryEnter}
+              />
 
-                <Filter
-                  placeholders={["Measure", "Item"]}
-                  options={[
-                    borrowedByOptions,
-                    Object.values(Measure),
-                    ItemTypeOptions,
-                  ]}
-                />
-                <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-                  <button
-                    className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
-                    onClick={handleMarkAsReturned}
-                  >
-                    <i className="mr-4">
-                      <MdAssignmentTurnedIn size={20} />
-                    </i>
-                    <p>Mark As Returned</p>
-                  </button>
-                </section>
+              <Filter
+                placeholders={["Measure", "Item"]}
+                options={[
+                  borrowedByOptions,
+                  Object.values(Measure),
+                  ItemTypeOptions,
+                ]}
+              />
+              <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
+                <button
+                  className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
+                  onClick={handleMarkAsReturned}
+                >
+                  <i className="mr-4">
+                    <MdAssignmentTurnedIn size={20} />
+                  </i>
+                  <p>Mark As Returned</p>
+                </button>
               </section>
+            </section>
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : (
               <SignedOutTable
                 tableType="reservations"
                 setSelectedRows={setSelectedRows}
                 selectedRows={selectedRows}
                 data={adminData}
               />
-            </>
-          )}
-          {props.userRole === "client" && (
-            <>
-              <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-                {clientData.map((item) => {
-                  return <Card key={uuid()} data={item} type="item" />;
-                })}
-              </div>
-              <div className="text-sm fixed bottom-10 right-10 bg-gray-100 p-6 rounded-lg shadow-md max-w-64 text-center">
-                <p className="text-wrap py-1">
-                  Issue with an item? Something missing or damaged?
-                </p>
-                <button
-                  className="cursor-pointer text-blue-200 underline hover:text-blue-100"
-                  onClick={handleReportIssueClick}
-                >
-                  Report Issue Here
-                </button>
-              </div>
-              {isModalOpen && (
-                <ReportIssueModal
-                  isOpen={isModalOpen}
-                  closeModal={() => setIsModalOpen(false)}
-                  header="Report an Issue"
-                  description="If you noticed something wrong with an item you signed out, please let us know here:"
-                  button="Send"
-                  secondButton="Cancel"
-                  onOk={() => {}}
-                  onClose={() => setIsModalOpen(false)}
-                />
-              )}
-            </>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
+        {props.userRole === "client" && (
+          <>
+            <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+              {clientData.map((item) => {
+                return <Card key={uuid()} data={item} type="item" />;
+              })}
+            </div>
+            <div className="text-sm fixed bottom-10 right-10 bg-gray-100 p-6 rounded-lg shadow-md max-w-64 text-center">
+              <p className="text-wrap py-1">
+                Issue with an item? Something missing or damaged?
+              </p>
+              <button
+                className="cursor-pointer text-blue-200 underline hover:text-blue-100"
+                onClick={handleReportIssueClick}
+              >
+                Report Issue Here
+              </button>
+            </div>
+            {isModalOpen && (
+              <ReportIssueModal
+                isOpen={isModalOpen}
+                closeModal={() => setIsModalOpen(false)}
+                header="Report an Issue"
+                description="If you noticed something wrong with an item you signed out, please let us know here:"
+                button="Send"
+                secondButton="Cancel"
+                onOk={() => {}}
+                onClose={() => setIsModalOpen(false)}
+              />
+            )}
+          </>
+        )}
+      </>
+      {/* )} */}
     </div>
   );
 };

@@ -167,7 +167,10 @@ export async function getAllUsers() {
   }
 }
 
-export async function getLoanByName(itemName: string) {
+export async function getLoanByName(
+  itemName: string,
+  isSignedOut: boolean = false
+) {
   try {
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/items`,
@@ -181,14 +184,22 @@ export async function getLoanByName(itemName: string) {
       }
     );
     const items = response.data;
+    console.log(items);
     const res = [];
     if (items) {
       for (const item of items) {
+        let post: any = {
+          ItemID: item.ID,
+        };
+        if (isSignedOut) {
+          post = {
+            ...post,
+            IsConfirmed: true,
+          };
+        }
         const loanResponse: AxiosResponse = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/loans`,
-          JSON.stringify({
-            ItemID: item.ID,
-          }),
+          JSON.stringify(post),
           {
             headers: {
               "Content-Type": "application/json", // this shows the expected content type
@@ -249,7 +260,10 @@ export async function getLoanByName(itemName: string) {
   }
 }
 
-export async function getLoanByUserName(firstLastName: string) {
+export async function getLoanByUserName(
+  firstLastName: string,
+  isSignedOut: boolean = false
+) {
   console.log(firstLastName);
   const [firstName, lastName] = firstLastName.split(" ");
   try {
@@ -269,11 +283,18 @@ export async function getLoanByUserName(firstLastName: string) {
     const res = [];
     if (people) {
       for (const person of people) {
+        let post: any = {
+          UserID: person.ID,
+        };
+        if (isSignedOut) {
+          post = {
+            UserID: person.ID,
+            IsConfirmed: true,
+          };
+        }
         const loanResponse: AxiosResponse = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/loans`,
-          JSON.stringify({
-            UserID: person.ID,
-          }),
+          JSON.stringify(post),
           {
             headers: {
               "Content-Type": "application/json", // this shows the expected content type
@@ -663,8 +684,16 @@ export async function getAllSignedOutItems() {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
   try {
-    const response: AxiosResponse = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/loans`
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      {
+        IsConfirmed: 1,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
     );
 
     const loans: Loan[] = response.data;
@@ -1699,7 +1728,20 @@ export async function getLoansForItem(itemId: string) {
   }
 }
 
-export async function getLoansForItemFormatted(itemId: string) {
+export async function getLoansForItemFormatted(
+  itemId: string,
+  isSignedOut: boolean = false
+) {
+  let post: any = {
+    ItemID: itemId,
+  };
+  if (isSignedOut) {
+    post = {
+      ItemID: itemId,
+      IsConfirmed: true,
+    };
+  }
+  console.log(post);
   try {
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/loans`,

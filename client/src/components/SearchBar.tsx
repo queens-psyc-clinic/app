@@ -36,13 +36,11 @@ const SearchBar = ({
     setQuery(e.target.value);
     if (e.target.value.replace(/\s/g, "") != "") {
       const newSuggestions = await getSearchSuggestions(e.target.value);
-      console.log(newSuggestions);
       setSuggestions(newSuggestions);
     } else {
       setSuggestions([]);
     }
   }
-
   console.log(suggestions);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
