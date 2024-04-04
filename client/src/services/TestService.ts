@@ -264,7 +264,6 @@ export async function getLoanByUserName(
   firstLastName: string,
   isSignedOut: boolean = false
 ) {
-  console.log(firstLastName);
   const [firstName, lastName] = firstLastName.split(" ");
   try {
     const response: AxiosResponse = await axios.post(
