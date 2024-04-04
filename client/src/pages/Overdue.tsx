@@ -103,7 +103,7 @@ const Overdue = (props: { userRole: Role }) => {
             <section className="mt-6 space-y-2 mb-6">
               <SearchBar placeholder="Search by borrower name or item name or acronym"/>
               <Filter
-                placeholders={["Borrowed By", "Measure", "Item"]}
+                placeholders={["Measure", "Item"]}
                 options={[
                   borrowedByOptions,
                   Object.values(Measure),
