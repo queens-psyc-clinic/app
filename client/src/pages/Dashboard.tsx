@@ -133,6 +133,7 @@ const Dashboard = (props: { userRole: Role }) => {
               placeholders={["Measure", "Item"]}
               options={[Object.values(Measure), ItemTypeOptions]}
               onChange={applyFilter}
+              onClear={() => setData(original)}
             />
           </section>
           {!isLoading ? (

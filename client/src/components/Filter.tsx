@@ -7,16 +7,24 @@ export interface PossibleFilters {
   "Min Age"?: string;
   "Max Age"?: string;
   Quantity?: string;
+  "Ordering Company"?: string;
 }
 
 interface FilterProps {
   placeholders: string[];
   options: (string[] | number[])[];
   onChange?: (filters: PossibleFilters) => void;
+  onClear?: () => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ placeholders, options, onChange }) => {
+const Filter: React.FC<FilterProps> = ({
+  placeholders,
+  options,
+  onChange,
+  onClear,
+}) => {
   const [filter, setFilter] = useState({});
+  const [clearDefaultOption, setClearDefaultOption] = useState("");
   return (
     <div className="flex h-min">
       <div className="w-max flex flex-row items-center justify-center bg-gray-100 px-2 pb-1 rounded-full">
@@ -34,7 +42,16 @@ const Filter: React.FC<FilterProps> = ({ placeholders, options, onChange }) => {
           />
         ))}
       </div>
-      <button className="h-auto ml-2 rounded-full border boder-black px-4 py-2  text-xs">
+      <button
+        className="h-auto ml-2 rounded-full border boder-black px-4 py-2  text-xs"
+        onClick={() => {
+          setFilter({});
+          if (onClear) {
+            onClear();
+          }
+          window.location.reload();
+        }}
+      >
         Clear Filters
       </button>
     </div>
