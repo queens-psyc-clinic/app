@@ -43,6 +43,8 @@ const SearchBar = ({
     }
   }
 
+  console.log(suggestions);
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setSuggestions([]);
@@ -86,6 +88,8 @@ const SearchBar = ({
                     ? "Test Name"
                     : suggestion.kind == "ID"
                     ? "Acronym"
+                    : suggestion.kind == "ItemID"
+                    ? "Item name"
                     : "User"}
                 </p>
               </div>

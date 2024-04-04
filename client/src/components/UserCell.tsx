@@ -3,7 +3,6 @@ import { User } from "../models/User";
 import { FaCaretRight } from "react-icons/fa";
 
 const UserCell = (props: { data: User & { id: string } }) => {
-  console.log(props.data);
   return (
     <Link to={`/student/${props.data.id}`}>
       <div className="flex border w-min p-2 rounded cursor-pointer">

@@ -5,7 +5,7 @@ This service handles all operations with Library tests and items
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Test, Item } from "../models/BEModels";
 import { Role } from "../models/User";
-import { BackendUser, getUserSettingsData } from "./UserService";
+import { BackendUser, getSessionId, getUserSettingsData } from "./UserService";
 // Define the interface for the data returned by the API
 interface testQuery {
   measure?: string;
@@ -180,23 +180,135 @@ export async function getLoanByName(itemName: string) {
         },
       }
     );
-    const item = response.data;
-    console.log("ITEM", item);
-    if (item) {
-      const loanResponse: AxiosResponse = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/loans`,
-        JSON.stringify({
-          ItemID: item[0].ID,
-        }),
-        {
-          headers: {
-            "Content-Type": "application/json", // this shows the expected content type
-          },
+    const items = response.data;
+    const res = [];
+    if (items) {
+      for (const item of items) {
+        const loanResponse: AxiosResponse = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/loans`,
+          JSON.stringify({
+            ItemID: item.ID,
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json", // this shows the expected content type
+            },
+          }
+        );
+        if (loanResponse.data) {
+          for (const loan of loanResponse.data) {
+            const item: Item = await getItemById(loan.ItemID);
+            const test: Test = await getTestById(item.TestID);
+            const user: BackendUser = await getUserSettingsData(loan.UserID);
+            res.push({
+              ID: loan.ID,
+              Name: test.Name,
+              ItemName: item.ItemName,
+              MeasureOf: test.MeasureOf,
+              Acronym: item.ID,
+              UserID: {
+                firstName: user.FirstName,
+                lastName: user.LastName,
+                id: user.ID,
+                email: user.Email,
+                notifications: true, // WAITING ON adding notifications or isSubscribed to User table
+                role: user.IsAdmin ? "admin" : "client",
+              },
+              StartDate: new Date(loan.StartDate),
+              EndDate: new Date(loan.EndDate),
+              Quantity: loan.Quantity!,
+            });
+          }
         }
-      );
-      return loanResponse.data;
+      }
     }
-    return;
+
+    return res;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getLoanByUserName(firstLastName: string) {
+  console.log(firstLastName);
+  const [firstName, lastName] = firstLastName.split(" ");
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/users/${getSessionId()}`,
+      JSON.stringify({
+        FirstName: firstName,
+        LastName: lastName,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    const people = response.data;
+    const res = [];
+    if (people) {
+      for (const person of people) {
+        const loanResponse: AxiosResponse = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/loans`,
+          JSON.stringify({
+            UserID: person.ID,
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json", // this shows the expected content type
+            },
+          }
+        );
+        if (loanResponse.data) {
+          for (const loan of loanResponse.data) {
+            const item: Item = await getItemById(loan.ItemID);
+            const test: Test = await getTestById(item.TestID);
+            const user: BackendUser = await getUserSettingsData(loan.UserID);
+            res.push({
+              ID: loan.ID,
+              Name: test.Name,
+              ItemName: item.ItemName,
+              MeasureOf: test.MeasureOf,
+              Acronym: item.ID,
+              UserID: {
+                firstName: user.FirstName,
+                lastName: user.LastName,
+                id: user.ID,
+                email: user.Email,
+                notifications: true, // WAITING ON adding notifications or isSubscribed to User table
+                role: user.IsAdmin ? "admin" : "client",
+              },
+              StartDate: new Date(loan.StartDate),
+              EndDate: new Date(loan.EndDate),
+              Quantity: loan.Quantity!,
+            });
+          }
+        }
+      }
+    }
+
+    return res;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -1137,7 +1249,6 @@ export async function getAllReservedItems() {
     );
 
     const reservedItems: Loan[] = response.data;
-    console.log(reservedItems);
     let result = [];
     for (const reservedItem of reservedItems) {
       const item: Item = await getItemById(reservedItem.ItemID);
@@ -1563,6 +1674,134 @@ export async function getLoansForItem(itemId: string) {
       }
     );
     return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getLoansForItemFormatted(itemId: string) {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      JSON.stringify({
+        ItemID: itemId,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    const loans: Loan[] = response.data;
+    let result = [];
+    for (const loan of loans) {
+      const item: Item = await getItemById(loan.ItemID);
+      const test: Test = await getTestById(item.TestID);
+      const user: BackendUser = await getUserSettingsData(loan.UserID);
+      result.push({
+        ID: loan.ID,
+        Name: test.Name,
+        ItemName: item.ItemName,
+        MeasureOf: test.MeasureOf,
+        Acronym: item.ID,
+        UserID: {
+          firstName: user.FirstName,
+          lastName: user.LastName,
+          id: user.ID,
+          email: user.Email,
+          notifications: true, // WAITING ON adding notifications or isSubscribed to User table
+          role: user.IsAdmin ? "admin" : "client",
+        },
+        StartDate: new Date(loan.StartDate),
+        EndDate: new Date(loan.EndDate),
+        Quantity: loan.Quantity!,
+      });
+    }
+    return result;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getLoansByItemNameFormatted(itemId: string) {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      JSON.stringify({
+        ItemID: itemId,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    const loans: Loan[] = response.data;
+    let result = [];
+    for (const loan of loans) {
+      const item: Item = await getItemById(loan.ItemID);
+      const test: Test = await getTestById(item.TestID);
+      const user: BackendUser = await getUserSettingsData(loan.UserID);
+      result.push({
+        ID: loan.ID,
+        Name: test.Name,
+        ItemName: item.ItemName,
+        MeasureOf: test.MeasureOf,
+        Acronym: item.ID,
+        UserID: {
+          firstName: user.FirstName,
+          lastName: user.LastName,
+          id: user.ID,
+          email: user.Email,
+          notifications: true, // WAITING ON adding notifications or isSubscribed to User table
+          role: user.IsAdmin ? "admin" : "client",
+        },
+        StartDate: new Date(loan.StartDate),
+        EndDate: new Date(loan.EndDate),
+        Quantity: loan.Quantity!,
+      });
+    }
+    return result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
