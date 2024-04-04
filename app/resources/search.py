@@ -108,17 +108,7 @@ class Search(Resource):
                     user_names = get_first_last_name(row['UserID'])
                     full_name = user_names[0] + ' ' + user_names[1]
                     trie.insert(full_name.upper(), 'FirstLastName')
-                return 201
-            
-        elif page_type == 'ARCHIVED':
-            #  builds the tree based on Tests that are archived
-            table = _select_cols({'IsArchived': '1'}, None, 'Tests')
-            if table is not None:
-                for row in table:
-                    trie.insert(row['Name'].upper(), 'Name')
-                    trie.insert(row['ID'].upper(), 'ID')
-                return 201
-        
+                return 201      
         elif page_type == 'USERS':
             #  builds the tree based on Users table with users not yet accepted
             table = _select_cols({'IsAccepted': '0'}, None, 'Users')
