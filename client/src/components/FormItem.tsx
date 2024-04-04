@@ -6,6 +6,7 @@ import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 import { Item } from "../models/BEModels";
 import uuid from "react-uuid";
 import RangeSlider from "./RangeSlider";
+import { Switch } from "@mui/material";
 
 interface FormItemProps {
   onRemove: (id: string) => void;
@@ -21,7 +22,7 @@ const FormItem: React.FC<FormItemProps> = ({
   onChange = (item: Partial<Item> & { ID: string }) => {},
 }: FormItemProps) => {
   const [itemData, setItemData] = useState<Partial<Item> & { ID: string }>(
-    item ? item : { ID: uuid() }
+    item ? item : { ID: uuid()}
   );
   useEffect(() => {
     console.log("item changed!");
@@ -108,6 +109,26 @@ const FormItem: React.FC<FormItemProps> = ({
             }
           />
         </div>
+        <div className="pt-4 pb-6 flex items-center">
+            <div className="m-0">
+              {/* NOTE: should show or hide the additional notes on the table depending if on or off */}
+              <Switch />
+            </div>
+            <div className="ml-0 w-full text-wrap">
+              <InputField
+                placeholder={
+                  item ? item.Notes : "Any additional notes about the item"
+                }
+                value={itemData.Notes ? itemData.Notes : ""}
+                label="Additional Notes"
+                type="Text"
+                important={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setItemData({ ...itemData, Notes: e.target.value })
+                }
+              />
+            </div>
+          </div>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ class CreateItem(Resource):
         Create new item
         ---
         tags:
-          - Items
+          - Item
         requestBody:
           content:
             application/json:
@@ -31,34 +31,6 @@ class CreateItem(Resource):
             description: Item created
             schema:
               id: Item
-              properties:
-                ID:
-                  type: string
-                  description: The item ID.
-                Status:
-                  type: integer
-                  description: Item status
-                ItemType:
-                  type: string
-                  description: Item type
-                ItemName:
-                  type: string
-                  description: The name of the item.
-                Ages:
-                  type: string
-                  description: Recomended ages for item
-                Location:
-                  type: string
-                  description: The item location
-                TestID:
-                  type: string
-                  description: The related testID
-                IsArchived:
-                  type: integer
-                  description: If the item is archived
-                Stock:
-                  type: integer
-                  description: The number of stock
           403:
             description: bad request
         example:

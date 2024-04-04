@@ -340,6 +340,11 @@ const Table = (props: {
                                     </p>
                                   </div>
                                 )}
+                                {item.Notes && (
+                                  <div className="pl-10 italic">
+                                    <p>{`Notes: ${item.Notes}`}</p>
+                                  </div>
+                                )}
                               </div>
                             ))}
                           </div>
