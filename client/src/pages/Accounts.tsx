@@ -15,6 +15,11 @@ import _ from "lodash";
 import { Test, SignedOutItem } from "../models/BEModels";
 import uuid from "react-uuid";
 import Card from "../components/Card";
+import {
+  approveUser,
+  deleteUser,
+  getAllUnapprovedUsers,
+} from "../services/UserService";
 
 export interface AccountUser {
   FirstName: string;
@@ -35,17 +40,31 @@ const Accounts = (props: { userRole: Role }) => {
 
   /* FETCHING REAL DATA */
   useEffect(() => {
-    // Waiting on new column for users like IsApproved and for new serch endpoints
-    getAllUsers().then((res) => setData(res));
+    getAllUnapprovedUsers().then((res) => setData(res));
   }, []);
 
-  console.log(data);
-
-  const removeFromTable = () => {
+  const removeUser = async () => {
     // setData(data.filter((elem) => elem.ID != id))
-
-    setData(data.filter((x) => !selectedRows.some((y) => y == x.ID)));
+    setIsLoading(true);
+    for (const userId of selectedRows) {
+      await deleteUser(userId).catch((e) =>
+        alert("There was an error approving at least one user.")
+      );
+    }
+    setIsLoading(false);
+    window.location.reload();
   };
+
+  async function approve() {
+    setIsLoading(true);
+    for (const userId of selectedRows) {
+      await approveUser(userId).catch((e) =>
+        alert("There was an error approving at least one user.")
+      );
+    }
+    setIsLoading(false);
+    window.location.reload();
+  }
 
   return (
     <div
@@ -65,7 +84,7 @@ const Accounts = (props: { userRole: Role }) => {
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                   <button
                     className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center"
-                    onClick={removeFromTable}
+                    onClick={() => approve()}
                   >
                     <i className="mr-4">
                       <MdCheckCircle size={20} />
@@ -74,7 +93,7 @@ const Accounts = (props: { userRole: Role }) => {
                   </button>
                   <button
                     className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
-                    onClick={removeFromTable}
+                    onClick={removeUser}
                   >
                     <i className="mr-4">
                       <MdRemoveCircle size={20} />
