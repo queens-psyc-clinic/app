@@ -22,6 +22,7 @@ user_fields = {
     'Email': fields.String,
     'IsAdmin': fields.Boolean,
     'IsSubscribed': fields.Boolean,
+    'IsAccepted': fields.Boolean
 }
 
 user_parser = reqparse.RequestParser()
@@ -76,6 +77,8 @@ class User(Resource):
                 Email:
                   type: string
                 IsAdmin:
+                  type: boolean
+                IsAccepted:
                   type: boolean
         """
 
