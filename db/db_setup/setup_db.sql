@@ -12,17 +12,18 @@ CREATE TABLE Users (
     IsAdmin BOOLEAN NOT NULL,
     IsSubscribed BOOLEAN DEFAULT TRUE,
     ProfilePicture BLOB DEFAULT NULL,
+    IsAccepted BOOLEAN DEFAULT FALSE,
     Hash VARCHAR(255),
     UNIQUE(Email)
 );
 
 -- Add dummy data for users
-INSERT INTO Users (ID, FirstName, LastName, Email, IsAdmin) VALUES
-(1,  'John', 'Doe', 'john.doe@example.com', true),
-(2,  'Jane', 'Smith',  'jane.smith@example.com', false),
-(3,   'Admin', 'User', 'admin@example.com', true),
-(4,   'Alice', 'Johnson', 'alice.johnson@example.com', false),
-(5,   'Bob', 'Miller', 'bob.miller@example.com', false);
+INSERT INTO Users (ID, FirstName, LastName, Email, IsAdmin, IsAccepted) VALUES
+(1,  'John', 'Doe', 'john.doe@example.com', true, true),
+(2,  'Jane', 'Smith',  'jane.smith@example.com', false, false),
+(3,   'Admin', 'User', 'admin@example.com', true, true),
+(4,   'Alice', 'Johnson', 'alice.johnson@example.com', false, false),
+(5,   'Bob', 'Miller', 'bob.miller@example.com', false, false);
 
 CREATE TABLE Tests (
     ID VARCHAR(64) PRIMARY KEY,
@@ -43,6 +44,7 @@ CREATE TABLE Items (
     Location VARCHAR(155),
     TestID VARCHAR(64), 
     IsArchived BOOLEAN NOT NULL DEFAULT FALSE,
+    Notes TINYTEXT,
     Stock INT,
     FOREIGN KEY (TestID) REFERENCES Tests(ID)
 );
@@ -55,6 +57,16 @@ CREATE TABLE Loans (
     ItemID VARCHAR(64) NOT NULL,
     IsConfirmed BOOLEAN NOT NULL DEFAULT FALSE,
     Quantity INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (UserID) REFERENCES Users(ID),
+    FOREIGN KEY (ItemID) REFERENCES Items(ID)
+);
+
+CREATE TABLE Notifications (
+    ID VARCHAR(64) PRIMARY KEY,
+    UserID VARCHAR(64) NOT NULL,
+    Message VARCHAR(600),
+    NotificationDate DATETIME,
+    ItemID VARCHAR(64) NOT NULL,
     FOREIGN KEY (UserID) REFERENCES Users(ID),
     FOREIGN KEY (ItemID) REFERENCES Items(ID)
 );

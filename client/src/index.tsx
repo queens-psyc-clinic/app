@@ -71,7 +71,7 @@ const router = createBrowserRouter([
     element: <AccountType onSignIn={() => console.log("hi")} />,
   },
   {
-    path: "/student",
+    path: "/student/:id",
     element: <PrivateRoutes page={Pages.student} />,
   },
   {

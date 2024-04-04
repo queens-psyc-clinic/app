@@ -15,6 +15,10 @@ import {
   unArchiveTest,
 } from "../services/TestService";
 import uuid from "react-uuid";
+import {
+  ItemTypeOptions,
+  Measure,
+} from "../models/libraryItem";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
 import ConfirmModal from "../components/ConfirmModal";
 
@@ -86,12 +90,18 @@ const Archive = (props: { userRole: Role }) => {
         props.userRole === "admin" ? "justify-end" : "py-16"
       }  overflow-x-hidden p-6 py-10 w-full h-full`}
     >
-      <h1 className={`text-3xl mb-4 `}>Archived Items </h1>
+      <h1 className="text-3xl mb-4 text-blue-900">Archived Items </h1>
       {props.userRole === "admin" && (
         <>
           <section className="mt-6 space-y-2 mb-6">
             <SearchBar />
-            <Filter />
+            <Filter
+              placeholders={["Measure", "Item"]}
+              options={[
+                Object.values(Measure),
+                ItemTypeOptions,
+              ]}
+            />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button
                 className="text-white w-max bg-gray-900 px-3 py-2 rounded-lg flex items-center"
@@ -136,9 +146,9 @@ const Archive = (props: { userRole: Role }) => {
       {props.userRole === "client" && (
         <>
           <p className="max-w-[70%]">
-            These legacy archived items at the psychology clinic are older materials
-            available for sign-out upon request, offering users access to
-            historical psychological resources.
+            These legacy archived items at the Psychology Clinic are older
+            materials available for sign-out upon request, offering users access
+            to historical psychological resources.
           </p>
           <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
             {data.map((data) => (

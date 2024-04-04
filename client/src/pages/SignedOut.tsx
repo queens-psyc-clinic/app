@@ -3,7 +3,7 @@ import { Role } from "../models/User";
 import SearchBar, { searchSuggestion } from "../components/SearchBar";
 import Filter from "../components/Filter";
 import _ from "lodash";
-import { Test, SignedOutItem, Item } from "../models/BEModels";
+import { Test, Item, SignedOutItem } from "../models/BEModels";
 import {
   getAllSignedOutItems,
   getAllSignedOutItemsByUser,
@@ -20,6 +20,13 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { MdAssignmentTurnedIn } from "react-icons/md";
 import uuid from "react-uuid";
 import { PropaneSharp } from "@mui/icons-material";
+import {
+  Measure,
+  ItemTypeOptions,
+  MaximumAge,
+  MinimumAge,
+} from "../models/libraryItem";
+import cardSampleData, { BorrowedBy } from "../models/cardSampleData";
 import { getSessionId } from "../services/UserService";
 import {
   getSearchSuggestions,
@@ -35,7 +42,9 @@ const SignedOut = (props: { userRole: Role }) => {
     "OrderingCompany"
   > | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
+  const [adminData, setAdminData] = useState<
+    (SignedOutItem & { Quantity: number })[]
+  >([]);
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
   );
@@ -52,8 +61,6 @@ const SignedOut = (props: { userRole: Role }) => {
     } else if (props.userRole === "client") {
       setIsLoading(true);
       getAllSignedOutItemsByUser(getSessionId() || "").then(async (res) => {
-        // WAITING ON me to set up routing for now I am just using client id 1, but this should use the signed in client's id
-
         for (const signedOutItem of res) {
           const itemMeasure = await getItemMeasure(signedOutItem.Acronym);
 
@@ -71,7 +78,7 @@ const SignedOut = (props: { userRole: Role }) => {
                   LoanID: signedOutItem.ID,
                   StartDate: signedOutItem.StartDate,
                   EndDate: signedOutItem.EndDate,
-                  Quantity: signedOutItem,
+                  // Quantity: signedOutItem.Quantity,
                 },
               ],
               "LoanID"
@@ -79,7 +86,6 @@ const SignedOut = (props: { userRole: Role }) => {
           );
         }
         setIsLoading(false);
-        console.log("done");
       });
     }
   }, [props]);
@@ -96,6 +102,9 @@ const SignedOut = (props: { userRole: Role }) => {
     //     setData([res]);
     //   });
     // }
+  };
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   async function handleQueryEnter(query: string) {
@@ -150,6 +159,10 @@ const SignedOut = (props: { userRole: Role }) => {
     }
   }
 
+  const borrowedByOptions: string[] = cardSampleData.map(
+    (item) => item["Borrowed By"].data
+  );
+
   return (
     <div
       className={`relative flex flex-col ${
@@ -169,7 +182,15 @@ const SignedOut = (props: { userRole: Role }) => {
                   onSelectSuggestion={handleSearchSuggestionSelect}
                   onQuerySearch={handleQueryEnter}
                 />
-                <Filter />
+
+                <Filter
+                  placeholders={["Measure", "Item"]}
+                  options={[
+                    borrowedByOptions,
+                    Object.values(Measure),
+                    ItemTypeOptions,
+                  ]}
+                />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                   <button
                     className="text-black border border-black w-max bg-white px-3 py-2 rounded-lg flex items-center"
@@ -197,12 +218,12 @@ const SignedOut = (props: { userRole: Role }) => {
                   return <Card key={uuid()} data={item} type="item" />;
                 })}
               </div>
-              <div className="text-sm fixed bottom-10 right-10 bg-white p-6 rounded-lg shadow-md max-w-64 text-center">
+              <div className="text-sm fixed bottom-10 right-10 bg-gray-100 p-6 rounded-lg shadow-md max-w-64 text-center">
                 <p className="text-wrap py-1">
                   Issue with an item? Something missing or damaged?
                 </p>
                 <button
-                  className="cursor-pointer text-blue-200 underline"
+                  className="cursor-pointer text-blue-200 underline hover:text-blue-100"
                   onClick={handleReportIssueClick}
                 >
                   Report Issue Here

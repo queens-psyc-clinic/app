@@ -17,7 +17,7 @@ test_parser = reqparse.RequestParser()
 test_parser.add_argument(
   'Name', dest='Name',
   location='args',
-  required=True,
+  required=False,
   help='The name of the test'
 )
 test_parser.add_argument(

@@ -27,6 +27,7 @@ import {
 } from "../services/TestService";
 import { Test, Item } from "../models/BEModels";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { Measure, ItemTypeOptions } from "../models/libraryItem";
 import ConfirmModal from "../components/ConfirmModal";
 import {
   getSearchSuggestions,
@@ -151,7 +152,11 @@ const Dashboard = (props: { userRole: Role }) => {
               onSelectSuggestion={handleSearchSuggestionSelect}
               onQuerySearch={handleQueryEnter}
             />
-            <Filter />
+
+            <Filter
+              placeholders={["Measure", "Item"]}
+              options={[Object.values(Measure), ItemTypeOptions]}
+            />
           </section>
           {!isLoading ? (
             <>
@@ -221,7 +226,11 @@ const Dashboard = (props: { userRole: Role }) => {
             onSelectSuggestion={handleSearchSuggestionSelect}
             onQuerySearch={handleQueryEnter}
           />
-          <Filter />
+
+          <Filter
+            placeholders={["Measure", "Item"]}
+            options={[Object.values(Measure), ItemTypeOptions]}
+          />
         </section>
 
         {/* CLIENT DASHBOARD */}

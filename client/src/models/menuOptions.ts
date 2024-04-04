@@ -51,6 +51,13 @@ export const adminMenuOptions = [
     title: "Dashboard",
   },
   {
+    page: Pages.requests,
+    defaultIcon: requests,
+    selectedIcon: requests,
+    url: "/requests",
+    title: "Requests",
+  },
+  {
     page: Pages.signedOut,
     defaultIcon: signOut,
     selectedIcon: signOutColor,
@@ -63,13 +70,6 @@ export const adminMenuOptions = [
     selectedIcon: overdueColor,
     url: "/overdue",
     title: "Overdue",
-  },
-  {
-    page: Pages.requests,
-    defaultIcon: requests,
-    selectedIcon: requests,
-    url: "/requests",
-    title: "Requests",
   },
   {
     page: Pages.lowStock,

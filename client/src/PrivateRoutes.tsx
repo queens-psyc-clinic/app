@@ -45,7 +45,6 @@ function PrivateRoutes({ page }: AppProps) {
     }
   }, []);
   const [isSignedIn, setIsSignedIn] = useState(true); // Toggle to show sign-in/out vs other pages!!
-
   return (
     <div className="flex h-screen w-screen p-2 items-center">
       {!isPermitted && <PageNotFound />}

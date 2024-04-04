@@ -9,6 +9,7 @@ import cardSampleData, { CardData } from "../models/cardSampleData";
 import Card from "../components/Card";
 import CardsModal from "../components/CardsModal";
 import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
+import { ItemTypeOptions, Measure } from "../models/libraryItem";
 import { SignedOutItem, Test } from "../models/BEModels";
 import PageNotFound from "./PageNotFound";
 import {
@@ -24,6 +25,9 @@ const Requests = (props: { userRole: Role }) => {
     []
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const borrowedByOptions: string[] = cardSampleData.map(
+    (item) => item["Borrowed By"].data
+  );
 
   useEffect(() => {
     getAllReservedItems().then((res) => {
@@ -71,8 +75,15 @@ const Requests = (props: { userRole: Role }) => {
 
         <>
           <section className="mt-6 space-y-4 pb-5">
-            <SearchBar />
-            <Filter />
+            <SearchBar placeholder="Search by borrower name or item name or acronym"/>
+            <Filter
+              placeholders={["Measure", "Item"]}
+              options={[
+                borrowedByOptions,
+                Object.values(Measure),
+                ItemTypeOptions,
+              ]}
+            />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
               <button
                 className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center"

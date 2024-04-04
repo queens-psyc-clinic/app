@@ -18,6 +18,8 @@ import {
 import OverdueTable from "../components/OverdueTable";
 import Card from "../components/Card";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { ItemTypeOptions, Measure } from "../models/libraryItem";
+import cardSampleData from "../models/cardSampleData";
 import { getSessionId } from "../services/UserService";
 import { FaExclamationTriangle } from "react-icons/fa";
 
@@ -28,6 +30,9 @@ const Overdue = (props: { userRole: Role }) => {
   const [session, setSession] = useState<string>("");
   const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
     []
+  );
+  const borrowedByOptions: string[] = cardSampleData.map(
+    (item) => item["Borrowed By"].data
   );
 
   useEffect(() => {
@@ -96,8 +101,15 @@ const Overdue = (props: { userRole: Role }) => {
         {props.userRole === "admin" && (
           <>
             <section className="mt-6 space-y-2 mb-6">
-              <SearchBar />
-              <Filter />
+              <SearchBar placeholder="Search by borrower name or item name or acronym"/>
+              <Filter
+                placeholders={["Measure", "Item"]}
+                options={[
+                  borrowedByOptions,
+                  Object.values(Measure),
+                  ItemTypeOptions,
+                ]}
+              />
               <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
                 <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
                   <i className="mr-4">
@@ -112,7 +124,7 @@ const Overdue = (props: { userRole: Role }) => {
                   <i className="mr-4">
                     <MdDelete size={20} />
                   </i>
-                  <p>Mark As Gone</p>
+                  <p>Mark As Returned</p>
                 </button>
               </section>
             </section>

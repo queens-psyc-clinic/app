@@ -28,9 +28,12 @@ class Search(Resource):
         responses:
             201:
                 description: Values inserted
+            400:
+                description: Invalid page type. Use LOAN, DASHBOARD, SIGNEDOUT, OVERDUE, REQUESTS, ARCHIVED, USERS
             500:
                 description: Internal error inserting values
         """
+        trie.clear()
 
         page_type = request.json.get('Page').upper()
         #  page type corresponds to what page you're on
@@ -70,9 +73,9 @@ class Search(Resource):
             table = _select_cols({'IsConfirmed': '1'}, None, 'Loans')
             if table is not None:
                 for row in table:
-                    trie.insert(row['ItemID'].upper(), 'ID')
+                    trie.insert(row['ItemID'].upper(), 'ItemID')
                     item_name = get_item_name(row['ItemID'])
-                    trie.insert(item_name.upper(), 'ItemID')
+                    trie.insert(item_name.upper(), 'ItemName')
                     user_names = get_first_last_name(row['UserID'])
                     full_name = user_names[0] + ' ' + user_names[1]
                     trie.insert(full_name.upper(), 'FirstLastName')
@@ -106,8 +109,17 @@ class Search(Resource):
                     user_names = get_first_last_name(row['UserID'])
                     full_name = user_names[0] + ' ' + user_names[1]
                     trie.insert(full_name.upper(), 'FirstLastName')
+                return 201      
+        elif page_type == 'USERS':
+            #  builds the tree based on Users table with users not yet accepted
+            table = _select_cols({'IsAccepted': '0'}, None, 'Users')
+            if table is not None:
+                for row in table:
+                    full_name = row['FirstName'] + " " + row['LastName']
+                    trie.insert(full_name.upper(), 'FirstLastName')
                 return 201
-
+        else:
+            return abort(400, message="Invalid page type. Usage: LOAN, DASHBOARD, SIGNEDOUT, OVERDUE, REQUESTS, ARCHIVED, USERS")
 
         return abort(500, message="Internal error inserting values")
     

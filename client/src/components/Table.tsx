@@ -66,7 +66,7 @@ const Table = (props: {
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
-  const pilledColumns: string[] = ["Measure", "Item"];
+  const pilledColumns: string[] = ["Measure", "Item", "Ages"];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -179,10 +179,9 @@ const Table = (props: {
               return (
                 <React.Fragment key={uuid()}>
                   <tr
-                    className={`rounded-full cursor-pointer relative ${
+                    className={`rounded-full relative ${
                       rowInd % 2 !== 0 ? "bg-gray-100" : null
                     }`}
-                    onClick={() => toggleRowExpansion(row as unknown as Test)}
                   >
                     <td className="px-4 py-2" key={uuid()}>
                       <input
@@ -192,8 +191,13 @@ const Table = (props: {
                         className="cursor-pointer mx-2"
                       />
                     </td>
-                    <td className="px-4 py-2" key={uuid()}>
+                    <td
+                      className="px-4 py-2 cursor-pointer"
+                      key={uuid()}
+                      onClick={() => toggleRowExpansion(row as unknown as Test)}
+                    >
                       <FaAngleDown
+                        size={15}
                         className={isRowExpanded(row.ID) ? "rotate-180" : ""}
                       />
                     </td>
@@ -242,7 +246,11 @@ const Table = (props: {
                             data: {},
                           };
 
-                          if (col.title === "Measure" || col.title === "Item") {
+                          if (
+                            col.title === "Measure" ||
+                            col.title === "Item" ||
+                            col.title === "Ages"
+                          ) {
                             customData = {
                               type: columnCustomComponents.pill,
                               data: {
@@ -322,9 +330,21 @@ const Table = (props: {
                                     {item.ItemType}
                                   </p>
                                 </div>
-                                <div className="pl-10">
+                                <div className="pl-5">
                                   <p>{item.ItemName}</p>
                                 </div>
+                                {item.Ages && (
+                                  <div className="pl-5">
+                                    <p className="mr-4 rounded-full px-5 py-1 text-gray-900 border border-gray-900">
+                                      {item.Ages}
+                                    </p>
+                                  </div>
+                                )}
+                                {item.Notes && (
+                                  <div className="pl-10 italic">
+                                    <p>{`Notes: ${item.Notes}`}</p>
+                                  </div>
+                                )}
                               </div>
                             ))}
                           </div>

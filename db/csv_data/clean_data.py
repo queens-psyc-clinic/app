@@ -34,6 +34,7 @@ item_data = original_data.rename(columns={'ID' : 'TestID'})
 item_data['ID'] = item_data.apply(lambda row: f"{row['TestID']}-{row.name}", axis=1)
 item_data['Status'] = 1
 item_data['IsArchived'] = 0
+item_data['Notes'] = ''
 item_data['Stock'] = 1
 item_data = item_data[[
     'ID', 
@@ -44,6 +45,7 @@ item_data = item_data[[
     'Location',
     'TestID',
     'IsArchived',
+    'Notes',
     'Stock'
 ]]
 item_data.to_csv('item_data.csv', index=False)

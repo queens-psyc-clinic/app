@@ -78,15 +78,8 @@ export default function EditModal({
     setUpdatedItems((prev) => prev.filter((elem) => elem.ID != item.ID));
   };
 
-  const formatAgeRange = (range: number[]) => {
-    return `${range[0].toString()} to ${range[1].toString()}`;
-  };
-
-  const setAgeRange = (range: number[]) => {
-    setAges(formatAgeRange(range));
-  };
   console.log(updatedItems);
-  const saveItem = (item: Partial<Item> & { ID: string }) => {
+  const saveItem = (item: Partial<Item> & { ID: string }, ages: string) => {
     // setItems()
     console.log("saving item");
     const completedItem = {
@@ -213,10 +206,7 @@ export default function EditModal({
                   />
                 </div> */}
               </div>
-              <div className="py-4">
-                <RangeSlider label="Ages" onChange={setAgeRange} />
-              </div>
-              <div className="flex flex-row pb-4">
+              <div className="flex flex-row py-4">
                 <div className="pr-4">
                   <Dropdown
                     placeholder={
@@ -271,7 +261,7 @@ export default function EditModal({
                   important={true}
                 />
               </div> */}
-              <div className="pr-4 pt-4">
+              <div className="pr-4">
                 <InputField
                   placeholder={test.OrderingCompany ? test.OrderingCompany : ""}
                   value={test.OrderingCompany ? testData.OrderingCompany : ""}
@@ -300,7 +290,7 @@ export default function EditModal({
                 key={index}
                 item={item}
                 onRemove={() => handleRemove(index, item)}
-                onChange={saveItem}
+                onChange={(item, ages) => saveItem(item, ages)}
               />
             ))}
             <div className="text-sm flex items-center justify-center text-gray-200">
