@@ -59,7 +59,8 @@ const Dashboard = (props: { userRole: Role }) => {
     // });
     initializeSearchTree("DASHBOARD");
 
-    getAllUnArchivedTests().then((res) => {
+    getDashboardTests().then((res) => {
+      console.log(res);
       setData(res);
       backup = res;
       setOriginal(res);

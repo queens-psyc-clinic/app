@@ -58,7 +58,6 @@ export default function EditModal({
 
   useEffect(() => {
     getItemsForTest(test.ID!).then((res) => {
-      console.log("ITEMS RECEIVED: ", res);
       setUpdatedItems(res);
       originalItems = res;
     });
@@ -78,10 +77,7 @@ export default function EditModal({
     setUpdatedItems((prev) => prev.filter((elem) => elem.ID != item.ID));
   };
 
-  console.log(updatedItems);
   const saveItem = (item: Partial<Item> & { ID: string }, ages: string) => {
-    // setItems()
-    console.log("saving item");
     const completedItem = {
       ...item,
       TestID: testData.ID,
