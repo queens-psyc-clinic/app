@@ -1,6 +1,6 @@
 from flask_restful import abort, Resource, request
 from common.db import select_table, execute_sql_query, execute_query
-from searchFunction.trie import PrefixTree
+from common.trie import PrefixTree
 from datetime import datetime
 
 trie = PrefixTree()
