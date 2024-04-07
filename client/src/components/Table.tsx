@@ -95,13 +95,18 @@ const Table = (props: {
         expandedRows.filter((elem) => elem.rowId !== selectedRow.ID)
       );
     } else {
-      getItemsForTest(selectedRow.ID).then((res: Item[]) => {
-        setExpandedRows((prev) => [
-          ...prev,
-          { rowId: selectedRow.ID, items: res },
-        ]);
-        setExpandedRowsItems(res);
-      });
+      // getItemsForTest(selectedRow.ID).then((res: Item[]) => {
+      //   setExpandedRows((prev) => [
+      //     ...prev,
+      //     { rowId: selectedRow.ID, items: res },
+      //   ]);
+      //   setExpandedRowsItems(res);
+      // });
+
+      setExpandedRows((prev) => [
+        ...prev,
+        { rowId: selectedRow.ID, items: selectedRow.Items! },
+      ]);
     }
   };
 
@@ -151,7 +156,7 @@ const Table = (props: {
             {columns.map((col, ind) => {
               return (
                 <td
-                  key={ind}
+                  key={uuid()}
                   className={`px-4 py-4 ${
                     col.size === "large" ? "min-w-80" : null
                   }
@@ -177,7 +182,7 @@ const Table = (props: {
             if (row.ID) {
               const isExpanded = isRowExpanded(row.ID.toString());
               return (
-                <React.Fragment key={row.ID.toString()}>
+                <React.Fragment key={uuid()}>
                   <tr
                     className={`rounded-full relative ${
                       rowInd % 2 !== 0 ? "bg-gray-100" : null
@@ -226,9 +231,9 @@ const Table = (props: {
                               mapColumnTitleToDataIndex(
                                 col.title
                               ) as keyof Omit<Test, "OrderingCompany">
-                            ].toString();
+                            ]!.toString();
                           return (
-                            <td key={ind} className="px-4 py-2">
+                            <td key={uuid()} className="px-4 py-2">
                               <p
                                 className={`text-wrap h-min ${
                                   centerIndices.includes(ind)
@@ -295,7 +300,7 @@ const Table = (props: {
                         }
                       } else {
                         return (
-                          <td key={ind} className="px-4 py-2">
+                          <td key={uuid()} className="px-4 py-2">
                             <p
                               className={`text-wrap h-min ${
                                 centerIndices.includes(ind)
@@ -319,7 +324,7 @@ const Table = (props: {
                             {getRowExpansionArray(row.ID).map((item, index) => (
                               <div
                                 className="flex items-center p-3 pl-6 rounded relative bg-gray-50 my-2 border-gray-100 border"
-                                key={index}
+                                key={uuid()}
                               >
                                 <div>
                                   <p

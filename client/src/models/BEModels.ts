@@ -1,6 +1,7 @@
 import { User } from "./User";
 
 export interface Test {
+  Items?: Item[];
   EditionNumber: string;
   ID: string;
   LevelOfUser: string;

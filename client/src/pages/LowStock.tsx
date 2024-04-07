@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
 import SearchBar from "../components/SearchBar";
-import Filter from "../components/Filter";
+import Filter, { PossibleFilters } from "../components/Filter";
 import Table from "../components/Table";
 import { Item, Test } from "../models/BEModels";
 import {
@@ -17,6 +17,7 @@ import _ from "lodash";
 import { ItemTypeOptions, OrderingCompany } from "../models/libraryItem";
 import cardSampleData from "../models/cardSampleData";
 import PageNotFound from "./PageNotFound";
+import { initializeSearchTree } from "../services/SearchService";
 
 const LowStock = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -24,10 +25,16 @@ const LowStock = (props: { userRole: Role }) => {
     (Item & { OrderingCompany: string; Name: string; EditionNumber: string })[]
   >([]);
 
-  const quantityOptions: string[] = cardSampleData.map((item) => item["Stock"]);
-
+  const [quantityOptions, setQuantityOptions] = useState<string[]>([]);
+  const [orderingCompanyOptions, setOrderingCompanyOptions] = useState<
+    string[]
+  >([]);
+  const [original, setOriginal] = useState<
+    (Item & { OrderingCompany: string; Name: string; EditionNumber: string })[]
+  >([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
+    initializeSearchTree("DASHBOARD"); // WAITING ON LOW STOCK SEARCH TREE
     setIsLoading(true);
     getLowStockItems().then(async (res) => {
       for (const lowStockItem of res) {
@@ -57,11 +64,47 @@ const LowStock = (props: { userRole: Role }) => {
             "ID"
           )
         );
+        setQuantityOptions([...quantityOptions, lowStockItem.Stock.toString()]);
+        setOrderingCompanyOptions((prev) => {
+          if (orderingCompany) {
+            return _.uniq([...prev, orderingCompany]);
+          } else {
+            return prev;
+          }
+        });
       }
-
+      setOriginal(data);
+      // setQuantityOptions(
+      //   _.uniq(data.map((lowStockItem) => lowStockItem.Stock.toString()))
+      // );
+      // setOrderingCompanyOptions(
+      //   _.uniq(data.map((lowStockItem) => lowStockItem.OrderingCompany))
+      // );
       setIsLoading(false);
     });
   }, []);
+  console.log(original);
+  function applyFilter(filters: PossibleFilters) {
+    console.log(filters);
+    let filteredData = original;
+    if (filters["Ordering Company"]) {
+      filteredData = filteredData.filter((item) => {
+        return item.OrderingCompany == filters["Ordering Company"];
+      });
+    }
+    if (filters.Item) {
+      filteredData = filteredData.filter((item) => {
+        return item.ItemType == filters.Item;
+      });
+    }
+    if (filters.Quantity) {
+      filteredData = filteredData.filter((item) => {
+        return item.Stock == parseInt(filters.Quantity!);
+      });
+    }
+
+    setData(filteredData);
+  }
 
   if (props.userRole === "client") {
     return <PageNotFound />;
@@ -80,10 +123,12 @@ const LowStock = (props: { userRole: Role }) => {
             <Filter
               placeholders={["Ordering Company", "Item", "Quantity"]}
               options={[
-                OrderingCompany,
+                orderingCompanyOptions,
                 ItemTypeOptions,
                 quantityOptions,
               ]}
+              onChange={applyFilter}
+              onClear={() => setData(original)}
             />
           </section>
           {/* <Table

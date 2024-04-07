@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Role } from "../models/User";
-import SearchBar from "../components/SearchBar";
+import SearchBar, { searchSuggestion } from "../components/SearchBar";
 import AccountsTable from "../components/AccountsTable";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { MdCheckCircle, MdRemoveCircle } from "react-icons/md";
 import {
   getAllSignedOutItems,
   getAllSignedOutItemsByUser,
+  getAllUsers,
   getItemById,
   getItemMeasure,
 } from "../services/TestService";
@@ -14,6 +15,24 @@ import _ from "lodash";
 import { Test, SignedOutItem } from "../models/BEModels";
 import uuid from "react-uuid";
 import Card from "../components/Card";
+import {
+  BackendUser,
+  approveUser,
+  deleteUser,
+  getAllUnapprovedUsers,
+  getUserByFirstLastName,
+} from "../services/UserService";
+import {
+  getSearchSuggestions,
+  initializeSearchTree,
+} from "../services/SearchService";
+
+export interface AccountUser {
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  ID: string;
+}
 
 const Accounts = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -22,66 +41,67 @@ const Accounts = (props: { userRole: Role }) => {
     Test,
     "OrderingCompany"
   > | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
-  const [clientData, setClientData] = useState<Omit<Test, "OrderingCompany">[]>(
-    []
-  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [data, setData] = useState<AccountUser[]>([]);
 
   /* FETCHING REAL DATA */
   useEffect(() => {
-    if (props.userRole === "admin") {
-      setIsLoading(true);
-      getAllSignedOutItems().then((res) => {
-        setAdminData(res as SignedOutItem[]);
-        setIsLoading(false);
-      });
-    } else if (props.userRole === "client") {
-      setIsLoading(true);
-      getAllSignedOutItemsByUser("1").then(async (res) => {
-        // WAITING ON me to set up routing for now I am just using client id 1, but this should use the signed in client's id
-
-        for (const signedOutItem of res) {
-          const itemMeasure = await getItemMeasure(signedOutItem.Acronym);
-          const item = await getItemById(signedOutItem.Acronym);
-
-          setClientData((prev) =>
-            _.unionBy(
-              [
-                ...prev,
-                {
-                  ...item,
-                  MeasureOf: itemMeasure,
-                  EditionNumber: "",
-                  LevelOfUser: "",
-                  LoanID: signedOutItem.ID,
-                  StartDate: signedOutItem.StartDate,
-                  EndDate: signedOutItem.EndDate,
-                },
-              ],
-              "LoanID"
-            )
-          );
-        }
-        setIsLoading(false);
-        console.log("done");
-      });
-    }
+    initializeSearchTree("USERS");
+    getAllUnapprovedUsers().then((res) => setData(res));
   }, []);
 
-  useEffect(() => {
-    console.log("CLIENT DATA: ", clientData);
-  }, [clientData]);
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const removeUser = async () => {
+    // setData(data.filter((elem) => elem.ID != id))
+    setIsLoading(true);
+    for (const userId of selectedRows) {
+      await deleteUser(userId).catch((e) =>
+        alert("There was an error approving at least one user.")
+      );
+    }
+    setIsLoading(false);
+    window.location.reload();
   };
 
-  const handleCardClick = (data: Omit<Test, "OrderingCompany">) => {
-    setSelectedCard(data);
-    setIsModalOpen(true);
+  async function approve() {
+    setIsLoading(true);
+    for (const userId of selectedRows) {
+      await approveUser(userId).catch((e) =>
+        alert("There was an error approving at least one user.")
+      );
+    }
+    setIsLoading(false);
+    window.location.reload();
+  }
+
+  const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
+    console.log(suggestion);
+    if (suggestion.kind === "FirstLastName") {
+      getUserByFirstLastName(suggestion.value).then((res) => {
+        console.log(res);
+        setData(res);
+      });
+    }
   };
-  console.log(props);
+
+  async function handleQueryEnter(query: string) {
+    if (query == "") {
+      setIsLoading(true);
+      getAllUnapprovedUsers().then((res) => {
+        setData(res);
+        setIsLoading(false);
+      });
+    }
+    const suggestions = await getSearchSuggestions(query);
+    const possibleResults: BackendUser[] = await Promise.all(
+      suggestions.map(async (suggestion: searchSuggestion) => {
+        if (suggestion.kind === "FirstLastName") {
+          const users = await getUserByFirstLastName(suggestion.value);
+          return users;
+        }
+      })
+    );
+    setData(_.flatten(possibleResults));
+  }
 
   return (
     <div
@@ -97,15 +117,25 @@ const Accounts = (props: { userRole: Role }) => {
           {props.userRole === "admin" && (
             <>
               <section className="mt-6 space-y-4 pb-5">
-                <SearchBar placeholder="Search by user's name" />
+                <SearchBar
+                  placeholder="Search by user's name"
+                  onSelectSuggestion={handleSearchSuggestionSelect}
+                  onQuerySearch={handleQueryEnter}
+                />
                 <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-                  <button className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center">
+                  <button
+                    className="bg-black w-max border border-black text-white px-3 py-2 rounded-lg flex items-center"
+                    onClick={() => approve()}
+                  >
                     <i className="mr-4">
                       <MdCheckCircle size={20} />
                     </i>
                     <p>Approve</p>
                   </button>
-                  <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
+                  <button
+                    className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                    onClick={removeUser}
+                  >
                     <i className="mr-4">
                       <MdRemoveCircle size={20} />
                     </i>
@@ -118,17 +148,9 @@ const Accounts = (props: { userRole: Role }) => {
                   tableType="accounts"
                   setSelectedRows={setSelectedRows}
                   selectedRows={selectedRows}
-                  data={adminData}
+                  isEditable={false}
+                  data={data}
                 />
-              </div>
-            </>
-          )}
-          {props.userRole === "client" && (
-            <>
-              <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-                {clientData.map((item) => {
-                  return <Card key={uuid()} data={item} type="item" />;
-                })}
               </div>
             </>
           )}
