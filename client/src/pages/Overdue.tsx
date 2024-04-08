@@ -195,14 +195,16 @@ const Overdue = (props: { userRole: Role }) => {
     for (const loanId of selectedRows) {
       // const loan = await getLoanByID(loanId).catch((e) => errors.push(e));
       // await notifyUser(loan.UserID, loan.ItemID).catch((e) => errors.push(e));
-      getLoanByID(loanId).then((res) => {
-        notifyUser(res.UserID, res.ItemID).then((res) => {
-          alert("Users notified successfully!");
-        });
-      });
+      getLoanByID(loanId)
+        .then((res) => {
+          notifyUser(res.UserID, res.ItemID).catch((e) => errors.push(e));
+        })
+        .catch((e) => errors.push(e));
     }
     if (errors.length !== 0) {
       alert("There was an issue notifying users.");
+    } else {
+      alert("Users notified successfully!");
     }
   }
 
