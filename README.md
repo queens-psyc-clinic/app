@@ -1,4 +1,33 @@
-# Docker
+# Deployment
+
+To deploy the application, first ensure that:
+
+1. the `app/.env` file has the correct credentials
+2. the `REACT_APP_BASE_URL` in `client/.env` is set to the correct url (ie. `localhost/api`)
+
+Once this is done, the app can be deployed (on `localhost`) by using:
+
+```bash
+docker compose -f docker-compose.deploy.yml build # if not already done
+docker compose -f docker-compose.deploy.yml up
+```
+
+# Development
+
+## Client
+
+The react development server can be started from the `client/` directory using:
+
+	npm start
+
+> Note: you will have to use `npm install` if not already done.
+
+The server will then be running on `localhost:3000`. 
+
+> Note: ensure you have the correct REACT_APP_BASE_URL in `client/.env` as this
+> correcponds to the URL used to connect the to App (Backend).
+
+## App
 
 This app is containerized using Docker to make deployment & development
 straightforward.
@@ -14,16 +43,20 @@ changes, use:
 
 And then use the `docker compose up` command.
 
+> Note: the App (flask server) has hot-reloading enabled and should not need to
+> be restarted when changes are made.
+
 The configuration (DockerFile)of the docker containers are in [db](./db) and
 [app](./app), and the config for the entire application is
 [docker-compose.yml](./docker-compose.yml)
 
-## API
+### API Docs
 
 to view the Backend api, go to <http://localhost:5050/apidocs>.
 This is created using [flasgger](https://github.com/flasgger/flasgger).
 
-The documentation is created from the doc-strings of functions for [resources](./app/resources).
+The documentation is created from the doc-strings of functions in
+[resources](./app/resources).
 
 Resources is where the endpoints are described.
 
@@ -39,25 +72,7 @@ and you can login with:
 	Password: 498capstone
 	Database: psychClinic
 
-## App
+## CSV Data
 
-the python server is running at:
-
-	localhost:5050
-
-
-# CSV Data
-
-starting from the excel spreadsheet provided by the clinic, data has been
-pruned simply in excel, starting with the Items table. This was the process:
-
-1. Create a table with a row for each Test (from Items) which has a column for:
-   ID, Name, LevelOfUser, and MeasureOf. Then get the values for each of these
-   columns from the Items table.
-2. Modify the Items table to only include the columns: ID, Status (1:available,
-   0:borrowed), Type(CD, Manual,...), Name, Edition Number, Ages,
-   NumberOfParts, Location, Ordering Company, TestID (based on the original
-   test name).
-
-The result was `test_data.csv` and `item_data.csv` which are input into the
-database on startup.
+[Data](db/csv_data/init_data.csv) recieved from the clinic was converted into a
+CSV file which is then processed by [clean_data.py](db/csv_data/clean_data.py)
