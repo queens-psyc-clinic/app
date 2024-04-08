@@ -35,7 +35,6 @@ const LowStockTable = (props: {
   >([]);
 
   let columns: Column[];
-  console.log(props.data);
   switch (props.tableType) {
     case "default":
       columns = defaultColumns;
@@ -58,7 +57,12 @@ const LowStockTable = (props: {
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
-  const pilledColumns: string[] = ["Measure", "Item", "Ordering Company", "Ages"];
+  const pilledColumns: string[] = [
+    "Measure",
+    "Item",
+    "Ordering Company",
+    "Ages",
+  ];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -231,7 +235,11 @@ const LowStockTable = (props: {
                             data: {},
                           };
 
-                          if (col.title === "Measure" || col.title === "Item" || col.title === "Ages") {
+                          if (
+                            col.title === "Measure" ||
+                            col.title === "Item" ||
+                            col.title === "Ages"
+                          ) {
                             customData = {
                               type: columnCustomComponents.pill,
                               data: {

@@ -84,16 +84,11 @@ export default function Modal({
   };
 
   const handleApply = () => {
-    console.log(testData);
-    console.log(items);
     if (isEntryValid()) {
-      console.log("valid");
       createNewTest(testData)
         .then((res) => {
           for (const item of items) {
-            createNewItem(item).then((res) => {
-              console.log(res);
-            });
+            createNewItem(item);
           }
           closeModal();
           alert("Item Created Successfully!");
@@ -138,7 +133,6 @@ export default function Modal({
 
   const saveItem = (item: Partial<Item>, ages: string) => {
     // setItems()
-    console.log(item);
     const completedItem = {
       ...item,
       Ages: ages,

@@ -90,7 +90,6 @@ const Archive = (props: { userRole: Role }) => {
   };
 
   function applyFilter(filters: PossibleFilters) {
-    console.log(filters);
     let filteredData = original;
     if (filters.Measure) {
       filteredData = filteredData.filter((test) => {
@@ -117,10 +116,8 @@ const Archive = (props: { userRole: Role }) => {
   }, []);
 
   const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
-    console.log(suggestion);
     if (suggestion.kind === "Name") {
       getTestByName(suggestion.value).then((res) => {
-        console.log(res);
         setData(res);
       });
     } else if (suggestion.kind === "ID") {

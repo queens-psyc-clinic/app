@@ -129,7 +129,6 @@ const Table = (props: {
     toggleRowExpansion(row);
     setIsEditModalOpen(true);
   };
-
   return (
     <div className="overflow-scroll h-[55vh] max-h-[75%] text-xs shadow-sm">
       <table className="w-full">
@@ -368,7 +367,7 @@ const Table = (props: {
           buttonLabel="Save Changes"
           secButtonLabel="Cancel"
           test={selectedRow}
-          items={expandedRowsItems}
+          items={selectedRow.Items}
           isOpen={isEditModalOpen}
           closeModal={() => setIsEditModalOpen(false)}
         />

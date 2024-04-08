@@ -44,7 +44,6 @@ const StudentPage = (props: { userRole: Role }) => {
         .then((res) => setUserData(res))
         .catch((e) => setIsStudentReal(false));
       const signedOut = await getAllSignedOutItemsByUser(id || "");
-      console.log(signedOut);
       for (const signedOutItem of signedOut) {
         const itemMeasure = await getItemMeasure(signedOutItem.Acronym);
         const item = await getItemById(signedOutItem.Acronym);
@@ -71,7 +70,6 @@ const StudentPage = (props: { userRole: Role }) => {
       }
 
       const overdue = await getAllOverdueTestsByUser(id || "");
-      console.log(overdue);
       for (const overdueItem of overdue) {
         const itemMeasure = await getItemMeasure(overdueItem.Acronym);
         const item = await getItemById(overdueItem.Acronym);
@@ -97,8 +95,6 @@ const StudentPage = (props: { userRole: Role }) => {
 
     fetchData().then(() => setIsLoading(false));
   }, []);
-
-  console.log(signedOutData);
 
   if (props.userRole === "admin" && isStudentReal) {
     return (

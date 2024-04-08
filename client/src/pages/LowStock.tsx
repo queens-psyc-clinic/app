@@ -83,9 +83,7 @@ const LowStock = (props: { userRole: Role }) => {
       setIsLoading(false);
     });
   }, []);
-  console.log(original);
   function applyFilter(filters: PossibleFilters) {
-    console.log(filters);
     let filteredData = original;
     if (filters["Ordering Company"]) {
       filteredData = filteredData.filter((item) => {

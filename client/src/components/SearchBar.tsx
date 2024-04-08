@@ -25,7 +25,6 @@ const SearchBar = ({
   const [suggestions, setSuggestions] = useState<searchSuggestion[]>([]);
 
   const handleSelectSuggestion = (suggestion: searchSuggestion) => {
-    console.log(suggestion);
     if (onSelectSuggestion) {
       onSelectSuggestion(suggestion);
     }

@@ -13,8 +13,6 @@ const Filter2 = () => {
   const [filters, setFilters] = useState<Filter>({});
   const handleApply = () => {
     setIsOpen(false);
-    // Do something with filters
-    console.log(filters);
   };
 
   const getOption = (option: string, label: string) => {
