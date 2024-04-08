@@ -38,11 +38,7 @@ const Requests = (props: { userRole: Role }) => {
   const [original, setOriginal] = useState<
     (SignedOutItem & { Quantity: number; ItemType: string })[]
   >([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const borrowedByOptions: string[] = cardSampleData.map(
-    (item) => item["Borrowed By"].data
-  );
 
   useEffect(() => {
     initializeSearchTree("REQUESTS");
@@ -54,7 +50,6 @@ const Requests = (props: { userRole: Role }) => {
       setOriginal(
         res as (SignedOutItem & { Quantity: number; ItemType: string })[]
       );
-      console.log();
       setIsLoading(false);
     });
   }, []);
