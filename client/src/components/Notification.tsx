@@ -96,7 +96,7 @@ const Notification = (props: { userRole: Role }) => {
         ></span>
       </div>
       {isOpen && (
-        <div className="absolute top-20 right-20 bg-white w-[30vw] border-2 border-black rounded z-30">
+        <div className="absolute top-20 right-20 bg-white w-[30vw]  max-h-[65vh] overflow-scroll border-2 border-black rounded z-30">
           <section className="w-full bg-[#393939] text-white font-bold p-4">
             Notifications
           </section>
@@ -135,12 +135,6 @@ const Notification = (props: { userRole: Role }) => {
               </section>
             );
           })}
-          <section className="w-full p-4 flex justify-center items-center">
-            <p className="mx-auto underline font-semibold cursor-pointer">
-              View All
-            </p>{" "}
-            {/* Should redirect to notifications page */}
-          </section>
         </div>
       )}
     </div>
