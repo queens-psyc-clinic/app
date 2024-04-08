@@ -97,7 +97,7 @@ export default function Modal({
           }
           closeModal();
           alert("Item Created Successfully!");
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((e) =>
           alert(
@@ -136,15 +136,15 @@ export default function Modal({
     setAges(formatAgeRange(range));
   };
 
-  const saveItem = (item: Partial<Item>) => {
+  const saveItem = (item: Partial<Item>, ages: string) => {
     // setItems()
-
+    console.log(item);
     const completedItem = {
       ...item,
+      Ages: ages,
       ID: item.ID!,
       Stock: item.Stock!,
       TestID: testData.ID,
-      Ages: ages,
       Status: true,
     };
     const ind = items.findIndex((elem) => elem.ID === item.ID);

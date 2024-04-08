@@ -1,6 +1,7 @@
 import * as React from "react";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
+import { useEffect } from "react";
 
 function valuetext(value: number) {
   return `${value}`;
@@ -31,6 +32,10 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
   onChange = (range: number[]) => console.log(range),
 }: RangeSliderProps) => {
   const [value, setValue] = React.useState<number[]>([16, 89]);
+
+  useEffect(() => {
+    onChange(value);
+  }, []);
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
