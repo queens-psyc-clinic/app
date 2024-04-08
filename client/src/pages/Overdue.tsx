@@ -12,6 +12,7 @@ import {
   getAllOverdueTestsByUser,
   getItemById,
   getItemMeasure,
+  getLoanByID,
   getLoanByName,
   getLoanByUserName,
   getLoansForItemFormatted,
@@ -29,6 +30,7 @@ import {
   getSearchSuggestions,
   initializeSearchTree,
 } from "../services/SearchService";
+import { notifyUser } from "../services/NotificationService";
 
 const Overdue = (props: { userRole: Role }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -188,6 +190,22 @@ const Overdue = (props: { userRole: Role }) => {
     );
   }
 
+  async function handleNotifyUsers() {
+    const errors = [];
+    for (const loanId of selectedRows) {
+      // const loan = await getLoanByID(loanId).catch((e) => errors.push(e));
+      // await notifyUser(loan.UserID, loan.ItemID).catch((e) => errors.push(e));
+      getLoanByID(loanId).then((res) => {
+        notifyUser(res.UserID, res.ItemID).then((res) => {
+          alert("Users notified successfully!");
+        });
+      });
+    }
+    if (errors.length !== 0) {
+      alert("There was an issue notifying users.");
+    }
+  }
+
   return (
     <div
       className={`relative flex flex-col ${
@@ -205,14 +223,15 @@ const Overdue = (props: { userRole: Role }) => {
             />
             <Filter
               placeholders={["Measure", "Item"]}
-              options={[
-                borrowedByOptions,
-                Object.values(Measure),
-                ItemTypeOptions,
-              ]}
+              options={[Object.values(Measure), ItemTypeOptions]}
+              onChange={applyFilter}
+              onClear={() => setAdminData(original)}
             />
             <section className="ml-auto space-x-4 flex w-min h-min items-end justify-end self-end">
-              <button className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center">
+              <button
+                className="text-black border border-black bg-white px-3 py-2 rounded-lg flex items-center"
+                onClick={handleNotifyUsers}
+              >
                 <i className="mr-4">
                   <BiSolidBell size={20} />
                 </i>
