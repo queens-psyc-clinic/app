@@ -88,7 +88,7 @@ function App({ page }: AppProps) {
       }
     });
     if (info.isAdmin) {
-      await setUserAsAdmin(user.ID);
+      await setUserAsAdmin(user?.ID);
     }
     alert("Account created successfully!");
     window.location.href = "/sign-in";

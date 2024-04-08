@@ -10,6 +10,14 @@ export interface Test {
   OrderingCompany: string;
 }
 
+export interface Notification {
+  ID: string;
+  ItemID: string;
+  Message: string;
+  NotificationDate: string;
+  UserID: string;
+}
+
 export interface Item {
   Ages: string;
   ID: string;
