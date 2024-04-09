@@ -1,12 +1,12 @@
-from flask import Flask, abort
-from flask_restful import Api, request
-from flasgger import Swagger
-from flask_cors import CORS
-from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from os import getenv
 
-import common.db
+from flask import Flask
+from flask_apscheduler import APScheduler
+from flask_restful import Api, request
+from flasgger import Swagger, swag_from
+from flask_cors import CORS
+from flask_mail import Mail
 
 from resources.user import User
 from resources.users import Users
@@ -23,52 +23,15 @@ from resources.notification import Notification
 from resources.createNotification import CreateNotification
 from resources.notifications import Notifications
 
+import common.email
+import common.jobs
+
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app, origins=['http://localhost:3000'], allow_headers=["Content-Type"])
 api = Api(app)
 swagger = Swagger(app)
-
-mail= Mail(app)
-app.config['MAIL_SERVER']= getenv('MAIL_SERVER')
-app.config['MAIL_PORT'] = getenv('MAIL_PORT')
-app.config['MAIL_USERNAME'] = getenv('MAIL')
-app.config['MAIL_PASSWORD'] = getenv('MAIL_PASSWORD')
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
-
-@app.route('/email/<id>/<subject>/<email>', methods=['POST'])
-def email_notifs(id, subject, email):
-    """
-    end email notification
-    ---
-    tags:
-      - Email
-    parameters:
-      - in: path
-        name: id
-      - in: path
-        name: subject
-      - in: path
-        name: email
-      - in: body
-        name: message
-    responses:
-      401:
-        description: Access Denied
-      200:
-        description: Email sent
-    """
-    if not common.db.check_exists(id, 'Users', admin=True):
-        abort(401)
-    
-    message = request.get_data(as_text=True)
-    msg = Message(subject, sender = 'psyc.clinic.app@gmail.com', recipients = [email])
-    msg.html=message[1:-1] # gets rid of surrounding quotes
-    mail.send(msg)
-    return "Sent", 200
 
 api.add_resource(User, '/user/<string:email>/<string:password>')
 api.add_resource(Users, '/users/<id>')
@@ -84,6 +47,38 @@ api.add_resource(Search, '/search/<string:prefix>')
 api.add_resource(Notification, '/notification/<id>')
 api.add_resource(CreateNotification, '/createNotification')
 api.add_resource(Notifications, '/notifications')
+
+mail= Mail(app)
+app.config['MAIL_SERVER']= getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = getenv('MAIL_PORT')
+app.config['MAIL_USERNAME'] = getenv('MAIL')
+app.config['MAIL_PASSWORD'] = getenv('MAIL_PASSWORD')
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+@app.post('/email/<id>/<subject>/<email>')
+@swag_from('common/email_spec.yml')
+def send_email(id, subject, email):
+    message = request.get_data(as_text=True)
+    msg = common.email.create_email(id, subject, email, message)
+    mail.send(msg)
+    return "Sent", 200
+
+scheduler = APScheduler()
+
+@scheduler.task("cron", id="notify_overdue", day="*")
+def notify_overdue():
+        email_notifs = common.jobs.check_overdue()
+        if not email_notifs:
+            print('[notify_overdue] Complete -- Nothing Overdue')
+            return
+        with app.app_context():
+            for msg in email_notifs: mail.send(msg)
+        print('[notify_overdue] Complete -- Notifications Sent')
+
+scheduler.init_app(app)
+scheduler.start()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

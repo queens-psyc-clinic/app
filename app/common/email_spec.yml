@@ -1,0 +1,18 @@
+Send email notification
+---
+tags:
+  - Email
+parameters:
+  - in: path
+    name: id
+  - in: path
+    name: subject
+  - in: path
+    name: email
+  - in: body
+    name: message
+responses:
+  401:
+    description: Access Denied
+  200:
+    description: Email sent
