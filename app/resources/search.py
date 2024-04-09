@@ -118,8 +118,17 @@ class Search(Resource):
                     full_name = row['FirstName'] + " " + row['LastName']
                     trie.insert(full_name.upper(), 'FirstLastName')
                 return 201
+        elif page_type == 'LOWSTOCK':
+            #  builds the tree based on the Items table with stock under 5
+            table = select_table('Items')
+            if table is not None:
+                for row in table:
+                    if row['Stock'] <= 5:
+                        trie.insert(row['ID'].upper(), 'ID')
+                        trie.insert(row['ItemName'].upper(), 'ItemName')
+                return 201 
         else:
-            return abort(400, message="Invalid page type. Usage: LOAN, DASHBOARD, SIGNEDOUT, OVERDUE, REQUESTS, ARCHIVED, USERS")
+            return abort(400, message="Invalid page type. Usage: LOAN, DASHBOARD, SIGNEDOUT, OVERDUE, REQUESTS, ARCHIVED, USERS, LOWSTOCK")
 
         return abort(500, message="Internal error inserting values")
     
