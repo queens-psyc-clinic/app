@@ -26,8 +26,6 @@ services:
     restart: always
     networks:
       - mynetwork
-    ports:
-      - "8080"
     environment:
       - PYTHONUNBUFFERED=1
     volumes:
@@ -50,6 +48,20 @@ services:
       - mynetwork
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+# NOTE: use the following command to generate initial ssl certificates (MUST COMMENT-OUT 443 SERVER IN proxy/nginx.conf FOR THIS TO WORK)
+# sudo docker-compose -f docker-compose.deploy.yml run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d queens-psyc.caslab.queensu.ca
+  certbot:
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
 
 networks:
   mynetwork:
