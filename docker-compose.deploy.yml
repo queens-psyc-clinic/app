@@ -4,10 +4,11 @@ services:
 
   db:
     build: ./db
-    image: clinic-mysql
     restart: always
     networks:
       - mynetwork
+    volumes: 
+      - ./db/data:/var/lib/mysql
   
   app:
     build: 
