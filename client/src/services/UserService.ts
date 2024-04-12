@@ -88,9 +88,11 @@ export async function authenticateAccount(email: string, password: string) {
       const axiosError: AxiosError = error;
       if (axiosError.response) {
         // Server responded with an error status code (4xx or 5xx)
-
-        if (axiosError.response.status === 400) {
+        if (axiosError.response.status === 401) {
           throw new InvalidEntry("Incorrect Password.");
+        }
+        else if (axiosError.response.status === 403) {
+          throw new InvalidEntry("Account not confirmed");
         }
       } else if (axiosError.request) {
         // No response received

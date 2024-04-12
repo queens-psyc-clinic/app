@@ -56,7 +56,11 @@ function App({ page }: AppProps) {
 
   async function handleSignIn(email: string, password: string) {
     const user = await authenticateAccount(email, password).catch((e) => {
-      alert("Email or password is incorrect");
+      if (e.message == "Account not confirmed") {
+        alert("Sorry, your account has not been confirmed by the clinic Administrator yet.")
+      } else {
+        alert("Email or password is incorrect");
+      }
       window.location.reload();
     });
     if (user) {
