@@ -782,6 +782,42 @@ export async function getDashboardTests() {
   }
 }
 
+export async function getArchivedTestsWithItems() {
+  try {
+    const res = [];
+    const archivedTests = await getArchivedTests();
+
+    for (const test of archivedTests) {
+      const items = await getItemsForTest(test.ID);
+      res.push({
+        ...test,
+        Items: items,
+      });
+    }
+
+    return res;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
 export async function getAllSignedOutItemsByUser(userId: string) {
   // If userId, then get all of that user's signed out tests
   // otherwise get all signed out tests (admin)
