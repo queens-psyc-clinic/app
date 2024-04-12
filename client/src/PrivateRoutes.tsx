@@ -24,6 +24,7 @@ import {
 import { useParams } from "react-router-dom";
 import PageNotFound from "./pages/PageNotFound";
 import Accounts from "./pages/Accounts";
+import { getLowStockItems } from "./services/TestService";
 
 interface AppProps {
   page: Pages;
@@ -31,7 +32,6 @@ interface AppProps {
 
 function PrivateRoutes({ page }: AppProps) {
   // Call service function that checks if user is client or admin, placeholder for now
-
   const [isPermitted, setIsPermitted] = useState(true);
   const [role, setRole] = useState<Role>();
   useEffect(() => {
