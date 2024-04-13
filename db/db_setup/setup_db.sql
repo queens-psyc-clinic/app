@@ -66,9 +66,9 @@ CREATE TABLE Notifications (
     UserID VARCHAR(64) NOT NULL,
     Message VARCHAR(600),
     NotificationDate DATETIME,
-    ItemID VARCHAR(64) NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES Users(ID),
-    FOREIGN KEY (ItemID) REFERENCES Items(ID)
+    ItemID VARCHAR(64),
+    FOREIGN KEY (ItemID) REFERENCES Items(ID),
+    FOREIGN KEY (UserID) REFERENCES Users(ID)
 );
 
 -- Load data into the Tests table from the CSV file

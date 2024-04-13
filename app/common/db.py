@@ -64,8 +64,8 @@ def execute_query(
     with pymysql.connect(**_db_config) as conn:
         with conn.cursor(cursor=pymysql.cursors.DictCursor) as cursor:
             if args is None:
-                cursor.execute(query)
                 print(f"[query] {query}")
+                cursor.execute(query)
             else:
                 cursor.executemany(query, args)
                 print(f"[query] {query}\n[args]▲ {args}")
@@ -78,7 +78,8 @@ def execute_query(
 def execute_sql_query(operation: str, table: str,
                       data: Optional[List[Dict[str, Any]]] = None,
                       conditions: Optional[Dict[str, Any]] = None,
-                      columns: Optional[List[str]] = None
+                      columns: Optional[List[str]] = None,
+                      op: str = "="
                       ):
     """
     Generates and executes an SQL query for SELECT, and batch INSERT operations
@@ -109,7 +110,7 @@ def execute_sql_query(operation: str, table: str,
     if operation == "SELECT":
         column_part = ", ".join(columns) if columns else "*"
         condition_part = " AND ".join(
-            [f"{key} = %s" for key in conditions.keys()]) if conditions else "1 = 1"
+            [f"{key} {op} %s" for key in conditions.keys()]) if conditions else "1 = 1"
         params = [tuple(conditions.values())] if conditions else []
         query = f"SELECT {column_part} FROM {table} WHERE {condition_part}" 
 
@@ -129,7 +130,7 @@ def execute_sql_query(operation: str, table: str,
         update_part = ", ".join(["{} = %s".format(key)
                                 for key in data[0].keys()])
         condition_part = " AND ".join(
-            [f"{key} = %s" for key in conditions.keys()])
+            [f"{key} {op} %s" for key in conditions.keys()])
         params = [tuple(list(data[0].values()) + list(str(c) for c in conditions.values()))]
         query = f"UPDATE {table} SET {update_part} WHERE {condition_part}"
 
@@ -137,7 +138,7 @@ def execute_sql_query(operation: str, table: str,
         if not conditions:
             raise ValueError("Conditions are required for DELETE operation")
         condition_part = " AND ".join(
-            [f"{key} = %s" for key in conditions.keys()])
+            [f"{key} {op} %s" for key in conditions.keys()])
         params = list(conditions.values())
         query = f"DELETE FROM {table} WHERE {condition_part}"
 
