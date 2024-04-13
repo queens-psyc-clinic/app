@@ -6,7 +6,7 @@ from common.db import execute_sql_query
 from common.email import create_email
 
 def check_overdue() -> Optional[List[Message]]:
-    overdue_loans = execute_sql_query('SELECT', 'Loans', conditions={'EndDate': datetime.now().strftime("%Y-%m-%d")})
+    overdue_loans = execute_sql_query('SELECT', 'Loans', conditions={'EndDate': datetime.now().strftime("%Y-%m-%d"), 'IsConfirmed': 1})
     if not overdue_loans:
         return
     
