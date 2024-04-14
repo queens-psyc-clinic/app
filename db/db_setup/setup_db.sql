@@ -18,12 +18,9 @@ CREATE TABLE Users (
 );
 
 -- Add dummy data for users
-INSERT INTO Users (ID, FirstName, LastName, Email, IsAdmin, IsAccepted) VALUES
-(1,  'John', 'Doe', 'john.doe@example.com', true, true),
-(2,  'Jane', 'Smith',  'jane.smith@example.com', false, false),
-(3,   'Admin', 'User', 'admin@example.com', true, true),
-(4,   'Alice', 'Johnson', 'alice.johnson@example.com', false, false),
-(5,   'Bob', 'Miller', 'bob.miller@example.com', false, false);
+INSERT INTO Users (ID, FirstName, LastName, Email, IsAdmin, IsAccepted, Hash) VALUES 
+(1,  'Admin', 'User', 'admin@user.com', true, true, '27e123ebdafafca3456bee31df844f226b1ebdcddc040aff900a60dbbced258c22b726daf8619e63f866671c077d87051161171ee57f898d11953c6a9522027fb07dccfdac4bb2744bf5bba5b4004737c0a2664c682c1c9caabe667877bc693b'),
+(2,  'Test', 'User', 'test@user.com', false, true, '27e123ebdafafca3456bee31df844f226b1ebdcddc040aff900a60dbbced258c22b726daf8619e63f866671c077d87051161171ee57f898d11953c6a9522027fb07dccfdac4bb2744bf5bba5b4004737c0a2664c682c1c9caabe667877bc693b');
 
 CREATE TABLE Tests (
     ID VARCHAR(64) PRIMARY KEY,
@@ -32,6 +29,7 @@ CREATE TABLE Tests (
     LevelOfUser VARCHAR(10),
     EditionNumber VARCHAR(100),
     OrderingCompany VARCHAR(155),
+    Notes TINYTEXT,
     IsArchived BOOLEAN NOT NULL DEFAULT FALSE
 );
 

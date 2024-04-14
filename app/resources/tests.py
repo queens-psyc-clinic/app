@@ -2,16 +2,7 @@ from flask import make_response
 from flask_restful import abort, fields, marshal_with, reqparse, Resource, request
 from common.db import execute_sql_query, select_table
 from common.cors import _build_cors_preflight_response, _corsify_actual_response
-
-test_fields = {
-  'ID': fields.String,
-  'Name': fields.String,
-  'MeasureOf': fields.String,
-  'LevelOfUser': fields.String,
-  'EditionNumber' : fields.String,
-  'OrderingCompany' : fields.String,
-  'IsArchived': fields.Boolean
-}
+from resources.test import test_fields
 
 class Tests(Resource):
   """

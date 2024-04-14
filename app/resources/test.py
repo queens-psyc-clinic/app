@@ -10,7 +10,8 @@ test_fields = {
   'LevelOfUser': fields.String,
   'EditionNumber' : fields.String,
   'OrderingCompany' : fields.String,
-  'IsArchived': fields.String
+  'IsArchived': fields.String,
+  'Notes': fields.String
 }
  
 test_parser = reqparse.RequestParser()
@@ -49,6 +50,11 @@ test_parser.add_argument(
   location='args',
   required=False,
   help='Archived status'
+)
+test_parser.add_argument(
+  'Notes', dest='Notes',
+  location='args',
+  required=False,
 )
 
 class Test(Resource):
@@ -92,6 +98,9 @@ class Test(Resource):
         name: IsArchived
         type: string
         required: true
+      - in: query
+        name: Notes
+        type: string
     responses:
       200:
         description: A single test item
@@ -119,10 +128,12 @@ class Test(Resource):
             IsArchived:
               type: string
               description: Archived status
+            Notes:
+              type: string
       """
     try:
       args = test_parser.parse_args()
-      new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'], args['IsArchived'])
+      new_test = _default_test(acronym, args['Name'], args['MeasureOf'], args['LevelOfUser'], args['EditionNumber'], args['OrderingCompany'], args['IsArchived'], args['Notes'])
       _insert(new_test)
       return _select_one({"ID": new_test["ID"]}), 201
     # except ValueError:
@@ -286,42 +297,12 @@ def _update_test(update_data, test_id):
   return execute_sql_query("UPDATE", "Tests", data=[update_data], conditions=test_id)
 
 
-def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", levelOfUser: str = "", editionNumber: str = "", orderingCompany: str = "", isArchived: str = "0"):
-  """
-  Creates a test with default values and passes it to _make_test to 
-
-  Parameters:
-  - acronym (str): The acronym of the test
-  - name (str): The name of the test
-  - measureOf (str): The measure of the test
-  - levelOfUser (str): The level of the user necessary for the test
-  - editionNumber (str): The edition number of the test
-  - orderingCompany (str): The ordering company of the test
-  - isArchived (bool): The archived status of the test
-
-  Returns:
-  - dict: A dictionary containing specified values after _make_test
-  """
-  return _make_test(acronym, name, measureOf, levelOfUser, editionNumber, orderingCompany, isArchived)
+def _default_test(acronym: str = "abc", name: str = "xyz", measureOf: str = "", levelOfUser: str = "", editionNumber: str = "", orderingCompany: str = "", isArchived: str = "0", notes: str = ""):
+  return _make_test(acronym, name, measureOf, levelOfUser, editionNumber, orderingCompany, isArchived, notes)
 
 
-def _make_test(acronym: str, name: str, measureOf: str, levelOfUser: str, editionNumber: str, orderingCompany: str, isArchived: str):
-  """
-  Creates a test with the given values to be inserted for the INSERT operation
-
-  Parameters:
-  - acronym (str): The acronym of the test
-  - name (str): The name of the test
-  - measureOf (str): The measure of the test
-  - levelOfUser (str): The level of the user necessary for the test
-  - editionNumber (str): The edition number of the test
-  - orderingCompany (str): The ordering company of the test
-  - isArchived (bool): The archived status of the test
-  
-  Returns:
-  - dict: A dictionary containing specified values
-  """
-  return {'ID': acronym, 'Name': name, 'MeasureOf': measureOf, 'LevelOfUser': levelOfUser, 'EditionNumber': editionNumber, 'OrderingCompany': orderingCompany, 'IsArchived': isArchived}
+def _make_test(acronym: str, name: str, measureOf: str, levelOfUser: str, editionNumber: str, orderingCompany: str, isArchived: str, notes: str):
+  return {'ID': acronym, 'Name': name, 'MeasureOf': measureOf, 'LevelOfUser': levelOfUser, 'EditionNumber': editionNumber, 'OrderingCompany': orderingCompany, 'IsArchived': isArchived, 'Notes': notes}
 
 
 def _insert(d): return execute_sql_query(
