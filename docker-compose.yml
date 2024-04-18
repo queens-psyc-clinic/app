@@ -1,3 +1,9 @@
+# DEVELOPMENT
+#
+# This compose file is meant for use when developing the backend. As such, it
+# auto-reloads the Flask server when changes to the code are made
+#
+
 version: '3.1'
 
 services:
