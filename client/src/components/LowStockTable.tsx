@@ -58,7 +58,12 @@ const LowStockTable = (props: {
 
   // all columns where I want the text centered instead of left-aligned
   const centerIndices: number[] = [];
-  const pilledColumns: string[] = ["Measure", "Item", "Ordering Company", "Ages"];
+  const pilledColumns: string[] = [
+    "Measure",
+    "Item",
+    "Ordering Company",
+    "Ages",
+  ];
   columns.forEach((col, ind) => {
     if (col.center) {
       centerIndices.push(ind);
@@ -205,13 +210,20 @@ const LowStockTable = (props: {
                     )}
                     {columns.map((col, ind) => {
                       if (
-                        row[mapColumnTitleToDataIndex(col.title) as keyof Item]
+                        row[
+                          mapColumnTitleToDataIndex(col.title) as keyof Item
+                        ] != undefined
                       ) {
                         if (!pilledColumns.includes(col.title)) {
-                          const cell =
+                          let cell =
                             row[
                               mapColumnTitleToDataIndex(col.title) as keyof Item
                             ].toString();
+
+                          if (col.title === "Quantity") {
+                            console.log("QUANTITY: ", cell);
+                          }
+
                           return (
                             <td key={ind} className="px-4 py-2">
                               <p
@@ -231,7 +243,11 @@ const LowStockTable = (props: {
                             data: {},
                           };
 
-                          if (col.title === "Measure" || col.title === "Item" || col.title === "Ages") {
+                          if (
+                            col.title === "Measure" ||
+                            col.title === "Item" ||
+                            col.title === "Ages"
+                          ) {
                             customData = {
                               type: columnCustomComponents.pill,
                               data: {
