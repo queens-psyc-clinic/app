@@ -168,6 +168,48 @@ export async function getAllUsers() {
   }
 }
 
+export async function getItemNameById(itemId: string) {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/items`,
+      {
+        ID: itemId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+    if (response.data) {
+      return response.data[0].ItemName;
+    }
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
 export async function getLoanByName(
   itemName: string,
   isSignedOut: boolean = false
@@ -370,6 +412,49 @@ export async function getLoanByAcronym(acronym: string) {
         },
       }
     );
+    return loanResponse.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.status === 404) {
+        console.log("DONT EXIST");
+      }
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getLoanByID(loanId: string) {
+  try {
+    const loanResponse: AxiosResponse = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/loans`,
+      JSON.stringify({
+        ID: loanId,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    if (loanResponse.data) {
+      return loanResponse.data[0];
+    }
     return loanResponse.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
