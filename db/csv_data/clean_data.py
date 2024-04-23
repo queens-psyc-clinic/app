@@ -15,6 +15,9 @@ rename_scheme = {
 init_data = init_data.rename(columns=rename_scheme).replace(r'\n', ' ', regex=True).replace(r'^\s+|\s+$', '', regex=True).replace(r'  ', ' ', regex=True)
 
 
+init_data['Notes'] = ''
+
+
 test_data = init_data[[
     'ID', 
     'Name', 
@@ -22,6 +25,7 @@ test_data = init_data[[
     'LevelOfUser', 
     'EditionNumber', 
     'OrderingCompany',
+    'Notes',
     'IsArchived'
 ]].drop_duplicates(subset=['ID'], keep='first')
 
@@ -35,8 +39,9 @@ test_data.to_csv('test_data.csv', index=False)
 item_data = init_data.rename(columns={'ID' : 'TestID'})
 item_data['ID'] = item_data.apply(lambda row: f"{row['TestID']}-{row.name}", axis=1)
 item_data['Status'] = 1
-item_data['Notes'] = ''
 item_data['Stock'] = item_data['Stock'].replace(r'[^0-9]', '', regex=True).fillna(0)
+item_data['ItemName'] = item_data['ItemName'].fillna('Not Specified')
+item_data['Location'] = item_data['Location'].fillna('Not Specified')
 item_data = item_data[[
     'ID', 
     'Status',
@@ -49,4 +54,4 @@ item_data = item_data[[
     'Notes',
     'Stock'
 ]]
-item_data.fillna('Not Specified').to_csv('item_data.csv', index=False)
+item_data.to_csv('item_data.csv', index=False)
