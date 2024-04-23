@@ -26,7 +26,6 @@ const SearchBar = ({
   console.log(suggestions);
 
   const handleSelectSuggestion = (suggestion: searchSuggestion) => {
-    console.log(suggestion);
     if (onSelectSuggestion) {
       onSelectSuggestion(suggestion);
     }

@@ -84,20 +84,15 @@ export default function Modal({
   };
 
   const handleApply = () => {
-    console.log(testData);
-    console.log(items);
     if (isEntryValid()) {
-      console.log("valid");
       createNewTest(testData)
         .then((res) => {
           for (const item of items) {
-            createNewItem(item).then((res) => {
-              console.log(res);
-            });
+            createNewItem(item);
           }
           closeModal();
           alert("Item Created Successfully!");
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((e) =>
           alert(
@@ -136,15 +131,14 @@ export default function Modal({
     setAges(formatAgeRange(range));
   };
 
-  const saveItem = (item: Partial<Item>) => {
+  const saveItem = (item: Partial<Item>, ages: string) => {
     // setItems()
-
     const completedItem = {
       ...item,
+      Ages: ages,
       ID: item.ID!,
       Stock: item.Stock!,
       TestID: testData.ID,
-      Ages: ages,
       Status: true,
     };
     const ind = items.findIndex((elem) => elem.ID === item.ID);

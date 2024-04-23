@@ -35,7 +35,6 @@ const LowStockTable = (props: {
   >([]);
 
   let columns: Column[];
-  console.log(props.data);
   switch (props.tableType) {
     case "default":
       columns = defaultColumns;

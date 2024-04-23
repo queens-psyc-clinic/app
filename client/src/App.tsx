@@ -45,7 +45,6 @@ function App({ page }: AppProps) {
     if (isUserSignedIn()) {
       setIsSignedIn(true);
       const user = getSessionId();
-      console.log(user);
       if (user) {
         getUserSettingsData(user).then((res) =>
           setRole(res.IsAdmin ? "admin" : "client")
@@ -104,9 +103,7 @@ function App({ page }: AppProps) {
     return (
       <div className="flex h-screen w-screen p-2 items-center">
         <>
-          {page === Pages.accounttype && (
-            <AccountType onSignIn={() => console.log("hi")} />
-          )}
+          {page === Pages.accounttype && <AccountType />}
           {page === Pages.signin && <SignIn onSignIn={handleSignIn} />}
           {page === Pages.signup && <SignUp onSignUp={handleSignUp} />}
         </>

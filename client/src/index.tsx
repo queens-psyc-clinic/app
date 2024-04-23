@@ -68,7 +68,7 @@ const router = createBrowserRouter([
   // },
   {
     path: "/account-type",
-    element: <AccountType onSignIn={() => console.log("hi")} />,
+    element: <AccountType />,
   },
   {
     path: "/student/:id",

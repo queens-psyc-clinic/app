@@ -101,7 +101,6 @@ const Overdue = (props: { userRole: Role }) => {
       // Item Name
       // get loan by item name and set data to it
       getLoanByName(suggestion.value, true).then((res) => {
-        console.log(res);
         setAdminData(
           res.map((elem) => {
             return {
@@ -115,7 +114,6 @@ const Overdue = (props: { userRole: Role }) => {
     } else if (suggestion.kind === "ID") {
       // get loan by item ID and set data to it
       getLoansForItemFormatted(suggestion.value).then((res) => {
-        console.log(res);
         setAdminData(
           res.map((elem) => {
             return {
@@ -143,7 +141,6 @@ const Overdue = (props: { userRole: Role }) => {
   };
 
   function applyFilter(filters: PossibleFilters) {
-    console.log(filters);
     let filteredData = original;
     if (filters.Measure) {
       filteredData = filteredData.filter((item) => {
