@@ -146,7 +146,7 @@ export default function EditModal({
       } else {
         alert("Item edited successfuly!");
         closeModal();
-        // window.location.reload();
+        window.location.reload();
       }
     }
   }
