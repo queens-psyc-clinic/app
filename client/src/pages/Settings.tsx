@@ -9,6 +9,9 @@ import AccountsTable from "../components/AccountsTable";
 import { SignedOutItem } from "../models/BEModels";
 import DropFile from "../components/DropFile";
 import {
+  BackendUser,
+  authenticateAccount,
+  changeOwnPassword,
   getSessionId,
   getUserSettingsData,
   logOut,
@@ -16,10 +19,10 @@ import {
 } from "../services/UserService";
 import { useEffect, useState } from "react";
 import { UserSettings } from "../models/BEModels";
+import ChangePasswordModal from "../components/ChangePasswordModal";
 
 const Settings = (props: { userRole: Role }) => {
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [adminData, setAdminData] = useState<SignedOutItem[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Add state management when we connect backend
   const [userSettings, setUserSettings] = useState<UserSettings>({
@@ -48,6 +51,37 @@ const Settings = (props: { userRole: Role }) => {
         alert("There was an error updating your account information.")
       );
   };
+
+  const handlePasswordChange = async (
+    oldPassword: string,
+    newPassword1: string,
+    newPassword2: string
+  ) => {
+    const userId = getSessionId();
+    if (userId) {
+      const user: BackendUser = await getUserSettingsData(userId);
+      const isOldPasswordCorrect = await authenticateAccount(
+        user.Email,
+        oldPassword
+      );
+
+      if (!isOldPasswordCorrect) {
+        alert("Old password incorrect.");
+        return;
+      }
+
+      if (newPassword1 != newPassword2) {
+        alert("New passwords do not match.");
+        return;
+      }
+
+      await changeOwnPassword(userId, newPassword1).catch((e) =>
+        console.log(e)
+      );
+      alert("Password Changed Successfully!");
+    }
+  };
+
   return (
     <div className="p-8 w-full">
       <Link to="/">
@@ -92,7 +126,10 @@ const Settings = (props: { userRole: Role }) => {
               type="password"
               canEdit={false}
             ></InputField>
-            <button className="p-0 h-min w-max underline text-blue-200 hover:text-blue-300">
+            <button
+              className="p-0 h-min w-max underline text-blue-200 hover:text-blue-300"
+              onClick={() => setIsModalOpen(true)}
+            >
               Change Password
             </button>
           </section>
@@ -146,6 +183,18 @@ const Settings = (props: { userRole: Role }) => {
           </section>
         </section>
       </div>
+      {isModalOpen && (
+        <ChangePasswordModal
+          isOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)}
+          header="Change Password"
+          description=""
+          button="Change"
+          secondButton="Cancel"
+          onOk={handlePasswordChange}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

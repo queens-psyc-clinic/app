@@ -1,5 +1,8 @@
 # Deployment
 
+> NOTE: if you are having issues building or up-ing a docker-compose file use
+> the command `docker compose [-f ...] down` and try again.
+
 To deploy the application, first ensure that:
 
 1. the `app/.env` file has the correct credentials
@@ -10,6 +13,15 @@ Once this is done, the app can be deployed (on `localhost`) by using:
 ```bash
 docker compose -f docker-compose.deploy.yml build # if not already done
 docker compose -f docker-compose.deploy.yml up
+```
+
+# Testing
+
+For testing the application (like for reviewing someone's PR) use the following:
+
+```bash
+docker compose -f docker-compose.test.yml build
+docker compose -f docker-compose.test.yml up
 ```
 
 # Development

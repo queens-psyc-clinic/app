@@ -1,8 +1,9 @@
-# DEPLOYMENT
+# TESTING
 #
-# This compose file deploys the entire app with it's proxy -- and maintains a
-# volume of the DB data incase the container must be restarted so that no data
-# is lost.
+# This compose file is meant to be used for testing the application (say for
+# reviewing someones branch) as it will deploy both the FE and BE with the
+# proxy, however it does not maintain a volume for the DB data -- BUT does
+# provide access to the db via Adminer
 #
 
 version: '3.1'
@@ -14,8 +15,14 @@ services:
     restart: always
     networks:
       - mynetwork
-    volumes: 
-      - ./db/data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - mynetwork
+    ports:
+      - "8080:8080"
   
   app:
     build: 

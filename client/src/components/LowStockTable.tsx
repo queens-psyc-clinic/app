@@ -209,13 +209,20 @@ const LowStockTable = (props: {
                     )}
                     {columns.map((col, ind) => {
                       if (
-                        row[mapColumnTitleToDataIndex(col.title) as keyof Item]
+                        row[
+                          mapColumnTitleToDataIndex(col.title) as keyof Item
+                        ] != undefined
                       ) {
                         if (!pilledColumns.includes(col.title)) {
-                          const cell =
+                          let cell =
                             row[
                               mapColumnTitleToDataIndex(col.title) as keyof Item
                             ].toString();
+
+                          if (col.title === "Quantity") {
+                            console.log("QUANTITY: ", cell);
+                          }
+
                           return (
                             <td key={ind} className="px-4 py-2">
                               <p

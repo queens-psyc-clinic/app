@@ -88,9 +88,11 @@ export async function authenticateAccount(email: string, password: string) {
       const axiosError: AxiosError = error;
       if (axiosError.response) {
         // Server responded with an error status code (4xx or 5xx)
-
-        if (axiosError.response.status === 400) {
+        if (axiosError.response.status === 401) {
           throw new InvalidEntry("Incorrect Password.");
+        }
+        else if (axiosError.response.status === 403) {
+          throw new InvalidEntry("Account not confirmed");
         }
       } else if (axiosError.request) {
         // No response received
@@ -523,6 +525,56 @@ export async function changeUserPassword(email: string) {
       .catch((e) => console.log("error deleting temp user"));
 
     return true;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+
+        if (axiosError.response.status === 400) {
+          throw new InvalidEntry("Incorrect Password.");
+        }
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function changeOwnPassword(userId: string, newPassword: string) {
+  /**
+   * Update's users settings data
+   */
+
+  try {
+    const response: AxiosResponse = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/users/${userId}`,
+      {
+        filters: {
+          ID: userId,
+        },
+        update: {
+          Password: newPassword,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // this shows the expected content type
+        },
+      }
+    );
+
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error

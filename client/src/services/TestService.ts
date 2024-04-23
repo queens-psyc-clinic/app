@@ -6,6 +6,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Test, Item } from "../models/BEModels";
 import { Role } from "../models/User";
 import { BackendUser, getSessionId, getUserSettingsData } from "./UserService";
+import _ from "lodash";
 // Define the interface for the data returned by the API
 interface testQuery {
   measure?: string;
@@ -752,6 +753,42 @@ export async function getDashboardTests() {
     const unarchivedTests = await getAllUnArchivedTests();
 
     for (const test of unarchivedTests) {
+      const items = await getItemsForTest(test.ID);
+      res.push({
+        ...test,
+        Items: items,
+      });
+    }
+
+    return res;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Axios error
+      const axiosError: AxiosError = error;
+      if (axiosError.response) {
+        // Server responded with an error status code (4xx or 5xx)
+      } else if (axiosError.request) {
+        // No response received
+        console.error("No response received");
+      } else {
+        // Request never made (e.g., due to network error)
+        console.error("Error making the request:", axiosError.message);
+      }
+    } else {
+      // Non-Axios error
+      console.error("Non-Axios error occurred:", error);
+    }
+    // Throw the error to be handled by the caller
+    throw error;
+  }
+}
+
+export async function getArchivedTestsWithItems() {
+  try {
+    const res = [];
+    const archivedTests = await getArchivedTests();
+
+    for (const test of archivedTests) {
       const items = await getItemsForTest(test.ID);
       res.push({
         ...test,
@@ -1712,33 +1749,47 @@ export async function getItemEditionNumber(itemId: string) {
 
 export async function getLowStockItems() {
   try {
-    const response0: AxiosResponse = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/items`,
-      {
-        Stock: 1,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json", // this shows the expected content type
-        },
-      }
+    const response: AxiosResponse = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/items`
     );
 
-    const response1: AxiosResponse = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/items`,
-      {
-        Stock: 1,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json", // this shows the expected content type
+    let lowStockItems: any[] = [];
+    for (let i = 0; i < 5; i++) {
+      const res: AxiosResponse = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/items`,
+        {
+          Stock: i,
         },
+        {
+          headers: {
+            "Content-Type": "application/json", // this shows the expected content type
+          },
+        }
+      );
+      lowStockItems = lowStockItems.concat(res.data);
+    }
+
+    const res = [];
+    for (const item of lowStockItems) {
+      if (item.Stock < 5) {
+        const testName = (await getTestNameByItem(item.ID).catch()) || "";
+
+        const orderingCompany =
+          (await getItemOrderingCompany(item.ID).catch()) || "";
+
+        const editionNumber =
+          (await getItemEditionNumber(item.ID).catch()) || "";
+
+        res.push({
+          ...item,
+          OrderingCompany: orderingCompany,
+          Name: testName,
+          EditionNumber: editionNumber,
+        });
       }
-    );
+    }
 
-    const lowStockItems = [...response0.data, ...response1.data];
-
-    return lowStockItems;
+    return res;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -1762,6 +1813,19 @@ export async function getLowStockItems() {
     // Throw the error to be handled by the caller
     throw error;
   }
+}
+
+export async function getAllOrderingCompanies() {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/tests`
+  );
+
+  if (response) {
+    return _.uniq(
+      response.data.map((test: Test) => test.OrderingCompany)
+    ) as string[];
+  }
+  return [];
 }
 
 export async function getLoansForItem(itemId: string) {

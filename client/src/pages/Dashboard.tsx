@@ -34,8 +34,6 @@ import {
   getSearchSuggestions,
   initializeSearchTree,
 } from "../services/SearchService";
-import { clearCart } from "../services/ShoppingCartService";
-
 const Dashboard = (props: { userRole: Role }) => {
   let backup: Test[] = [];
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -47,6 +45,7 @@ const Dashboard = (props: { userRole: Role }) => {
   const [selectedItems, setSelectedItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
+  const [measureOptions, setMeasureOptions] = useState<string[]>([]);
   const [data, setData] = useState<Test[]>([]);
   const [original, setOriginal] = useState<Test[]>([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -59,14 +58,15 @@ const Dashboard = (props: { userRole: Role }) => {
     // });
     initializeSearchTree("DASHBOARD");
 
-    getDashboardTests().then((res) => {
+    getDashboardTests().then((res: Test[]) => {
+      console.log(res);
+      setMeasureOptions(_.uniq(res.map((elem) => elem.MeasureOf)));
       setData(res);
       backup = res;
       setOriginal(res);
       setIsLoading(false);
     });
   }, []);
-
   const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
     if (suggestion.kind === "Name") {
       getTestByName(suggestion.value).then((res) => {
@@ -171,21 +171,21 @@ const Dashboard = (props: { userRole: Role }) => {
     return (
       <>
         <div className="flex flex-col overflow-x-hidden p-6 py-10 w-full h-full">
-          <section className="mt-6 space-y-6 mb-6">
-            <SearchBar
-              onSelectSuggestion={handleSearchSuggestionSelect}
-              onQuerySearch={handleQueryEnter}
-            />
-
-            <Filter
-              placeholders={["Measure", "Item"]}
-              options={[Object.values(Measure), ItemTypeOptions]}
-              onChange={applyFilter}
-              onClear={() => setData(original)}
-            />
-          </section>
           {!isLoading ? (
             <>
+              <section className="mt-6 space-y-6 mb-6">
+                <SearchBar
+                  onSelectSuggestion={handleSearchSuggestionSelect}
+                  onQuerySearch={handleQueryEnter}
+                />
+
+                <Filter
+                  placeholders={["Measure", "Item"]}
+                  options={[measureOptions, ItemTypeOptions]}
+                  onChange={applyFilter}
+                  onClear={() => setData(original)}
+                />
+              </section>
               <section className="relative w-full h-fit flex justify-between items-end mb-10">
                 <section className="flex">
                   {/* Quantity should be pulled from backend in the useEffect, these are
@@ -255,7 +255,7 @@ const Dashboard = (props: { userRole: Role }) => {
 
           <Filter
             placeholders={["Measure", "Item"]}
-            options={[Object.values(Measure), ItemTypeOptions]}
+            options={[measureOptions, ItemTypeOptions]}
             onChange={applyFilter}
           />
         </section>
