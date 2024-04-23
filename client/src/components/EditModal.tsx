@@ -113,7 +113,9 @@ export default function EditModal({
           alert("Ensure all required fields are filled out");
           return;
         } else {
+          console.log(items);
           const originalInd = items.findIndex((elem) => elem.ID === item.ID);
+          console.log(item, originalInd);
           if (originalInd >= 0) {
             // item in original
             if (!_.isEqual(item, items[originalInd])) {
@@ -144,7 +146,7 @@ export default function EditModal({
       } else {
         alert("Item edited successfuly!");
         closeModal();
-        window.location.reload();
+        // window.location.reload();
       }
     }
   }
