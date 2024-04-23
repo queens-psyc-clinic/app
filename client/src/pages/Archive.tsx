@@ -13,6 +13,7 @@ import {
   deleteEntireTest,
   getAllArchivedTests,
   getArchivedTests,
+  getArchivedTestsWithItems,
   getTestById,
   getTestByName,
   isTestAvailable,
@@ -90,7 +91,6 @@ const Archive = (props: { userRole: Role }) => {
   };
 
   function applyFilter(filters: PossibleFilters) {
-    console.log(filters);
     let filteredData = original;
     if (filters.Measure) {
       filteredData = filteredData.filter((test) => {
@@ -110,17 +110,17 @@ const Archive = (props: { userRole: Role }) => {
 
   useEffect(() => {
     initializeSearchTree("ARCHIVED");
-    getAllArchivedTests().then((res) => {
+    setIsLoading(true);
+    getArchivedTestsWithItems().then((res) => {
       setData(res);
       setOriginal(res);
+      setIsLoading(false);
     });
   }, []);
 
   const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
-    console.log(suggestion);
     if (suggestion.kind === "Name") {
       getTestByName(suggestion.value).then((res) => {
-        console.log(res);
         setData(res);
       });
     } else if (suggestion.kind === "ID") {
@@ -224,16 +224,20 @@ const Archive = (props: { userRole: Role }) => {
             materials available for sign-out upon request, offering users access
             to historical psychological resources.
           </p>
-          <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            {data.map((data) => (
-              <Card
-                key={uuid()}
-                type="test"
-                data={data}
-                openModal={handleCardClick}
-              />
-            ))}
-          </div>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <div className="ml-4 mt-4 sm:ml-0 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+              {data.map((data) => (
+                <Card
+                  key={uuid()}
+                  type="test"
+                  data={data}
+                  openModal={handleCardClick}
+                />
+              ))}
+            </div>
+          )}
           <CardsModal
             modalTitle={selectedCard?.Name || ""}
             buttonLabel="Send Request"

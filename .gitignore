@@ -1,5 +1,8 @@
 # ignore backupfile
-db/backup.sql
+db/data
+db/backup
+
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

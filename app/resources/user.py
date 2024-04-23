@@ -126,11 +126,13 @@ class User(Resource):
         if request.method == "OPTIONS":  # CORS preflight
             return _build_cors_preflight_response()
         try:
-            id_hash = _select_cols_one({"Email": email}, ["ID", "Hash"])
-            if verify_password(id_hash["Hash"], password):
-                return _select_one({'ID': id_hash['ID']}), 200
-            abort(401)
-        except KeyError as e:
+            user = _select_cols_one({"Email": email}, ["ID", "Hash", "IsAccepted"])
+            if not verify_password(user["Hash"], password):
+                abort(401)
+            if not user['IsAccepted']:
+                abort(403)
+            return _select_one({'ID': user['ID']}), 200
+        except KeyError:
             abort(404, message="Email does not exist.")
 
     def delete(self, email, password):

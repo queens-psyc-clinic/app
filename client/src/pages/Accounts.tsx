@@ -74,10 +74,8 @@ const Accounts = (props: { userRole: Role }) => {
   }
 
   const handleSearchSuggestionSelect = (suggestion: searchSuggestion) => {
-    console.log(suggestion);
     if (suggestion.kind === "FirstLastName") {
       getUserByFirstLastName(suggestion.value).then((res) => {
-        console.log(res);
         setData(res);
       });
     }

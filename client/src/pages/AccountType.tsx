@@ -3,12 +3,7 @@ import clinicLogo from "../assets/clinic-logo.svg";
 import profilePic from "../assets/profile.svg";
 import lockPic from "../assets/lock.svg";
 
-interface AccountTypeProps {
-  onSignIn: () => void;
-}
-
-const AccountType: React.FC<AccountTypeProps> = ({ onSignIn }) => {
-  const [accountType, setAccountType] = useState<string>();
+const AccountType: React.FC = () => {
   const handleSignin = () => {
     window.location.href = "/sign-in";
   };

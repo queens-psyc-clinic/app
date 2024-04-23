@@ -42,8 +42,7 @@ export default function EditModal({
   items,
   closeModal,
 }: ModalProps) {
-  var originalItems = [];
-  const [itemCount, setItemCount] = useState(items.length);
+  const [itemCount, setItemCount] = useState(items?.length || 0);
   const [itemVisibility, setItemVisibility] = useState<boolean[]>([]);
   const [itemsToRemove, setItemsToRemove] = useState<
     (Partial<Item> & { ID: string })[]
@@ -53,22 +52,13 @@ export default function EditModal({
   );
   const [updatedItems, setUpdatedItems] = useState<
     (Partial<Item> & { ID: string })[]
-  >([]);
-  const [ages, setAges] = useState("");
-
-  useEffect(() => {
-    getItemsForTest(test.ID!).then((res) => {
-      setUpdatedItems(res);
-      originalItems = res;
-    });
-  }, []);
+  >(items as (Partial<Item> & { ID: string })[]);
 
   const handleAddItem = () => {
     setItemCount((prevCount) => prevCount + 1);
     setItemVisibility((prevVisibility) => [...prevVisibility, true]);
     setUpdatedItems((prev) => [...prev, { ID: uuid() }]);
   };
-
   const handleRemove = (
     index: number,
     item: Partial<Item> & { ID: string }
@@ -81,7 +71,6 @@ export default function EditModal({
     const completedItem = {
       ...item,
       TestID: testData.ID,
-      Ages: ages,
       Status: true,
     };
     const ind = updatedItems.findIndex((elem) => elem.ID === item.ID);
@@ -153,7 +142,6 @@ export default function EditModal({
     setTestData({ ID: "", Name: "" });
     setUpdatedItems([]);
     setItemsToRemove([]);
-    setAges("");
     closeModal();
   };
 

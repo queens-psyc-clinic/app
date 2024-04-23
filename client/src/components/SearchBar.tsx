@@ -23,9 +23,9 @@ const SearchBar = ({
 }) => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<searchSuggestion[]>([]);
+  console.log(suggestions);
 
   const handleSelectSuggestion = (suggestion: searchSuggestion) => {
-    console.log(suggestion);
     if (onSelectSuggestion) {
       onSelectSuggestion(suggestion);
     }
@@ -87,6 +87,8 @@ const SearchBar = ({
                     ? "Acronym"
                     : suggestion.kind == "ItemID"
                     ? "Item name"
+                    : suggestion.kind == "ItemName"
+                    ? "Item Name"
                     : "User"}
                 </p>
               </div>

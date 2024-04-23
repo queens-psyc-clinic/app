@@ -109,7 +109,6 @@ const SignedOut = (props: { userRole: Role }) => {
       // Item Name
       // get loan by item name and set data to it
       getLoanByName(suggestion.value, true).then((res) => {
-        console.log(res);
         setAdminData(
           res as (SignedOutItem & { Quantity: number; ItemType: string })[]
         );
@@ -118,7 +117,6 @@ const SignedOut = (props: { userRole: Role }) => {
     } else if (suggestion.kind === "ItemID") {
       // get loan by item ID and set data to it
       getLoansForItemFormatted(suggestion.value).then((res) => {
-        console.log(res);
         setAdminData(
           res as (SignedOutItem & { Quantity: number; ItemType: string })[]
         );

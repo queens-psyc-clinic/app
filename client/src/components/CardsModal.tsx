@@ -139,7 +139,6 @@ const CardsModal: React.FC<CardsModalProps> = ({
           TestName: cardData?.Name,
         };
       });
-    console.log(itemsToAddToCart);
     if (itemsToAddToCart.length == 0) {
       alert("Select items to add to cart.");
     } else {
