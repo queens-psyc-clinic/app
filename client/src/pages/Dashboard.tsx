@@ -71,7 +71,6 @@ const Dashboard = (props: { userRole: Role }) => {
     console.log(suggestion);
     if (suggestion.kind === "Name") {
       getTestByName(suggestion.value).then((res) => {
-        console.log(res);
         setData(res);
       });
     } else if (suggestion.kind === "ID") {
@@ -84,7 +83,7 @@ const Dashboard = (props: { userRole: Role }) => {
   async function handleQueryEnter(query: string) {
     if (query == "") {
       setIsLoading(true);
-      getAllUnArchivedTests().then((res) => {
+      getDashboardTests().then((res) => {
         setData(res);
         setIsLoading(false);
       });

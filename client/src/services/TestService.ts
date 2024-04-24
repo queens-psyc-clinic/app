@@ -537,7 +537,13 @@ export async function getTestById(testId: string) {
     const response: AxiosResponse = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/test/${testId}`
     );
-    return response.data;
+
+    const items = await getItemsForTest(testId);
+
+    return {
+      ...response.data,
+      Items: items,
+    };
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -579,7 +585,18 @@ export async function getTestByName(testName: string) {
         },
       }
     );
-    return response.data;
+    const res = [];
+    if (response.data) {
+      for (const test of response.data) {
+        const items = await getItemsForTest(test.ID);
+        res.push({
+          ...test,
+          Items: items,
+        });
+      }
+    }
+
+    return res;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
