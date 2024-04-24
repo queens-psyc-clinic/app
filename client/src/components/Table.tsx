@@ -126,6 +126,7 @@ const Table = (props: {
 
   const handleEditClick = (row: any) => {
     setSelectedRow(row);
+    setExpandedRowsItems(getRowExpansionArray(row.ID));
     toggleRowExpansion(row);
     setIsEditModalOpen(true);
   };

@@ -82,7 +82,7 @@ const Dashboard = (props: { userRole: Role }) => {
   async function handleQueryEnter(query: string) {
     if (query == "") {
       setIsLoading(true);
-      getAllUnArchivedTests().then((res) => {
+      getDashboardTests().then((res) => {
         setData(res);
         setIsLoading(false);
       });
