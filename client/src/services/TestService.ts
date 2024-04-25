@@ -1212,6 +1212,9 @@ export async function editItem(itemId: string, edits: Partial<Item>) {
   if (edits.TestID) {
     updates["TestID"] = edits.TestID;
   }
+  if (edits.Notes) {
+    updates["Notes"] = edits.Notes;
+  }
 
   console.log({
     filters: {
