@@ -92,7 +92,7 @@ export default function Modal({
           }
           closeModal();
           alert("Item Created Successfully!");
-          // window.location.reload();
+          window.location.reload();
         })
         .catch((e) =>
           alert(
@@ -272,6 +272,12 @@ export default function Modal({
                 <InputField
                   placeholder="Any additional notes about the test"
                   label="Additional Notes"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setTestData({
+                      ...testData,
+                      Notes: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>

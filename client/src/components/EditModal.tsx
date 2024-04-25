@@ -6,7 +6,7 @@ import { Measure, LevelOfUse } from "../models/libraryItem";
 import { MdControlPoint } from "react-icons/md";
 import FormItem from "./FormItem";
 import { Item, Test } from "../models/BEModels";
-import _ from "lodash";
+import _, { update } from "lodash";
 import uuid from "react-uuid";
 import {
   Loan,
@@ -25,7 +25,7 @@ interface ModalProps {
   buttonLabel: string;
   secButtonLabel?: string;
   isOpen: boolean;
-  test: Partial<Test> & { ID: string };
+  test: Partial<Test> & { ID: string; Notes?: string };
   items: Partial<Item>[];
   closeModal: () => void;
 }
@@ -53,7 +53,6 @@ export default function EditModal({
   const [updatedItems, setUpdatedItems] = useState<
     (Partial<Item> & { ID: string })[]
   >(items as (Partial<Item> & { ID: string })[]);
-
   const handleAddItem = () => {
     setItemCount((prevCount) => prevCount + 1);
     setItemVisibility((prevVisibility) => [...prevVisibility, true]);
@@ -92,6 +91,7 @@ export default function EditModal({
   };
 
   async function handleApply() {
+    console.log(updatedItems);
     var errors = [];
     if (testData.Name == "") {
       alert("Ensure all required fields are filled out.");
@@ -261,8 +261,16 @@ export default function EditModal({
               </div>
               <div className="pr-4 pt-4">
                 <InputField
-                  placeholder="Any additional notes about the test"
+                  // placeholder="Any additional notes about the test"
                   label="Additional Notes"
+                  placeholder={test.Notes ? test.Notes : ""}
+                  value={test.Notes ? testData.Notes : ""}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setTestData({
+                      ...testData,
+                      Notes: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>

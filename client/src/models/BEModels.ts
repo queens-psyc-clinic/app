@@ -8,6 +8,7 @@ export interface Test {
   MeasureOf: string;
   Name: string;
   OrderingCompany: string;
+  Notes: string;
 }
 
 export interface Notification {
