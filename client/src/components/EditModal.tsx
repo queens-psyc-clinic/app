@@ -53,7 +53,6 @@ export default function EditModal({
   const [updatedItems, setUpdatedItems] = useState<
     (Partial<Item> & { ID: string })[]
   >(items as (Partial<Item> & { ID: string })[]);
-
   const handleAddItem = () => {
     setItemCount((prevCount) => prevCount + 1);
     setItemVisibility((prevVisibility) => [...prevVisibility, true]);
@@ -266,6 +265,12 @@ export default function EditModal({
                   label="Additional Notes"
                   placeholder={test.Notes ? test.Notes : ""}
                   value={test.Notes ? testData.Notes : ""}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setTestData({
+                      ...testData,
+                      Notes: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>

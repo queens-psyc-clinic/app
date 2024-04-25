@@ -68,6 +68,9 @@ export async function createNewTest(test: RequiredTest) {
   if (test.OrderingCompany) {
     endpoint += `&OrderingCompany=${test.MeasureOf}`;
   }
+  if (test.Notes) {
+    endpoint += `&Notes=${test.Notes}`;
+  }
   try {
     const response: AxiosResponse = await axios.post(
       `${process.env.REACT_APP_BASE_URL}${endpoint}`
@@ -622,7 +625,11 @@ export async function getTestById(testId: string) {
     const response: AxiosResponse = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/test/${testId}`
     );
-    return response.data;
+    const items = await getItemsForTest(testId);
+    return {
+      ...response.data,
+      Items: items,
+    };
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -664,7 +671,19 @@ export async function getTestByName(testName: string) {
         },
       }
     );
-    return response.data;
+
+    // const items = await getItemsForTest(response.data.ID);
+
+    // return { ...response.data, Items: items };
+    const res = [];
+    for (const test of response.data) {
+      const items = await getItemsForTest(test.ID);
+      res.push({
+        ...test,
+        Items: items,
+      });
+    }
+    return res;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Axios error
@@ -1139,6 +1158,7 @@ export async function editTest(edits: {
   LevelOfUser?: string;
   EditionNumber?: string;
   OrderingCompany?: string;
+  Notes?: string;
 }) {
   // Update a test's attributes
   let endpoint = `/test/${edits.ID}?`;
@@ -1156,6 +1176,9 @@ export async function editTest(edits: {
   }
   if (edits.OrderingCompany) {
     endpoint += `&OrderingCompany=${edits.OrderingCompany}`;
+  }
+  if (edits.Notes) {
+    endpoint += `&Notes=${edits.Notes}`;
   }
 
   try {

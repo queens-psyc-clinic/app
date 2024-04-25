@@ -40,7 +40,6 @@ const Table = (props: {
   const [expandedRowsItems, setExpandedRowsItems] = useState<Item[]>([]);
 
   let columns: Column[];
-
   switch (props.tableType) {
     case "default":
       columns = defaultColumns;

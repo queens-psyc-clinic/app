@@ -133,7 +133,7 @@ const Archive = (props: { userRole: Role }) => {
   async function handleQueryEnter(query: string) {
     if (query == "") {
       setIsLoading(true);
-      getAllArchivedTests().then((res) => {
+      getArchivedTestsWithItems().then((res) => {
         setData(res);
         setIsLoading(false);
       });
