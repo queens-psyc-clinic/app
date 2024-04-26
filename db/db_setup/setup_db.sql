@@ -19,8 +19,7 @@ CREATE TABLE Users (
 
 -- Add dummy data for users
 INSERT INTO Users (ID, FirstName, LastName, Email, IsAdmin, IsAccepted, Hash) VALUES 
-(1,  'Admin', 'User', 'admin@user.com', true, true, '27e123ebdafafca3456bee31df844f226b1ebdcddc040aff900a60dbbced258c22b726daf8619e63f866671c077d87051161171ee57f898d11953c6a9522027fb07dccfdac4bb2744bf5bba5b4004737c0a2664c682c1c9caabe667877bc693b'),
-(2,  'Test', 'User', 'test@user.com', false, true, '27e123ebdafafca3456bee31df844f226b1ebdcddc040aff900a60dbbced258c22b726daf8619e63f866671c077d87051161171ee57f898d11953c6a9522027fb07dccfdac4bb2744bf5bba5b4004737c0a2664c682c1c9caabe667877bc693b');
+(1,  'Admin', 'User', 'psycclin@queensu.ca', true, true, '27e123ebdafafca3456bee31df844f226b1ebdcddc040aff900a60dbbced258c22b726daf8619e63f866671c077d87051161171ee57f898d11953c6a9522027fb07dccfdac4bb2744bf5bba5b4004737c0a2664c682c1c9caabe667877bc693b');
 
 CREATE TABLE Tests (
     ID VARCHAR(64) PRIMARY KEY,
